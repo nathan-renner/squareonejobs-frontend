@@ -1,0 +1,35 @@
+@import "colors.scss";
+@import "themes.scss";
+
+h1 {
+  color: $primary;
+  font-family: "Montserrat";
+  font-weight: bold;
+  line-height: 0;
+}
+
+.section {
+  @include themed() {
+    background-color: t("background");
+  }
+
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.card {
+  @include themed() {
+    background-color: t("foreground");
+  }
+
+  padding: 20px;
+  height: 100%;
+  border-radius: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+@import "./component-styles/theme-switch.scss";
