@@ -1,11 +1,13 @@
 @import "colors.scss";
 @import "themes.scss";
+@import "typography.scss";
+@import "dashboard.scss";
 
-h1 {
-  color: $primary;
-  font-family: "Montserrat";
-  font-weight: bold;
-  line-height: 0;
+body {
+  margin: 0;
+  font-family: "Montserrat", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .section {

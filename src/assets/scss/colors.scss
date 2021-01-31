@@ -29,3 +29,15 @@ $dark-text: #ffffff;
 $dark-secondaryText: #808080;
 $dark-borderColor: #333333;
 $dark-medium: #999999;
+
+.text-primary {
+  color: $primary !important;
+}
+
+.text-secondary {
+  color: $secondary !important;
+}
+
+.text-purple {
+  color: $purple !important;
+}

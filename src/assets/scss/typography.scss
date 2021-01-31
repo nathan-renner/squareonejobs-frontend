@@ -1,0 +1,28 @@
+h1 {
+  color: $primary;
+  font-family: "Montserrat";
+  font-weight: bold;
+}
+
+// CARD TITLES
+h2 {
+  @include themed() {
+    color: t("text");
+  }
+  font-family: "Montserrat";
+  font-weight: 700;
+  font-size: 1.25em;
+}
+
+h3 {
+  @include themed() {
+    color: t("text");
+  }
+  font-family: "Montserrat";
+  font-weight: 700;
+  font-size: 1.1em;
+}
+
+.text-center {
+  text-align: center;
+}
