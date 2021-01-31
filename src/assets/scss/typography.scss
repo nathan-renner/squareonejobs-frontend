@@ -1,5 +1,7 @@
 h1 {
-  color: $primary;
+  @include themed() {
+    color: t("text");
+  }
   font-family: "Montserrat";
   font-weight: bold;
 }
