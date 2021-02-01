@@ -2,23 +2,23 @@ import React from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 
 import Home from "./../views/dashboard/Home";
-import Sidebar from "./../components/Dashboard/Sidebar";
 import Navbar from "./../components/Dashboard/Navbar";
-
-const path = "/dashboard";
+import MyJobs from "./../views/dashboard/MyJobs";
+import Payments from "./../views/dashboard/Payments";
+import Portfolio from "./../views/dashboard/Portfolio";
 
 const Dashboard = () => {
   return (
     <div className="dashboard">
-      <Sidebar />
-      <div className="main-container">
-        <Navbar />
-        <div className="content-container">
-          <Switch>
-            <Route exact path={`${path}`} component={Home} />
-            <Redirect to="/not-found" />
-          </Switch>
-        </div>
+      <Navbar />
+      <div className="content-container">
+        <Switch>
+          <Route path={`/portfolio`} component={Portfolio} />
+          <Route path={`/payments`} component={Payments} />
+          <Route path={`/my-jobs`} component={MyJobs} />
+          <Route exact path={`/`} component={Home} />
+          <Redirect to="/not-found" />
+        </Switch>
       </div>
     </div>
   );

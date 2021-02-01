@@ -2,9 +2,11 @@
 @import "themes.scss";
 @import "typography.scss";
 @import "dashboard.scss";
-@import "sidebar.scss";
 
 body {
+  @include themed() {
+    background-color: t("background");
+  }
   margin: 0;
   font-family: "Montserrat", sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -33,6 +35,26 @@ body {
   border-radius: 20px;
   margin-top: 10px;
   margin-bottom: 10px;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  opacity: 0.8;
+  @include themed() {
+    background-color: t("background");
+  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .loader {
+    height: 120px;
+    width: 120px;
+  }
 }
 
 @import "./component-styles/theme-switch.scss";

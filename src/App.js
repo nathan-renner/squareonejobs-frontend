@@ -1,48 +1,39 @@
 import React, { useEffect, useState } from "react";
 import { Route, Switch } from "react-router-dom";
 
-import ThemeContext from "./config/themeContext";
+import AuthContext from "./auth/context";
+import { getUser } from "./auth/storage";
 
 import Landing from "./layouts/Landing";
 import Dashboard from "./layouts/Dashboard";
 import NotFound from "./views/NotFound";
 
 import "./assets/scss/styles.scss";
-
-const useThemeWithLocalStorage = () => {
-  const [isDark, setIsDark] = useState(localStorage.getItem("isDark") || false);
-
-  useEffect(() => {
-    localStorage.setItem("isDark", isDark);
-  });
-
-  return [isDark, setIsDark];
-};
+import { ThemeProvider } from "./config/ThemeProvider";
+import ActivityIndicator from "./components/ActivityIndicator";
 
 function App() {
+  const [user, setUser] = useState(null);
   const [isReady, setIsReady] = useState(false);
-  const [isDark, setIsDark] = useThemeWithLocalStorage();
 
   useEffect(() => {
-    console.log(isDark);
+    const user = getUser();
+    if (user !== null) setUser(user);
     setIsReady(true);
-  }, [isDark]);
+  }, []);
 
-  if (!isReady) {
-    return null;
-  }
+  if (!isReady) return <ActivityIndicator visible />;
 
   if (isReady) {
     return (
-      <ThemeContext.Provider value={{ isDark, setIsDark }}>
-        <div className={`theme-${isDark === true ? "dark" : "light"}`}>
+      <ThemeProvider>
+        <AuthContext.Provider value={{ user, setUser }}>
           <Switch>
-            <Route path="/dashboard" component={Dashboard} />
             <Route path="/not-found" component={NotFound} />
-            <Route path="/" component={Landing} />
+            <Route path="/" component={user ? Dashboard : Landing} />
           </Switch>
-        </div>
-      </ThemeContext.Provider>
+        </AuthContext.Provider>
+      </ThemeProvider>
     );
   }
 }

@@ -1,11 +1,11 @@
 import React from "react";
 
-import useTheme from "../hooks/useTheme";
+import { useTheme } from "../config/ThemeProvider";
 import MoonIcon from "./icons/MoonIcon";
 
 const ThemeSwitch = () => {
   const { isDark, toggleTheme } = useTheme();
-  console.log(isDark);
+
   return (
     <div className="switch-container" onClick={() => toggleTheme()}>
       <div className={`switch-toggle ${isDark ? "active" : null}`}>
