@@ -1,0 +1,43 @@
+.input-container {
+  @include themed() {
+    background-color: t("background");
+  }
+  height: 40px;
+  width: 100%;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  input {
+    @include themed() {
+      background-color: t("background");
+    }
+    border: none;
+    outline: none;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-family: "Montserrat";
+    font-size: 16px;
+    width: 100%;
+  }
+
+  .left-icon {
+    margin-left: 10px;
+
+    @include themed() {
+      color: t("medium");
+    }
+  }
+
+  .right-icon {
+    height: 20px;
+    width: 20px;
+    margin-right: 10px;
+    cursor: pointer;
+
+    @include themed() {
+      color: t("medium");
+    }
+  }
+}

@@ -1,11 +1,13 @@
 import React from "react";
-//import Button from "./../components/Button";
+import Register from "./../views/auth/Register";
 
 function Auth(props) {
   return (
     <div className="auth">
       <div className="navbar">nav</div>
-      <div className="content-container"></div>
+      <div className="content-container">
+        <Register />
+      </div>
     </div>
   );
 }

@@ -19,5 +19,16 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 20px;
+
+    .auth-container {
+      display: flex;
+      max-width: 600px;
+      width: 100%;
+
+      .content {
+        flex: 1;
+      }
+    }
   }
 }

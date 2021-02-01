@@ -8,32 +8,35 @@ import StreakIcon from "./../icons/StreakIcon";
 
 import defaultAvatar from "../../assets/images/default-avatar.png";
 import Logo from "../../assets/images/logo.png";
-import SearchIcon from "./../icons/SearchIcon";
-import HomeIcon from "./../icons/HomeIcon";
-import MyJobsIcon from "./../icons/MyJobsIcon";
-import PaymentsIcon from "./../icons/PaymentsIcon";
-import PortfolioIcon from "./../icons/PortfolioIcon";
+import TextInput from "./../TextInput";
+import {
+  MdHome,
+  MdCreditCard,
+  MdLocalShipping,
+  MdPerson,
+  MdSearch,
+} from "react-icons/md";
 
 const routes = [
   {
     name: "/",
     title: "Home",
-    Icon: HomeIcon,
+    Icon: MdHome,
   },
   {
     name: "/my-jobs",
     title: "My Jobs",
-    Icon: MyJobsIcon,
+    Icon: MdLocalShipping,
   },
   {
     name: "/payments",
     title: "Payments",
-    Icon: PaymentsIcon,
+    Icon: MdCreditCard,
   },
   {
     name: "/portfolio",
     title: "Portfolio",
-    Icon: PortfolioIcon,
+    Icon: MdPerson,
   },
 ];
 
@@ -70,14 +73,17 @@ const Navbar = () => {
           </NavLink>
         </div>
         <div className="navigation-container">{renderRoutes()}</div>
-        <div className="search-bar">
-          <SearchIcon className="search-icon" />
-          <input
-            type="text"
-            className="search-text"
-            placeholder="Search jobs..."
-          />
-        </div>
+        <TextInput
+          LeftIcon={MdSearch}
+          leftIconSize={25}
+          textStyle={{ fontSize: 18 }}
+          containerStyle={{
+            height: 50,
+            marginRight: 10,
+            borderRadius: 25,
+          }}
+          placeholder="Search jobs"
+        />
         <div className="right-container">
           <div className="stats-container">
             <div className="stat-container">
