@@ -1,0 +1,45 @@
+.button {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-right: 15px;
+  padding-left: 15px;
+  border-radius: 25px;
+  cursor: pointer;
+  transform: scale(1);
+  transition: transform ease-in-out 150ms;
+  user-select: none;
+
+  &.btn-primary {
+    background-color: $primary;
+    color: $white;
+  }
+  &.btn-secondary {
+    background-color: $secondary;
+    color: $white;
+  }
+  &.btn-white {
+    background-color: $white;
+    color: $black;
+  }
+  &.btn-black {
+    background-color: $black;
+    color: $white;
+  }
+
+  &:hover,
+  &:focus {
+    transform: scale(1.05);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.08);
+  }
+
+  &:active {
+    filter: brightness(90%);
+  }
+
+  .btn-text {
+    line-height: 1;
+    margin-top: 0px;
+    font-weight: 700;
+    margin-bottom: 0px;
+  }
+}

@@ -1,6 +1,7 @@
 @import "colors.scss";
 @import "themes.scss";
 @import "typography.scss";
+@import "auth.scss";
 @import "dashboard.scss";
 
 body {
@@ -58,3 +59,4 @@ body {
 }
 
 @import "./component-styles/theme-switch.scss";
+@import "./component-styles/button.scss";

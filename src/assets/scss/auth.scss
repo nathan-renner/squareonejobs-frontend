@@ -1,0 +1,23 @@
+.auth {
+  @include themed() {
+    background-color: t("background");
+  }
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  .navbar {
+    @include themed() {
+      background-color: t("foreground");
+    }
+    height: 80px;
+  }
+
+  .content-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
