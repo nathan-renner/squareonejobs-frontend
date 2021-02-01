@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Route, Switch } from "react-router-dom";
 
-import AuthContext from "./auth/context";
-import { getUser } from "./auth/storage";
-
 import Landing from "./layouts/Landing";
+import Auth from "./layouts/Auth";
 import Dashboard from "./layouts/Dashboard";
 import NotFound from "./views/NotFound";
 
-import "./assets/scss/styles.scss";
-import { ThemeProvider } from "./config/ThemeProvider";
 import ActivityIndicator from "./components/ActivityIndicator";
+import AuthContext from "./auth/context";
+import { getUser } from "./auth/storage";
+import { ThemeProvider } from "./config/ThemeProvider";
+import "./assets/scss/styles.scss";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -29,6 +29,7 @@ function App() {
       <ThemeProvider>
         <AuthContext.Provider value={{ user, setUser }}>
           <Switch>
+            <Route path="/auth" component={Auth} />
             <Route path="/not-found" component={NotFound} />
             <Route path="/" component={user ? Dashboard : Landing} />
           </Switch>
