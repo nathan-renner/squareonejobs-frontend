@@ -48,47 +48,53 @@
         }
 
         .navigation-item {
-          width: 100px;
-          height: 70px;
-          padding-top: 27px;
+          .border-container {
+            width: 100px;
+            height: 70px;
+            padding-top: 27px;
 
-          .nav-icon {
-            height: 40px;
-            width: 40px;
-            @include themed() {
-              fill: t("medium");
+            .nav-icon {
+              height: 40px;
+              width: 40px;
+              @include themed() {
+                fill: t("medium");
+              }
             }
-          }
 
-          .nav-text {
-            margin-top: 10px;
-            margin-bottom: 0px;
-            line-height: 0;
-            color: $primary;
-            font-size: 16px;
-            visibility: hidden;
-          }
-
-          &:hover,
-          &:focus {
-            @include themed() {
-              background-color: t("background");
+            .nav-text {
+              margin-top: 10px;
+              margin-bottom: 0px;
+              line-height: 0;
+              color: $primary;
+              font-size: 16px;
+              visibility: hidden;
             }
-            border-radius: 20px;
-          }
 
-          &:active {
-            background-color: red;
-            border-radius: 20px;
+            &:hover,
+            &:focus {
+              @include themed() {
+                background-color: t("background");
+              }
+              border-radius: 20px;
+            }
+
+            &:active {
+              @include themed() {
+                background-color: t("active-button");
+              }
+              border-radius: 20px;
+            }
           }
 
           &.active {
             border-bottom: 3px solid $primary;
-            .nav-icon {
-              fill: $primary;
-            }
-            .nav-text {
-              visibility: visible;
+            .border-container {
+              .nav-icon {
+                fill: $primary;
+              }
+              .nav-text {
+                visibility: visible;
+              }
             }
           }
         }
@@ -123,6 +129,7 @@
             background-color: t("background");
           }
           margin-left: 10px;
+          margin-right: 10px;
           height: 30px;
           width: 100%;
           border: none;
@@ -130,9 +137,9 @@
           font-size: 18px;
           font-family: "Montserrat";
 
-          &:focus,
-          &:active {
-            border: none;
+          &:focus {
+            outline: none !important;
+            border: none !important;
           }
 
           &::placeholder {
@@ -175,7 +182,7 @@
             }
 
             &:hover + .stat-tooltip {
-              opacity: 1;
+              display: flex;
             }
           }
 
@@ -194,12 +201,11 @@
             box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
             cursor: auto;
 
-            display: flex;
+            display: none;
             flex-direction: column;
             align-items: center;
 
-            opacity: 0;
-            transition: opacity ease-out 200ms;
+            transition: display ease-out 200ms;
 
             &::before {
               @include themed() {

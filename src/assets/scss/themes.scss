@@ -6,6 +6,7 @@ $themes: (
     secondaryText: $light-secondaryText,
     borderColor: $light-borderColor,
     medium: $light-medium,
+    active-button: $light-active-button,
   ),
   dark: (
     background: $dark-background,
@@ -14,6 +15,7 @@ $themes: (
     secondaryText: $dark-secondaryText,
     borderColor: $dark-borderColor,
     medium: $dark-medium,
+    active-button: $dark-active-button,
   ),
 );
 

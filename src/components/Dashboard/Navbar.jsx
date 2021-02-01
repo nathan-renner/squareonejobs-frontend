@@ -48,8 +48,14 @@ const Navbar = () => {
           key={index}
           className={`navigation-item ${name === pathname ? "active" : null}`}
         >
-          <Icon height={40} width={40} className="nav-icon" />
-          <h1 className="nav-text">{title}</h1>
+          <div
+            className={`border-container ${
+              name === pathname ? "active" : null
+            }`}
+          >
+            <Icon className="nav-icon" />
+            <h1 className="nav-text">{title}</h1>
+          </div>
         </div>
       </NavLink>
     ));
