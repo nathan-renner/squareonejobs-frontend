@@ -42,9 +42,10 @@ function Register(props) {
     data.firstName = data.name.substr(0, index);
     data.lastName = data.name.substr(index + 1);
 
-    delete data.name;
+    const userInfo = { ...data };
+    delete userInfo.name;
 
-    console.log(data);
+    console.log(userInfo);
 
     //const result = await registerApi.request(userInfo);
 
