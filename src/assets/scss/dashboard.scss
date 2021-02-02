@@ -79,10 +79,8 @@
             }
 
             &:active {
-              @include themed() {
-                background-color: t("active-button");
-              }
-              border-radius: 20px;
+              filter: brightness(90%);
+              transform: scale(0.9);
             }
           }
 

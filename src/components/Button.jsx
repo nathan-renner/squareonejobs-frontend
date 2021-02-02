@@ -18,7 +18,7 @@ function Button({
       {...otherProps}
     >
       <p className={`btn-text text-${textColor}`} style={textStyle}>
-        {label}
+        {label.toLocaleUpperCase()}
       </p>
     </div>
   );

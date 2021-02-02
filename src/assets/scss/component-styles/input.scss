@@ -2,7 +2,10 @@
   @include themed() {
     background-color: t("background");
   }
+  margin-top: 5px;
+  margin-bottom: 5px;
   height: 40px;
+  min-height: 40px;
   width: 100%;
   border-radius: 20px;
   display: flex;
@@ -12,6 +15,7 @@
   input {
     @include themed() {
       background-color: t("background");
+      color: t("text");
     }
     border: none;
     outline: none;

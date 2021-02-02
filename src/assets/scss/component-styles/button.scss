@@ -1,4 +1,5 @@
 .button {
+  margin: 10px;
   padding-top: 10px;
   padding-bottom: 10px;
   padding-right: 15px;
@@ -33,7 +34,7 @@
   }
 
   &:active {
-    filter: brightness(90%);
+    filter: brightness(105%);
   }
 
   .btn-text {

@@ -1,4 +1,4 @@
-//import jwtDecode from "jwt-decode";
+import jwtDecode from "jwt-decode";
 
 const authKey = "token";
 
@@ -8,5 +8,13 @@ export const getToken = () => {
 
 export const getUser = () => {
   const token = getToken();
-  return token ? token : null;
+  return token ? jwtDecode(token) : null;
+};
+
+export const storeToken = (token) => {
+  return localStorage.setItem(authKey, token);
+};
+
+export const removeToken = () => {
+  return localStorage.removeItem(authKey);
 };

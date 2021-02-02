@@ -9,28 +9,29 @@ function TextInput({
   leftIconColor,
   leftIconOnClick,
   RightIcon,
-  rightIconSize,
+  rightIconSize = 20,
   rightIconColor,
   rightIconOnClick,
   onChange,
+  ...otherprops
 }) {
   return (
     <div className="input-container" style={containerStyle}>
       {LeftIcon && (
         <LeftIcon
           className="left-icon"
-          onClick={leftIconOnClick}
           color={leftIconColor}
           size={leftIconSize}
+          onClick={leftIconOnClick}
         />
       )}
-      <input {...{ placeholder, onChange }} style={textStyle} />
+      <input {...{ placeholder, onChange }} style={textStyle} {...otherprops} />
       {RightIcon && (
         <RightIcon
           className="right-icon"
-          onClick={rightIconOnClick}
           color={rightIconColor}
           size={rightIconSize}
+          onClick={rightIconOnClick}
         />
       )}
     </div>

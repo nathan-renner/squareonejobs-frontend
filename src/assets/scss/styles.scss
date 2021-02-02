@@ -26,16 +26,8 @@ body {
   min-height: 100vh;
 }
 
-.card {
-  @include themed() {
-    background-color: t("foreground");
-  }
-
-  padding: 20px;
-  height: 100%;
-  border-radius: 20px;
-  margin-top: 10px;
-  margin-bottom: 10px;
+.outline {
+  outline: 1px solid black;
 }
 
 .overlay {
@@ -51,6 +43,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 1;
 
   .loader {
     height: 120px;
@@ -58,6 +51,84 @@ body {
   }
 }
 
+.text-primary {
+  color: $primary !important;
+}
+
+.text-secondary {
+  color: $secondary !important;
+}
+
+.text-purple {
+  color: $purple !important;
+}
+
+.text-white {
+  color: $white !important;
+}
+
+.text-black {
+  color: $black !important;
+}
+
+.text-foreground {
+  @include themed() {
+    color: t("foreground") !important;
+  }
+}
+
+.text-medium {
+  @include themed() {
+    color: t("secondaryText") !important;
+  }
+}
+
+.text-background {
+  @include themed() {
+    color: t("background") !important;
+  }
+}
+
+.bg-primary {
+  background-color: $primary !important;
+}
+
+.bg-secondary {
+  background-color: $secondary !important;
+}
+
+.bg-purple {
+  background-color: $purple !important;
+}
+
+.bg-white {
+  background-color: $white !important;
+}
+
+.bg-black {
+  background-color: $black !important;
+}
+
+.bg-foreground {
+  @include themed() {
+    background-color: t("foreground") !important;
+  }
+}
+
+.bg-medium {
+  @include themed() {
+    background-color: t("secondaryText") !important;
+  }
+}
+
+.bg-background {
+  @include themed() {
+    background-color: t("background") !important;
+  }
+}
+
+@import "./component-styles/card.scss";
 @import "./component-styles/theme-switch.scss";
 @import "./component-styles/button.scss";
 @import "./component-styles/input.scss";
+@import "./component-styles/forms.scss";
