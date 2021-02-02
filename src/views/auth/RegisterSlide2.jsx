@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Button, Icon, TextInput } from "../../components";
 import {
   MdArrowBack,
   MdEmail,
@@ -8,8 +7,13 @@ import {
   MdVisibilityOff,
 } from "react-icons/md";
 import { NavLink } from "react-router-dom";
+import { useFormikContext } from "formik";
 
-function RegisterSlide2({ slideWidth, onNext, onBack }) {
+import { Icon } from "../../components";
+import { ErrorMessage, FormField, SubmitButton } from "../../components/forms";
+
+function RegisterSlide2({ slideWidth, error, onBack }) {
+  const { values } = useFormikContext();
   const [passVisible, setPassVisible] = useState(false);
 
   return (
@@ -23,18 +27,23 @@ function RegisterSlide2({ slideWidth, onNext, onBack }) {
           onClick={onBack}
           className="icon-back"
         />
-        <h2 className="auth-title">Register your email</h2>
-        <TextInput LeftIcon={MdEmail} placeholder="Email" />
-        <TextInput
+        <h2 className="auth-title">
+          Hi, {values["name"].substr(0, values["name"].indexOf(" "))}!
+          <br />
+          Register your email
+        </h2>
+        <FormField name="email" LeftIcon={MdEmail} placeholder="Email" />
+        <FormField
           type={passVisible ? "text" : "password"}
-          name={passVisible ? "text" : "password"}
+          name="password"
           LeftIcon={MdLock}
           placeholder="Password"
           RightIcon={passVisible ? MdVisibilityOff : MdVisibility}
           rightIconSize={30}
           rightIconOnClick={() => setPassVisible(!passVisible)}
         />
-        <Button label="Next" onClick={onNext} />
+        <ErrorMessage error={error} visible={error} />
+        <SubmitButton label="Next" />
         <NavLink to="/auth/login" className="help-text">
           Already have an account?
         </NavLink>

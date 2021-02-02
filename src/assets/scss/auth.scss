@@ -9,9 +9,6 @@
   overflow: hidden;
 
   .navbar {
-    // @include themed() {
-    //   background-color: t("background");
-    // }
     height: 80px;
     position: fixed;
     width: 100%;
@@ -94,6 +91,11 @@
                 text-align: center;
               }
 
+              .auth-description {
+                text-align: center;
+                max-width: 400px;
+              }
+
               .help-text {
                 @include themed() {
                   color: t("secondaryText");
@@ -119,9 +121,6 @@
   }
 
   .footer {
-    // @include themed() {
-    //   background-color: t("background");
-    // }
     position: absolute;
     bottom: 0;
     left: 0;
