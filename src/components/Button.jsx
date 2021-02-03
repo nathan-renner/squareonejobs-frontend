@@ -8,11 +8,14 @@ function Button({
   textStyle,
   buttonStyle,
   onClick,
+  className,
   ...otherProps
 }) {
   return (
     <div
-      className={`button btn-${color} ${outline ? "outline" : null}`}
+      className={`button btn-${color} ${className} ${
+        outline ? "outline" : null
+      }`}
       style={buttonStyle}
       onClick={onClick}
       {...otherProps}
