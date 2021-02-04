@@ -46,7 +46,7 @@ function Register(props) {
 
   const handleResendLink = async () => {
     const email = { email: data.email };
-    console.log(email);
+
     const result = await resendLinkApi.request(email);
     if (!result.ok) {
       if (result.data) setError(result.data);
@@ -73,7 +73,7 @@ function Register(props) {
         setError("An unexpected error occurred.");
       }
       return;
-    }
+    } else setError(false);
 
     onNext();
   };
