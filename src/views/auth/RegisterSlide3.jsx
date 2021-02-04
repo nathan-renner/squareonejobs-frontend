@@ -1,9 +1,8 @@
 import React from "react";
 import { Button } from "../../components";
+import ErrorMessage from "./../../components/forms/ErrorMessage";
 
-function RegisterSlide3({ slideWidth }) {
-  const onResendEmail = () => {};
-
+function RegisterSlide3({ slideWidth, onResendLink, error }) {
   return (
     <div className="slide" style={{ width: slideWidth }}>
       <div className="content">
@@ -12,7 +11,8 @@ function RegisterSlide3({ slideWidth }) {
           We've sent you an email. Follow the instructions to verify your
           account.
         </p>
-        <Button label="Resend link" onClick={onResendEmail} />
+        <Button label="Resend link" onClick={onResendLink} />
+        <ErrorMessage error={error} visible={error} />
       </div>
     </div>
   );

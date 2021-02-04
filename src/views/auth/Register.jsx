@@ -7,6 +7,10 @@ import { Form } from "../../components/forms";
 import RegisterSlide1 from "./RegisterSlide1";
 import RegisterSlide2 from "./RegisterSlide2";
 import RegisterSlide3 from "./RegisterSlide3";
+import ActivityIndicator from "./../../components/ActivityIndicator";
+import useApi from "./../../hooks/useApi";
+import { register } from "./../../api/users";
+import { resendLink } from "../../api/auth";
 
 const registerSchema = Yup.object().shape({
   name: Yup.string()
@@ -20,10 +24,13 @@ const registerSchema = Yup.object().shape({
 
 function Register(props) {
   const slideRef = useRef();
+  const registerApi = useApi(register);
+  const resendLinkApi = useApi(resendLink);
   const history = useHistory();
   const [slideWidth, setSlideWidth] = useState();
   const [index, setIndex] = useState(0);
-  const [error] = useState(false);
+  const [data, setData] = useState();
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     const width = slideRef.current.clientWidth;
@@ -37,34 +44,43 @@ function Register(props) {
   const onBack = () => setIndex(index - 1);
   const onNext = () => setIndex(index + 1);
 
-  const handleSubmit = (data) => {
+  const handleResendLink = async () => {
+    const email = { email: data.email };
+    console.log(email);
+    const result = await resendLinkApi.request(email);
+    if (!result.ok) {
+      if (result.data) setError(result.data);
+      else {
+        setError("An unexpected error occurred.");
+      }
+      return;
+    }
+  };
+
+  const handleSubmit = async (data) => {
     const index = data.name.indexOf(" ");
     data.firstName = data.name.substr(0, index);
     data.lastName = data.name.substr(index + 1);
 
     const userInfo = { ...data };
     delete userInfo.name;
+    setData(userInfo);
 
-    console.log(userInfo);
-
-    //const result = await registerApi.request(userInfo);
-
-    // if (!result.ok) {
-    //   if (result.data) setError(result.data.error);
-    //   else {
-    //     setError("An unexpected error occurred.");
-    //     console.log(result);
-    //   }
-    //   return;
-    // }
-
-    // Send verification email on back end when user is created
+    const result = await registerApi.request(userInfo);
+    if (!result.ok) {
+      if (result.data) setError(result.data);
+      else {
+        setError("An unexpected error occurred.");
+      }
+      return;
+    }
 
     onNext();
   };
 
   return (
     <Card className="auth-container">
+      <ActivityIndicator visible={registerApi.loading || resendLink.loading} />
       <div className="slide-view" ref={slideRef}>
         <Form
           initialValues={{
@@ -81,7 +97,10 @@ function Register(props) {
               onBack={() => history.goBack()}
             />
             <RegisterSlide2 {...{ slideWidth, onBack, error }} />
-            <RegisterSlide3 {...{ slideWidth }} />
+            <RegisterSlide3
+              {...{ slideWidth, error }}
+              onResendLink={handleResendLink}
+            />
           </div>
         </Form>
       </div>

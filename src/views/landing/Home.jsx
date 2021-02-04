@@ -8,17 +8,17 @@ const Home = () => {
   return (
     <div className="section-1">
       <div className="navbar">
-        <NavLink to="/">
+        <NavLink to="/" className="nav-logo-link">
           <img src={Logo} alt="SquareOneJobs Logo" className="nav-logo" />
         </NavLink>
         <div className="nav-links-container">
-          <div className="nav-link-container">
+          <div className="nav-link-container" tabIndex="0">
             <NavLink to="/" className="nav-link">
               Employers
             </NavLink>
           </div>
-          <div className="nav-link-container">
-            <NavLink to="/" className="nav-link">
+          <div className="nav-link-container" tabIndex="0">
+            <NavLink to="/auth/login" className="nav-link">
               Login
             </NavLink>
           </div>
@@ -44,12 +44,13 @@ const Home = () => {
           Find your potential, unlock your purpose - regardless of the obstacles
           you’ve overcome.
         </p>
-        <Button
-          label="Find jobs"
-          onClick={() => "clicked"}
-          className="button"
-          textStyle={{ fontSize: 20 }}
-        />
+        <NavLink to="/auth/register">
+          <Button
+            label="Find jobs"
+            className="button"
+            textStyle={{ fontSize: 20 }}
+          />
+        </NavLink>
       </div>
     </div>
   );

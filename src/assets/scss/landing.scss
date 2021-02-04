@@ -12,6 +12,16 @@
     width: 100%;
     z-index: 1;
 
+    .nav-logo-link {
+      transform: scale(1);
+      transition: transform ease-in-out 250ms;
+
+      &:focus {
+        outline: none;
+        transform: scale(1.05);
+      }
+    }
+
     .nav-logo {
       height: 30px;
       margin-left: 30px;
@@ -44,11 +54,16 @@
           font-weight: 700;
           text-decoration: none;
           padding: 10px;
+
+          &:focus {
+            outline: none;
+          }
         }
 
         &:hover,
         &:focus {
           background-color: $black;
+          outline: none;
 
           .nav-link {
             color: $white;
