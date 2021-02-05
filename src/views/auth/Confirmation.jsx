@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
-import lottie from "lottie-web";
+import Lottie from "lottie-react";
 
 import Success from "../../assets/animations/success.json";
 import Failed from "../../assets/animations/failed.json";
@@ -25,17 +25,7 @@ function Confirmation() {
       else setConfirmed(true);
     };
     if (!confirmed) sendEmail();
-  }, []);
-
-  useEffect(() => {
-    lottie.loadAnimation({
-      container: document.getElementById(error ? "failed" : "success"),
-      renderer: "svg",
-      loop: true,
-      autoplay: true,
-      animationData: error ? Failed : Success,
-    });
-  }, [confirmed, error]);
+  });
 
   const handleResendLink = async () => {
     const id = { userId };
@@ -60,12 +50,11 @@ function Confirmation() {
       <div className="single-slide-container">
         {(confirmed || linkSent) && !error && (
           <>
-            <div
-              id="success"
-              style={{
-                height: 200,
-                width: 200,
-              }}
+            <Lottie
+              animationData={Success}
+              loop={true}
+              autoplay={true}
+              style={{ height: 200, width: 200 }}
             />
             <h2 className="auth-title">
               {confirmed ? "Email Confirmed!" : "Link Resent!"}
@@ -89,12 +78,11 @@ function Confirmation() {
         )}
         {error && (
           <>
-            <div
-              id="failed"
-              style={{
-                height: 200,
-                width: 200,
-              }}
+            <Lottie
+              animationData={Failed}
+              loop={true}
+              autoplay={true}
+              style={{ height: 200, width: 200 }}
             />
             <h2 className="auth-title">Confirmed Failed</h2>
             <p className="auth-description">Resend the email and try again!</p>

@@ -5,10 +5,10 @@ import Header from "./../../components/Landing/Header";
 
 const Home = () => {
   return (
-    <>
+    <div className="landing">
       <Navbar />
       <Header />
-    </>
+    </div>
   );
 };
 

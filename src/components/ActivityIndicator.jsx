@@ -1,24 +1,19 @@
-import React, { useEffect } from "react";
-import lottie from "lottie-web";
+import React from "react";
+import Lottie from "lottie-react";
 
 import Loader from "../assets/animations/loader.js";
 
 const ActivityIndicator = ({ visible }) => {
-  useEffect(() => {
-    lottie.loadAnimation({
-      container: document.getElementById("loader"),
-      renderer: "svg",
-      loop: true,
-      autoplay: true,
-      animationData: Loader,
-    });
-  });
-
   if (!visible) return null;
   if (visible) {
     return (
       <div className="overlay">
-        <div id="loader" className="loader" />
+        <Lottie
+          animationData={Loader}
+          loop={true}
+          autoplay={true}
+          className="loader"
+        />
       </div>
     );
   }
