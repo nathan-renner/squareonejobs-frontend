@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 .landing {
   .navbar {
     position: fixed;
@@ -33,6 +37,7 @@
         color: $black;
         cursor: pointer;
         padding-right: 30px;
+        box-sizing: initial;
       }
 
       .nav-drawer {
@@ -110,8 +115,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            transition: background-color ease-in-out 150ms,
-              color ease-in-out 150ms;
+            transition: background-color linear 250ms, color linear 250ms;
 
             .nav-link {
               color: $black;
@@ -247,6 +251,207 @@
       .content {
         max-width: 500px;
         margin-left: 80px;
+
+        .title {
+          font-size: 3em;
+        }
+      }
+    }
+  }
+
+  .section {
+    font-size: 16px;
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    display: grid;
+    place-items: center;
+
+    .content {
+      width: 100%;
+    }
+
+    @media only screen and (min-width: 600px) {
+    }
+
+    @media only screen and (min-width: 768px) {
+    }
+
+    @media only screen and (min-width: 992px) {
+      .content {
+        max-width: 1000px;
+      }
+    }
+
+    @media only screen and (min-width: 1200px) {
+      font-size: 18px;
+    }
+  }
+
+  .section-2 {
+    .problem-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+
+      h1 {
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+
+      .title {
+        margin-right: 10px;
+        user-select: none;
+      }
+
+      $num-of-elements: 4;
+      $height: 50px;
+
+      .carousel {
+        width: 200px;
+        margin-top: 25px;
+        .carousel-item {
+          position: absolute;
+          color: $primary;
+          user-select: none;
+
+          &.item-1 {
+            animation: rotate-1 8s ease-in infinite;
+            @keyframes rotate-1 {
+              0%,
+              20% {
+                transform: translateY(0);
+                opacity: 1;
+              }
+              25%,
+              45% {
+                opacity: 0;
+                transform: translateY($height * -1);
+              }
+              46% {
+                transform: translateY($height * 2);
+              }
+              50%,
+              70% {
+                transform: translateY($height * 2);
+                opacity: 0.2;
+              }
+              75%,
+              95% {
+                opacity: 0.5;
+                transform: translateY($height * 1);
+              }
+              100% {
+                transform: translateY(0);
+                opacity: 1;
+              }
+            }
+          }
+          &.item-2 {
+            animation: rotate-2 8s ease-in infinite;
+            @keyframes rotate-2 {
+              0%,
+              20% {
+                transform: translateY(0);
+                opacity: 0.5;
+              }
+              25%,
+              45% {
+                transform: translateY($height * -1);
+                opacity: 1;
+              }
+              50%,
+              70% {
+                transform: translateY($height * -2);
+                opacity: 0;
+              }
+              71% {
+                transform: translateY($height * 2);
+              }
+              75%,
+              95% {
+                opacity: 0.1;
+                transform: translateY($height);
+              }
+              100% {
+                transform: translateY(0);
+                opacity: 0.5;
+              }
+            }
+          }
+          &.item-3 {
+            animation: rotate-3 8s ease-in infinite;
+            @keyframes rotate-3 {
+              0%,
+              20% {
+                transform: translateY(0);
+                opacity: 0.1;
+              }
+              25%,
+              45% {
+                transform: translateY($height * -1);
+                opacity: 0.5;
+              }
+              50%,
+              70% {
+                transform: translateY($height * -2);
+                opacity: 1;
+              }
+              75%,
+              95% {
+                transform: translateY($height * -3);
+                opacity: 0;
+              }
+              96% {
+                transform: translateY($height * 2);
+              }
+              100% {
+                transform: translateY(0);
+                opacity: 0.1;
+              }
+            }
+          }
+          &.item-4 {
+            animation: rotate-4 8s ease-in infinite;
+            @keyframes rotate-4 {
+              0%,
+              20% {
+                transform: translateY(0);
+                opacity: 0;
+              }
+              25%,
+              45% {
+                transform: translateY($height * -1);
+                opacity: 0.1;
+              }
+              50%,
+              70% {
+                transform: translateY($height * -2);
+                opacity: 0.5;
+              }
+              75%,
+              95% {
+                transform: translateY($height * -3);
+                opacity: 1;
+              }
+              100% {
+                transform: translateY($height * -4);
+                opacity: 0;
+              }
+            }
+          }
+        }
+      }
+      @media only screen and (min-width: 768px) {
+        flex-direction: row;
+
+        .carousel {
+          margin-top: 0px;
+        }
+        padding-top: 5rem;
+        padding-bottom: 10rem;
       }
     }
   }

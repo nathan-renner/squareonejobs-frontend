@@ -15,17 +15,17 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.section {
-  @include themed() {
-    background-color: t("background");
-  }
+// .section {
+//   @include themed() {
+//     background-color: t("background");
+//   }
 
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-}
+//   position: relative;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   min-height: 100vh;
+// }
 
 .outline {
   outline: 1px solid black;
