@@ -5,7 +5,7 @@ import Button from "../Button";
 
 function Header(props) {
   return (
-    <div className="section-1">
+    <div className="header">
       <div className="image-background">
         <svg
           className="line-1"
@@ -21,7 +21,6 @@ function Header(props) {
           <path d="M0 0H36V72H0V0Z" fill="white" />
         </svg>
       </div>
-
       <div className="content">
         <h1 className="title">
           Job search made <span className="text-primary">personal</span>

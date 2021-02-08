@@ -72,6 +72,10 @@ body {
   color: $black !important;
 }
 
+.text-dark {
+  color: $dark !important;
+}
+
 .text-foreground {
   @include themed() {
     color: t("foreground") !important;
@@ -108,6 +112,10 @@ body {
 
 .bg-black {
   background-color: $black !important;
+}
+
+.bg-dark {
+  background-color: $dark !important;
 }
 
 .bg-foreground {

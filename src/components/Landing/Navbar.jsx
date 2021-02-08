@@ -1,13 +1,26 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
 import Lottie from "lottie-react";
 
 import Logo from "../../assets/images/logotext.png";
 import Hamburger from "../../assets/animations/hamburger.json";
+import Button from "../Button";
 
 function Navbar(props) {
   const [drawerOpened, setDrawerOpened] = useState(false);
   const hamburgerRef = useRef();
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+  });
+
+  const handleScroll = () => {
+    if (window.scrollY > 300) {
+      document.querySelector(".navbar").className = "navbar navbar-light";
+    } else {
+      document.querySelector(".navbar").className = "navbar";
+    }
+  };
 
   const toggleDrawer = () => {
     if (!drawerOpened) {
@@ -54,6 +67,9 @@ function Navbar(props) {
               Login
             </NavLink>
           </div>
+          <NavLink to="/auth/register" style={{ textDecoration: "none" }}>
+            <Button label="Find jobs" className="button" />
+          </NavLink>
         </div>
       </div>
     </div>

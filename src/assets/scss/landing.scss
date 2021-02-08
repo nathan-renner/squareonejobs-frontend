@@ -3,14 +3,42 @@
 }
 
 .landing {
+  color: $dark;
+
   .navbar {
     position: fixed;
     width: 100%;
     z-index: 1;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    transition: background-color 250ms ease-in-out;
 
     @media only screen and (min-width: 600px) {
       box-shadow: none;
+
+      &.navbar-light {
+        background-color: white;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        transition: background-color 250ms ease-in-out;
+
+        .nav-links-container {
+          box-shadow: none !important;
+          transform: scale(1) !important;
+          padding: 0;
+
+          .nav-link-container {
+            transform: translateX(0px);
+          }
+        }
+        .button {
+          transition: opacity 250ms ease-in-out;
+          display: block;
+          margin-left: 15px;
+          margin-right: 0px;
+        }
+      }
+    }
+    .button {
+      display: none;
     }
     .navbar-container {
       height: 80px;
@@ -34,7 +62,7 @@
       .hamburger-icon {
         height: 40px;
         width: 40px;
-        color: $black;
+        color: $dark;
         cursor: pointer;
         padding-right: 30px;
         box-sizing: initial;
@@ -64,11 +92,12 @@
           margin-top: 20px;
           margin-bottom: 15px;
           padding-right: 30px;
+          color: $dark;
         }
 
         .nav-link {
           text-decoration: none;
-          color: $black;
+          color: $dark;
           font-weight: 600;
           font-size: 24;
           padding: 15px;
@@ -93,9 +122,7 @@
         .nav-drawer {
           display: none;
         }
-      }
 
-      @media only screen and (min-width: 600px) {
         .nav-links-container {
           display: flex;
           justify-content: center;
@@ -109,6 +136,8 @@
           transition: transform ease-in-out 200ms;
 
           .nav-link-container {
+            margin-left: 2px;
+            margin-right: 2px;
             background-color: $white;
             border-radius: 30px;
             height: 40px;
@@ -118,7 +147,7 @@
             transition: background-color linear 250ms, color linear 250ms;
 
             .nav-link {
-              color: $black;
+              color: $dark;
               font-size: 16px;
               font-weight: 700;
               text-decoration: none;
@@ -131,7 +160,7 @@
 
             &:hover,
             &:focus {
-              background-color: $black;
+              background-color: $dark;
               outline: none;
 
               .nav-link {
@@ -153,7 +182,7 @@
     }
   }
 
-  .section-1 {
+  .header {
     font-size: 16px;
 
     .image-background {
@@ -173,7 +202,7 @@
         bottom: 0;
         left: 0;
         right: 0;
-        background-color: $black;
+        background-color: $dark;
         opacity: 0.3;
       }
 
@@ -224,11 +253,11 @@
       }
 
       .content {
-        color: $black;
+        color: $dark;
         max-width: 290px;
 
         .title {
-          color: $black;
+          color: $dark;
         }
       }
     }
@@ -304,6 +333,7 @@
       .title {
         margin-right: 10px;
         user-select: none;
+        color: $dark;
       }
 
       $num-of-elements: 4;
@@ -318,7 +348,7 @@
           user-select: none;
 
           &.item-1 {
-            animation: rotate-1 8s ease-in infinite;
+            animation: rotate-1 10s ease-in infinite;
             @keyframes rotate-1 {
               0%,
               20% {
@@ -336,11 +366,11 @@
               50%,
               70% {
                 transform: translateY($height * 2);
-                opacity: 0.2;
+                opacity: 0.1;
               }
               75%,
               95% {
-                opacity: 0.5;
+                opacity: 0.4;
                 transform: translateY($height * 1);
               }
               100% {
@@ -350,12 +380,12 @@
             }
           }
           &.item-2 {
-            animation: rotate-2 8s ease-in infinite;
+            animation: rotate-2 10s ease-in infinite;
             @keyframes rotate-2 {
               0%,
               20% {
                 transform: translateY(0);
-                opacity: 0.5;
+                opacity: 0.4;
               }
               25%,
               45% {
@@ -377,12 +407,12 @@
               }
               100% {
                 transform: translateY(0);
-                opacity: 0.5;
+                opacity: 0.4;
               }
             }
           }
           &.item-3 {
-            animation: rotate-3 8s ease-in infinite;
+            animation: rotate-3 10s ease-in infinite;
             @keyframes rotate-3 {
               0%,
               20% {
@@ -392,7 +422,7 @@
               25%,
               45% {
                 transform: translateY($height * -1);
-                opacity: 0.5;
+                opacity: 0.4;
               }
               50%,
               70% {
@@ -414,7 +444,7 @@
             }
           }
           &.item-4 {
-            animation: rotate-4 8s ease-in infinite;
+            animation: rotate-4 10s ease-in infinite;
             @keyframes rotate-4 {
               0%,
               20% {
@@ -429,7 +459,7 @@
               50%,
               70% {
                 transform: translateY($height * -2);
-                opacity: 0.5;
+                opacity: 0.4;
               }
               75%,
               95% {
@@ -453,6 +483,64 @@
         padding-top: 5rem;
         padding-bottom: 10rem;
       }
+    }
+  }
+
+  .section-call-to-action {
+    background-color: $primary;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: inset 0px 0px 40px 20px rgba(0, 0, 0, 0.1);
+    transition: all 150ms ease-in-out;
+
+    .title {
+      transition: all 150ms ease-in-out;
+      color: $white;
+      font-size: 32px;
+      text-align: center;
+      padding-left: 10px;
+      padding-right: 10px;
+      opacity: 1;
+    }
+    .cta-button {
+      transition: all 150ms ease-in-out;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      padding-right: 20px;
+      padding-left: 20px;
+      background-color: $white;
+      font-weight: 800;
+      border-radius: 30px;
+      color: $primary;
+    }
+
+    &:hover,
+    &:focus {
+      box-shadow: none;
+      .title {
+        transform: translateY(-20px) scale(0.5);
+        opacity: 0;
+      }
+      .cta-button {
+        transform: translateY(-40px);
+        background-color: transparent;
+        color: $white;
+        font-size: 36px;
+        //opacity: 0;
+      }
+    }
+  }
+
+  .footer {
+    height: 200px;
+    background-color: $dark;
+
+    p {
+      color: $white;
     }
   }
 }
