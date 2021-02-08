@@ -5,6 +5,7 @@ import Header from "./../../components/Landing/Header";
 import Problem from "./../../components/Landing/Problem";
 import Footer from "../../components/Landing/Footer";
 import CallToAction from "./../../components/Landing/CallToAction";
+import HowItWorks from "./../../components/Landing/HowItWorks";
 
 const Home = () => {
   return (
@@ -12,6 +13,7 @@ const Home = () => {
       <Navbar />
       <Header />
       <Problem />
+      <HowItWorks />
       <CallToAction />
       <Footer />
     </div>
