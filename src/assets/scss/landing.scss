@@ -1,10 +1,4 @@
-* {
-  box-sizing: border-box;
-}
-
 .landing {
-  color: $dark;
-
   .navbar {
     position: fixed;
     width: 100%;
@@ -12,7 +6,7 @@
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     transition: background-color 250ms ease-in-out;
 
-    @media only screen and (min-width: 600px) {
+    @media only screen and (min-width: 40em) {
       box-shadow: none;
 
       &.navbar-light {
@@ -83,15 +77,15 @@
         justify-content: center;
         align-items: flex-end;
         padding-bottom: 20px;
+        padding-right: 30px;
 
         &.opened {
           transform: translateY(170px);
+          box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
         }
 
         .nav-title {
-          margin-top: 20px;
-          margin-bottom: 15px;
-          padding-right: 30px;
+          margin: 20px 0 15px;
           color: $dark;
         }
 
@@ -99,9 +93,7 @@
           text-decoration: none;
           color: $dark;
           font-weight: 600;
-          font-size: 24;
-          padding: 15px;
-          padding-right: 30px;
+          padding: 10px 0;
         }
       }
 
@@ -114,7 +106,7 @@
         display: none;
       }
 
-      @media only screen and (min-width: 600px) {
+      @media only screen and (min-width: 40em) {
         background-color: transparent;
         box-shadow: none;
 
@@ -182,13 +174,11 @@
     }
   }
 
-  .header {
-    font-size: 16px;
-
+  header {
     .image-background {
-      background-image: url("../../assets/images/landing-bg-1.jpg");
       min-height: 90vh;
       height: 100%;
+      background-image: url("../../assets/images/landing-bg-1.jpg");
       background-position-x: center;
       background-position-y: top;
       background-repeat: no-repeat;
@@ -234,7 +224,6 @@
     }
 
     .content {
-      padding-left: 1.2rem;
       max-width: 290px;
       position: absolute;
       top: 50%;
@@ -244,15 +233,14 @@
 
       .title {
         color: $white;
-        font-size: 3em;
-        margin-bottom: 30px;
+        margin-bottom: 0.8em;
         line-height: 1;
       }
 
       .subtitle {
         margin-top: 0;
         line-height: 1.3;
-        margin-bottom: 30px;
+        margin-bottom: 0.8em;
         font-size: 1.2em;
         font-weight: 400;
       }
@@ -264,7 +252,7 @@
       }
     }
 
-    @media only screen and (min-width: 600px) {
+    @media only screen and (min-width: 40em) {
       .image-background {
         .line-1 {
           position: absolute;
@@ -276,7 +264,7 @@
 
       .content {
         color: $dark;
-        max-width: 290px;
+        max-width: 43%;
 
         .title {
           color: $dark;
@@ -284,74 +272,24 @@
       }
     }
 
-    @media only screen and (min-width: 768px) {
-      .content {
-        margin-left: 40px;
-      }
-    }
-
-    @media only screen and (min-width: 992px) {
-      .content {
-        max-width: 400px;
-        margin-left: 60px;
-      }
-    }
-
     @media only screen and (min-width: 1200px) {
-      font-size: 18px;
       .content {
         max-width: 500px;
-        margin-left: 80px;
-
-        .title {
-          font-size: 3em;
-        }
       }
-    }
-  }
-
-  .section {
-    font-size: 16px;
-    padding-top: 6rem;
-    padding-bottom: 6rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    display: grid;
-    place-items: center;
-
-    .content {
-      width: 100%;
-    }
-
-    @media only screen and (min-width: 600px) {
-    }
-
-    @media only screen and (min-width: 768px) {
-    }
-
-    @media only screen and (min-width: 992px) {
-      .content {
-        max-width: 1000px;
-      }
-    }
-
-    @media only screen and (min-width: 1200px) {
-      font-size: 18px;
     }
   }
 
   .section-problem {
-    padding-top: 5rem;
-    margin-bottom: -2rem;
+    padding: 0;
     .problem-container {
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
+      height: 325px;
+      padding: 3em 0;
 
-      h1 {
-        margin-top: 0;
-        margin-bottom: 0;
+      h2 {
+        margin: 0;
       }
 
       .title {
@@ -361,11 +299,11 @@
         text-align: center;
       }
 
-      $height: 50px;
+      $height: 40px;
 
       .carousel {
-        width: 200px;
-        margin-top: 25px;
+        width: 190px;
+        margin-top: 30px;
         .carousel-item {
           position: absolute;
           color: $primary;
@@ -500,9 +438,11 @@
       }
       @media only screen and (min-width: 768px) {
         flex-direction: row;
-        padding-top: 5rem;
-        padding-bottom: 10rem;
+        padding-top: 8rem;
+        padding-bottom: 6rem;
+        justify-content: center;
         align-items: flex-start;
+        white-space: nowrap;
 
         .carousel {
           margin-top: 0px;
@@ -510,20 +450,13 @@
       }
     }
     .cards-container {
-      display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding-top: 10rem;
-      //opacityanimation: cards 10s ease-out infinite;
 
       .card {
-        width: 300px;
-        height: 350px;
-        margin-left: 25px;
-        margin-right: 25px;
-        margin-bottom: 20px;
-        margin-top: 20px;
+        aspect-ratio: 3/2;
+        max-width: 300px;
+        min-width: 260px;
         overflow: hidden;
         position: relative;
         padding: 0;
@@ -554,15 +487,18 @@
           height: 100%;
           padding: 20px;
           display: flex;
+          flex-direction: column;
           justify-content: center;
           align-items: center;
 
           .icon {
             position: absolute;
-            top: 20px;
-            left: 20px;
+            top: 30px;
+            left: 0;
+            right: 0;
             height: 40px;
-            transition: transform 150ms ease-out;
+            width: 100%;
+            transition: all 150ms ease-out;
 
             .path {
               fill: $white;
@@ -578,13 +514,14 @@
           }
         }
         &:hover {
-          transform: scale(1.15);
+          transform: scale(1.1);
           .content {
             .icon {
               .path {
                 fill: $primary;
               }
-              transform: translate(110px, 50px) scale(1.8);
+              top: 70px;
+              transform: scale(1.8);
             }
             .title {
               transform: translateY(40px);
@@ -646,30 +583,23 @@
           }
         }
       }
-
-      @media only screen and (min-width: 768px) {
-        flex-direction: row;
-        padding-top: 2rem;
-      }
     }
   }
 
-  .section-how-it-works {
-    height: 400px;
-    background-color: $dark;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  .section-mission {
+    padding: 0;
     position: relative;
-    font-size: 14px;
 
-    .title {
-      color: $white;
-      padding-left: 10px;
-      padding-right: 10px;
-      text-align: center;
-      max-width: 800px;
-      font-size: 2em;
+    .content {
+      height: 400px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .title {
+        color: $white;
+        text-align: center;
+        max-width: 20em;
+      }
     }
     .line-top {
       z-index: -1;
@@ -685,46 +615,118 @@
       width: 100%;
       height: 800px;
     }
+  }
 
-    @media only screen and (min-width: 600px) {
-      font-size: 16px;
-    }
+  .section-how-it-works {
+    padding-top: 5rem;
+    padding-bottom: 10rem;
 
-    @media only screen and (min-width: 1200px) {
-      font-size: 18px;
+    .feature-container {
+      padding: 1em 0;
+      align-items: center;
+      justify-content: space-between;
+
+      .feature-content {
+        max-width: 400px;
+        position: relative;
+
+        &.feature-content::before {
+          content: "";
+          height: 40px;
+          width: 10px;
+          border-radius: 5px;
+          position: absolute;
+          top: 0;
+          left: -20px;
+          background-color: $primary;
+        }
+
+        &.left::before {
+          background-color: $secondary;
+        }
+
+        .title {
+          font-weight: 700;
+          font-size: 32px;
+          color: $dark;
+          margin-top: 0px;
+          margin-bottom: 20px;
+        }
+        .subtitle {
+          margin-top: 0px;
+          color: $light-medium;
+          font-size: 20px;
+          font-weight: 500;
+        }
+      }
+      .lottie-container {
+        position: relative;
+        margin: 0 0 30px;
+        flex-basis: 50%;
+
+        .blob-1 {
+          position: absolute;
+          top: 10%;
+          left: 20%;
+          height: 80%;
+          //width: 90%;
+        }
+        .blob-2 {
+          position: absolute;
+          top: -10%;
+          left: 25%;
+          right: 0;
+          height: 120%;
+        }
+        .blob-3 {
+          position: absolute;
+          top: 10%;
+          left: 20%;
+          height: 80%;
+        }
+        .feature-lottie {
+          height: auto;
+          width: auto;
+          max-height: 500px;
+          max-width: 500px;
+        }
+      }
     }
   }
 
   .section-call-to-action {
-    background-color: $primary;
-    height: 250px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    padding: 0;
     cursor: pointer;
-    box-shadow: inset 0px 0px 40px 20px rgba(0, 0, 0, 0.25);
+    box-shadow: inset 0px 0px 40px 20px rgba(0, 0, 0, 0.15);
     transition: all 150ms ease-in-out;
 
-    .title {
-      transition: all 150ms ease-in-out;
-      color: $white;
-      font-size: 32px;
-      text-align: center;
-      padding-left: 10px;
-      padding-right: 10px;
-      opacity: 1;
-    }
-    .cta-button {
-      transition: all 150ms ease-in-out;
-      padding-top: 10px;
-      padding-bottom: 10px;
-      padding-right: 20px;
-      padding-left: 20px;
-      background-color: $white;
-      font-weight: 800;
-      border-radius: 30px;
-      color: $primary;
+    .content {
+      padding: 3em 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      .title {
+        transition: all 150ms ease-in-out;
+        color: $white;
+        font-size: 32px;
+        text-align: center;
+        padding-left: 10px;
+        padding-right: 10px;
+        opacity: 1;
+      }
+      .cta-button {
+        display: inline-block;
+        transition: all 150ms ease-in-out;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-right: 20px;
+        padding-left: 20px;
+        background-color: $white;
+        font-weight: 800;
+        border-radius: 30px;
+        color: $primary;
+      }
     }
 
     &:hover,
@@ -735,21 +737,17 @@
         opacity: 0;
       }
       .cta-button {
-        transform: translateY(-40px);
+        transform: translateY(-38px);
         background-color: transparent;
         color: $white;
         font-size: 36px;
-        //opacity: 0;
       }
     }
   }
 
   .footer {
+    padding: 2em 0;
     height: 200px;
-    background-color: $dark;
-
-    p {
-      color: $white;
-    }
+    color: $white;
   }
 }

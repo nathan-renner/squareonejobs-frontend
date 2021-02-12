@@ -3,9 +3,9 @@ import { NavLink } from "react-router-dom";
 
 import Button from "../Button";
 
-function Header(props) {
+function Header() {
   return (
-    <div className="header">
+    <header>
       <div className="image-background">
         <svg
           className="line-1"
@@ -21,23 +21,25 @@ function Header(props) {
           <path d="M0 0H36V72H0V0Z" fill="white" />
         </svg>
       </div>
-      <div className="content">
-        <h1 className="title">
-          Job search made <span className="text-primary">personal</span>
-        </h1>
-        <p className="subtitle">
-          Find your potential, unlock your purpose - regardless of the obstacles
-          you’ve overcome.
-        </p>
-        <NavLink to="/auth/register">
-          <Button
-            label="Find jobs"
-            className="button"
-            textStyle={{ fontSize: 20 }}
-          />
-        </NavLink>
+      <div className="container">
+        <div className="content">
+          <h1 className="title">
+            Job search made <span className="text-primary">personal</span>
+          </h1>
+          <p className="subtitle">
+            Find your potential, unlock your purpose - regardless of the
+            obstacles you’ve overcome.
+          </p>
+          <NavLink to="/auth/register">
+            <Button
+              label="Find jobs"
+              className="button"
+              textStyle={{ fontSize: 20 }}
+            />
+          </NavLink>
+        </div>
       </div>
-    </div>
+    </header>
   );
 }
 

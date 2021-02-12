@@ -3,9 +3,10 @@ import React from "react";
 import Navbar from "../../components/Landing/Navbar";
 import Header from "./../../components/Landing/Header";
 import Problem from "./../../components/Landing/Problem";
-import Footer from "../../components/Landing/Footer";
-import CallToAction from "./../../components/Landing/CallToAction";
+import Mission from "./../../components/Landing/Mission";
 import HowItWorks from "./../../components/Landing/HowItWorks";
+import CallToAction from "./../../components/Landing/CallToAction";
+import Footer from "../../components/Landing/Footer";
 
 const Home = () => {
   return (
@@ -13,6 +14,7 @@ const Home = () => {
       <Navbar />
       <Header />
       <Problem />
+      <Mission />
       <HowItWorks />
       <CallToAction />
       <Footer />

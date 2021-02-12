@@ -2,9 +2,11 @@ import React from "react";
 
 function Footer(props) {
   return (
-    <div className="footer">
-      <p style={{ margin: 0 }}>footer text</p>
-    </div>
+    <section className="footer bg-dark">
+      <div className="container">
+        <p style={{ margin: 0 }}>footer text</p>
+      </div>
+    </section>
   );
 }
 

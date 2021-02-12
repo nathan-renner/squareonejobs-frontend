@@ -1,18 +1,15 @@
 @import "colors.scss";
+@import "layout.scss";
 @import "themes.scss";
 @import "typography.scss";
 @import "auth.scss";
 @import "landing.scss";
 @import "dashboard.scss";
 
-body {
-  @include themed() {
-    background-color: t("background");
-  }
-  margin: 0;
-  font-family: "Montserrat", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 // .section {

@@ -1,0 +1,52 @@
+section {
+  padding: 4rem 0;
+}
+
+@media (min-width: 37.5em) {
+  section {
+    padding: 8rem 0;
+  }
+}
+
+.container {
+  margin-inline: auto;
+  width: #{"min(90%, 70.5rem)"};
+}
+
+.split,
+.split-cards {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 37.5em) {
+  .split {
+    flex-direction: row;
+  }
+
+  .split > * {
+    flex-basis: 100%;
+  }
+
+  .split > * + * {
+    margin-left: 2em;
+  }
+
+  .split-right div:first-child {
+    order: 1;
+  }
+}
+
+@media (min-width: 54em) {
+  .split-cards {
+    flex-direction: row;
+  }
+
+  .split-cards > * {
+    flex-basis: 100%;
+  }
+
+  .split-cards > * + * {
+    margin-left: 2em;
+  }
+}

@@ -6,7 +6,7 @@ import Logo from "../../assets/images/logotext.png";
 import Hamburger from "../../assets/animations/hamburger.json";
 import Button from "../Button";
 
-function Navbar(props) {
+function Navbar({ className }) {
   const [drawerOpened, setDrawerOpened] = useState(false);
   const hamburgerRef = useRef();
 
@@ -33,7 +33,7 @@ function Navbar(props) {
   };
 
   return (
-    <div className="navbar">
+    <div className={`navbar ${className ? className : null}`}>
       <div className="navbar-container">
         <NavLink to="/" className="nav-logo-link">
           <img src={Logo} alt="SquareOneJobs Logo" className="nav-logo" />
@@ -48,7 +48,7 @@ function Navbar(props) {
           />
         </div>
         <div className={`nav-drawer ${drawerOpened ? "opened" : null}`}>
-          <h2 className="nav-title">NAVIGATION</h2>
+          <h3 className="nav-title">NAVIGATION</h3>
           <NavLink to="/" className="nav-link">
             Employers
           </NavLink>
