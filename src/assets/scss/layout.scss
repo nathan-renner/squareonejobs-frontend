@@ -10,7 +10,12 @@ section {
 
 .container {
   margin-inline: auto;
-  width: #{"min(90%, 70.5rem)"};
+  width: #{"min(90%, 70rem)"};
+}
+
+.container-sm {
+  margin-inline: auto;
+  width: #{"min(80%, 60rem)"};
 }
 
 .split,

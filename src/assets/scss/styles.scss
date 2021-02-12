@@ -103,6 +103,10 @@
   background-color: $purple !important;
 }
 
+.bg-light {
+  background-color: $light !important;
+}
+
 .bg-white {
   background-color: $white !important;
 }
@@ -112,6 +116,7 @@
 }
 
 .bg-dark {
+  color: $white !important;
   background-color: $dark !important;
 }
 
