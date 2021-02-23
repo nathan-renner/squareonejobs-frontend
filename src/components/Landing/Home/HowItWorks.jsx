@@ -1,9 +1,9 @@
 import React from "react";
 import Lottie from "lottie-react";
 
-import CompleteDayJobs from "../../assets/animations/completeDayJobs.json";
-import EarnReferences from "../../assets/animations/earnReferences.json";
-import GetHired from "../../assets/animations/getHired.json";
+import CompleteDayJobs from "../../../assets/animations/completeDayJobs.json";
+import EarnReferences from "../../../assets/animations/earnReferences.json";
+import GetHired from "../../../assets/animations/getHired.json";
 
 function HowItWorks(props) {
   return (

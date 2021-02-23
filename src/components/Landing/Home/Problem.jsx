@@ -1,11 +1,11 @@
 import React from "react";
 
-import Individual from "../../assets/images/individual.png";
-import Business from "../../assets/images/business.png";
-import Nation from "../../assets/images/nation.png";
-import PersonIcon from "../icons/PersonIcon";
-import BuildingIcon from "./../icons/BuildingIcon";
-import NationIcon from "./../icons/NationIcon";
+import Individual from "../../../assets/images/individual.png";
+import Business from "../../../assets/images/business.png";
+import Nation from "../../../assets/images/nation.png";
+import PersonIcon from "../../icons/PersonIcon";
+import BuildingIcon from "../../icons/BuildingIcon";
+import NationIcon from "../../icons/NationIcon";
 
 const HEIGHT = 40;
 

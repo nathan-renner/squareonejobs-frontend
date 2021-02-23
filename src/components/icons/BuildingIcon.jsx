@@ -8,7 +8,7 @@ function BuildingIcon({ className }) {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g clip-path="url(#clip0)">
+      <g clipPath="url(#clip0)">
         <path
           d="M21.1719 33.5937H23.5156V39.9999H21.1719V33.5937Z"
           className="path"

@@ -1,8 +1,8 @@
 import React from "react";
 
-import AppImg from "../../assets/images/mobile-app.png";
-import AppStore from "../../assets/images/app-store.png";
-import GooglePlay from "../../assets/images/google-play.png";
+import AppImg from "../../../assets/images/mobile-app.png";
+import AppStore from "../../../assets/images/app-store.png";
+import GooglePlay from "../../../assets/images/google-play.png";
 
 function MobileApp(props) {
   return (
