@@ -1,0 +1,76 @@
+.section-how-it-works {
+  padding-top: 5rem;
+  padding-bottom: 10rem;
+
+  .feature-container {
+    padding: 1em 0;
+    align-items: center;
+    justify-content: space-between;
+
+    .feature-content {
+      max-width: 400px;
+      position: relative;
+
+      &.feature-content::before {
+        content: "";
+        height: 40px;
+        width: 10px;
+        border-radius: 5px;
+        position: absolute;
+        top: 0;
+        left: -20px;
+        background-color: $primary;
+      }
+
+      &.left::before {
+        background-color: $secondary;
+      }
+
+      .title {
+        font-weight: 700;
+        font-size: 32px;
+        color: $dark;
+        margin-top: 0px;
+        margin-bottom: 20px;
+      }
+      .subtitle {
+        margin-top: 0px;
+        color: $light-medium;
+        font-size: 20px;
+        font-weight: 500;
+      }
+    }
+    .lottie-container {
+      position: relative;
+      margin: 0 0 30px;
+      flex-basis: 50%;
+
+      .blob-1 {
+        position: absolute;
+        top: 10%;
+        left: 20%;
+        height: 80%;
+        //width: 90%;
+      }
+      .blob-2 {
+        position: absolute;
+        top: -10%;
+        left: 25%;
+        right: 0;
+        height: 120%;
+      }
+      .blob-3 {
+        position: absolute;
+        top: 10%;
+        left: 20%;
+        height: 80%;
+      }
+      .feature-lottie {
+        height: auto;
+        width: auto;
+        max-height: 500px;
+        max-width: 500px;
+      }
+    }
+  }
+}

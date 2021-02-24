@@ -2,13 +2,7 @@ import * as React from "react";
 
 function NotificationsIcon(props) {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width={512}
-      height={512}
-      viewBox="0 0 512 512"
-      {...props}
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" {...props}>
       <path
         xmlns="http://www.w3.org/2000/svg"
         d="M298.668 426.668c0 47.129-38.207 85.332-85.336 85.332S128 473.797 128 426.668c0-47.129 38.203-85.336 85.332-85.336 47.129 0 85.336 38.207 85.336 85.336zm0 0M213.332 85.332C201.559 85.332 192 75.777 192 64V21.332C192 9.559 201.559 0 213.332 0c11.777 0 21.336 9.559 21.336 21.332V64c0 11.777-9.559 21.332-21.336 21.332zm0 0"

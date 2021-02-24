@@ -1,0 +1,304 @@
+.section-problem {
+  padding: 0;
+  .problem-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 325px;
+    padding: 3em 0;
+
+    h2 {
+      margin: 0;
+      font-size: 1.8em !important;
+    }
+
+    .title {
+      margin-right: 10px;
+      user-select: none;
+      color: $dark;
+      text-align: center;
+    }
+
+    $height: 40px;
+
+    .carousel {
+      width: 190px;
+      margin-top: 30px;
+      .carousel-item {
+        position: absolute;
+        color: $primary;
+        user-select: none;
+
+        &.item-1 {
+          animation: rotate-1 10s ease-in infinite;
+          @keyframes rotate-1 {
+            0%,
+            20% {
+              transform: translateY(0);
+              opacity: 1;
+            }
+            25%,
+            45% {
+              opacity: 0;
+              transform: translateY($height * -1);
+            }
+            46% {
+              transform: translateY($height * 2);
+            }
+            50%,
+            70% {
+              transform: translateY($height * 2);
+              opacity: 0.1;
+            }
+            75%,
+            95% {
+              opacity: 0.4;
+              transform: translateY($height * 1);
+            }
+            100% {
+              transform: translateY(0);
+              opacity: 1;
+            }
+          }
+        }
+        &.item-2 {
+          animation: rotate-2 10s ease-in infinite;
+          @keyframes rotate-2 {
+            0%,
+            20% {
+              transform: translateY(0);
+              opacity: 0.4;
+            }
+            25%,
+            45% {
+              transform: translateY($height * -1);
+              opacity: 1;
+            }
+            50%,
+            70% {
+              transform: translateY($height * -2);
+              opacity: 0;
+            }
+            71% {
+              transform: translateY($height * 2);
+            }
+            75%,
+            95% {
+              opacity: 0.1;
+              transform: translateY($height);
+            }
+            100% {
+              transform: translateY(0);
+              opacity: 0.4;
+            }
+          }
+        }
+        &.item-3 {
+          animation: rotate-3 10s ease-in infinite;
+          @keyframes rotate-3 {
+            0%,
+            20% {
+              transform: translateY(0);
+              opacity: 0.1;
+            }
+            25%,
+            45% {
+              transform: translateY($height * -1);
+              opacity: 0.4;
+            }
+            50%,
+            70% {
+              transform: translateY($height * -2);
+              opacity: 1;
+            }
+            75%,
+            95% {
+              transform: translateY($height * -3);
+              opacity: 0;
+            }
+            96% {
+              transform: translateY($height * 2);
+            }
+            100% {
+              transform: translateY(0);
+              opacity: 0.1;
+            }
+          }
+        }
+        &.item-4 {
+          animation: rotate-4 10s ease-in infinite;
+          @keyframes rotate-4 {
+            0%,
+            20% {
+              transform: translateY(0);
+              opacity: 0;
+            }
+            25%,
+            45% {
+              transform: translateY($height * -1);
+              opacity: 0.1;
+            }
+            50%,
+            70% {
+              transform: translateY($height * -2);
+              opacity: 0.4;
+            }
+            75%,
+            95% {
+              transform: translateY($height * -3);
+              opacity: 1;
+            }
+            100% {
+              transform: translateY($height * -4);
+              opacity: 0;
+            }
+          }
+        }
+      }
+    }
+    @media only screen and (min-width: 768px) {
+      flex-direction: row;
+      padding-top: 8rem;
+      padding-bottom: 6rem;
+      justify-content: center;
+      align-items: flex-start;
+      white-space: nowrap;
+
+      .carousel {
+        margin-top: 0px;
+      }
+    }
+  }
+  .cards-container {
+    justify-content: center;
+    align-items: center;
+
+    .card {
+      max-height: 350px;
+      max-width: 300px;
+      min-width: 260px;
+      overflow: hidden;
+      position: relative;
+      padding: 0;
+      transition: all 150ms ease-out;
+      user-select: none;
+      cursor: pointer;
+      z-index: 1;
+
+      .filter {
+        background-color: $black;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        opacity: 0.4;
+      }
+      .content {
+        position: absolute;
+        z-index: 1;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 100%;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .icon {
+          position: absolute;
+          top: 30px;
+          left: 0;
+          right: 0;
+          height: 40px;
+          width: 100%;
+          transition: all 150ms ease-out;
+
+          .path {
+            fill: $white;
+          }
+        }
+        .title {
+          font-size: 1.8em;
+          font-weight: 600;
+          margin: 0;
+          color: $white;
+          text-align: center;
+          transition: all 150ms ease-out;
+        }
+      }
+      &:hover {
+        transform: scale(1.1);
+        .content {
+          .icon {
+            .path {
+              fill: $primary;
+            }
+            top: 70px;
+            transform: scale(1.8);
+          }
+          .title {
+            transform: translateY(40px);
+          }
+        }
+      }
+    }
+
+    @keyframes cards {
+      0%,
+      25% {
+        .card.individual {
+          transform: scale(1.15);
+          .content {
+            .icon {
+              .path {
+                fill: $primary;
+              }
+              transform: translate(110px, 50px) scale(1.8);
+            }
+            .title {
+              transform: translateY(40px);
+            }
+          }
+        }
+      }
+      26%,
+      50% {
+        .business {
+          transform: scale(1.15);
+          .content {
+            .icon {
+              .path {
+                fill: $primary;
+              }
+              transform: translate(110px, 50px) scale(1.8);
+            }
+            .title {
+              transform: translateY(40px);
+            }
+          }
+        }
+      }
+      51%,
+      75% {
+        .nation {
+          transform: scale(1.15);
+          .content {
+            .icon {
+              .path {
+                fill: $primary;
+              }
+              transform: translate(110px, 50px) scale(1.8);
+            }
+            .title {
+              transform: translateY(40px);
+            }
+          }
+        }
+      }
+    }
+  }
+}

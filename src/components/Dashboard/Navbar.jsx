@@ -67,19 +67,18 @@ const Navbar = () => {
   return (
     <div className="navbar-container">
       <div className="navbar">
-        <div className="nav-item">
-          <NavLink to="/">
-            <img className="logo" src={Logo} alt="SquareOneJobs logo" />
+        <div>
+          <NavLink to="/" className="logo">
+            <img src={Logo} alt="SquareOneJobs logo" />
           </NavLink>
         </div>
-        <div className="navigation-container">{renderRoutes()}</div>
+        <div className="routes-container">{renderRoutes()}</div>
         <TextInput
           LeftIcon={MdSearch}
           leftIconSize={25}
           textStyle={{ fontSize: 18 }}
           containerStyle={{
             height: 50,
-            marginRight: 10,
             borderRadius: 25,
           }}
           placeholder="Search jobs"
@@ -136,8 +135,12 @@ const Navbar = () => {
               </div>
             </div>
           </div>
-          <StreakIcon className="nav-item" height={30} width={30} />
-          <NotificationsIcon className="nav-item" height={30} width={30} />
+          <div className="nav-item">
+            <StreakIcon height={30} width={30} />
+          </div>
+          <div className="nav-item">
+            <NotificationsIcon height={30} width={30} />
+          </div>
           <img
             className="nav-item avatar"
             src={avatar ? avatar : defaultAvatar}

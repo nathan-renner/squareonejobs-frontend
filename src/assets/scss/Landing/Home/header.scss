@@ -1,0 +1,149 @@
+header {
+  .image-background {
+    min-height: 90vh;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+
+    img {
+      position: absolute;
+      object-fit: cover;
+      height: 100%;
+      width: 100%;
+
+      &.bg-1 {
+        opacity: 1;
+        animation: bg-1 10s ease infinite;
+        -webkit-animation: bg-1 10s infinite;
+
+        @keyframes bg-1 {
+          0%,
+          27% {
+            opacity: 1;
+          }
+          30%,
+          93% {
+            opacity: 0;
+          }
+          97%,
+          100% {
+            opacity: 1;
+          }
+        }
+      }
+      &.bg-2 {
+        opacity: 0;
+        animation: bg-2 10s ease infinite;
+        -webkit-animation: bg-2 10s infinite;
+
+        @keyframes bg-2 {
+          0%,
+          27% {
+            opacity: 0;
+          }
+          30%,
+          60% {
+            opacity: 1;
+          }
+          63%,
+          100% {
+            opacity: 0;
+          }
+        }
+      }
+      &.bg-3 {
+        opacity: 0;
+        animation: bg-3 10s ease infinite;
+        -webkit-animation: bg-3 10s infinite;
+
+        @keyframes bg-3 {
+          0%,
+          60% {
+            opacity: 0;
+          }
+          63%,
+          93% {
+            opacity: 1;
+          }
+          97%,
+          100% {
+            opacity: 0;
+          }
+        }
+      }
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      z-index: 1;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color: $dark;
+      opacity: 0.3;
+    }
+
+    .line-1 {
+      z-index: 2;
+      display: none;
+    }
+  }
+
+  .content {
+    z-index: 3;
+    max-width: 290px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: block;
+    color: $white;
+
+    .title {
+      color: $white;
+      margin-bottom: 0.8em;
+      line-height: 1;
+    }
+
+    .subtitle {
+      margin-top: 0;
+      line-height: 1.3;
+      margin-bottom: 0.8em;
+      font-size: 1.2em;
+      font-weight: 400;
+    }
+
+    .button {
+      margin-left: 0;
+      display: inline-block;
+      padding: 20px;
+    }
+  }
+
+  @media only screen and (min-width: 40em) {
+    .image-background {
+      .line-1 {
+        position: absolute;
+        display: block;
+        width: 100%;
+        height: 100.1%;
+      }
+    }
+
+    .content {
+      color: $dark;
+      max-width: 43%;
+
+      .title {
+        color: $dark;
+      }
+    }
+  }
+
+  @media only screen and (min-width: 1200px) {
+    .content {
+      max-width: 500px;
+    }
+  }
+}

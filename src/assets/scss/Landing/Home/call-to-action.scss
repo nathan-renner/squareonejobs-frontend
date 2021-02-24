@@ -1,0 +1,50 @@
+.section-call-to-action {
+  padding: 0;
+  cursor: pointer;
+  box-shadow: inset 0px 0px 40px 20px rgba(0, 0, 0, 0.15);
+  transition: all 150ms ease-in-out;
+
+  .content {
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .title {
+      transition: all 150ms ease-in-out;
+      color: $white;
+      font-size: 32px;
+      text-align: center;
+      padding-left: 10px;
+      padding-right: 10px;
+      opacity: 1;
+    }
+    .cta-button {
+      display: inline-block;
+      transition: all 150ms ease-in-out;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      padding-right: 20px;
+      padding-left: 20px;
+      background-color: $white;
+      font-weight: 800;
+      border-radius: 30px;
+      color: $primary;
+    }
+  }
+
+  &:hover,
+  &:focus {
+    box-shadow: none;
+    .title {
+      transform: translateY(-20px) scale(0.5);
+      opacity: 0;
+    }
+    .cta-button {
+      transform: translateY(-38px);
+      background-color: transparent;
+      color: $white;
+      font-size: 36px;
+    }
+  }
+}
