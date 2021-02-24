@@ -2,11 +2,29 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 
 import Button from "../../Button";
+import bg1 from "../../../assets/images/landing-bg-1.jpg";
+import bg2 from "../../../assets/images/landing-bg-2.jpg";
+import bg3 from "../../../assets/images/landing-bg-3.jpg";
 
 function Header() {
   return (
     <header>
       <div className="image-background">
+        <img
+          className="bg-1"
+          src={bg1}
+          alt="man standing looking off camera with city in background"
+        />
+        <img
+          className="bg-2"
+          src={bg2}
+          alt="man standing looking off camera with city in background"
+        />
+        <img
+          className="bg-3"
+          src={bg3}
+          alt="man standing looking off camera with city in background"
+        />
         <svg
           className="line-1"
           preserveAspectRatio="none"
