@@ -28,7 +28,7 @@ function TextInput({
           />
         )}
         <textarea
-          {...{ placeholder, onChange }}
+          {...{ placeholder, onChange, type }}
           className="textarea"
           style={textStyle}
           {...otherprops}
@@ -55,7 +55,7 @@ function TextInput({
           />
         )}
         <input
-          {...{ placeholder, onChange }}
+          {...{ placeholder, onChange, type }}
           style={textStyle}
           {...otherprops}
         />

@@ -26,12 +26,13 @@ function RegisterSlide2({ slideWidth, error, onBack }) {
           iconColor={"medium"}
           onClick={onBack}
           className="icon-back"
+          style={{ left: `${slideWidth}px` }}
         />
-        <h2 className="auth-title">
+        <h3 className="auth-title">
           Hi, {values["name"].substr(0, values["name"].indexOf(" "))}!
           <br />
           Register your email
-        </h2>
+        </h3>
         <FormField name="email" LeftIcon={MdEmail} placeholder="Email" />
         <FormField
           type={passVisible ? "text" : "password"}

@@ -6,7 +6,7 @@ function RegisterSlide3({ slideWidth, onResendLink, error }) {
   return (
     <div className="slide" style={{ width: slideWidth }}>
       <div className="content">
-        <h2 className="auth-title">Verify Email</h2>
+        <h3 className="auth-title">Verify Email</h3>
         <p className="auth-description">
           We've sent you an email. Follow the instructions to verify your
           account.

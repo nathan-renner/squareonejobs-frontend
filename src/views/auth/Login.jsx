@@ -61,7 +61,7 @@ function Login() {
               onClick={() => history.goBack()}
               className="icon-back"
             />
-            <h2 className="auth-title">Login</h2>
+            <h3 className="auth-title">Login</h3>
             <FormField name="email" LeftIcon={MdEmail} placeholder="Email" />
             <FormField
               type={passVisible ? "text" : "password"}

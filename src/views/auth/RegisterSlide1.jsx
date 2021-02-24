@@ -19,7 +19,7 @@ function RegisterSlide1({ slideWidth, onNext, onBack }) {
           onClick={onBack}
           className="icon-back"
         />
-        <h2 className="auth-title">What's your full name?</h2>
+        <h3 className="auth-title">What's your full name?</h3>
         <FormField
           name="name"
           LeftIcon={MdPerson}

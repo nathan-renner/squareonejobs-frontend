@@ -7,6 +7,7 @@ function Icon({
   iconColor = "white",
   onClick,
   className,
+  style,
 }) {
   return (
     <div
@@ -18,6 +19,7 @@ function Icon({
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        ...style,
       }}
       {...{ onClick }}
     >

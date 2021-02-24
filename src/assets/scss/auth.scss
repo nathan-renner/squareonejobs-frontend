@@ -62,7 +62,7 @@
               flex-direction: column;
               justify-content: space-between;
               align-items: center;
-              height: 50%;
+              //height: 50%;
 
               input {
                 margin-top: 5px;
@@ -94,6 +94,7 @@
               .auth-description {
                 text-align: center;
                 max-width: 400px;
+                font-size: 0.9em;
               }
 
               .help-text {
