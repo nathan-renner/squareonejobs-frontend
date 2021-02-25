@@ -1,0 +1,39 @@
+.upcoming-jobs-card {
+  .job-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+
+    img {
+      height: 40px;
+      width: 40px;
+    }
+
+    h3 {
+      margin: 0;
+      font-size: 1em;
+      font-weight: 600;
+    }
+
+    p {
+      @include themed() {
+        color: t("secondaryText");
+      }
+      font-size: 0.8em;
+
+      font-weight: 600;
+      margin-bottom: 0;
+      line-height: 1.1;
+    }
+
+    .time {
+      width: 120px;
+    }
+  }
+}
