@@ -3,28 +3,28 @@
     background-color: t("foreground");
   }
   position: fixed;
-  flex: 1;
-  flex-direction: column;
-  height: 100px;
+  height: 60px;
   width: 100%;
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+  padding-inline: 1em;
+  box-sizing: border-box;
 
   .navbar {
     height: 100%;
-    padding-inline: 30px;
+    width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    gap: 1em;
 
     .logo {
-      height: 40px;
-      width: 40px;
+      height: 30px;
+      width: 30px;
       display: block;
     }
 
     .routes-container {
-      margin-inline: 20px;
       height: 100%;
       display: flex;
       flex-direction: row;
@@ -38,20 +38,19 @@
 
       .navigation-item {
         .border-container {
-          width: 80px;
-          height: 80px;
-          padding-top: 10px;
+          width: 60px;
+          height: 60px;
+          padding-top: 15px;
 
           .nav-icon {
-            height: 35px;
-            width: 35px;
+            height: 25px;
+            width: 25px;
             @include themed() {
               fill: t("medium");
             }
           }
 
           .nav-text {
-            margin-top: 5px;
             margin-bottom: 0px;
             font-size: 0.7em !important;
             line-height: 0;
@@ -87,121 +86,33 @@
       }
     }
 
-    .stats-container {
-      display: flex;
-      flex-direction: row;
-
-      .stat-container {
-        position: relative;
-
-        .stat {
-          margin-right: 15px;
-          margin-left: 15px;
-          display: flex;
-          flex-direction: row;
-          align-items: center;
-          justify-content: space-between;
-          cursor: pointer;
-          text-align: center;
-
-          .stat-text {
-            margin-left: 10px;
-            font-weight: 800;
-            line-height: 0;
-            margin-bottom: 0;
-            font-size: 1.2em !important;
-          }
-
-          &:hover + .stat-tooltip {
-            display: flex;
-          }
-        }
-
-        .stat-tooltip {
-          @include themed() {
-            background-color: t("foreground");
-          }
-
-          position: absolute;
-          top: 100%;
-          left: -120px;
-          margin-top: 30px;
-          border-radius: 10px;
-          width: 300px;
-          z-index: 1;
-          box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-          cursor: auto;
-
-          display: none;
-          flex-direction: column;
-          align-items: center;
-
-          transition: display ease-out 200ms;
-
-          &::before {
-            @include themed() {
-              background-color: t("foreground");
-            }
-            content: "";
-            position: absolute;
-            margin-top: -10px;
-            border-top-left-radius: 4px;
-            height: 30px;
-            width: 30px;
-            transform: rotate(45deg);
-            z-index: -1;
-          }
-
-          .stat-title {
-            line-height: 0;
-            margin-top: 35px;
-            margin-bottom: 0;
-          }
-
-          .stat-description {
-            @include themed() {
-              color: t("secondaryText");
-            }
-            text-align: center;
-            font-weight: 500;
-            font-size: 15px;
-            width: 260px;
-          }
-
-          .stat-num-container {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            padding-top: 0px;
-            margin-bottom: 20px;
-
-            .stat-number {
-              font-weight: 800;
-              font-size: 48px;
-              margin-left: 10px;
-              margin-top: 0px;
-              margin-bottom: 0px;
-            }
-          }
-        }
-      }
+    .search {
+      flex-basis: 100%;
     }
 
-    .right-container {
+    .stat {
       display: flex;
       flex-direction: row;
       align-items: center;
+      cursor: pointer;
 
-      .nav-item {
-        //margin-inline: 10px;
-        cursor: pointer;
+      .stat-text {
+        margin-left: 5px;
+        font-weight: 800;
+        line-height: 0;
+        margin-bottom: 0;
+        font-size: 1em !important;
       }
+    }
+    .nav-item {
+      //margin-inline: 10px;
+      cursor: pointer;
+    }
 
-      .avatar {
-        height: 50px;
-        width: 50px;
-        margin-right: 0px;
-      }
+    .avatar {
+      height: 40px;
+      width: 40px;
+      margin-right: 0px;
     }
   }
 }

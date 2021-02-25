@@ -73,80 +73,41 @@ const Navbar = () => {
           </NavLink>
         </div>
         <div className="routes-container">{renderRoutes()}</div>
-        <TextInput
-          LeftIcon={MdSearch}
-          leftIconSize={25}
-          textStyle={{ fontSize: 18 }}
-          containerStyle={{
-            height: 50,
-            borderRadius: 25,
-          }}
-          placeholder="Search jobs"
-        />
-        <div className="right-container">
-          <div className="stats-container">
-            <div className="stat-container">
-              <div className="stat">
-                <BriefcaseIcon height={30} width={30} />
-                <h2 className="stat-text text-primary">2</h2>
-              </div>
-              <div className="stat-tooltip">
-                <h3 className="stat-title">Completed Jobs</h3>
-                <p className="stat-description">
-                  Complete day jobs to build your portfolio and earn points
-                </p>
-                <div className="stat-num-container">
-                  <BriefcaseIcon height={80} width={80} />
-                  <h1 className="stat-number text-primary">2</h1>
-                </div>
-              </div>
-            </div>
-            <div className="stat-container">
-              <div className="stat">
-                <PencilIcon height={30} width={30} />
-                <h2 className="stat-text text-purple">2</h2>
-              </div>
-              <div className="stat-tooltip">
-                <h3 className="stat-title">Applications</h3>
-                <p className="stat-description">
-                  Fill out applications to increase your chance at full
-                  employment{" "}
-                </p>
-                <div className="stat-num-container">
-                  <PencilIcon height={80} width={80} />
-                  <h1 className="stat-number text-purple">2</h1>
-                </div>
-              </div>
-            </div>
-            <div className="stat-container">
-              <div className="stat">
-                <ClipboardIcon height={30} width={30} />
-                <h2 className="stat-text text-secondary">2</h2>
-              </div>
-              <div className="stat-tooltip">
-                <h3 className="stat-title">References</h3>
-                <p className="stat-description">
-                  Build your portfolio with good employer reviews
-                </p>
-                <div className="stat-num-container">
-                  <ClipboardIcon height={80} width={80} />
-                  <h1 className="stat-number text-secondary">2</h1>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="nav-item">
-            <StreakIcon height={30} width={30} />
-          </div>
-          <div className="nav-item">
-            <NotificationsIcon height={30} width={30} />
-          </div>
-          <img
-            className="nav-item avatar"
-            src={avatar ? avatar : defaultAvatar}
-            alt="Avatar"
+        <div className="search">
+          <TextInput
+            LeftIcon={MdSearch}
+            leftIconSize={18}
+            textStyle={{ fontSize: 15 }}
+            containerStyle={{
+              height: 40,
+              borderRadius: 20,
+            }}
+            placeholder="Search jobs"
           />
         </div>
+        <div className="stat">
+          <BriefcaseIcon height={25} width={25} />
+          <h2 className="stat-text text-primary">2</h2>
+        </div>
+        <div className="stat">
+          <PencilIcon height={25} width={25} />
+          <h2 className="stat-text text-purple">2</h2>
+        </div>
+        <div className="stat">
+          <ClipboardIcon height={25} width={25} />
+          <h2 className="stat-text text-secondary">2</h2>
+        </div>
+        <div className="nav-item">
+          <StreakIcon height={25} width={25} />
+        </div>
+        <div className="nav-item">
+          <NotificationsIcon height={25} width={25} />
+        </div>
+        <img
+          className="nav-item avatar"
+          src={avatar ? avatar : defaultAvatar}
+          alt="Avatar"
+        />
       </div>
     </div>
   );
