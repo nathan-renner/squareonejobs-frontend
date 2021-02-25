@@ -98,10 +98,10 @@ const Navbar = () => {
           <h2 className="stat-text text-secondary">2</h2>
         </div>
         <div className="nav-item">
-          <StreakIcon height={20} width={25} className="nav-icon" />
+          <StreakIcon height={25} width={30} className="nav-icon" />
         </div>
         <div className="nav-item">
-          <NotificationsIcon height={20} width={20} className="nav-icon" />
+          <NotificationsIcon height={25} width={25} className="nav-icon" />
         </div>
         <img
           className="nav-item avatar"

@@ -2,6 +2,7 @@ import React from "react";
 import Card from "./../../Card";
 
 import { MdDone } from "react-icons/md";
+import Badge from "./../../Badge";
 
 const tasks = [
   {
@@ -30,9 +31,7 @@ function Tasks(props) {
             {task.completed ? <MdDone size={30} color={"#51cc8e"} /> : null}
           </div>
           <p>{task.task}</p>
-          <div className="badge">
-            <p>+ {task.points}</p>
-          </div>
+          <Badge text={`+ ${task.points}`} />
         </div>
       );
     });

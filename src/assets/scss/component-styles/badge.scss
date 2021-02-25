@@ -1,0 +1,15 @@
+.badge {
+  white-space: pre;
+  flex-basis: 0;
+  font-size: 0.75em;
+  font-weight: 700;
+  background-color: $primary;
+  border-radius: 15px;
+  padding-inline: 5px;
+  padding-block: 3px;
+
+  p {
+    color: $white !important;
+    margin-bottom: 0;
+  }
+}
