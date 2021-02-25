@@ -1,0 +1,32 @@
+.progress-card {
+  .progress-bar {
+    margin-block: 0.8em;
+  }
+  .levels {
+    margin-top: 0.8em;
+    display: flex;
+    flex-direction: row;
+    gap: 0.5em;
+    justify-content: space-between;
+    align-items: center;
+
+    .level-container {
+      height: 45px;
+      width: 45px;
+      @include themed() {
+        background-color: t("background");
+        color: t("medium");
+      }
+      border-radius: 8px;
+      font-weight: 800;
+      font-size: 1.1em;
+      display: grid;
+      place-items: center;
+
+      &.active {
+        color: $white;
+        background-color: $secondary;
+      }
+    }
+  }
+}

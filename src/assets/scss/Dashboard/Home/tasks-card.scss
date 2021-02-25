@@ -1,0 +1,39 @@
+.tasks-card {
+  .task {
+    margin-bottom: 0.5em;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+
+    .box {
+      @include themed() {
+        background-color: t("background");
+      }
+      height: 1.8em;
+      width: 1.8em;
+      border-radius: 10px;
+      //flex-basis: 25px;
+      flex-shrink: 0;
+    }
+
+    p {
+      margin-bottom: 0;
+      font-size: 0.9em;
+      flex-grow: 1;
+    }
+
+    .badge {
+      white-space: pre;
+      flex-basis: 0;
+      font-size: 0.75em;
+      font-weight: 700;
+      color: $white;
+      background-color: $primary;
+      border-radius: 15px;
+      padding-inline: 5px;
+      padding-block: 3px;
+    }
+  }
+}

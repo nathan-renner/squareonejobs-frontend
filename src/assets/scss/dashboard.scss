@@ -7,16 +7,26 @@
   z-index: 0;
 
   @import "./Dashboard/navbar.scss";
+  @import "./Dashboard/home.scss";
 
   .content-container {
-    flex: 1;
-    width: 100%;
-    padding-top: 70px;
-    width: #{"min(90%, 80rem)"};
+    padding-top: 5em;
+    width: #{"min(90%, 70rem)"};
     margin-inline: auto;
 
-    .content {
-      padding: 20px;
+    .content-split {
+      display: flex;
+      flex-direction: row;
+      gap: 3em;
+      align-items: flex-start;
+
+      * {
+        width: 100%;
+      }
+
+      * + * {
+        max-width: 20em;
+      }
     }
   }
 }
