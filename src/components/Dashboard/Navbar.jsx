@@ -9,6 +9,7 @@ import StreakIcon from "./../icons/StreakIcon";
 import defaultAvatar from "../../assets/images/default-avatar.png";
 import Logo from "../../assets/images/logo.png";
 import TextInput from "./../TextInput";
+import Icon from "./../Icon";
 import {
   MdHome,
   MdCreditCard,
@@ -42,6 +43,7 @@ const routes = [
 
 const Navbar = () => {
   const [avatar] = useState(null);
+  const [profileHover, setProfileHover] = useState(true);
   const { pathname } = useLocation();
 
   const renderRoutes = () => {
@@ -107,7 +109,26 @@ const Navbar = () => {
           className="nav-item avatar"
           src={avatar ? avatar : defaultAvatar}
           alt="Avatar"
+          onMouseEnter={() => setProfileHover(true)}
+          onMouseLeave={() => setProfileHover(false)}
         />
+      </div>
+      <div
+        className={`profile-dropdown ${profileHover ? "active" : null}`}
+        onMouseEnter={() => setProfileHover(true)}
+        onMouseLeave={() => setProfileHover(false)}
+      >
+        <div className="user-details">
+          <img src={avatar ? avatar : defaultAvatar} alt="avatar" />
+          <h3>Bob Smith</h3>
+          <p>bsmith@domain.com</p>
+        </div>
+        <div className="routes">
+          <NavLink to="/">
+            <Icon Icon={MdHome} size={30} />
+            <p>Logout</p>
+          </NavLink>
+        </div>
       </div>
     </div>
   );
