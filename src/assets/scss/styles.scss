@@ -24,7 +24,7 @@
 //   min-height: 100vh;
 // }
 
-.outline {
+.border {
   outline: 1px solid black;
 }
 
@@ -144,3 +144,4 @@
 @import "./component-styles/input.scss";
 @import "./component-styles/forms.scss";
 @import "./component-styles/badge.scss";
+@import "./component-styles/multi-button.scss";

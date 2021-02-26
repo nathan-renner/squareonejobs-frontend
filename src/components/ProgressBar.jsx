@@ -9,7 +9,7 @@ function ProgressBar({
   const container = {
     height,
     width,
-    border: `1.4px solid ${color}`,
+    border: `2px solid ${color}`,
     borderRadius: height / 2,
     overflow: "hidden",
   };
