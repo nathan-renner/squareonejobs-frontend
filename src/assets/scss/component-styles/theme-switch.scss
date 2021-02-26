@@ -1,6 +1,6 @@
 .switch-container {
   @include themed() {
-    background-color: t("foreground");
+    background-color: t("background");
   }
 
   //position: absolute;
@@ -17,7 +17,7 @@
 
 .switch-toggle {
   @include themed() {
-    background-color: t("background");
+    background-color: t("foreground");
   }
 
   height: 35px;

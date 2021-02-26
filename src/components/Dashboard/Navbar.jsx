@@ -16,6 +16,7 @@ import {
   MdLocalShipping,
   MdPerson,
   MdSearch,
+  MdSettings,
 } from "react-icons/md";
 
 const routes = [
@@ -43,7 +44,7 @@ const routes = [
 
 const Navbar = () => {
   const [avatar] = useState(null);
-  const [profileHover, setProfileHover] = useState(true);
+  const [profileHover, setProfileHover] = useState(false);
   const { pathname } = useLocation();
 
   const renderRoutes = () => {
@@ -125,7 +126,15 @@ const Navbar = () => {
         </div>
         <div className="routes">
           <NavLink to="/">
-            <Icon Icon={MdHome} size={30} />
+            <Icon Icon={MdPerson} size={25} color="secondary" />
+            <p>Account</p>
+          </NavLink>
+          <NavLink to="/settings">
+            <Icon Icon={MdSettings} size={25} />
+            <p>Settings</p>
+          </NavLink>
+          <NavLink to="/">
+            <Icon Icon={MdHome} size={25} color="danger" />
             <p>Logout</p>
           </NavLink>
         </div>

@@ -1,0 +1,26 @@
+.settings {
+  max-width: 50em;
+  margin-inline: auto;
+
+  h2 {
+    margin-bottom: 2em;
+    font-size: 1.4em !important;
+  }
+
+  h3 {
+    font-size: 1em;
+  }
+
+  .setting {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    p {
+      font-size: 0.9em;
+      font-weight: 500;
+      margin-bottom: 0;
+    }
+  }
+}

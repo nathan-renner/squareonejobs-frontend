@@ -5,10 +5,12 @@
   align-items: center;
 
   .mbtn {
+    @include themed() {
+      background-color: t("background");
+      color: t("medium");
+    }
     flex-basis: 0;
     white-space: pre;
-    background-color: $light;
-    color: $light-medium;
     font-weight: 600;
     text-align: center;
     font-size: 0.9em;
