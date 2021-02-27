@@ -9,6 +9,10 @@
   border-radius: 20px;
   margin-block: 20px;
 
+  &.card-simple {
+    background-color: transparent;
+  }
+
   h2 {
     font-size: 1.1em !important;
     @include themed() {
