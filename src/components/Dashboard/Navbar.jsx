@@ -9,15 +9,15 @@ import StreakIcon from "./../icons/StreakIcon";
 import defaultAvatar from "../../assets/images/default-avatar.png";
 import Logo from "../../assets/images/logo.png";
 import TextInput from "./../TextInput";
-import Icon from "./../Icon";
+import ProfileDropdown from "./Navbar/ProfileDropdown";
 import {
   MdHome,
   MdCreditCard,
   MdLocalShipping,
   MdPerson,
   MdSearch,
-  MdSettings,
 } from "react-icons/md";
+import StreakDropdown from "./Navbar/StreakDropdown";
 
 const routes = [
   {
@@ -44,7 +44,9 @@ const routes = [
 
 const Navbar = () => {
   const [avatar] = useState(null);
+  const [streak] = useState(3);
   const [profileHover, setProfileHover] = useState(false);
+  const [streakHover, setStreakHover] = useState(false);
   const { pathname } = useLocation();
 
   const renderRoutes = () => {
@@ -68,78 +70,66 @@ const Navbar = () => {
   };
 
   return (
-    <div className="navbar-container">
-      <div className="navbar">
-        <div>
-          <NavLink to="/" className="logo">
-            <img src={Logo} alt="SquareOneJobs logo" />
-          </NavLink>
-        </div>
-        <div className="routes-container">{renderRoutes()}</div>
-        <div className="search">
-          <TextInput
-            LeftIcon={MdSearch}
-            leftIconSize={18}
-            textStyle={{ fontSize: 15 }}
-            containerStyle={{
-              height: 40,
-              borderRadius: 20,
-            }}
-            placeholder="Search jobs"
+    <>
+      <div
+        className={`overlay-bg ${
+          profileHover || streakHover ? "active" : null
+        }`}
+      />
+      <div className="navbar-container">
+        <div className="navbar">
+          <div>
+            <NavLink to="/" className="logo">
+              <img src={Logo} alt="SquareOneJobs logo" />
+            </NavLink>
+          </div>
+          <div className="routes-container">{renderRoutes()}</div>
+          <div className="search">
+            <TextInput
+              LeftIcon={MdSearch}
+              leftIconSize={18}
+              textStyle={{ fontSize: 15 }}
+              containerStyle={{
+                height: 40,
+                borderRadius: 20,
+              }}
+              placeholder="Search jobs"
+            />
+          </div>
+          <div className="stat">
+            <BriefcaseIcon height={25} width={25} />
+            <h2 className="stat-text text-primary">2</h2>
+          </div>
+          <div className="stat">
+            <PencilIcon height={25} width={25} />
+            <h2 className="stat-text text-purple">2</h2>
+          </div>
+          <div className="stat">
+            <ClipboardIcon height={25} width={25} />
+            <h2 className="stat-text text-secondary">2</h2>
+          </div>
+          <div
+            className="nav-item"
+            onMouseEnter={() => setStreakHover(true)}
+            onMouseLeave={() => setStreakHover(false)}
+          >
+            <StreakIcon height={25} width={30} />
+          </div>
+          <div className="nav-item">
+            <NotificationsIcon height={25} width={25} />
+          </div>
+          <img
+            className="nav-item avatar"
+            src={avatar ? avatar : defaultAvatar}
+            alt="Avatar"
+            onMouseEnter={() => setProfileHover(true)}
+            onMouseLeave={() => setProfileHover(false)}
           />
         </div>
-        <div className="stat">
-          <BriefcaseIcon height={25} width={25} />
-          <h2 className="stat-text text-primary">2</h2>
-        </div>
-        <div className="stat">
-          <PencilIcon height={25} width={25} />
-          <h2 className="stat-text text-purple">2</h2>
-        </div>
-        <div className="stat">
-          <ClipboardIcon height={25} width={25} />
-          <h2 className="stat-text text-secondary">2</h2>
-        </div>
-        <div className="nav-item">
-          <StreakIcon height={25} width={30} className="nav-icon" />
-        </div>
-        <div className="nav-item">
-          <NotificationsIcon height={25} width={25} className="nav-icon" />
-        </div>
-        <img
-          className="nav-item avatar"
-          src={avatar ? avatar : defaultAvatar}
-          alt="Avatar"
-          onMouseEnter={() => setProfileHover(true)}
-          onMouseLeave={() => setProfileHover(false)}
-        />
+        <ProfileDropdown {...{ profileHover, setProfileHover, avatar }} />
+        <StreakDropdown {...{ streakHover, setStreakHover, streak }} />
       </div>
-      <div
-        className={`profile-dropdown ${profileHover ? "active" : null}`}
-        onMouseEnter={() => setProfileHover(true)}
-        onMouseLeave={() => setProfileHover(false)}
-      >
-        <div className="user-details">
-          <img src={avatar ? avatar : defaultAvatar} alt="avatar" />
-          <h3>Bob Smith</h3>
-          <p>bsmith@domain.com</p>
-        </div>
-        <div className="routes">
-          <NavLink to="/">
-            <Icon Icon={MdPerson} size={25} color="secondary" />
-            <p>Account</p>
-          </NavLink>
-          <NavLink to="/settings">
-            <Icon Icon={MdSettings} size={25} />
-            <p>Settings</p>
-          </NavLink>
-          <NavLink to="/">
-            <Icon Icon={MdHome} size={25} color="danger" />
-            <p>Logout</p>
-          </NavLink>
-        </div>
-      </div>
-    </div>
+    </>
   );
 };
 

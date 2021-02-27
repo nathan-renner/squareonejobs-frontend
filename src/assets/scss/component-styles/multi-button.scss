@@ -18,6 +18,7 @@
     padding: 10px;
     transition: all 200ms ease-in-out;
     cursor: pointer;
+    user-select: none;
 
     &.first {
       border-top-left-radius: 20px;

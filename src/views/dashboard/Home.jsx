@@ -4,13 +4,13 @@ import ProgressCard from "./../../components/Dashboard/Home/ProgressCard";
 import TodaysJobCard from "./../../components/Dashboard/Home/TodaysJobCard";
 import Tasks from "./../../components/Dashboard/Home/Tasks";
 import UpcomingJobs from "./../../components/Dashboard/Home/UpcomingJobs";
-import RecommendedJobsCard from "./../../components/Dashboard/Home/RecommendedJobsCard";
+import JobsForYouCard from "./../../components/Dashboard/Home/JobsForYouCard";
 
 const Home = () => {
   return (
     <div className="content-split">
       <div>
-        <RecommendedJobsCard />
+        <JobsForYouCard />
       </div>
       <div>
         <ProgressCard />
