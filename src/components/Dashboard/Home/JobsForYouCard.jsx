@@ -69,7 +69,7 @@ function JobsForYouCard(props) {
   const [activeButton, setActiveButton] = useState(0);
 
   return (
-    <Card className="recommended-jobs-card">
+    <Card className="recommended-jobs-card" {...props}>
       <div className="header">
         <h2>Jobs for you</h2>
         <NavLink to="/">See more</NavLink>
@@ -84,7 +84,7 @@ function JobsForYouCard(props) {
       </div>
       <div className="jobs-container">
         {jobs.map((job) => (
-          <div className="job">
+          <div className="job" key={job._id}>
             <img src={job.companyLogo} alt="Logo" />
             <div className="details-container">
               <p>{moment(job.startDateTime).format("MM/DD/YYYY")}</p>

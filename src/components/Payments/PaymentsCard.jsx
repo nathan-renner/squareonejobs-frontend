@@ -4,9 +4,9 @@ import moment from "moment";
 
 import Card from "./../Card";
 
-function PaymentsCard({ payments }) {
+function PaymentsCard({ payments, ...otherProps }) {
   return (
-    <Card>
+    <Card {...otherProps}>
       <h2>Recent Payments</h2>
       {payments.map((payment) => (
         <div className="payment" key={payment._id}>

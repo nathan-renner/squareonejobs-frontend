@@ -38,7 +38,7 @@ function Tasks(props) {
   };
 
   return (
-    <Card className="tasks-card">
+    <Card className="tasks-card" {...props}>
       <h2>Tasks</h2>
       {renderTasks()}
     </Card>

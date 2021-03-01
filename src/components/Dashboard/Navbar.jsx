@@ -51,9 +51,8 @@ const Navbar = () => {
 
   const renderRoutes = () => {
     return routes.map(({ name, title, Icon }, index) => (
-      <NavLink to={name}>
+      <NavLink to={name} key={index}>
         <div
-          key={index}
           className={`navigation-item ${name === pathname ? "active" : null}`}
         >
           <div

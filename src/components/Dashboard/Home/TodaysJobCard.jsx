@@ -15,7 +15,7 @@ const listing = {
 
 function TodaysJobCard(props) {
   return (
-    <Card className="todays-job-card">
+    <Card className="todays-job-card" {...props}>
       <div className="header">
         <h2>Today's Job</h2>
         <p>{moment().format("MM/DD/YYYY")}</p>

@@ -72,8 +72,13 @@ const payments = [
 function Payments(props) {
   return (
     <div className="payments-page">
-      <HeaderCard />
-      <PaymentsCard payments={payments} />
+      <HeaderCard data-aos="fade-up" data-aos-once={true} />
+      <PaymentsCard
+        payments={payments}
+        data-aos="fade-up"
+        data-aos-once={true}
+        data-aos-delay="100"
+      />
     </div>
   );
 }

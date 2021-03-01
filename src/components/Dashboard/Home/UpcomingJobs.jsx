@@ -42,7 +42,7 @@ function UpcomingJobs(props) {
   };
 
   return (
-    <Card className="upcoming-jobs-card">
+    <Card className="upcoming-jobs-card" {...props}>
       <h2>Upcoming Jobs</h2>
       {renderJobs()}
     </Card>

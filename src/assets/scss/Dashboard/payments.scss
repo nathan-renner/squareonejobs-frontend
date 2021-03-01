@@ -1,7 +1,7 @@
 .payments-page {
   display: flex;
   flex-direction: row;
-  gap: 2em;
+  gap: 3em;
   max-width: 60em;
   margin-inline: auto;
 
@@ -26,15 +26,11 @@
       }
     }
     .account {
+      margin-top: 1em;
       display: flex;
       flex-direction: row;
       align-items: center;
       gap: 1em;
-      padding: 14px;
-      border-radius: 20px;
-      @include themed() {
-        background-color: t("foreground");
-      }
 
       p {
         margin-bottom: 0;

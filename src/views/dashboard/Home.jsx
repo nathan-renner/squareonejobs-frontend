@@ -10,13 +10,13 @@ const Home = () => {
   return (
     <div className="content-split">
       <div>
-        <JobsForYouCard />
+        <JobsForYouCard data-aos="fade-up" />
       </div>
       <div>
-        <ProgressCard />
-        <TodaysJobCard />
-        <Tasks />
-        <UpcomingJobs />
+        <ProgressCard data-aos="fade-up" />
+        <TodaysJobCard data-aos="fade-up" data-aos-delay="100" />
+        <Tasks data-aos="fade-up" data-aos-delay="200" />
+        <UpcomingJobs data-aos="fade-up" data-aos-delay="300" />
       </div>
     </div>
   );

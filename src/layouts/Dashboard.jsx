@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 import Home from "./../views/dashboard/Home";
 import Navbar from "./../components/Dashboard/Navbar";
@@ -9,6 +11,10 @@ import Portfolio from "./../views/dashboard/Portfolio";
 import Settings from "./../views/dashboard/Settings";
 
 const Dashboard = () => {
+  useEffect(() => {
+    AOS.init();
+    AOS.refresh();
+  }, []);
   return (
     <div className="dashboard">
       <Navbar />

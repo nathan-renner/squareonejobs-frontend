@@ -4,7 +4,7 @@ import ProgressBar from "./../../ProgressBar";
 
 function ProgressCard(props) {
   return (
-    <Card className="progress-card">
+    <Card className="progress-card" {...props}>
       <h2>Progress</h2>
       <ProgressBar completed={40} />
       <div className="levels">

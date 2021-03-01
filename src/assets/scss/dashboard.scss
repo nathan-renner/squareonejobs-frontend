@@ -19,8 +19,9 @@
   @import "./Dashboard/navbar.scss";
   @import "./Dashboard/home.scss";
   @import "./Dashboard/payments.scss";
+  @import "./Dashboard/portfolio.scss";
   @import "./Dashboard/settings.scss";
-
+  overflow: hidden;
   .content-container {
     padding-top: 5em;
     width: #{"min(90%, 70rem)"};
@@ -36,7 +37,7 @@
         width: 100%;
       }
 
-      * + * {
+      > * + * {
         max-width: 20em;
       }
     }

@@ -10,6 +10,7 @@ function MultiButton({
     <div className={`multi-button ${className}`}>
       {buttons.map((button, index) => (
         <div
+          key={index}
           onClick={() => onClick(index)}
           className={`mbtn ${
             index === 0 ? "first" : index === buttons.length - 1 ? "last" : null
