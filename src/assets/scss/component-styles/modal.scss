@@ -1,0 +1,43 @@
+.modal {
+  display: none;
+  position: fixed;
+  @include themed() {
+    background-color: rgba(t("background"), 0.8);
+    color: t("text");
+  }
+  z-index: 10000;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  place-items: center;
+  overflow: hidden;
+  backdrop-filter: blur(4px);
+
+  &.visible {
+    display: grid;
+  }
+
+  &.modal-sm {
+    .modal-content {
+      max-width: 25em;
+    }
+  }
+
+  .exit {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    @include themed() {
+      color: t("medium");
+    }
+    cursor: pointer;
+  }
+
+  .modal-content {
+    z-index: 1;
+    max-width: 40em;
+    height: auto;
+    box-shadow: 0px 0px 10px 10px rgba(black, 0.1);
+  }
+}

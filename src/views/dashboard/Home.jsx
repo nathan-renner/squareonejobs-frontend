@@ -10,13 +10,21 @@ const Home = () => {
   return (
     <div className="content-split">
       <div>
-        <JobsForYouCard data-aos="fade-up" />
+        <JobsForYouCard data-aos="fade-up" data-aos-once={true} />
       </div>
       <div>
-        <ProgressCard data-aos="fade-up" />
-        <TodaysJobCard data-aos="fade-up" data-aos-delay="100" />
-        <Tasks data-aos="fade-up" data-aos-delay="200" />
-        <UpcomingJobs data-aos="fade-up" data-aos-delay="300" />
+        <ProgressCard data-aos="fade-up" data-aos-once={true} />
+        <TodaysJobCard
+          data-aos="fade-up"
+          data-aos-delay="100"
+          data-aos-once={true}
+        />
+        <Tasks data-aos="fade-up" data-aos-delay="200" data-aos-once={true} />
+        <UpcomingJobs
+          data-aos="fade-up"
+          data-aos-delay="300"
+          data-aos-once={true}
+        />
       </div>
     </div>
   );

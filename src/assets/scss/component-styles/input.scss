@@ -44,3 +44,28 @@
     }
   }
 }
+.textarea-container {
+  @include themed() {
+    background-color: t("background");
+  }
+  height: 145px;
+  width: 100%;
+  border-radius: 25px;
+  padding-block: 10px;
+  padding-inline: 10px;
+
+  textarea {
+    @include themed() {
+      background-color: t("background");
+      color: t("text");
+    }
+    height: 100%;
+    outline: none;
+    border: none;
+    line-height: 1.5;
+    font-family: "Montserrat";
+    font-size: 1em;
+    width: 100%;
+    resize: none;
+  }
+}

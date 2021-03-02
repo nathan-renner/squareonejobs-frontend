@@ -3,19 +3,70 @@
   margin-inline: auto;
   margin-bottom: 4em;
 
-  .edit-icon {
+  h2 {
+    margin-bottom: 1.5em;
+  }
+
+  .remove-icon {
+    @include themed() {
+      color: t("medium");
+    }
+    cursor: pointer;
+    transition: transform 250ms ease-in-out;
+
+    &:hover,
+    &:active {
+      transform: scale(0.8);
+    }
+  }
+
+  .control-icons {
     position: absolute;
     top: 20px;
     right: 20px;
     @include themed() {
       color: t("medium");
     }
-    transition: transform 150ms ease-in-out;
-    cursor: pointer;
 
-    &:hover {
+    .control-icon {
+      margin-left: 5px;
+      transition: transform 150ms ease-in-out;
+      cursor: pointer;
+
+      &:hover {
+        color: $primary;
+        transform: scale(0.8);
+      }
+
+      &.active {
+        color: $primary;
+
+        &:hover {
+          transform: none;
+        }
+      }
+    }
+  }
+
+  .controls {
+    margin-top: 0.5em;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.5em;
+
+    > p {
+      font-size: 0.9em;
+      font-weight: 600;
+      margin-bottom: 0;
       color: $primary;
-      transform: translateY(-5px);
+      cursor: pointer;
+      transition: transform 250ms ease-in-out;
+
+      &:hover {
+        transform: scale(1.08);
+      }
     }
   }
 
@@ -65,12 +116,22 @@
   .experience-container {
     display: flex;
     flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
+    align-items: flex-start;
     margin-bottom: 1em;
+    gap: 1em;
 
     &:last-child {
       margin-bottom: 0;
+    }
+
+    .line {
+      align-self: flex-start;
+      width: 6px;
+      height: 2.5em;
+      background-color: $primary;
+      border-radius: 3px;
+      flex-shrink: 1;
+      flex-grow: 0;
     }
 
     h3 {
@@ -86,6 +147,9 @@
       font-size: 0.9em;
       font-weight: 500;
       margin-bottom: 0;
+    }
+    .left {
+      flex: 1;
     }
   }
 

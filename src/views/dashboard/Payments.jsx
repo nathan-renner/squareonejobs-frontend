@@ -1,7 +1,7 @@
 import React from "react";
 
-import PaymentsCard from "./../../components/Payments/PaymentsCard";
-import HeaderCard from "./../../components/Payments/HeaderCard";
+import PaymentsCard from "./../../components/Dashboard/Payments/PaymentsCard";
+import HeaderCard from "./../../components/Dashboard/Payments/HeaderCard";
 
 const payments = [
   {

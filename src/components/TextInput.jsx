@@ -18,7 +18,7 @@ function TextInput({
 }) {
   if (type === "textarea") {
     return (
-      <div className="input-container" style={containerStyle}>
+      <div className="textarea-container" style={containerStyle}>
         {LeftIcon && (
           <LeftIcon
             className="left-icon"

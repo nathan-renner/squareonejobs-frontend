@@ -4,6 +4,7 @@
   }
   min-height: 100vh;
   position: relative;
+  overflow: hidden;
   z-index: 0;
 
   h1,
@@ -21,7 +22,8 @@
   @import "./Dashboard/payments.scss";
   @import "./Dashboard/portfolio.scss";
   @import "./Dashboard/settings.scss";
-  overflow: hidden;
+  @import "./Dashboard/account.scss";
+
   .content-container {
     padding-top: 5em;
     width: #{"min(90%, 70rem)"};
