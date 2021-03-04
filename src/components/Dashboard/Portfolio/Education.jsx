@@ -6,45 +6,32 @@ import EditControls from "./EditControls";
 import Modal from "./../../Modal";
 import EducationAddModal from "./EducationAddModal";
 
-const portfolio = {
-  education: [
-    {
-      degree: "Degree asdfas dfa fasdf asdf  asfasd fas fsadf",
-      school: "School",
-      startDate: moment(),
-      endDate: moment().add(4, "years"),
-    },
-    {
-      degree: "Degree",
-      school: "School",
-      startDate: moment(),
-      endDate: moment().add(4, "years"),
-    },
-  ],
-};
-
-function Education({ ...otherProps }) {
+function Education({ portfolio, updateElement, ...otherProps }) {
   const [isEditing, setIsEditing] = useState(false);
-  const [isAdding, setIsAdding] = useState(false);
+  const [isEditingEducation, setIsEditingEducation] = useState(false);
+  const [educationToEdit, setEducationToEdit] = useState({
+    education: {
+      degree: "",
+      school: "",
+      startDate: undefined,
+      endDate: undefined,
+    },
+    index: undefined,
+  });
   //const [tempData, setTempData] = useState(portfolio.education);
 
-  // const handleSubmit = () => {
-  //   //updateElement("education", tempData);
-  //   setIsEditing(false);
-  // };
+  const handleSubmit = () => {
+    //updateElement("education", tempData);
+    setIsEditing(false);
+  };
 
-  // const handleAddEducation = (education) => {
-  //   setIsEditing(true);
-  //   const newEducationData = [...portfolio.education];
-  //   newEducationData.push(education);
-  //   //setTempData(newEducationData);
-  // };
+  const handleEditEducation = (education, index) => {
+    const newEducationData = [...portfolio.education];
 
-  // const handleUpdateEducation = (education, index) => {
-  //   const newEducationData = [...portfolio.education];
-  //   newEducationData.splice(index, 1, education);
-  //   // setTempData(newEducationData);
-  // };
+    if (index !== undefined) newEducationData.splice(index, 1, education);
+    else newEducationData.push(education);
+    updateElement("education", newEducationData);
+  };
 
   // const handleRemoveEducation = (index) => {
   //   // Alert("Delete", "Are you sure you want to delete this item?", [
@@ -62,11 +49,15 @@ function Education({ ...otherProps }) {
 
   return (
     <>
-      {isAdding && (
+      {isEditingEducation && (
         <Modal
           title="Add Education"
           Content={EducationAddModal}
-          componentProps={{ setIsAdding }}
+          componentProps={{
+            setIsEditingEducation,
+            handleEditEducation,
+            educationToEdit,
+          }}
         />
       )}
       <Card className="education" {...otherProps}>
@@ -74,7 +65,18 @@ function Education({ ...otherProps }) {
           <MdAdd
             size={25}
             className={"control-icon"}
-            onClick={() => setIsAdding(true)}
+            onClick={() => {
+              setEducationToEdit({
+                education: {
+                  degree: "",
+                  school: "",
+                  startDate: undefined,
+                  endDate: undefined,
+                },
+                index: undefined,
+              });
+              setIsEditingEducation(true);
+            }}
           />
           <MdModeEdit
             size={25}
@@ -84,7 +86,14 @@ function Education({ ...otherProps }) {
         </div>
         <h2>Education</h2>
         {portfolio.education.map((edu, index) => (
-          <div className="education-container" key={index}>
+          <div
+            className={`education-container ${isEditing ? "active" : null}`}
+            key={index}
+            onClick={() => {
+              setEducationToEdit({ education: edu, index });
+              setIsEditingEducation(true);
+            }}
+          >
             <div className="line" />
             <div className="left">
               <h3>{edu.degree}</h3>
@@ -100,7 +109,7 @@ function Education({ ...otherProps }) {
         ))}
         {isEditing && (
           <EditControls
-            onSubmit={() => true}
+            onSubmit={() => setIsEditing(false)}
             onCancel={() => {
               //setTempData(portfolio.education);
               setIsEditing(false);

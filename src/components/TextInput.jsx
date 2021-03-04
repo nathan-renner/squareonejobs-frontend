@@ -13,7 +13,7 @@ function TextInput({
   rightIconSize = 20,
   rightIconColor,
   rightIconOnClick,
-  onChange,
+
   ...otherprops
 }) {
   if (type === "textarea") {
@@ -28,7 +28,7 @@ function TextInput({
           />
         )}
         <textarea
-          {...{ placeholder, onChange, type }}
+          {...{ placeholder, type }}
           className="textarea"
           style={textStyle}
           {...otherprops}
@@ -54,11 +54,7 @@ function TextInput({
             onClick={leftIconOnClick}
           />
         )}
-        <input
-          {...{ placeholder, onChange, type }}
-          style={textStyle}
-          {...otherprops}
-        />
+        <input {...{ placeholder, type }} style={textStyle} {...otherprops} />
         {RightIcon && (
           <RightIcon
             className="right-icon"

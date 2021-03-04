@@ -14,7 +14,7 @@ function AboutModal({ updateElement, portfolio, setIsEditing }) {
   const [warningVisible, setWarningVisible] = useState(false);
 
   const handleSubmit = ({ about }) => {
-    //updateElement("about", about);
+    updateElement("about", about);
     setIsEditing(false);
   };
   const showWarning = () => {

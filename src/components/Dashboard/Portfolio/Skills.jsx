@@ -5,33 +5,53 @@ import EditControls from "./EditControls";
 import Modal from "./../../Modal";
 import SkillEditModal from "./SkillEditModal";
 
-const portfolio = {
-  skills: [
-    "skill1",
-    "skill2",
-    "skill3",
-    "skill4",
-    "skill5",
-    "skill6",
-    "skill7",
-  ],
-};
-
-function Skills({ skills, updateElement, ...otherProps }) {
+function Skills({ portfolio, updateElement, ...otherProps }) {
   const [opened, setOpened] = useState(false);
   //const [tempData, setTempData] = useState(portfolio.skills);
-  const [isEditing, setIsEditing] = useState(false);
-  const [isAdding, setIsAdding] = useState(false);
-  const [skillToEdit] = useState("");
+  const [isEditingSkills, setIsEditingSkills] = useState(false);
+  const [isEditingSkill, setIsEditingSkill] = useState(false);
+  const [skillToEdit, setSkillToEdit] = useState({
+    skill: "",
+    index: undefined,
+  });
+
+  // const handleSubmit = () => {
+  //   updateElement("skills", tempData);
+  //   setIsEditing(false);
+  // };
+
+  const handleEditSkill = ({ skill, index }) => {
+    setIsEditingSkill(false);
+    const temp = [...portfolio.skills];
+
+    if (index !== undefined) temp.splice(index, 1, skill);
+    else temp.push(skill);
+    updateElement("skills", temp);
+  };
+
+  const handleCancelEditSkill = () => {
+    setIsEditingSkill(false);
+  };
+
+  // const handleRemoveSkill = (index) => {
+  //   const newTempData = [...tempData];
+  //   newTempData.splice(index, 1);
+  //   setTempData(newTempData);
+  // };
 
   return (
     <>
-      {isAdding && (
+      {isEditingSkill && (
         <Modal
           className="modal-sm"
           title="Add a skill"
           Content={SkillEditModal}
-          componentProps={{ skillToEdit, updateElement, setIsAdding }}
+          componentProps={{
+            skillToEdit,
+            handleEditSkill,
+            handleCancelEditSkill,
+            setIsEditingSkill,
+          }}
         />
       )}
       <Card className="skills" {...otherProps}>
@@ -39,14 +59,17 @@ function Skills({ skills, updateElement, ...otherProps }) {
           <MdAdd
             size={25}
             className={"control-icon"}
-            onClick={() => setIsAdding(true)}
+            onClick={() => {
+              setIsEditingSkill(true);
+              setSkillToEdit({ skill: "", index: undefined });
+            }}
           />
           <MdModeEdit
             size={25}
-            className={`control-icon ${isEditing ? "active" : null}`}
+            className={`control-icon ${isEditingSkills ? "active" : null}`}
             onClick={() => {
               setOpened(true);
-              setIsEditing(true);
+              setIsEditingSkills(true);
             }}
           />
         </div>
@@ -66,16 +89,16 @@ function Skills({ skills, updateElement, ...otherProps }) {
             ))}
           </div>
         </div>
-        {isEditing && (
+        {isEditingSkills && (
           <EditControls
             onSubmit={() => true}
             onCancel={() => {
               //setTempData(portfolio.skills);
-              setIsEditing(false);
+              setIsEditingSkills(false);
             }}
           />
         )}
-        {!isEditing && (
+        {!isEditingSkills && (
           <>
             <div className="divider" />
             <p className="see-more" onClick={() => setOpened(!opened)}>

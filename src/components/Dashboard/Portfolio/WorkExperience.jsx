@@ -6,24 +6,7 @@ import EditControls from "./EditControls";
 import WorkExperienceAddModal from "./WorkExperienceAddModal";
 import Modal from "./../../Modal";
 
-const portfolio = {
-  workExperience: [
-    {
-      title: "Title",
-      company: "Company",
-      startDate: moment(),
-      endDate: moment().add(4, "years"),
-    },
-    {
-      title: "Title",
-      company: "Company",
-      startDate: moment(),
-      endDate: moment().add(4, "years"),
-    },
-  ],
-};
-
-function WorkExperience({ ...otherProps }) {
+function WorkExperience({ portfolio, ...otherProps }) {
   const [isEditing, setIsEditing] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
   //const [tempData, setTempData] = useState(portfolio.workExperience);

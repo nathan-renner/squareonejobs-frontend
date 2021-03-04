@@ -13,19 +13,15 @@ const schema = Yup.object().shape({
 });
 
 function EducationAddModal({
-  setIsAdding,
-  education = {
-    degree: "",
-    school: "",
-    startDate: undefined,
-    endDate: undefined,
-  },
+  setIsEditingEducation,
+  handleEditEducation,
+  educationToEdit,
 }) {
   const [warningVisible, setWarningVisible] = useState(false);
 
-  const handleSubmit = ({ about }) => {
-    //updateElement("about", about);
-    setIsAdding(false);
+  const handleSubmit = (education) => {
+    handleEditEducation(education, educationToEdit.index);
+    setIsEditingEducation(false);
   };
   const showWarning = () => {
     setWarningVisible(true);
@@ -35,7 +31,7 @@ function EducationAddModal({
   };
   const onDiscard = () => {
     setWarningVisible(false);
-    setIsAdding(false);
+    setIsEditingEducation(false);
   };
 
   return (
@@ -49,7 +45,7 @@ function EducationAddModal({
         onSubmit={onDiscard}
       />
       <Form
-        initialValues={education}
+        initialValues={educationToEdit.education}
         onSubmit={handleSubmit}
         validationSchema={schema}
       >

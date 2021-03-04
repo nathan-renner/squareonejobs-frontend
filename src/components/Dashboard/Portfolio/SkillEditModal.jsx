@@ -10,13 +10,17 @@ const schema = Yup.object().shape({
   skill: Yup.string().required().min(1).max(32).label("Skill"),
 });
 
-function SkillEditModal({ updateElement, skill = "", setIsAdding }) {
-  const [temp, setTemp] = useState(skill);
+function SkillEditModal({
+  handleEditSkill,
+  handleCancelEditSkill,
+  skillToEdit,
+  setIsEditingSkill,
+}) {
   const [warningVisible, setWarningVisible] = useState(false);
 
-  const handleSubmit = ({ about }) => {
-    //updateElement("about", about);
-    setIsAdding(false);
+  const handleSubmit = ({ skill }) => {
+    handleEditSkill({ skill: skill, index: skillToEdit.index });
+    setIsEditingSkill(false);
   };
   const showWarning = () => {
     setWarningVisible(true);
@@ -25,9 +29,8 @@ function SkillEditModal({ updateElement, skill = "", setIsAdding }) {
     setWarningVisible(false);
   };
   const onDiscard = () => {
-    setTemp("");
     setWarningVisible(false);
-    setIsAdding(false);
+    handleCancelEditSkill();
   };
 
   return (
@@ -41,7 +44,7 @@ function SkillEditModal({ updateElement, skill = "", setIsAdding }) {
         onSubmit={onDiscard}
       />
       <Form
-        initialValues={{ skill: temp }}
+        initialValues={{ skill: skillToEdit.skill }}
         onSubmit={handleSubmit}
         validationSchema={schema}
       >
