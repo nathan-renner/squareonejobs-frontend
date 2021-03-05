@@ -1,3 +1,74 @@
 .my-jobs {
-  max-width: 70em;
+  max-width: 60em;
+  margin-inline: auto;
+
+  .header {
+    margin-bottom: 2em;
+  }
+
+  .body {
+    display: flex;
+    flex-direction: row;
+    gap: 3em;
+
+    .sidebar {
+      min-width: 12em;
+      display: flex;
+      flex-direction: column;
+      gap: 0.2em;
+
+      .route {
+        padding: 10px;
+        border-radius: 10px;
+        text-decoration: none;
+        font-weight: 600;
+        @include themed() {
+          color: t("text");
+        }
+
+        &.active {
+          background-color: $primary;
+          color: $white;
+
+          &:hover {
+            background-color: $primary !important;
+            color: $white !important;
+          }
+        }
+
+        &:hover {
+          @include themed() {
+            background-color: t("background");
+            filter: brightness(95%);
+          }
+        }
+      }
+    }
+
+    .my-jobs-content {
+      width: 100%;
+
+      h2 {
+        font-size: 1.3em !important;
+      }
+      .section-header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        a {
+          text-decoration: none;
+          @include themed() {
+            color: t("medium");
+          }
+          font-size: 0.8em;
+          font-weight: 600;
+          margin-bottom: 0;
+        }
+      }
+
+      .card {
+        height: auto;
+      }
+    }
+  }
 }
