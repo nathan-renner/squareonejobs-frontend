@@ -10,6 +10,7 @@ import Payments from "./../views/dashboard/Payments";
 import Portfolio from "./../views/dashboard/Portfolio";
 import Settings from "./../views/dashboard/Settings";
 import Account from "./../views/dashboard/Account";
+import Listing from "./../views/dashboard/Listing";
 
 const Dashboard = () => {
   useEffect(() => {
@@ -20,6 +21,7 @@ const Dashboard = () => {
       <Navbar />
       <div className="content-container">
         <Switch>
+          <Route path={`/listing/:id`} component={Listing} />
           <Route path={`/account`} component={Account} />
           <Route path={`/settings`} component={Settings} />
           <Route path={`/portfolio`} component={Portfolio} />

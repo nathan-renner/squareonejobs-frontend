@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { MdModeEdit, MdExpandLess, MdExpandMore, MdAdd } from "react-icons/md";
 import Card from "./../../Card";
-import EditControls from "./EditControls";
 import Modal from "./../../Modal";
 import SkillEditModal from "./SkillEditModal";
 import SkillsModal from "./SkillsModal";

@@ -1,0 +1,71 @@
+.listing {
+  max-width: 40em;
+  margin: 20px auto;
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  @include themed() {
+    //background-color: t("foreground");
+  }
+
+  .map {
+    width: 100%;
+  }
+
+  .content {
+    padding: 20px;
+    @include themed() {
+      background-color: t("foreground");
+    }
+    .header {
+      display: flex;
+      flex-direction: row;
+      gap: 1em;
+      justify-content: space-between;
+      margin-bottom: 1.5em;
+
+      .left {
+        flex: 1;
+        display: flex;
+        gap: 1em;
+        align-items: center;
+
+        .logo {
+          height: 80px;
+          width: 80px;
+        }
+        h2 {
+          font-size: 1.4em !important;
+          margin-bottom: 0;
+        }
+        p {
+          @include themed() {
+            color: t("secondaryText");
+          }
+          font-size: 0.9em;
+          font-weight: 500;
+          margin-bottom: 0;
+        }
+      }
+    }
+    .detail {
+      display: flex;
+      flex-direction: row;
+      gap: 0.5em;
+      margin-block: 0.5em;
+
+      :first-child {
+        color: $secondary;
+      }
+      p {
+        font-weight: 500;
+      }
+    }
+
+    h3 {
+      font-size: 1.1em !important;
+      margin-top: 1.5em;
+      margin-bottom: 0.5em;
+    }
+  }
+}

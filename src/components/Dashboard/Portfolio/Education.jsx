@@ -28,7 +28,6 @@ function Education({ portfolio, updateElement, ...otherProps }) {
     },
     index: undefined,
   });
-  const [length] = useState(portfolio ? portfolio.education.length : 0);
   //const [tempData, setTempData] = useState(portfolio.education);
 
   const getItemStyle = (isDragging, draggableStyle) => ({
@@ -39,10 +38,10 @@ function Education({ portfolio, updateElement, ...otherProps }) {
 
   const getListStyle = (isDraggingOver) => ({});
 
-  const handleSubmit = () => {
-    //updateElement("education", tempData);
-    setIsEditing(false);
-  };
+  // const handleSubmit = () => {
+  //   //updateElement("education", tempData);
+  //   setIsEditing(false);
+  // };
 
   const handleEditEducation = (education, index) => {
     const newEducationData = [...portfolio.education];
