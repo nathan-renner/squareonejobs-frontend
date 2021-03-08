@@ -24,10 +24,10 @@ function Navbar({ className }) {
 
   const toggleDrawer = () => {
     if (!drawerOpened) {
-      hamburgerRef.current.playSegments([0, 25], true);
+      hamburgerRef.current.playSegments([10, 60], true);
       setDrawerOpened(true);
     } else {
-      hamburgerRef.current.playSegments([25, 50], true);
+      hamburgerRef.current.playSegments([85, 140], true);
       setDrawerOpened(false);
     }
   };

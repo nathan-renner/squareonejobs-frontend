@@ -4,6 +4,7 @@ import Card from "./../../Card";
 import EditControls from "./EditControls";
 import Modal from "./../../Modal";
 import SkillEditModal from "./SkillEditModal";
+import SkillsModal from "./SkillsModal";
 
 function Skills({ portfolio, updateElement, ...otherProps }) {
   const [opened, setOpened] = useState(false);
@@ -54,6 +55,18 @@ function Skills({ portfolio, updateElement, ...otherProps }) {
           }}
         />
       )}
+      {isEditingSkills && (
+        <Modal
+          className="modal"
+          title="Your skills"
+          Content={SkillsModal}
+          componentProps={{
+            updateElement,
+            portfolio,
+            setIsEditingSkills,
+          }}
+        />
+      )}
       <Card className="skills" {...otherProps}>
         <div className="control-icons">
           <MdAdd
@@ -89,15 +102,6 @@ function Skills({ portfolio, updateElement, ...otherProps }) {
             ))}
           </div>
         </div>
-        {isEditingSkills && (
-          <EditControls
-            onSubmit={() => true}
-            onCancel={() => {
-              //setTempData(portfolio.skills);
-              setIsEditingSkills(false);
-            }}
-          />
-        )}
         {!isEditingSkills && (
           <>
             <div className="divider" />

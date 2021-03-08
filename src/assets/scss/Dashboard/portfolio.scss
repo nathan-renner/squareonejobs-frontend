@@ -110,6 +110,7 @@
   }
 
   .education {
+    height: 200px;
   }
   .experience {
   }
@@ -163,6 +164,17 @@
     .left {
       flex: 1;
     }
+    .right {
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+
+      .drag {
+        @include themed() {
+          color: t("secondaryText");
+        }
+      }
+    }
   }
 
   .skills {
@@ -170,8 +182,6 @@
       font-size: 0.9em;
       font-weight: 600;
       margin-bottom: 10px;
-    }
-    .top-skills {
     }
     .other-skills {
       visibility: hidden;
@@ -216,6 +226,12 @@
       font-weight: 500;
       margin-bottom: 0;
       cursor: pointer;
+    }
+  }
+
+  .skills-modal {
+    > * {
+      padding: 10px;
     }
   }
 }
