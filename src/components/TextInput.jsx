@@ -2,6 +2,7 @@ import React from "react";
 
 function TextInput({
   type = "input",
+  active = false,
   containerStyle,
   placeholder,
   textStyle,
@@ -33,6 +34,28 @@ function TextInput({
           style={textStyle}
           {...otherprops}
         />
+        {RightIcon && (
+          <RightIcon
+            className="right-icon"
+            color={rightIconColor}
+            size={rightIconSize}
+            onClick={rightIconOnClick}
+          />
+        )}
+      </div>
+    );
+  } else if (type === "search") {
+    return (
+      <div className={`search-container ${active ? "active" : null}`}>
+        {LeftIcon && (
+          <LeftIcon
+            className="left-icon"
+            color={leftIconColor}
+            size={leftIconSize}
+            onClick={leftIconOnClick}
+          />
+        )}
+        <input {...{ placeholder, type }} {...otherprops} />
         {RightIcon && (
           <RightIcon
             className="right-icon"

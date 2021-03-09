@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useHistory } from "react-router-dom";
 import BriefcaseIcon from "./../icons/BriefcaseIcon";
 import PencilIcon from "./../icons/PencilIcon";
 import ClipboardIcon from "./../icons/ClipboardIcon";
@@ -43,29 +43,42 @@ const routes = [
 ];
 
 const Navbar = () => {
+  const history = useHistory();
   const [avatar] = useState(null);
   const [streak] = useState(3);
   const [profileHover, setProfileHover] = useState(false);
   const [streakHover, setStreakHover] = useState(false);
+  const [searchFocus, setSearchFocus] = useState(false);
   const { pathname } = useLocation();
+  //console.log(pathname, pathname.indexOf("/", 1));
+
+  const handleFocus = () => {
+    setSearchFocus(true);
+    history.push("/explore");
+  };
+  const handleBlur = () => {
+    setSearchFocus(false);
+  };
 
   const renderRoutes = () => {
-    return routes.map(({ name, title, Icon }, index) => (
-      <NavLink to={name} key={index}>
-        <div
-          className={`navigation-item ${name === pathname ? "active" : null}`}
-        >
+    return routes.map(({ name, title, Icon }, index) => {
+      return (
+        <NavLink to={name} key={index}>
           <div
-            className={`border-container ${
-              name === pathname ? "active" : null
-            }`}
+            className={`navigation-item ${name === pathname ? "active" : null}`}
           >
-            <Icon className="nav-icon" />
-            <h1 className="nav-text">{title}</h1>
+            <div
+              className={`border-container ${
+                name === pathname ? "active" : null
+              }`}
+            >
+              <Icon className="nav-icon" />
+              <h1 className="nav-text">{title}</h1>
+            </div>
           </div>
-        </div>
-      </NavLink>
-    ));
+        </NavLink>
+      );
+    });
   };
 
   return (
@@ -85,14 +98,13 @@ const Navbar = () => {
           <div className="routes-container">{renderRoutes()}</div>
           <div className="search">
             <TextInput
+              active={searchFocus ? true : false}
+              type="search"
               LeftIcon={MdSearch}
               leftIconSize={18}
-              textStyle={{ fontSize: 15 }}
-              containerStyle={{
-                height: 40,
-                borderRadius: 20,
-              }}
               placeholder="Search jobs"
+              onFocus={handleFocus}
+              onBlur={handleBlur}
             />
           </div>
           <div className="stat">

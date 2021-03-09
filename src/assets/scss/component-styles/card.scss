@@ -9,7 +9,13 @@
   border-radius: 20px;
   margin-block: 20px;
   position: relative;
-  overflow: hidden;
+
+  .header-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 1em;
+  }
 
   &.card-simple {
     background-color: transparent;

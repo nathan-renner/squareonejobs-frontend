@@ -26,7 +26,7 @@ function Listing(props) {
     <div className="listing">
       <img src={MapImg} alt="Map of Manhattan" className="map" />
       <div className="content">
-        <div className="header">
+        <div className="l-header">
           <div className="left">
             <img
               src={listing.companyLogo}

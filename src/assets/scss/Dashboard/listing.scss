@@ -17,7 +17,7 @@
     @include themed() {
       background-color: t("foreground");
     }
-    .header {
+    .l-header {
       display: flex;
       flex-direction: row;
       gap: 1em;
