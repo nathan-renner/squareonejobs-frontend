@@ -1,0 +1,38 @@
+.search {
+  .filters {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1em;
+    align-items: center;
+    margin-block: 1em;
+  }
+  h1 {
+    font-size: 1.8em !important;
+    margin-block: 1em;
+  }
+  .results-container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 2em;
+
+    .results {
+      flex-basis: 40%;
+      min-width: 20em;
+      .card {
+        height: auto;
+      }
+    }
+
+    .selected {
+      flex-basis: 55%;
+      min-width: 30em;
+      position: sticky;
+      position: -webkit-sticky;
+      bottom: 0;
+      height: auto;
+    }
+  }
+}

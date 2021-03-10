@@ -49,15 +49,24 @@ const Navbar = () => {
   const [profileHover, setProfileHover] = useState(false);
   const [streakHover, setStreakHover] = useState(false);
   const [searchFocus, setSearchFocus] = useState(false);
+  const [search, setSearch] = useState("");
   const { pathname } = useLocation();
-  //console.log(pathname, pathname.indexOf("/", 1));
 
   const handleFocus = () => {
     setSearchFocus(true);
-    history.push("/explore");
+    if (pathname === "/") history.push("/explore");
   };
   const handleBlur = () => {
     setSearchFocus(false);
+  };
+  const onSubmitSearch = (e) => {
+    e.preventDefault();
+    history.replace("/search", {
+      search,
+    });
+  };
+  const onChangeSearch = (e) => {
+    setSearch(e.target.value);
   };
 
   const renderRoutes = () => {
@@ -105,6 +114,9 @@ const Navbar = () => {
               placeholder="Search jobs"
               onFocus={handleFocus}
               onBlur={handleBlur}
+              onSubmit={onSubmitSearch}
+              onChange={onChangeSearch}
+              value={search}
             />
           </div>
           <div className="stat">

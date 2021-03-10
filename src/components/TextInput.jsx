@@ -3,6 +3,7 @@ import React from "react";
 function TextInput({
   type = "input",
   active = false,
+  onSubmit,
   containerStyle,
   placeholder,
   textStyle,
@@ -46,7 +47,10 @@ function TextInput({
     );
   } else if (type === "search") {
     return (
-      <div className={`search-container ${active ? "active" : null}`}>
+      <form
+        className={`search-container ${active ? "active" : null}`}
+        onSubmit={onSubmit}
+      >
         {LeftIcon && (
           <LeftIcon
             className="left-icon"
@@ -64,7 +68,7 @@ function TextInput({
             onClick={rightIconOnClick}
           />
         )}
-      </div>
+      </form>
     );
   } else {
     return (

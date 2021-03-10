@@ -12,6 +12,7 @@ import Settings from "./../views/dashboard/Settings";
 import Account from "./../views/dashboard/Account";
 import Listing from "./../views/dashboard/Listing";
 import Explore from "./../views/dashboard/Explore";
+import Search from "./../views/dashboard/Search";
 
 const Dashboard = () => {
   useEffect(() => {
@@ -23,6 +24,7 @@ const Dashboard = () => {
       <div className="content-container">
         <Switch>
           <Route path={`/listing/:id`} component={Listing} />
+          <Route path={`/search`} component={Search} />
           <Route path={`/explore`} component={Explore} />
           <Route path={`/account`} component={Account} />
           <Route path={`/settings`} component={Settings} />
