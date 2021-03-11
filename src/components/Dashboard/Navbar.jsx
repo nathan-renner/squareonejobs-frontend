@@ -59,7 +59,6 @@ const Navbar = () => {
 
   const handleFocus = () => {
     setSearchFocus(true);
-    if (pathname === "/") history.push("/explore");
   };
   const handleBlur = () => {
     setSearchFocus(false);
@@ -75,12 +74,19 @@ const Navbar = () => {
   };
 
   const renderRoutes = () => {
+    const checkActive = (name) => {
+      if (name === pathname) return "active";
+      else if (
+        pathname.substr(1).includes("/") &&
+        pathname.substr(0, pathname.indexOf("/", 1)) === name
+      )
+        return "active";
+      return null;
+    };
     return routes.map(({ name, title, Icon }, index) => {
       return (
         <NavLink to={name} key={index}>
-          <div
-            className={`navigation-item ${name === pathname ? "active" : null}`}
-          >
+          <div className={`navigation-item ${checkActive(name)}`}>
             <div
               className={`border-container ${
                 name === pathname ? "active" : null
