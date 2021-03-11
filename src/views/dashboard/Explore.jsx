@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Card from "./../../components/Card";
 import { MdComputer } from "react-icons/md";
 import { IoFastFoodSharp } from "react-icons/io5";
@@ -7,6 +7,8 @@ import { RiShoppingBag2Fill } from "react-icons/ri";
 
 import OL from "../../assets/images/outdoor-labor.png";
 import WFH from "../../assets/images/work-from-home.png";
+import Modal from "./../../components/Modal";
+import CategoriesModal from "./../../components/Dashboard/Explore/CategoriesModal";
 
 const categories = [
   {
@@ -48,6 +50,7 @@ const trends = [
 ];
 
 function Explore(props) {
+  const [seeMore, setSeeMore] = useState(false);
   const renderCategories = () => {
     return categories.map(({ name, Icon, color }, index) => (
       <div className="category" key={index}>
@@ -69,10 +72,17 @@ function Explore(props) {
 
   return (
     <div className="explore">
+      {seeMore && (
+        <Modal
+          title="Select a Category"
+          Content={CategoriesModal}
+          componentProps={{ onExit: () => setSeeMore(false) }}
+        />
+      )}
       <Card simple>
         <div className="header-container">
           <h2>Categories</h2>
-          <p>See more</p>
+          <p onClick={() => setSeeMore(true)}>See more</p>
         </div>
         <div className="categories">{renderCategories()}</div>
       </Card>

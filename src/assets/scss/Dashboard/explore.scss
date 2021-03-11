@@ -10,6 +10,7 @@
       margin-bottom: 0;
       font-size: 0.8em;
       font-weight: 600;
+      cursor: pointer;
     }
     margin-bottom: 0.5em;
   }
@@ -17,17 +18,32 @@
   .categories {
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
     justify-content: space-between;
-    gap: 1em;
+    overflow: hidden;
+    flex-wrap: wrap;
+    height: 100px;
+
+    &.cat-modal {
+      margin-top: 3em;
+      height: auto;
+    }
 
     .category {
       display: flex;
       flex-direction: column;
       gap: 0.4em;
-      width: 100px;
+      flex-basis: 20%;
+      min-width: 100px;
       align-items: center;
       text-align: center;
+      margin-bottom: 2em;
+      cursor: pointer;
+
+      &:hover {
+        .cat-icon {
+          filter: brightness(115%);
+        }
+      }
 
       .cat-icon {
         border-radius: 50%;
@@ -64,7 +80,7 @@
       align-items: flex-end;
 
       &:hover {
-        transform: scale(1.07);
+        transform: scale(1.05);
         box-shadow: 4px 0 10px rgba(black, 0.2);
       }
 
