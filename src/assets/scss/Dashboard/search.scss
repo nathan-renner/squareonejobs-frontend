@@ -23,6 +23,13 @@
       min-width: 20em;
       .card {
         height: auto;
+        border: 2px solid transparent;
+        transition: all 150ms ease-in-out;
+        &.active {
+          border: 2px solid $primary;
+          transform: scale(1.05);
+          box-shadow: 0px 0px 10px rgba($primary, 0.3);
+        }
       }
     }
 
@@ -31,8 +38,7 @@
       min-width: 30em;
       position: sticky;
       position: -webkit-sticky;
-      bottom: 0;
-      height: auto;
+      top: 0;
     }
   }
 }

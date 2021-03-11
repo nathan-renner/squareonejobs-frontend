@@ -42,54 +42,56 @@ function Listing(props) {
             <Button label="Apply" onClick={() => true} />
           </div>
         </div>
-        {listing.endDateTime && (
-          <div className="detail">
-            <MdAccessTime className="icon" size={25} />
-            <p>
-              {moment(listing.startDateTime).format("LT") +
-                " - " +
-                moment(listing.endDateTime).format("LT")}
-            </p>
-          </div>
-        )}
-        {listing.location && (
-          <div className="detail">
-            <MdLocationOn className="icon" size={25} />
-            <p>{listing.location}</p>
-          </div>
-        )}
-        {listing.wage && (
-          <div className="detail">
-            <MdCreditCard className="icon" size={25} />
-            <NumberFormat
-              decimalScale={2}
-              fixedDecimalScale={true}
-              value={listing.wage}
-              displayType={"text"}
-              prefix={"$"}
-              allowNegative={false}
-              renderText={(value) => <p>{value}</p>}
-            />
-          </div>
-        )}
-        {listing.requirements && (
-          <>
-            <h3>Requirements</h3>
-            <p>{listing.requirements}</p>
-          </>
-        )}
-        {listing.description && (
-          <>
-            <h3>Description</h3>
-            <p>{listing.description}</p>
-          </>
-        )}
-        {listing.benefits && (
-          <>
-            <h3>Benefits</h3>
-            <p>{listing.benefits}</p>
-          </>
-        )}
+        <div className="l-content">
+          {listing.endDateTime && (
+            <div className="detail">
+              <MdAccessTime className="icon" size={25} />
+              <p>
+                {moment(listing.startDateTime).format("LT") +
+                  " - " +
+                  moment(listing.endDateTime).format("LT")}
+              </p>
+            </div>
+          )}
+          {listing.location && (
+            <div className="detail">
+              <MdLocationOn className="icon" size={25} />
+              <p>{listing.location}</p>
+            </div>
+          )}
+          {listing.wage && (
+            <div className="detail">
+              <MdCreditCard className="icon" size={25} />
+              <NumberFormat
+                decimalScale={2}
+                fixedDecimalScale={true}
+                value={listing.wage}
+                displayType={"text"}
+                prefix={"$"}
+                allowNegative={false}
+                renderText={(value) => <p>{value}</p>}
+              />
+            </div>
+          )}
+          {listing.requirements && (
+            <>
+              <h3>Requirements</h3>
+              <p>{listing.requirements}</p>
+            </>
+          )}
+          {listing.description && (
+            <>
+              <h3>Description</h3>
+              <p>{listing.description}</p>
+            </>
+          )}
+          {listing.benefits && (
+            <>
+              <h3>Benefits</h3>
+              <p>{listing.benefits}</p>
+            </>
+          )}
+        </div>
       </div>
     </div>
   );

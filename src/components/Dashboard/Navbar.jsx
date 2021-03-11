@@ -31,6 +31,11 @@ const routes = [
     Icon: MdLocalShipping,
   },
   {
+    name: "/explore",
+    title: "Explore",
+    Icon: MdSearch,
+  },
+  {
     name: "/payments",
     title: "Payments",
     Icon: MdCreditCard,
