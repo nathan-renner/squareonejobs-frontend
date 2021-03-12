@@ -9,13 +9,13 @@ function About({ portfolio, updateElement, ...otherProps }) {
 
   return (
     <>
-      {isEditing && (
-        <Modal
-          title="About"
-          Content={AboutModal}
-          componentProps={{ portfolio, updateElement, setIsEditing }}
-        />
-      )}
+      <Modal
+        visible={isEditing}
+        title="About"
+        Content={AboutModal}
+        componentProps={{ portfolio, updateElement, setIsEditing }}
+      />
+
       <Card className="about" {...otherProps}>
         <div className="control-icons">
           <MdModeEdit

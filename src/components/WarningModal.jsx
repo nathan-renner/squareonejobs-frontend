@@ -3,7 +3,7 @@ import Modal from "./Modal";
 import EditControls from "./Dashboard/Portfolio/EditControls";
 
 function WarningModal({
-  visible,
+  visible = true,
   cancelText,
   submitText,
   onCancel,

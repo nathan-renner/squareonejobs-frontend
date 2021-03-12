@@ -58,12 +58,12 @@ const categories = [
   },
 ];
 
-function CategoriesModal({ onExit }) {
+function CategoriesModal({ onExit, onSelect }) {
   return (
     <div className="categories cat-modal">
       <MdClear size={25} className="exit" onClick={onExit} />
       {categories.map(({ name, Icon, color }, index) => (
-        <div className="category" key={index}>
+        <div className="category" key={index} onClick={() => onSelect(name)}>
           <div className="cat-icon" style={{ backgroundColor: color }}>
             <Icon size={30} color="white" />
           </div>

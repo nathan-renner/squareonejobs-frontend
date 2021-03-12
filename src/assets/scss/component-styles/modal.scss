@@ -1,5 +1,5 @@
 .modal {
-  display: none;
+  display: grid;
   position: fixed;
   @include themed() {
     background-color: rgba(t("background"), 0.8);
@@ -13,9 +13,13 @@
   place-items: center;
   overflow: hidden;
   backdrop-filter: blur(4px);
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 50ms linear;
 
   &.visible {
-    display: grid;
+    visibility: visible;
+    opacity: 1;
   }
 
   &.modal-sm {
