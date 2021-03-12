@@ -40,7 +40,7 @@ function Search(props) {
   return (
     <div className="search">
       <div className="filters">Filters</div>
-      <h1>Search results for: "{search}"</h1>
+      <h1>Search results for: "{search && search}"</h1>
       <div className="results-container">
         <div className="results">{renderListings()}</div>
         <div className="selected">

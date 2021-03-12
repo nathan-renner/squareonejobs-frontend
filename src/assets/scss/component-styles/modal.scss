@@ -1,25 +1,37 @@
 .modal {
   display: grid;
   position: fixed;
-  @include themed() {
-    background-color: rgba(t("background"), 0.8);
-    color: t("text");
-  }
-  z-index: 10000;
+  place-items: center;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
-  place-items: center;
-  overflow: hidden;
-  backdrop-filter: blur(4px);
+  z-index: 10000;
+  overflow-y: scroll;
+  //backdrop-filter: blur(4px);
   visibility: hidden;
   opacity: 0;
   transition: opacity 50ms linear;
 
+  .modal-overlay {
+    @include themed() {
+      background-color: rgba(t("background"), 0.8);
+      color: t("text");
+    }
+    height: 100%;
+    width: 100%;
+    position: fixed;
+  }
+
   &.visible {
     visibility: visible;
     opacity: 1;
+  }
+
+  &.nopadding {
+    .card {
+      padding: 0;
+    }
   }
 
   &.modal-sm {
@@ -30,6 +42,7 @@
 
   .exit {
     position: absolute;
+    z-index: 1;
     top: 20px;
     right: 20px;
     @include themed() {

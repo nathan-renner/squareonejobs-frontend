@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import moment from "moment";
 
 import Card from "../../Card";
@@ -10,7 +10,7 @@ const buttons = ["Day Jobs", "Full Time", "Part Time"];
 
 const jobs = [
   {
-    _id: 0,
+    _id: 123551,
     companyLogo:
       "https://squareonejobs-images.s3.us-east-2.amazonaws.com/dummy-data/amazon.png",
     position: "Box Mover",
@@ -65,14 +65,19 @@ const jobs = [
   },
 ];
 
-function JobsForYouCard(props) {
+function JobsForYouCard({ onSelect, ...props }) {
   const [activeButton, setActiveButton] = useState(0);
+  const history = useHistory();
+
+  const onSeeMore = () => {
+    history.push("/search", { search: "Jobs for you" });
+  };
 
   return (
     <Card className="recommended-jobs-card" {...props}>
       <div className="header">
         <h2>Jobs for you</h2>
-        <NavLink to="/">See more</NavLink>
+        <p onClick={onSeeMore}>See more</p>
       </div>
       <div className="selectors">
         <MultiButton
@@ -84,7 +89,7 @@ function JobsForYouCard(props) {
       </div>
       <div className="jobs-container">
         {jobs.map((job) => (
-          <div className="job" key={job._id}>
+          <div className="job" key={job._id} onClick={() => onSelect(job._id)}>
             <img src={job.companyLogo} alt="Logo" />
             <div className="details-container">
               <p>{moment(job.startDateTime).format("MM/DD/YYYY")}</p>

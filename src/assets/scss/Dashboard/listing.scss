@@ -1,11 +1,15 @@
 .listing {
   max-width: 40em;
-  margin: 20px auto;
+  margin: 20px;
   position: relative;
   border-radius: 20px;
   overflow: hidden;
   @include themed() {
     //background-color: t("foreground");
+  }
+
+  &.list-modal {
+    margin: 0;
   }
 
   .map {
@@ -22,7 +26,7 @@
       flex-direction: row;
       gap: 1em;
       justify-content: space-between;
-      margin-bottom: 1.5em;
+      margin-bottom: 1em;
 
       .left {
         flex: 1;
@@ -69,8 +73,8 @@
     }
   }
   .l-content {
-    padding: 20px;
-    height: 100%;
-    overflow-y: scroll;
+    padding: 0px 20px 20px 20px;
+    //height: 100%;
+    //overflow-y: scroll;
   }
 }

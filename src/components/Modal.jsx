@@ -12,7 +12,8 @@ function Modal({
 }) {
   return (
     <div className={`modal ${className} ${visible ? "visible" : null}`}>
-      <Card className="modal-content">
+      <div className="modal-overlay" onClick={onCancel} />
+      <Card className="modal-content" onClick={(e) => e.preventDefault()}>
         {onCancel && <MdClear size={25} className="exit" onClick={onCancel} />}
         {title && <h2>{title}</h2>}
         {Content && <Content {...componentProps} />}

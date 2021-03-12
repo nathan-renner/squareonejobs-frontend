@@ -21,9 +21,9 @@ const listing = {
   requirements: "asdfadsf asd f asdfsd f sd fs adf s f asf sda f asfas dfas d",
 };
 
-function Listing(props) {
+function Listing({ id, modal = false }) {
   return (
-    <div className="listing">
+    <div className={`listing ${modal ? "list-modal" : null}`}>
       <img src={MapImg} alt="Map of Manhattan" className="map" />
       <div className="content">
         <div className="l-header">
@@ -77,6 +77,18 @@ function Listing(props) {
             <>
               <h3>Requirements</h3>
               <p>{listing.requirements}</p>
+            </>
+          )}
+          {listing.description && (
+            <>
+              <h3>Description</h3>
+              <p>{listing.description}</p>
+            </>
+          )}
+          {listing.description && (
+            <>
+              <h3>Description</h3>
+              <p>{listing.description}</p>
             </>
           )}
           {listing.description && (
