@@ -49,7 +49,7 @@ function Navbar({ className }) {
         </div>
         <div className={`nav-drawer ${drawerOpened ? "opened" : null}`}>
           <h3 className="nav-title">NAVIGATION</h3>
-          <NavLink to="/" className="nav-link">
+          <NavLink to="/employers" className="nav-link">
             Employers
           </NavLink>
           <NavLink to="/auth/login" className="nav-link">
@@ -58,7 +58,7 @@ function Navbar({ className }) {
         </div>
         <div className="nav-links-container">
           <div className="nav-link-container" tabIndex="0">
-            <NavLink to="/" className="nav-link">
+            <NavLink to="/employers" className="nav-link">
               Employers
             </NavLink>
           </div>

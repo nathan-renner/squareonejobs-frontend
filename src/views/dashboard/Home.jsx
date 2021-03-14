@@ -10,7 +10,6 @@ import Listing from "./Listing";
 
 const Home = () => {
   const [selectedJob, setSelectedJob] = useState(false);
-  console.log(selectedJob);
 
   return (
     <>

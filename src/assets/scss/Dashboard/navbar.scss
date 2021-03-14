@@ -199,6 +199,8 @@
     .header {
       width: 16em;
       margin-inline: auto;
+      margin-left: auto;
+      margin-right: auto;
 
       .stat {
         text-align: center;
@@ -239,6 +241,8 @@
       justify-content: center;
       width: 35px;
       margin-inline: 5px;
+      margin-left: 5px;
+      margin-right: 5px;
 
       &.active {
         background-color: $orange;
@@ -267,6 +271,8 @@
       text-align: center;
       img {
         margin-inline: auto;
+        margin-left: auto;
+        margin-right: auto;
         height: 60px;
         width: 60px;
       }
