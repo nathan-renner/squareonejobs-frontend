@@ -1,9 +1,16 @@
 import React from "react";
+import Header from "../../components/Landing/Employers/Header";
+import Navbar from "./../../components/Landing/Navbar";
+import Footer from "./../../components/Landing/Footer";
+import ContactUs from "./../../components/Landing/Home/ContactUs";
 
 const Employers = () => {
   return (
-    <div className="section">
-      <h1>Employer Home Page</h1>
+    <div className="landing">
+      <Navbar />
+      <Header />
+      <ContactUs />
+      <Footer />
     </div>
   );
 };
