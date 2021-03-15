@@ -1,1 +1,4 @@
-@import "./Employers/header.scss"
+&.employers {
+    @import "./Employers/header.scss";
+    @import "./Employers/companies.scss";
+}

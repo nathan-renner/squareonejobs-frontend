@@ -6,7 +6,7 @@ import ContactUs from "./../../components/Landing/Home/ContactUs";
 
 const Employers = () => {
   return (
-    <div className="landing">
+    <div className="landing employers">
       <Navbar />
       <Header />
       <ContactUs />

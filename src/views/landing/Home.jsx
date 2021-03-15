@@ -12,7 +12,7 @@ import ContactUs from "./../../components/Landing/Home/ContactUs";
 
 const Home = () => {
   return (
-    <div className="landing">
+    <div className="landing home">
       <Navbar />
       <Header />
       <Problem />
