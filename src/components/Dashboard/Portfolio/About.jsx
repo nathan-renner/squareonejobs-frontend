@@ -13,9 +13,8 @@ function About({ portfolio, updateElement, ...otherProps }) {
         visible={isEditing}
         title="About"
         Content={AboutModal}
-        componentProps={{ portfolio, updateElement, setIsEditing }}
+        componentProps={{ about: portfolio.about, updateElement, setIsEditing }}
       />
-
       <Card className="about" {...otherProps}>
         <div className="control-icons">
           <MdModeEdit

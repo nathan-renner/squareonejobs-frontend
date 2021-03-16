@@ -6,7 +6,7 @@ import EditControls from "./EditControls";
 import WorkExperienceAddModal from "./WorkExperienceAddModal";
 import Modal from "./../../Modal";
 
-function WorkExperience({ portfolio, ...otherProps }) {
+function WorkExperience({ portfolio, updateElement, ...otherProps }) {
   const [isEditing, setIsEditing] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
   //const [tempData, setTempData] = useState(portfolio.workExperience);

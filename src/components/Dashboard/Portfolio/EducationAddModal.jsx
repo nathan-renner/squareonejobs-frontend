@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import * as Yup from "yup";
-import { Form, FormField } from "../../forms";
-import WarningModal from "./../../WarningModal";
+import { FormField } from "../../forms";
 import EditControls from "./EditControls";
 import FormDatePicker from "./../../forms/FormDatePicker";
+import { Formik } from "formik";
+import { MdClear } from "react-icons/md";
 
 const schema = Yup.object().shape({
   degree: Yup.string().required().max(64).label("Degree"),
@@ -15,48 +16,70 @@ const schema = Yup.object().shape({
 function EducationAddModal({
   setIsEditingEducation,
   handleEditEducation,
-  educationToEdit,
+  educationToEdit: edu,
 }) {
-  const [warningVisible, setWarningVisible] = useState(false);
-
   const handleSubmit = (education) => {
-    handleEditEducation(education, educationToEdit.index);
+    handleEditEducation(education, edu.index);
     setIsEditingEducation(false);
   };
-  const showWarning = () => {
-    setWarningVisible(true);
-  };
-  const onCancel = () => {
-    setWarningVisible(false);
-  };
-  const onDiscard = () => {
-    setWarningVisible(false);
-    setIsEditingEducation(false);
+
+  const showWarning = (props) => {
+    const { degree, school, startDate, endDate } = props.values;
+
+    if (
+      degree !== edu.education.degree ||
+      school !== edu.education.school ||
+      startDate !== edu.education.startDate ||
+      endDate !== edu.education.endDate
+    ) {
+      const result = window.confirm(
+        "Are you sure you want to discard your changes?"
+      );
+      if (result) {
+        setIsEditingEducation(false);
+        props.resetForm();
+      }
+    } else {
+      setIsEditingEducation(false);
+    }
   };
 
   return (
-    <>
-      <WarningModal
-        visible={warningVisible}
-        title="Discard Changes?"
-        message="Are you sure you want to discard your changes?"
-        submitText="Discard"
-        onCancel={onCancel}
-        onSubmit={onDiscard}
-      />
-      <Form
-        initialValues={educationToEdit.education}
-        onSubmit={handleSubmit}
-        validationSchema={schema}
-      >
-        <FormField name="degree" placeholder="Degree" />
-        <FormField name="school" placeholder="School name" />
-        <FormDatePicker name="startDate" placeholder="Start date" />
-        <FormDatePicker name="endDate" placeholder="End date" />
+    <Formik
+      initialValues={edu.education}
+      onSubmit={handleSubmit}
+      validationSchema={schema}
+    >
+      {(formProps) => (
+        <>
+          <MdClear
+            size={25}
+            className="exit"
+            onClick={() => showWarning(formProps)}
+          />
+          <FormField name="degree" placeholder="Degree" label="Degree" />
+          <FormField
+            name="school"
+            placeholder="School name"
+            label="School name"
+          />
+          <div className="date-container">
+            <FormDatePicker
+              name="startDate"
+              placeholder="Start date"
+              label="Start Date"
+            />
+            <FormDatePicker
+              name="endDate"
+              placeholder="End date"
+              label="End Date"
+            />
+          </div>
 
-        <EditControls onCancel={showWarning} />
-      </Form>
-    </>
+          <EditControls onCancel={() => showWarning(formProps)} />
+        </>
+      )}
+    </Formik>
   );
 }
 

@@ -7,7 +7,7 @@ import ErrorMessage from "./ErrorMessage";
 
 import "react-datepicker/dist/react-datepicker.css";
 
-function FormDatePicker({ name, placeholder }) {
+function FormDatePicker({ name, placeholder, ...otherProps }) {
   const [date, setDate] = useState();
   const {
     values,
@@ -20,12 +20,13 @@ function FormDatePicker({ name, placeholder }) {
   const Input = ({ value, onClick }) => {
     return (
       <TextInput
-        containerStyle={{ width: "100%" }}
+        containerStyle={{ marginTop: 5, marginBottom: 5 }}
         value={values[name] ? moment(values[name]).format("MM/DD/YYYY") : ""}
         placeholder={placeholder}
         onClick={onClick}
         onChange={() => true}
         onBlur={() => setFieldTouched(name)}
+        {...otherProps}
       />
     );
   };

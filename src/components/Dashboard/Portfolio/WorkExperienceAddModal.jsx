@@ -4,6 +4,7 @@ import { Form, FormField } from "../../forms";
 import WarningModal from "../../WarningModal";
 import EditControls from "./EditControls";
 import FormDatePicker from "../../forms/FormDatePicker";
+import { Formik } from "formik";
 
 const schema = Yup.object().shape({
   position: Yup.string().required().max(64).label("Degree"),
@@ -14,53 +15,68 @@ const schema = Yup.object().shape({
 
 function WorkExperienceAddModal({
   setIsAdding,
-  education = {
-    degree: "",
-    school: "",
+  exp = {
+    position: "",
+    company: "",
     startDate: undefined,
     endDate: undefined,
   },
 }) {
-  const [warningVisible, setWarningVisible] = useState(false);
-
-  const handleSubmit = ({ about }) => {
+  const handleSubmit = ({ experience }) => {
     //updateElement("about", about);
     setIsAdding(false);
   };
-  const showWarning = () => {
-    setWarningVisible(true);
-  };
-  const onCancel = () => {
-    setWarningVisible(false);
-  };
-  const onDiscard = () => {
-    setWarningVisible(false);
-    setIsAdding(false);
+  const showWarning = (props) => {
+    const { position, company, startDate, endDate } = props.values;
+
+    if (
+      position !== exp.position ||
+      company !== exp.company ||
+      startDate !== exp.startDate ||
+      endDate !== exp.endDate
+    ) {
+      const result = window.confirm(
+        "Are you sure you want to discard your changes?"
+      );
+      if (result) {
+        setIsAdding(false);
+        props.resetForm();
+      }
+    } else {
+      setIsAdding(false);
+    }
   };
 
   return (
-    <>
-      <WarningModal
-        visible={warningVisible}
-        title="Discard Changes?"
-        message="Are you sure you want to discard your changes?"
-        submitText="Discard"
-        onCancel={onCancel}
-        onSubmit={onDiscard}
-      />
-      <Form
-        initialValues={education}
-        onSubmit={handleSubmit}
-        validationSchema={schema}
-      >
-        <FormField name="position" placeholder="Position" />
-        <FormField name="company" placeholder="Company name" />
-        <FormDatePicker name="startDate" placeholder="Start date" />
-        <FormDatePicker name="endDate" placeholder="End date" />
-
-        <EditControls onCancel={showWarning} />
-      </Form>
-    </>
+    <Formik
+      initialValues={exp}
+      onSubmit={handleSubmit}
+      validationSchema={schema}
+    >
+      {(formProps) => (
+        <>
+          <FormField name="position" placeholder="Position" label="Position" />
+          <FormField
+            name="company"
+            placeholder="Company name"
+            label="Company name"
+          />
+          <div className="date-container">
+            <FormDatePicker
+              name="startDate"
+              placeholder="Start date"
+              label="Start Date"
+            />
+            <FormDatePicker
+              name="endDate"
+              placeholder="End date"
+              label="End Date"
+            />
+          </div>
+          <EditControls onCancel={() => showWarning(formProps)} />
+        </>
+      )}
+    </Formik>
   );
 }
 

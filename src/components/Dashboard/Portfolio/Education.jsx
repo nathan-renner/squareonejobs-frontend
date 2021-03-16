@@ -116,7 +116,7 @@ function Education({ portfolio, updateElement, ...otherProps }) {
             />
           </div>
           <h2>Education</h2>
-          <Droppable droppableId="droppable">
+          <Droppable droppableId="droppableEducation">
             {(provided, snapshot) => (
               <div
                 {...provided.droppableProps}

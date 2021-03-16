@@ -10,7 +10,7 @@ import Skills from "./../../components/Dashboard/Portfolio/Skills";
 function Portfolio(props) {
   const [portfolio, setPortfolio] = useState({
     about:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam, reiciendis modi iusto enim ipsum veniam fuga ad quidem, recusandae id debitis rem quasi magni ut ex deleniti sapiente velit officia eligendi at praesentium laboriosam. Labore molestias ipsa debitis. Illum, aperiam.",
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam, reiciendis modi iusto enim ipsum veniam fuga ad quidem, recusandae id debitis.",
     education: [
       {
         degree: "Degree asdfas dfa fasdf asdf  asfasd fas fsadf",

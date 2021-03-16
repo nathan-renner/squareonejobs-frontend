@@ -51,7 +51,7 @@ function SkillEditModal({ handleEditSkill, skillToEdit, setIsEditingSkill }) {
             name="skill"
             placeholder="E.g. Communication, Finance, HTML..."
           />
-          <EditControls onCancel={showWarning} />
+          <EditControls onCancel={() => showWarning(formProps)} />
         </>
       )}
     </Formik>

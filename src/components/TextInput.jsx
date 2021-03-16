@@ -3,6 +3,7 @@ import React from "react";
 function TextInput({
   type = "input",
   active = false,
+  label = false,
   onSubmit,
   containerStyle,
   placeholder,
@@ -20,30 +21,33 @@ function TextInput({
 }) {
   if (type === "textarea") {
     return (
-      <div className="textarea-container" style={containerStyle}>
-        {LeftIcon && (
-          <LeftIcon
-            className="left-icon"
-            color={leftIconColor}
-            size={leftIconSize}
-            onClick={leftIconOnClick}
+      <>
+        {label ? <p className="input-label">{label}</p> : null}
+        <div className="textarea-container" style={containerStyle}>
+          {LeftIcon && (
+            <LeftIcon
+              className="left-icon"
+              color={leftIconColor}
+              size={leftIconSize}
+              onClick={leftIconOnClick}
+            />
+          )}
+          <textarea
+            {...{ placeholder, type }}
+            className="textarea"
+            style={textStyle}
+            {...otherprops}
           />
-        )}
-        <textarea
-          {...{ placeholder, type }}
-          className="textarea"
-          style={textStyle}
-          {...otherprops}
-        />
-        {RightIcon && (
-          <RightIcon
-            className="right-icon"
-            color={rightIconColor}
-            size={rightIconSize}
-            onClick={rightIconOnClick}
-          />
-        )}
-      </div>
+          {RightIcon && (
+            <RightIcon
+              className="right-icon"
+              color={rightIconColor}
+              size={rightIconSize}
+              onClick={rightIconOnClick}
+            />
+          )}
+        </div>
+      </>
     );
   } else if (type === "search") {
     return (
@@ -72,25 +76,28 @@ function TextInput({
     );
   } else {
     return (
-      <div className="input-container" style={containerStyle}>
-        {LeftIcon && (
-          <LeftIcon
-            className="left-icon"
-            color={leftIconColor}
-            size={leftIconSize}
-            onClick={leftIconOnClick}
-          />
-        )}
-        <input {...{ placeholder, type }} style={textStyle} {...otherprops} />
-        {RightIcon && (
-          <RightIcon
-            className="right-icon"
-            color={rightIconColor}
-            size={rightIconSize}
-            onClick={rightIconOnClick}
-          />
-        )}
-      </div>
+      <>
+        {label ? <label className="input-label">{label}</label> : null}
+        <div className="input-container" style={containerStyle}>
+          {LeftIcon && (
+            <LeftIcon
+              className="left-icon"
+              color={leftIconColor}
+              size={leftIconSize}
+              onClick={leftIconOnClick}
+            />
+          )}
+          <input {...{ placeholder, type }} style={textStyle} {...otherprops} />
+          {RightIcon && (
+            <RightIcon
+              className="right-icon"
+              color={rightIconColor}
+              size={rightIconSize}
+              onClick={rightIconOnClick}
+            />
+          )}
+        </div>
+      </>
     );
   }
 }
