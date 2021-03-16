@@ -39,15 +39,10 @@ function Portfolio(props) {
         endDate: moment().add(4, "years"),
       },
     ],
-    skills: [
-      "skill1",
-      "skill2",
-      "skill3",
-      "skill4",
-      "skill5",
-      "skill6",
-      "skill7",
-    ],
+    skills: {
+      top: ["skill1", "skill2", "skill3"],
+      other: ["skill4", "skill5", "skill6", "skill7"],
+    },
   });
 
   const updateElement = (element, value) => {

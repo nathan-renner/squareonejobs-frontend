@@ -178,6 +178,15 @@
   }
 
   .skills {
+    .divider {
+      @include themed() {
+        background-color: t("background");
+      }
+      width: 100%;
+      height: 0.1em;
+      margin-top: 1em;
+      margin-bottom: 1em;
+    }
     .title {
       font-size: 0.9em;
       font-weight: 600;
@@ -205,14 +214,6 @@
         height: auto;
       }
     }
-    .divider {
-      @include themed() {
-        background-color: t("background");
-      }
-      width: 100%;
-      height: 0.1em;
-      margin-block: 1em;
-    }
     .see-more {
       display: flex;
       align-items: center;
@@ -229,9 +230,82 @@
     }
   }
 
-  .skills-modal {
+  .skills-droppable {
+    border-radius: 10px; 
+    position: relative;
+
     > * {
       padding: 10px;
     }
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      opacity: 0;
+      visibility: hidden;
+      @include themed() {
+        background-color: t("foreground");
+      }
+    }
+    
+    &.disabled {
+      opacity: 0.6;
+      visibility: visible;
+    }
+
+    .title {
+      font-size: 0.9em;
+      font-weight: 600;
+      line-height: 0;
+     }
+
+    .skill-container {
+      border-radius: 10px;
+      user-select: none;
+
+      &.active {
+        @include themed() {
+          background-color: t("background");
+        }
+      }
+      .skill{
+        display: flex;
+        align-items: center;
+        border-radius: 10px;
+  
+        > * + * {
+          margin-left: 1em;
+        }
+  
+        p {
+          flex-basis: 100%;
+          margin-bottom: 0;
+        }
+  
+        .skill-icon {
+          cursor: pointer;
+          @include themed() {
+            color: t("medium");
+  
+            &.active {
+              color: $primary;
+            }
+          }
+        }
+      }
+    }
+  }
+  .divider {
+    @include themed() {
+      background-color: t("background");
+    }
+    width: 100%;
+    height: 0.1em;
+    margin-top: 1em;
+    margin-bottom: 1em;
   }
 }

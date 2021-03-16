@@ -8,7 +8,7 @@ function Form({ initialValues, onSubmit, validationSchema, children }) {
       onSubmit={onSubmit}
       validationSchema={validationSchema}
     >
-      {() => <div>{children}</div>}
+      {(props) => <div {...props}>{children}</div>}
     </Formik>
   );
 }
