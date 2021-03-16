@@ -27,13 +27,13 @@ function Portfolio(props) {
     ],
     workExperience: [
       {
-        title: "Title",
+        position: "Title",
         company: "Company",
         startDate: moment(),
         endDate: moment().add(4, "years"),
       },
       {
-        title: "Title",
+        position: "Title",
         company: "Company",
         startDate: moment(),
         endDate: moment().add(4, "years"),

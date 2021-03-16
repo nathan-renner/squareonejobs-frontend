@@ -17,10 +17,6 @@ const reorder = (list, startIndex, endIndex) => {
   return result;
 };
 
-const getItemStyle = (draggableStyle) => ({
-  ...draggableStyle,
-});
-
 function SkillsModal({
   visible,
   portfolio,
@@ -137,7 +133,7 @@ function SkillsModal({
                       ref={provided.innerRef}
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
-                      style={getItemStyle(provided.draggableProps.style)}
+                      style={{ ...provided.draggableProps.style }}
                       className={`skill-container ${
                         snapshot.isDragging ? "active" : null
                       }`}
@@ -192,7 +188,7 @@ function SkillsModal({
                       ref={provided.innerRef}
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
-                      style={getItemStyle(provided.draggableProps.style)}
+                      style={{ ...provided.draggableProps.style }}
                       className={`skill-container ${
                         snapshot.isDragging ? "active" : null
                       }`}

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Card from "./../../Card";
-import { MdAdd, MdClear, MdModeEdit } from "react-icons/md";
+import { MdAdd, MdDelete, MdModeEdit } from "react-icons/md";
 import moment from "moment";
 import EditControls from "./EditControls";
 import WorkExperienceAddModal from "./WorkExperienceAddModal";
@@ -9,39 +9,34 @@ import Modal from "./../../Modal";
 function WorkExperience({ portfolio, updateElement, ...otherProps }) {
   const [isEditing, setIsEditing] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
-  //const [tempData, setTempData] = useState(portfolio.workExperience);
+  const [experienceToEdit, setExperienceToEdit] = useState({
+    experience: {
+      position: "",
+      company: "",
+      startDate: undefined,
+      endDate: undefined,
+    },
+    index: undefined,
+  });
 
-  // const handleSubmit = () => {
-  //   //updateElement("workExperience", tempData);
-  //   setIsEditing(false);
-  // };
+  const handleEditExperience = (experience, index) => {
+    const newExpData = [...portfolio.workExperience];
 
-  // const handleAddExperience = (experience) => {
-  //   setIsEditing(true);
-  //   const newWorkData = [...portfolio.workExperience];
-  //   newWorkData.push(experience);
-  //   setTempData(newWorkData);
-  // };
+    if (index !== undefined) newExpData.splice(index, 1, experience);
+    else newExpData.push(experience);
+    updateElement("workExperience", newExpData);
+  };
 
-  // const handleUpdateExperience = (experience, index) => {
-  //   const newWorkData = [...portfolio.workExperience];
-  //   newWorkData.splice(index, 1, experience);
-  //   setTempData(newWorkData);
-  // };
-
-  // const handleRemoveExperience = (index) => {
-  //   // Alert("Delete", "Are you sure you want to delete this item?", [
-  //   //   { text: "No" },
-  //   //   {
-  //   //     text: "Yes",
-  //   //     onPress: () => {
-  //   //       const newWork = [...tempData];
-  //   //       newWork.splice(index, 1);
-  //   //       setTempData(newWork);
-  //   //     },
-  //   //   },
-  //   // ]);
-  // };
+  const handleRemoveExperience = (index) => {
+    const response = window.confirm(
+      "Are you sure you want to delete this experience?"
+    );
+    if (response) {
+      const temp = [...portfolio.workExperience];
+      temp.splice(index, 1);
+      updateElement("workExperience", temp);
+    }
+  };
 
   return (
     <>
@@ -49,7 +44,11 @@ function WorkExperience({ portfolio, updateElement, ...otherProps }) {
         <Modal
           title="Add Experience"
           Content={WorkExperienceAddModal}
-          componentProps={{ setIsAdding }}
+          componentProps={{
+            setIsAdding,
+            handleEditExperience,
+            experienceToEdit,
+          }}
         />
       )}
       <Card className="experience" {...otherProps}>
@@ -57,7 +56,18 @@ function WorkExperience({ portfolio, updateElement, ...otherProps }) {
           <MdAdd
             size={25}
             className={"control-icon"}
-            onClick={() => setIsAdding(true)}
+            onClick={() => {
+              setExperienceToEdit({
+                experience: {
+                  position: "",
+                  company: "",
+                  startDate: undefined,
+                  endDate: undefined,
+                },
+                index: undefined,
+              });
+              setIsAdding(true);
+            }}
           />
           <MdModeEdit
             size={25}
@@ -67,10 +77,19 @@ function WorkExperience({ portfolio, updateElement, ...otherProps }) {
         </div>
         <h2>Experience</h2>
         {portfolio.workExperience.map((experience, index) => (
-          <div className="experience-container" key={index}>
+          <div
+            className={`experience-container ${isEditing ? "edit" : null}`}
+            key={index}
+          >
             <div className="line" />
-            <div className="left">
-              <h3>{experience.title}</h3>
+            <div
+              className="left"
+              onClick={() => {
+                setExperienceToEdit({ experience, index });
+                setIsAdding(true);
+              }}
+            >
+              <h3>{experience.position}</h3>
               <p>{experience.company}</p>
             </div>
             <p>
@@ -78,16 +97,19 @@ function WorkExperience({ portfolio, updateElement, ...otherProps }) {
                 " - " +
                 moment(experience.endDate).format("MM/YYYY")}
             </p>
-            {isEditing && <MdClear size={25} className="remove-icon" />}
+            {isEditing && (
+              <MdDelete
+                size={25}
+                className="remove-icon"
+                onClick={() => handleRemoveExperience(index)}
+              />
+            )}
           </div>
         ))}
         {isEditing && (
           <EditControls
-            onSubmit={() => true}
-            onCancel={() => {
-              //setTempData(portfolio.education);
-              setIsEditing(false);
-            }}
+            onSubmit={() => setIsEditing(false)}
+            onCancel={() => setIsEditing(false)}
           />
         )}
       </Card>

@@ -108,11 +108,8 @@
       word-wrap: break-word;
     }
   }
-
   .education {
-    height: 200px;
-  }
-  .experience {
+    position: relative;
   }
   .education-container,
   .experience-container {
@@ -122,14 +119,17 @@
     padding: 0.5em;
     border-radius: 10px;
     gap: 1em;
+    border-radius: 10px;
+
+    &.edit {
+      cursor: pointer;
+    }
 
     &.active {
-      cursor: pointer;
+      user-select: none;
 
-      &:hover {
-        @include themed() {
-          background-color: t("background");
-        }
+      @include themed() {
+        background-color: t("background");
       }
     }
 
