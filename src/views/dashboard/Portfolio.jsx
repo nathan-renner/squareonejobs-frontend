@@ -64,34 +64,36 @@ function Portfolio(props) {
   return (
     <div className="portfolio">
       <Header data-aos="fade-up" data-aos-once={true} data-aos-offset="0" />
-      <About
-        data-aos="fade-up"
-        data-aos-delay="100"
-        data-aos-once={true}
-        data-aos-offset="0"
-        {...{ portfolio, updateElement }}
-      />
-      <Education
-        data-aos="fade-up"
-        data-aos-delay="200"
-        data-aos-once={true}
-        data-aos-offset="0"
-        {...{ portfolio, updateElement }}
-      />
-      <WorkExperience
-        data-aos="fade-up"
-        data-aos-delay="300"
-        data-aos-once={true}
-        data-aos-offset="0"
-        {...{ portfolio, updateElement }}
-      />
-      <Skills
-        data-aos="fade-up"
-        data-aos-delay="400"
-        data-aos-once={true}
-        data-aos-offset="0"
-        {...{ portfolio, updateElement }}
-      />
+      <div className="content">
+        <About
+          data-aos="fade-up"
+          data-aos-delay="100"
+          data-aos-once={true}
+          data-aos-offset="0"
+          {...{ portfolio, updateElement }}
+        />
+        <Education
+          data-aos="fade-up"
+          data-aos-delay="200"
+          data-aos-once={true}
+          data-aos-offset="0"
+          {...{ portfolio, updateElement }}
+        />
+        <WorkExperience
+          data-aos="fade-up"
+          data-aos-delay="300"
+          data-aos-once={true}
+          data-aos-offset="0"
+          {...{ portfolio, updateElement }}
+        />
+        <Skills
+          data-aos="fade-up"
+          data-aos-delay="400"
+          data-aos-once={true}
+          data-aos-offset="0"
+          {...{ portfolio, updateElement }}
+        />
+      </div>
     </div>
   );
 }

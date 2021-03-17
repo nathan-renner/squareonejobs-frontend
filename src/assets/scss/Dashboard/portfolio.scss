@@ -1,10 +1,35 @@
 .portfolio {
-  max-width: 40em;
+  display: flex;
+  flex-direction: column;
+  max-width: 60em;
   margin-inline: auto;
+  margin-left: auto;
+  margin-right: auto;
   margin-bottom: 4em;
+
+  @media (min-width: 40em) {
+    flex-direction: row;
+
+    > * + * {
+      margin-left: 3em;
+    }
+  }
+
+  > * {
+    flex: 1;
+  }
+  > * + * {
+    flex: 2;
+  }
 
   h2 {
     margin-bottom: 1.5em;
+  }
+
+  .content {
+    > * {
+      height: auto;
+    }
   }
 
   .remove-icon {
@@ -103,12 +128,14 @@
   }
 
   .about {
+    height: auto;
     p {
       margin-bottom: 0;
       word-wrap: break-word;
     }
   }
   .education {
+    height: auto;
     position: relative;
   }
   .education-container,

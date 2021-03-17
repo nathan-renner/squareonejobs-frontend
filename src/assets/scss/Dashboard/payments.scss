@@ -1,7 +1,7 @@
 .payments-page {
   display: flex;
   flex-direction: row;
-  gap: 3em;
+  //gap: 3em;
   max-width: 60em;
   margin-inline: auto;
 
@@ -9,6 +9,7 @@
     flex: 1;
   }
   > * + * {
+    margin-left: 3em;
     flex: 2;
   }
 
