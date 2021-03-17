@@ -18,6 +18,8 @@ import {
   MdSearch,
 } from "react-icons/md";
 import StreakDropdown from "./Navbar/StreakDropdown";
+import NotificationDropdown from "./Navbar/NotificationDropdown";
+import StatDropdown from "./Navbar/StatDropdown";
 
 const routes = [
   {
@@ -47,12 +49,38 @@ const routes = [
   },
 ];
 
+const completedData = {
+  name: "completed",
+  title: "Completed Jobs",
+  subtitle: "Complete day jobs to build your portfolio and earn points",
+  Icon: BriefcaseIcon,
+  stat: 2,
+};
+const appData = {
+  name: "applications",
+  title: "Applications",
+  subtitle: "Fill out applications to increase your chance at full employment",
+  Icon: PencilIcon,
+  stat: 2,
+};
+const refData = {
+  name: "references",
+  title: "References",
+  subtitle: "Build your portfolio with positive employer reviews",
+  Icon: ClipboardIcon,
+  stat: 2,
+};
+
 const Navbar = () => {
   const history = useHistory();
   const [avatar] = useState(null);
   const [streak] = useState(3);
   const [profileHover, setProfileHover] = useState(false);
   const [streakHover, setStreakHover] = useState(false);
+  const [notifHover, setNotifHover] = useState(false);
+  const [completedHover, setCompletedHover] = useState(false);
+  const [appHover, setAppHover] = useState(false);
+  const [refHover, setRefHover] = useState(false);
   const [searchFocus, setSearchFocus] = useState(false);
   const [search, setSearch] = useState("");
   const { pathname } = useLocation();
@@ -105,7 +133,14 @@ const Navbar = () => {
     <>
       <div
         className={`overlay-bg ${
-          profileHover || streakHover ? "active" : null
+          profileHover ||
+          streakHover ||
+          notifHover ||
+          completedHover ||
+          appHover ||
+          refHover
+            ? "active"
+            : null
         }`}
       />
       <div className="navbar-container">
@@ -130,15 +165,27 @@ const Navbar = () => {
               value={search}
             />
           </div>
-          <div className="stat">
+          <div
+            className="stat"
+            onMouseEnter={() => setCompletedHover(true)}
+            onMouseLeave={() => setCompletedHover(false)}
+          >
             <BriefcaseIcon height={25} width={25} />
             <h2 className="stat-text text-primary">2</h2>
           </div>
-          <div className="stat">
+          <div
+            className="stat"
+            onMouseEnter={() => setAppHover(true)}
+            onMouseLeave={() => setAppHover(false)}
+          >
             <PencilIcon height={25} width={25} />
             <h2 className="stat-text text-purple">2</h2>
           </div>
-          <div className="stat">
+          <div
+            className="stat"
+            onMouseEnter={() => setRefHover(true)}
+            onMouseLeave={() => setRefHover(false)}
+          >
             <ClipboardIcon height={25} width={25} />
             <h2 className="stat-text text-secondary">2</h2>
           </div>
@@ -150,7 +197,12 @@ const Navbar = () => {
             <StreakIcon height={25} width={30} />
           </div>
           <div className="nav-item">
-            <NotificationsIcon height={25} width={25} />
+            <NotificationsIcon
+              height={25}
+              width={25}
+              onMouseEnter={() => setNotifHover(true)}
+              onMouseLeave={() => setNotifHover(false)}
+            />
           </div>
           <img
             className="nav-item avatar"
@@ -162,6 +214,14 @@ const Navbar = () => {
         </div>
         <ProfileDropdown {...{ profileHover, setProfileHover, avatar }} />
         <StreakDropdown {...{ streakHover, setStreakHover, streak }} />
+        <NotificationDropdown {...{ notifHover, setNotifHover }} />
+        <StatDropdown
+          data={completedData}
+          hover={completedHover}
+          setHover={setCompletedHover}
+        />
+        <StatDropdown data={appData} hover={appHover} setHover={setAppHover} />
+        <StatDropdown data={refData} hover={refHover} setHover={setRefHover} />
       </div>
     </>
   );
