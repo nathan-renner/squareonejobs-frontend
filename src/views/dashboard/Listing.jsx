@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import moment from "moment";
 import { MdAccessTime, MdCreditCard, MdLocationOn } from "react-icons/md";
+import Skeleton from "react-loading-skeleton";
 
 import MapImg from "../../assets/images/map.png";
 import Button from "./../../components/Button";
@@ -22,20 +23,32 @@ const listing = {
 };
 
 function Listing({ id, modal = false }) {
+  const [loading, setLoading] = useState(false);
+
   return (
     <div className={`listing ${modal ? "list-modal" : null}`}>
       <img src={MapImg} alt="Map of Manhattan" className="map" />
       <div className="content">
         <div className="l-header">
           <div className="left">
-            <img
-              src={listing.companyLogo}
-              alt={`${listing.companyName}'s logo`}
-              className="logo"
-            />
+            {loading ? (
+              <Skeleton circle height={80} width={80} />
+            ) : (
+              <img
+                src={listing.companyLogo}
+                alt={`${listing.companyName}'s logo`}
+                className="logo"
+              />
+            )}
             <div>
-              <p>{moment(listing.startDateTime).format("MM/DD/YYYY")}</p>
-              <h2>{listing.position}</h2>
+              <p>
+                {loading ? (
+                  <Skeleton width={100} />
+                ) : (
+                  moment(listing.startDateTime).format("MM/DD/YYYY")
+                )}
+              </p>
+              <h2>{loading ? <Skeleton width={150} /> : listing.position}</h2>
             </div>
           </div>
           <div>
@@ -47,16 +60,20 @@ function Listing({ id, modal = false }) {
             <div className="detail">
               <MdAccessTime className="icon" size={25} />
               <p>
-                {moment(listing.startDateTime).format("LT") +
+                {loading ? (
+                  <Skeleton width={150} />
+                ) : (
+                  moment(listing.startDateTime).format("LT") +
                   " - " +
-                  moment(listing.endDateTime).format("LT")}
+                  moment(listing.endDateTime).format("LT")
+                )}
               </p>
             </div>
           )}
           {listing.location && (
             <div className="detail">
               <MdLocationOn className="icon" size={25} />
-              <p>{listing.location}</p>
+              <p>{loading ? <Skeleton width={200} /> : listing.location}</p>
             </div>
           )}
           {listing.wage && (
@@ -69,38 +86,34 @@ function Listing({ id, modal = false }) {
                 displayType={"text"}
                 prefix={"$"}
                 allowNegative={false}
-                renderText={(value) => <p>{value}</p>}
+                renderText={(value) => (
+                  <p>{loading ? <Skeleton width={150} /> : value}</p>
+                )}
               />
             </div>
           )}
-          {listing.requirements && (
+          {loading ? (
+            <Skeleton count={10} />
+          ) : (
             <>
-              <h3>Requirements</h3>
-              <p>{listing.requirements}</p>
-            </>
-          )}
-          {listing.description && (
-            <>
-              <h3>Description</h3>
-              <p>{listing.description}</p>
-            </>
-          )}
-          {listing.description && (
-            <>
-              <h3>Description</h3>
-              <p>{listing.description}</p>
-            </>
-          )}
-          {listing.description && (
-            <>
-              <h3>Description</h3>
-              <p>{listing.description}</p>
-            </>
-          )}
-          {listing.benefits && (
-            <>
-              <h3>Benefits</h3>
-              <p>{listing.benefits}</p>
+              {listing.requirements && (
+                <>
+                  <h3>Requirements</h3>
+                  <p>{listing.requirements}</p>
+                </>
+              )}
+              {listing.description && (
+                <>
+                  <h3>Description</h3>
+                  <p>{listing.description}</p>
+                </>
+              )}
+              {listing.benefits && (
+                <>
+                  <h3>Benefits</h3>
+                  <p>{listing.benefits}</p>
+                </>
+              )}
             </>
           )}
         </div>
