@@ -1,7 +1,16 @@
 import client from "./client";
 
-const endpoint = "/users";
+const userEP = "/users";
+const portfolioEP = "/user-profiles";
 
-export const register = (userInfo) => client.post(endpoint, userInfo);
+export const register = (userInfo) => client.post(userEP, userInfo);
+
+export const getPortfolio = (id) => client.get(`${portfolioEP}/${id}`);
+
+export const updatePortfolioElement = (profileId, element, value) =>
+  client.put(`${portfolioEP}/${element}`, {
+    profileId,
+    [element]: value,
+  });
 
 //export default { register };

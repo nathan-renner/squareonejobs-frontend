@@ -7,7 +7,7 @@ import defaultAvatar from "../../../assets/images/default-avatar.png";
 import Icon from "./../../Icon";
 
 function ProfileDropdown({ profileHover, setProfileHover, avatar }) {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
 
   return (
     <div
@@ -31,10 +31,10 @@ function ProfileDropdown({ profileHover, setProfileHover, avatar }) {
           <Icon Icon={MdSettings} size={25} />
           <p>Settings</p>
         </NavLink>
-        <NavLink to="/">
+        <div className="pointer" onClick={logout}>
           <Icon Icon={MdHome} size={25} color="danger" />
           <p>Logout</p>
-        </NavLink>
+        </div>
       </div>
     </div>
   );

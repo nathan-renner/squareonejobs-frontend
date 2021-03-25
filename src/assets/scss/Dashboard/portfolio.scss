@@ -266,7 +266,7 @@
   }
 
   .skills-droppable {
-    border-radius: 10px; 
+    border-radius: 10px;
     position: relative;
 
     > * {
@@ -286,7 +286,7 @@
         background-color: t("foreground");
       }
     }
-    
+
     &.disabled {
       opacity: 0.6;
       visibility: visible;
@@ -296,7 +296,7 @@
       font-size: 0.9em;
       font-weight: 600;
       line-height: 0;
-     }
+    }
 
     .skill-container {
       border-radius: 10px;
@@ -307,25 +307,25 @@
           background-color: t("background");
         }
       }
-      .skill{
+      .skill {
         display: flex;
         align-items: center;
         border-radius: 10px;
-  
+
         > * + * {
           margin-left: 1em;
         }
-  
+
         p {
           flex-basis: 100%;
           margin-bottom: 0;
         }
-  
+
         .skill-icon {
           cursor: pointer;
           @include themed() {
             color: t("medium");
-  
+
             &.active {
               color: $primary;
             }
@@ -342,5 +342,17 @@
     height: 0.1em;
     margin-top: 1em;
     margin-bottom: 1em;
+  }
+
+  .error-container {
+    width: 100%;
+    text-align: center;
+    display: grid;
+    place-items: center;
+    min-height: 80vh;
+
+    > * {
+      max-width: 30em;
+    }
   }
 }

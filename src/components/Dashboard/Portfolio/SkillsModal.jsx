@@ -62,7 +62,7 @@ function SkillsModal({
     const tempTop = [...top];
     const tempOther = [...other];
     const skill = tempTop.splice(index, 1);
-    tempOther.push(skill);
+    tempOther.push(skill[0]);
     setTop(tempTop);
     setOther(tempOther);
   };
@@ -75,7 +75,7 @@ function SkillsModal({
       const tempTop = [...top];
       const tempOther = [...other];
       const skill = tempOther.splice(index, 1);
-      tempTop.push(skill);
+      tempTop.push(skill[0]);
       setTop(tempTop);
       setOther(tempOther);
     }
