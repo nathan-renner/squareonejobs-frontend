@@ -1,34 +1,49 @@
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
-import Listing from "./Listing";
-import moment from "moment";
-import Card from "./../../components/Card";
-import { MdAccessTime } from "react-icons/md";
-import { MdLocationOn } from "react-icons/md";
-import { MdCreditCard } from "react-icons/md";
+import React, { useEffect, useState } from "react";
 import NumberFormat from "react-number-format";
+import moment from "moment";
+import { useHistory } from "react-router-dom";
+import { MdAccessTime, MdLocationOn, MdCreditCard } from "react-icons/md";
+
+import Card from "./../../components/Card";
+import Listing from "./Listing";
 import Filters from "./../../components/Dashboard/Search/Filters";
 
-const listings = new Array(15).fill({
-  _id: 1,
-  position: "Box Mover",
-  companyName: "Amazon",
-  companyLogo:
-    "https://squareonejobs-images.s3.us-east-2.amazonaws.com/dummy-data/amazon.png",
-  startDateTime: new Date(2020, 11, 1),
-  endDateTime: new Date(2020, 11, 1),
-  location: "1 Castle Point Terrace, Hoboken NJ, 07030",
-  wage: 80,
-});
+import { getActiveDay } from "./../../api/listings";
+import useApi from "../../hooks/useApi";
+import ActivityIndicator from "./../../components/ActivityIndicator";
+import Button from "./../../components/Button";
+
+// const listings = new Array(15).fill({
+//   _id: 1,
+//   position: "Box Mover",
+//   companyName: "Amazon",
+//   companyLogo:
+//     "https://squareonejobs-images.s3.us-east-2.amazonaws.com/dummy-data/amazon.png",
+//   startDateTime: new Date(2020, 11, 1),
+//   endDateTime: new Date(2020, 11, 1),
+//   location: "1 Castle Point Terrace, Hoboken NJ, 07030",
+//   wage: 80,
+// });
 
 function Search(props) {
   const history = useHistory();
   const { search, category } = history.location.state;
-  const [selected, setSelected] = useState();
+  const [selected, setSelected] = useState(false);
   const [filter, setFilter] = useState({
     category: category ? category : "",
     jobType: "",
     radius: "",
+  });
+  const [listings, setListings] = useState(false);
+  const listingsApi = useApi(getActiveDay);
+
+  const fetchListings = async () => {
+    const response = await listingsApi.request();
+    if (response.ok) setListings(response.data);
+  };
+
+  useEffect(() => {
+    if (!listings && !listingsApi.error) fetchListings();
   });
 
   const handleFilterChange = (e, type) => {
@@ -41,20 +56,20 @@ function Search(props) {
     return listings.map((listing, index) => (
       <Card
         key={index}
-        className={`${index === selected ? "active" : null}`}
-        onClick={() => setSelected(index)}
+        className={`${listing._id === selected ? "active" : null}`}
+        onClick={() => setSelected(listing._id)}
       >
         <div className="card-header">
-          <img src={listing.companyLogo} className="logo" />
+          <img src={listing.company.logo} className="logo" />
           <div>
-            <p>Posted 21 days ago</p>
             <h2>{listing.position}</h2>
+            <p className="small-text">{listing.company.name}</p>
             <p></p>
           </div>
         </div>
         {listing.endDateTime && (
           <div className="detail">
-            <MdAccessTime className="icon" size={20} />
+            <MdAccessTime className="icon" size={18} />
             <p>
               {moment(listing.startDateTime).format("LT") +
                 " - " +
@@ -64,13 +79,13 @@ function Search(props) {
         )}
         {listing.location && (
           <div className="detail">
-            <MdLocationOn className="icon" size={20} />
+            <MdLocationOn className="icon" size={18} />
             <p>{listing.location}</p>
           </div>
         )}
         {listing.wage && (
           <div className="detail">
-            <MdCreditCard className="icon" size={20} />
+            <MdCreditCard className="icon" size={18} />
             <NumberFormat
               decimalScale={2}
               fixedDecimalScale={true}
@@ -82,6 +97,9 @@ function Search(props) {
             />
           </div>
         )}
+        <p className="small-text">
+          Posted {moment(listing.dateCreated).fromNow()}
+        </p>
       </Card>
     ));
   };
@@ -90,12 +108,23 @@ function Search(props) {
     <div className="search">
       <Filters filter={filter} handleFilterChange={handleFilterChange} />
       <h3>Search results for: "{search && search}"</h3>
-      <div className="results-container">
-        <div className="results">{renderListings()}</div>
-        <div className="selected">
-          <Listing />
+      <ActivityIndicator visible={listingsApi.loading} />
+      {listings && (
+        <div className="results-container">
+          <div className="results">{renderListings()}</div>
+          <div className="selected">
+            {selected ? <Listing id={selected} /> : <div>No listing</div>}
+          </div>
         </div>
-      </div>
+      )}
+      {listingsApi.error && (
+        <div className="error-container">
+          <div>
+            <h3>Error loading portfolio</h3>
+            <Button label="retry" onClick={() => fetchListings()} />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -343,16 +343,4 @@
     margin-top: 1em;
     margin-bottom: 1em;
   }
-
-  .error-container {
-    width: 100%;
-    text-align: center;
-    display: grid;
-    place-items: center;
-    min-height: 80vh;
-
-    > * {
-      max-width: 30em;
-    }
-  }
 }

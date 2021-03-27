@@ -37,9 +37,14 @@
         .logo {
           height: 80px;
           width: 80px;
+          border-radius: 50%;
+          @include themed() {
+            border: 5px solid t("background");
+          }
         }
         h2 {
           font-size: 1.4em !important;
+          font-weight: 600;
           margin-bottom: 0;
         }
         p {

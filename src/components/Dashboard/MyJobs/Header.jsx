@@ -46,7 +46,7 @@ function Header({ data, pathname, ...props }) {
   else if (pathname.includes("full-time"))
     return (
       <Card simple className="header" {...props}>
-        <h2>Part-time Jobs</h2>
+        <h2>Full-time Jobs</h2>
         <div className="stats">
           <NavLink to="/">
             <h3>{data.offers.length}</h3>

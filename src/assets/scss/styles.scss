@@ -150,6 +150,18 @@
   }
 }
 
+.error-container {
+  width: 100%;
+  text-align: center;
+  display: grid;
+  place-items: center;
+  min-height: 80vh;
+
+  > * {
+    max-width: 30em;
+  }
+}
+
 @import "./component-styles/card.scss";
 @import "./component-styles/theme-switch.scss";
 @import "./component-styles/button.scss";
