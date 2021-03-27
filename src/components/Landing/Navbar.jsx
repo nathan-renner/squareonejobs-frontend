@@ -6,7 +6,7 @@ import Logo from "../../assets/images/logotext.png";
 import Hamburger from "../../assets/animations/hamburger.json";
 import Button from "../Button";
 
-function Navbar({ className }) {
+function Navbar({ className, setModal }) {
   const [drawerOpened, setDrawerOpened] = useState(false);
   const hamburgerRef = useRef();
 
@@ -49,26 +49,34 @@ function Navbar({ className }) {
         </div>
         <div className={`nav-drawer ${drawerOpened ? "opened" : null}`}>
           <h3 className="nav-title">NAVIGATION</h3>
-          <NavLink to="/employers" className="nav-link">
+          <NavLink to="/" className="nav-link" onClick={() => setModal(true)}>
             Employers
           </NavLink>
-          <NavLink to="/auth/login" className="nav-link">
+          <NavLink
+            to="/auth/login"
+            className="nav-link"
+            onClick={() => setModal(true)}
+          >
             Login
           </NavLink>
         </div>
         <div className="nav-links-container">
           <div className="nav-link-container" tabIndex="0">
-            <NavLink to="/employers" className="nav-link">
+            <NavLink to="/" className="nav-link" onClick={() => setModal(true)}>
               Employers
             </NavLink>
           </div>
           <div className="nav-link-container" tabIndex="0">
-            <NavLink to="/auth/login" className="nav-link">
+            <NavLink to="/" className="nav-link" onClick={() => setModal(true)}>
               Login
             </NavLink>
           </div>
-          <NavLink to="/auth/register" style={{ textDecoration: "none" }}>
-            <Button label="Find jobs" className="button" />
+          <NavLink to="/" style={{ textDecoration: "none" }}>
+            <Button
+              label="Find jobs"
+              className="button btn-lg"
+              onClick={() => setModal(true)}
+            />
           </NavLink>
         </div>
       </div>

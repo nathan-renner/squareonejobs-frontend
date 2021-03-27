@@ -28,6 +28,19 @@
     color: $white;
   }
 
+  &.btn-sm {
+    padding-block: 8px;
+    padding-inline: 10px;
+    font-size: 0.8em;
+    font-weight: 600;
+  }
+  &.btn-lg {
+    padding-block: 10px;
+    padding-inline: 15px;
+    font-size: 1em;
+    font-weight: 600;
+  }
+
   &:hover,
   &:focus {
     transform: scale(1.05);

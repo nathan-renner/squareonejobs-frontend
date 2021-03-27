@@ -112,7 +112,6 @@ function HowItWorks(props) {
               fill="#EBF5FE"
             />
           </svg>
-
           <Lottie
             animationData={EarnReferences}
             lottieRef={references}

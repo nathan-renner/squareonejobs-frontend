@@ -1,18 +1,19 @@
 import React from "react";
-import { Form, FormField, SubmitButton } from "./../../forms";
-import * as Yup from "yup";
+//import { Form, FormField, SubmitButton } from "./../../forms";
+//import * as Yup from "yup";
+import Button from "./../../Button";
 
-const schema = Yup.object().shape({
-  name: Yup.string().required().label("Name"),
-  email: Yup.string().required().email().label("Email"),
-  subject: Yup.string().required().label("Subject"),
-  message: Yup.string().required().label("Message"),
-});
+// const schema = Yup.object().shape({
+//   name: Yup.string().required().label("Name"),
+//   email: Yup.string().required().email().label("Email"),
+//   subject: Yup.string().required().label("Subject"),
+//   message: Yup.string().required().label("Message"),
+// });
 
 function ContactUs(props) {
-  const handleSubmit = ({ name, email, subject, message }) => {
-    console.log(name, email, subject, message);
-  };
+  // const handleSubmit = ({ name, email, subject, message }) => {
+  //   console.log(name, email, subject, message);
+  // };
   const openEmail = () => {
     window.open("mailto:hello@squareonejobs.com");
   };
@@ -22,11 +23,21 @@ function ContactUs(props) {
       <div className="container content-container">
         <div className="content">
           <h2 className="title">Contact us</h2>
-          <p className="email">Our email:</p>
+          {/* <p className="email">Our email:</p>
           <p className="email-link" onClick={openEmail}>
             hello@squareonejobs.com
+          </p> */}
+          <p>
+            Got a question? <br />
+            We'd love to hear from you!
           </p>
-          <Form
+          <Button
+            className="btn-lg"
+            buttonStyle={{ display: "inline-block" }}
+            label="Email us"
+            onClick={() => openEmail()}
+          />
+          {/* <Form
             initialValues={{
               name: "",
               email: "",
@@ -61,7 +72,7 @@ function ContactUs(props) {
               textStyle={{ backgroundColor: "#fff" }}
             />
             <SubmitButton label="Submit" style={{ display: "inline-block" }} />
-          </Form>
+          </Form> */}
         </div>
       </div>
     </section>

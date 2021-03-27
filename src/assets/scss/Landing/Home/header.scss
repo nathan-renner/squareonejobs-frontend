@@ -2,12 +2,15 @@ header {
   .image-background {
     min-height: 90vh;
     height: 100%;
+    width: 100%;
     overflow: hidden;
     position: relative;
 
     img {
       position: absolute;
       object-fit: cover;
+      top: 0;
+      right: 0;
       height: 100%;
       width: 100%;
 
@@ -144,6 +147,11 @@ header {
   @media only screen and (min-width: 1200px) {
     .content {
       max-width: 500px;
+    }
+    .image-background {
+      img {
+        width: 80%;
+      }
     }
   }
 }
