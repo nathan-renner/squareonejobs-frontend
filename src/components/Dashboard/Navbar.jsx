@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink, useLocation, useHistory } from "react-router-dom";
 import BriefcaseIcon from "./../icons/BriefcaseIcon";
 import PencilIcon from "./../icons/PencilIcon";
@@ -54,24 +54,21 @@ const completedData = {
   title: "Completed Jobs",
   subtitle: "Complete day jobs to build your portfolio and earn points",
   Icon: BriefcaseIcon,
-  stat: 2,
 };
 const appData = {
   name: "applications",
   title: "Applications",
   subtitle: "Fill out applications to increase your chance at full employment",
   Icon: PencilIcon,
-  stat: 2,
 };
 const refData = {
   name: "references",
   title: "References",
   subtitle: "Build your portfolio with positive employer reviews",
   Icon: ClipboardIcon,
-  stat: 2,
 };
 
-const Navbar = () => {
+const Navbar = ({ data }) => {
   const history = useHistory();
   const [avatar] = useState(null);
   const [streak] = useState(3);
@@ -84,6 +81,12 @@ const Navbar = () => {
   const [searchFocus, setSearchFocus] = useState(false);
   const [search, setSearch] = useState("");
   const { pathname } = useLocation();
+
+  useEffect(() => {
+    completedData.stat = data.completedDayJobsLength;
+    appData.stat = data.applicationsLength;
+    refData.stat = data.refsLength;
+  });
 
   const handleFocus = () => {
     setSearchFocus(true);
@@ -171,7 +174,9 @@ const Navbar = () => {
             onMouseLeave={() => setCompletedHover(false)}
           >
             <BriefcaseIcon height={25} width={25} />
-            <h2 className="stat-text text-primary">2</h2>
+            <h2 className="stat-text text-primary">
+              {data.completedDayJobsLength}
+            </h2>
           </div>
           <div
             className="stat"
@@ -179,7 +184,7 @@ const Navbar = () => {
             onMouseLeave={() => setAppHover(false)}
           >
             <PencilIcon height={25} width={25} />
-            <h2 className="stat-text text-purple">2</h2>
+            <h2 className="stat-text text-purple">{data.applicationsLength}</h2>
           </div>
           <div
             className="stat"
@@ -187,7 +192,7 @@ const Navbar = () => {
             onMouseLeave={() => setRefHover(false)}
           >
             <ClipboardIcon height={25} width={25} />
-            <h2 className="stat-text text-secondary">2</h2>
+            <h2 className="stat-text text-secondary">{data.refsLength}</h2>
           </div>
           <div
             className="nav-item"

@@ -8,64 +8,7 @@ import Button from "./../../Button";
 
 const buttons = ["Day Jobs", "Full Time", "Part Time"];
 
-const jobs = [
-  {
-    _id: 123551,
-    companyLogo:
-      "https://squareonejobs-images.s3.us-east-2.amazonaws.com/dummy-data/amazon.png",
-    position: "Box Mover",
-    startDateTime: moment(),
-    endDateTime: moment().add(8, "hours"),
-    location: "1 Castle Point Terrace, Hoboken NJ, 07030",
-  },
-  {
-    _id: 1,
-    companyLogo:
-      "https://squareonejobs-images.s3.us-east-2.amazonaws.com/dummy-data/amazon.png",
-    position: "Box Mover",
-    startDateTime: moment(),
-    endDateTime: moment().add(8, "hours"),
-    location: "1 Castle Point Terrace, Hoboken NJ, 07030",
-  },
-  {
-    _id: 2,
-    companyLogo:
-      "https://squareonejobs-images.s3.us-east-2.amazonaws.com/dummy-data/amazon.png",
-    position: "Box Mover",
-    startDateTime: moment(),
-    endDateTime: moment().add(8, "hours"),
-    location: "1 Castle Point Terrace, Hoboken NJ, 07030",
-  },
-  {
-    _id: 3,
-    companyLogo:
-      "https://squareonejobs-images.s3.us-east-2.amazonaws.com/dummy-data/amazon.png",
-    position: "Box Mover",
-    startDateTime: moment(),
-    endDateTime: moment().add(8, "hours"),
-    location: "1 Castle Point Terrace, Hoboken NJ, 07030",
-  },
-  {
-    _id: 4,
-    companyLogo:
-      "https://squareonejobs-images.s3.us-east-2.amazonaws.com/dummy-data/amazon.png",
-    position: "Box Mover",
-    startDateTime: moment(),
-    endDateTime: moment().add(8, "hours"),
-    location: "1 Castle Point Terrace, Hoboken NJ, 07030",
-  },
-  {
-    _id: 5,
-    companyLogo:
-      "https://squareonejobs-images.s3.us-east-2.amazonaws.com/dummy-data/amazon.png",
-    position: "Box Mover",
-    startDateTime: moment(),
-    endDateTime: moment().add(8, "hours"),
-    location: "1 Castle Point Terrace, Hoboken NJ, 07030",
-  },
-];
-
-function JobsForYouCard({ onSelect, ...props }) {
+function JobsForYouCard({ jobs, onSelect, ...props }) {
   const [activeButton, setActiveButton] = useState(0);
   const history = useHistory();
 

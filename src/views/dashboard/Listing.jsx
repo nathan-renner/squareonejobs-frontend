@@ -25,7 +25,7 @@ import { getListing } from "../../api/listings";
 //   requirements: "asdfadsf asd f asdfsd f sd fs adf s f asf sda f asfas dfas d",
 // };
 
-function Listing({ id, modal = false }) {
+function Listing({ id = false, modal = false }) {
   const [listing, setListing] = useState(false);
   const listingApi = useApi(getListing);
 
@@ -36,7 +36,9 @@ function Listing({ id, modal = false }) {
   };
 
   useEffect(() => {
-    if ((!listing && !listingApi.error) || id !== listing._id) fetchListing();
+    if (id) {
+      if ((!listing && !listingApi.error) || id !== listing._id) fetchListing();
+    }
   }, [id]);
 
   return (

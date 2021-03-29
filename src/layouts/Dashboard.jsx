@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -13,28 +13,49 @@ import Account from "./../views/dashboard/Account";
 import Listing from "./../views/dashboard/Listing";
 import Explore from "./../views/dashboard/Explore";
 import Search from "./../views/dashboard/Search";
+import { getNavbarData } from "./../api/users";
+import useApi from "./../hooks/useApi";
+import ActivityIndicator from "./../components/ActivityIndicator";
 
 const Dashboard = () => {
+  const navbarApi = useApi(getNavbarData);
+  const [navData, setNavData] = useState(false);
+
   useEffect(() => {
     AOS.init();
   }, []);
+
+  const fetchNavbarData = async () => {
+    const response = await navbarApi.request();
+    if (response.ok) setNavData(response.data);
+  };
+
+  useEffect(() => {
+    if (!navData && !navbarApi.error) fetchNavbarData();
+  });
+
   return (
     <div className="dashboard">
-      <Navbar />
-      <div className="content-container">
-        <Switch>
-          <Route path={`/listing/:id`} component={Listing} />
-          <Route path={`/search`} component={Search} />
-          <Route path={`/explore`} component={Explore} />
-          <Route path={`/account`} component={Account} />
-          <Route path={`/settings`} component={Settings} />
-          <Route path={`/portfolio`} component={Portfolio} />
-          <Route path={`/payments`} component={Payments} />
-          <Route path={`/my-jobs`} component={MyJobs} />
-          <Route exact path={`/`} component={Home} />
-          <Redirect to="/not-found" />
-        </Switch>
-      </div>
+      <ActivityIndicator visible={navbarApi.loading} />
+      {navData && (
+        <>
+          <Navbar data={navData} />
+          <div className="content-container">
+            <Switch>
+              <Route path={`/listing/:id`} component={Listing} />
+              <Route path={`/search`} component={Search} />
+              <Route path={`/explore`} component={Explore} />
+              <Route path={`/account`} component={Account} />
+              <Route path={`/settings`} component={Settings} />
+              <Route path={`/portfolio`} component={Portfolio} />
+              <Route path={`/payments`} component={Payments} />
+              <Route path={`/my-jobs`} component={MyJobs} />
+              <Route exact path={`/`} component={Home} />
+              <Redirect to="/not-found" />
+            </Switch>
+          </div>
+        </>
+      )}
     </div>
   );
 };

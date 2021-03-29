@@ -7,7 +7,64 @@ import UpcomingJobs from "./../../components/Dashboard/Home/UpcomingJobs";
 import JobsForYouCard from "./../../components/Dashboard/Home/JobsForYouCard";
 import Modal from "./../../components/Modal";
 import Listing from "./Listing";
+import moment from "moment";
 
+const jobs = [
+  {
+    _id: 123551,
+    companyLogo:
+      "https://squareonejobs-images.s3.us-east-2.amazonaws.com/dummy-data/amazon.png",
+    position: "Box Mover",
+    startDateTime: moment(),
+    endDateTime: moment().add(8, "hours"),
+    location: "1 Castle Point Terrace, Hoboken NJ, 07030",
+  },
+  {
+    _id: 1,
+    companyLogo:
+      "https://squareonejobs-images.s3.us-east-2.amazonaws.com/dummy-data/amazon.png",
+    position: "Box Mover",
+    startDateTime: moment(),
+    endDateTime: moment().add(8, "hours"),
+    location: "1 Castle Point Terrace, Hoboken NJ, 07030",
+  },
+  {
+    _id: 2,
+    companyLogo:
+      "https://squareonejobs-images.s3.us-east-2.amazonaws.com/dummy-data/amazon.png",
+    position: "Box Mover",
+    startDateTime: moment(),
+    endDateTime: moment().add(8, "hours"),
+    location: "1 Castle Point Terrace, Hoboken NJ, 07030",
+  },
+  {
+    _id: 3,
+    companyLogo:
+      "https://squareonejobs-images.s3.us-east-2.amazonaws.com/dummy-data/amazon.png",
+    position: "Box Mover",
+    startDateTime: moment(),
+    endDateTime: moment().add(8, "hours"),
+    location: "1 Castle Point Terrace, Hoboken NJ, 07030",
+  },
+  {
+    _id: 4,
+    companyLogo:
+      "https://squareonejobs-images.s3.us-east-2.amazonaws.com/dummy-data/amazon.png",
+    position: "Box Mover",
+    startDateTime: moment(),
+    endDateTime: moment().add(8, "hours"),
+    location: "1 Castle Point Terrace, Hoboken NJ, 07030",
+  },
+  {
+    _id: 5,
+    companyLogo:
+      "https://squareonejobs-images.s3.us-east-2.amazonaws.com/dummy-data/amazon.png",
+    position: "Box Mover",
+    startDateTime: moment(),
+    endDateTime: moment().add(8, "hours"),
+    location: "1 Castle Point Terrace, Hoboken NJ, 07030",
+  },
+];
 const Home = () => {
   const [selectedJob, setSelectedJob] = useState(false);
 
@@ -20,7 +77,7 @@ const Home = () => {
         onCancel={() => setSelectedJob(false)}
         componentProps={{
           modal: true,
-          id: 1,
+          id: selectedJob,
           onExit: () => setSelectedJob(false),
         }}
       />
@@ -30,6 +87,7 @@ const Home = () => {
             data-aos="fade-up"
             data-aos-once={true}
             onSelect={setSelectedJob}
+            jobs={jobs}
           />
         </div>
         <div>
