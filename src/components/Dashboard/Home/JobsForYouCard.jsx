@@ -33,7 +33,7 @@ function JobsForYouCard({ jobs, onSelect, ...props }) {
       <div className="jobs-container">
         {jobs.map((job) => (
           <div className="job" key={job._id} onClick={() => onSelect(job._id)}>
-            <img src={job.companyLogo} alt="Logo" />
+            <img src={job.company.logo} alt="Logo" />
             <div className="details-container">
               <p>{moment(job.startDateTime).format("MM/DD/YYYY")}</p>
               <h3>{job.position}</h3>

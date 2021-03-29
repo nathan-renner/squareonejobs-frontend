@@ -44,7 +44,8 @@ function Search(props) {
 
   useEffect(() => {
     if (!listings && !listingsApi.error) fetchListings();
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleFilterChange = (e, type) => {
     const newFilter = { ...filter };
@@ -60,7 +61,11 @@ function Search(props) {
         onClick={() => setSelected(listing._id)}
       >
         <div className="card-header">
-          <img src={listing.company.logo} className="logo" />
+          <img
+            src={listing.company.logo}
+            alt={`${listing.company.name}'s logo`}
+            className="logo"
+          />
           <div>
             <h2>{listing.position}</h2>
             <p className="small-text">{listing.company.name}</p>

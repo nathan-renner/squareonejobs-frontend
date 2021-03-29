@@ -9,6 +9,8 @@ export const getPortfolio = (id) => client.get(`${portfolioEP}/${id}`);
 
 export const getNavbarData = () => client.get(`${userEP}/navbar-data`);
 
+export const getDashboardData = () => client.get(`${userEP}/dashboard-data`);
+
 export const updatePortfolioElement = (profileId, element, value) =>
   client.put(`${portfolioEP}/${element}`, {
     profileId,

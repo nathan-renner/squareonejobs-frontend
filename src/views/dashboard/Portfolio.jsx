@@ -25,7 +25,8 @@ function Portfolio(props) {
 
   useEffect(() => {
     if (!portfolio && !getPortfolioApi.error) fetchPortfolio();
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const updateElement = async (element, value) => {
     const response = await updateElementApi.request(

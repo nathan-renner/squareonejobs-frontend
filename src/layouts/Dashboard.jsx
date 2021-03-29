@@ -3,6 +3,7 @@ import { Redirect, Route, Switch } from "react-router-dom";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
+import ActivityIndicator from "./../components/ActivityIndicator";
 import Home from "./../views/dashboard/Home";
 import Navbar from "./../components/Dashboard/Navbar";
 import MyJobs from "./../views/dashboard/MyJobs";
@@ -13,9 +14,9 @@ import Account from "./../views/dashboard/Account";
 import Listing from "./../views/dashboard/Listing";
 import Explore from "./../views/dashboard/Explore";
 import Search from "./../views/dashboard/Search";
+
 import { getNavbarData } from "./../api/users";
 import useApi from "./../hooks/useApi";
-import ActivityIndicator from "./../components/ActivityIndicator";
 
 const Dashboard = () => {
   const navbarApi = useApi(getNavbarData);
@@ -23,6 +24,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     AOS.init();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchNavbarData = async () => {
@@ -32,7 +34,8 @@ const Dashboard = () => {
 
   useEffect(() => {
     if (!navData && !navbarApi.error) fetchNavbarData();
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="dashboard">

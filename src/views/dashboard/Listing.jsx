@@ -39,6 +39,7 @@ function Listing({ id = false, modal = false }) {
     if (id) {
       if ((!listing && !listingApi.error) || id !== listing._id) fetchListing();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   return (
