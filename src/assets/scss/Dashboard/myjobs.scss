@@ -96,6 +96,7 @@
 
   .my-jobs-content {
     width: 100%;
+    position: relative;
 
     h2 {
       font-size: 1.3em !important;
@@ -114,7 +115,15 @@
         margin-bottom: 0;
       }
     }
-
+    .no-jobs-card {
+      text-align: center;
+      display: grid;
+      place-items: center;
+      padding: 50px;
+      h2 {
+        margin-bottom: 0.5em;
+      }
+    }
     .card {
       height: auto;
     }

@@ -11,10 +11,12 @@ export const getNavbarData = () => client.get(`${userEP}/navbar-data`);
 
 export const getDashboardData = () => client.get(`${userEP}/dashboard-data`);
 
+export const getMyDayJobs = () => client.get(`${userEP}/day-jobs`);
+
+export const getMyFullTime = () => client.get(`${userEP}/full-time`);
+
 export const updatePortfolioElement = (profileId, element, value) =>
   client.put(`${portfolioEP}/${element}`, {
     profileId,
     [element]: value,
   });
-
-//export default { register };

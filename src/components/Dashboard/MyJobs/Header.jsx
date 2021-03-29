@@ -1,8 +1,10 @@
 import React from "react";
 import Card from "./../../Card";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
-function Header({ data, pathname, ...props }) {
+function Header({ data, ...props }) {
+  const { pathname } = useLocation();
+
   if (pathname.includes("day-jobs"))
     return (
       <Card simple className="header" {...props}>
