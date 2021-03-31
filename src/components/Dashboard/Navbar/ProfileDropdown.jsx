@@ -1,5 +1,5 @@
 import React from "react";
-import { MdHome, MdPerson, MdSettings } from "react-icons/md";
+import { MdHome, MdSettings } from "react-icons/md";
 import { NavLink } from "react-router-dom";
 import useAuth from "../../../auth/useAuth";
 
@@ -23,16 +23,16 @@ function ProfileDropdown({ profileHover, setProfileHover, avatar }) {
         <p className="subtitle">{user.email}</p>
       </div>
       <div className="routes">
-        <NavLink to="/account">
+        {/* <NavLink to="/account">
           <Icon Icon={MdPerson} size={25} color="secondary" />
           <p>Account</p>
-        </NavLink>
+        </NavLink> */}
         <NavLink to="/settings">
-          <Icon Icon={MdSettings} size={25} />
+          <Icon Icon={MdSettings} size={25} color="secondary" />
           <p>Settings</p>
         </NavLink>
         <div className="pointer" onClick={logout}>
-          <Icon Icon={MdHome} size={25} color="danger" />
+          <Icon Icon={MdHome} size={25} />
           <p>Logout</p>
         </div>
       </div>

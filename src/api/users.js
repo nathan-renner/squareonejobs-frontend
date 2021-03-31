@@ -15,6 +15,13 @@ export const getMyDayJobs = () => client.get(`${userEP}/day-jobs`);
 
 export const getMyFullTime = () => client.get(`${userEP}/full-time`);
 
+export const updateAccount = (data) =>
+  client.put(`${userEP}/account-details`, data, {
+    headers: {
+      "Content-Type": "multipart/form-data;",
+    },
+  });
+
 export const updatePortfolioElement = (profileId, element, value) =>
   client.put(`${portfolioEP}/${element}`, {
     profileId,

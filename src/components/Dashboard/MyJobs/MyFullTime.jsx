@@ -9,12 +9,6 @@ import useApi from "./../../../hooks/useApi";
 import { getMyFullTime } from "../../../api/users";
 import ActivityIndicator from "./../../ActivityIndicator";
 
-const full = {
-  offers: [],
-  applied: [],
-  watchlist: [],
-};
-
 function MyFullTime(props) {
   const history = useHistory();
   const myFullTimeApi = useApi(getMyFullTime);

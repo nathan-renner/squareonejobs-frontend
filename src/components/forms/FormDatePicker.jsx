@@ -32,7 +32,7 @@ function FormDatePicker({ name, placeholder, ...otherProps }) {
   };
 
   return (
-    <div>
+    <>
       <DatePicker
         placeholderText={placeholder}
         selected={date}
@@ -43,7 +43,7 @@ function FormDatePicker({ name, placeholder, ...otherProps }) {
         customInput={<Input />}
       />
       <ErrorMessage error={errors[name]} visible={touched[name]} />
-    </div>
+    </>
   );
 }
 

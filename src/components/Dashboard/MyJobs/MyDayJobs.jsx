@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import moment from "moment";
-import { NavLink, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 import Card from "../../Card";
 import Header from "./Header";
@@ -9,41 +8,6 @@ import Button from "./../../Button";
 import ActivityIndicator from "./../../ActivityIndicator";
 import useApi from "./../../../hooks/useApi";
 import { getMyDayJobs } from "./../../../api/users";
-
-const day = {
-  upcoming: [
-    {
-      _id: 123551,
-      companyLogo:
-        "https://squareonejobs-images.s3.us-east-2.amazonaws.com/dummy-data/amazon.png",
-      position: "Box Mover",
-      startDateTime: moment(),
-      endDateTime: moment().add(8, "hours"),
-      location: "1 Castle Point Terrace, Hoboken NJ, 07030",
-    },
-    {
-      _id: 123551,
-      companyLogo:
-        "https://squareonejobs-images.s3.us-east-2.amazonaws.com/dummy-data/amazon.png",
-      position: "Box Mover",
-      startDateTime: moment(),
-      endDateTime: moment().add(8, "hours"),
-      location: "1 Castle Point Terrace, Hoboken NJ, 07030",
-    },
-  ],
-  pending: [],
-  previous: [
-    {
-      _id: 123551,
-      companyLogo:
-        "https://squareonejobs-images.s3.us-east-2.amazonaws.com/dummy-data/amazon.png",
-      position: "Box Mover",
-      startDateTime: moment(),
-      endDateTime: moment().add(8, "hours"),
-      location: "1 Castle Point Terrace, Hoboken NJ, 07030",
-    },
-  ],
-};
 
 function MyDayJobs(props) {
   const history = useHistory();
@@ -75,7 +39,6 @@ function MyDayJobs(props) {
             <Card data-aos="fade-up" data-aos-once={true} data-aos-delay="300">
               <div className="section-header">
                 <h2>Upcoming</h2>
-                <NavLink to="/my-jobs/day-jobs">See all</NavLink>
               </div>
               <JobsList jobs={dayJobs.upcoming} />
             </Card>
@@ -84,7 +47,6 @@ function MyDayJobs(props) {
             <Card data-aos="fade-up" data-aos-once={true} data-aos-delay="400">
               <div className="section-header">
                 <h2>Pending</h2>
-                <NavLink to="/my-jobs/day-jobs">See all</NavLink>
               </div>
               <JobsList jobs={dayJobs.pending} />
             </Card>
@@ -93,7 +55,7 @@ function MyDayJobs(props) {
             <Card data-aos="fade-up" data-aos-once={true} data-aos-delay="500">
               <div className="section-header">
                 <h2>Previous</h2>
-                <NavLink to="/my-jobs/day-jobs">See all</NavLink>
+                {/* <NavLink to="/my-jobs/day-jobs">See all</NavLink> */}
               </div>
               <JobsList jobs={dayJobs.previous} />
             </Card>

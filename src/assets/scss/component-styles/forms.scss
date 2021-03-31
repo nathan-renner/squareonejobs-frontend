@@ -1,6 +1,10 @@
 .error-text {
-  color: $danger;
+  color: $danger !important;
   line-height: 0.8;
   margin: 10px;
   font-size: 0.8em;
+}
+
+.react-datepicker-wrapper {
+  display: block;
 }
