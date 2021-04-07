@@ -123,6 +123,12 @@ function Listing({ id = false, modal = false }) {
                 <>
                   <h3>Description</h3>
                   <p>{listing.description}</p>
+                  <p>{listing.description}</p>
+                  <p>{listing.description}</p>
+                  <p>{listing.description}</p>
+                  <p>{listing.description}</p>
+                  <p>{listing.description}</p>
+                  <p>{listing.description}</p>
                 </>
               )}
               {listing.benefits && (

@@ -2,6 +2,7 @@ import client from "./client";
 
 const userEP = "/users";
 const portfolioEP = "/user-profiles";
+const referencesEP = "/references";
 
 export const register = (userInfo) => client.post(userEP, userInfo);
 
@@ -14,6 +15,8 @@ export const getDashboardData = () => client.get(`${userEP}/dashboard-data`);
 export const getMyDayJobs = () => client.get(`${userEP}/day-jobs`);
 
 export const getMyFullTime = () => client.get(`${userEP}/full-time`);
+
+export const getMyReferences = () => client.get(`${referencesEP}/user`);
 
 export const updateAccount = (data, onUploadProgress) =>
   client.put(`${userEP}/account-details`, data, {

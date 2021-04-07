@@ -6,7 +6,7 @@ function JobsList({ jobs, onClick }) {
     <div className="jobs-container">
       {jobs.map((job, index) => (
         <div className="job" key={index} onClick={() => onClick(job)}>
-          <img src={job.companyLogo} alt="Logo" />
+          {/* <img src={job.company.logo} alt="Logo" /> */}
           <div className="details-container">
             <p>{moment(job.startDateTime).format("MM/DD/YYYY")}</p>
             <h3>{job.position}</h3>

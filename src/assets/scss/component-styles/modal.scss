@@ -1,7 +1,5 @@
 .modal {
-  display: grid;
   position: fixed;
-  place-items: center;
   top: 0;
   bottom: 0;
   left: 0;
@@ -14,7 +12,7 @@
 
   .modal-overlay {
     @include themed() {
-      background-color: rgba(t("background"), 0.8);
+      background-color: rgba($black, 0.3);
       color: t("text");
     }
     height: 100%;
@@ -51,9 +49,14 @@
   }
 
   .modal-content {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10em;
     z-index: 1;
     max-width: 40em;
+    max-height: 40em;
     height: auto;
     box-shadow: 0px 0px 10px 10px rgba(black, 0.1);
+    overflow-y: overlay;
   }
 }

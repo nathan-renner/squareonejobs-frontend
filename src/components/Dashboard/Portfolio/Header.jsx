@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import * as Yup from "yup";
 import { MdCameraAlt, MdModeEdit } from "react-icons/md";
 
@@ -112,7 +112,7 @@ function Header({
     if (response.ok) {
       updateAccountDetails({
         ...response.data,
-        avatar: response.data.avatar.concat(`?v=${Date.now()}`)
+        avatar: response.data.avatar.concat(`?v=${Date.now()}`),
       });
       setIsEditing(false);
     }

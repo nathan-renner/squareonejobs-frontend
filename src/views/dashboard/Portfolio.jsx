@@ -12,6 +12,7 @@ import useAuth from "./../../auth/useAuth";
 import Button from "./../../components/Button";
 import ActivityIndicator from "./../../components/ActivityIndicator";
 import UploadScreen from "./../../components/UploadScreen";
+import References from "./../../components/Dashboard/Portfolio/References";
 
 function Portfolio(props) {
   const getPortfolioApi = useApi(getPortfolio);
@@ -40,7 +41,11 @@ function Portfolio(props) {
     );
 
     if (response.ok) {
-      setPortfolio({ ...response.data, userDetails: portfolio.userDetails });
+      setPortfolio({
+        ...response.data,
+        userDetails: portfolio.userDetails,
+        references: portfolio.references,
+      });
     }
   };
 
@@ -63,43 +68,47 @@ function Portfolio(props) {
       <div className="portfolio">
         {portfolio && (
           <>
-            <Header
-              data-aos="fade-up"
-              data-aos-once={true}
-              data-aos-offset="0"
-              portfolio={portfolio}
-              setLoading={setLoading}
-              updateAccountDetails={updateAccount}
-              setProgress={setProgress}
-              setUploadVisible={setUploadVisible}
-            />
+            <div>
+              <Header
+                data-aos="fade-up"
+                data-aos-once={true}
+                portfolio={portfolio}
+                setLoading={setLoading}
+                updateAccountDetails={updateAccount}
+                setProgress={setProgress}
+                setUploadVisible={setUploadVisible}
+              />
+              <References
+                data-aos="fade-up"
+                data-aos-once={true}
+                data-aos-delay="100"
+                portfolio={portfolio}
+                setLoading={setLoading}
+              />
+            </div>
             <div className="content">
               <About
                 data-aos="fade-up"
                 data-aos-delay="100"
                 data-aos-once={true}
-                data-aos-offset="0"
                 {...{ portfolio, updateElement }}
               />
               <Education
                 data-aos="fade-up"
                 data-aos-delay="200"
                 data-aos-once={true}
-                data-aos-offset="0"
                 {...{ portfolio, updateElement }}
               />
               <WorkExperience
                 data-aos="fade-up"
                 data-aos-delay="300"
                 data-aos-once={true}
-                data-aos-offset="0"
                 {...{ portfolio, updateElement }}
               />
               <Skills
                 data-aos="fade-up"
                 data-aos-delay="400"
                 data-aos-once={true}
-                data-aos-offset="0"
                 {...{ portfolio, updateElement }}
               />
             </div>
