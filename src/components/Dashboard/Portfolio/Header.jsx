@@ -27,7 +27,14 @@ const inputStyle = {
   marginTop: 0,
 };
 
-function Header({ portfolio, setLoading, updateAccountDetails, ...props }) {
+function Header({
+  portfolio,
+  setLoading,
+  setProgress,
+  setUploadVisible,
+  updateAccountDetails,
+  ...props
+}) {
   const { avatar, firstName, lastName, email, details } = portfolio.userDetails;
   const { street, city, state, zip } = details.address;
   const [isEditing, setIsEditing] = useState(false);
@@ -36,9 +43,9 @@ function Header({ portfolio, setLoading, updateAccountDetails, ...props }) {
   const uploadRef = useRef(null);
   const updateAccountApi = useApi(updateAccount);
 
-  useEffect(() => {
-    setLoading(updateAccountApi.loading);
-  }, [setLoading, updateAccountApi.loading]);
+  // useEffect(() => {
+  //   setLoading(updateAccountApi.loading);
+  // }, [setLoading, updateAccountApi.loading]);
 
   const cancelEditing = () => {
     const result = window.confirm(
@@ -77,6 +84,8 @@ function Header({ portfolio, setLoading, updateAccountDetails, ...props }) {
     state,
     zip,
   }) => {
+    setProgress(0);
+    setUploadVisible(true);
     const updatedData = {
       firstName,
       lastName,
@@ -97,11 +106,13 @@ function Header({ portfolio, setLoading, updateAccountDetails, ...props }) {
 
     if (file !== null) formData.append("avatar", file);
 
-    const response = await updateAccountApi.request(formData);
+    const response = await updateAccountApi.request(formData, (progress) =>
+      setProgress(progress)
+    );
     if (response.ok) {
       updateAccountDetails({
         ...response.data,
-        avatar: response.data.avatar.concat(`?v=${Date.now()}`),
+        avatar: response.data.avatar.concat(`?v=${Date.now()}`)
       });
       setIsEditing(false);
     }

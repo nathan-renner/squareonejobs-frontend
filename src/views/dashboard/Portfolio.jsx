@@ -11,6 +11,7 @@ import useApi from "./../../hooks/useApi";
 import useAuth from "./../../auth/useAuth";
 import Button from "./../../components/Button";
 import ActivityIndicator from "./../../components/ActivityIndicator";
+import UploadScreen from "./../../components/UploadScreen";
 
 function Portfolio(props) {
   const getPortfolioApi = useApi(getPortfolio);
@@ -18,6 +19,8 @@ function Portfolio(props) {
   const { user } = useAuth();
   const [portfolio, setPortfolio] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [uploadVisible, setUploadVisible] = useState(false);
+  const [progress, setProgress] = useState(0);
 
   const fetchPortfolio = async () => {
     const response = await getPortfolioApi.request(user.profileId);
@@ -37,7 +40,7 @@ function Portfolio(props) {
     );
 
     if (response.ok) {
-      setPortfolio(response.data);
+      setPortfolio({ ...response.data, userDetails: portfolio.userDetails });
     }
   };
 
@@ -49,6 +52,11 @@ function Portfolio(props) {
 
   return (
     <>
+      <UploadScreen
+        onDone={() => setUploadVisible(false)}
+        progress={progress}
+        visible={uploadVisible}
+      />
       <ActivityIndicator
         visible={getPortfolioApi.loading || updateElementApi.loading || loading}
       />
@@ -62,6 +70,8 @@ function Portfolio(props) {
               portfolio={portfolio}
               setLoading={setLoading}
               updateAccountDetails={updateAccount}
+              setProgress={setProgress}
+              setUploadVisible={setUploadVisible}
             />
             <div className="content">
               <About

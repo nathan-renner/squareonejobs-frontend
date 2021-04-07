@@ -15,11 +15,13 @@ export const getMyDayJobs = () => client.get(`${userEP}/day-jobs`);
 
 export const getMyFullTime = () => client.get(`${userEP}/full-time`);
 
-export const updateAccount = (data) =>
+export const updateAccount = (data, onUploadProgress) =>
   client.put(`${userEP}/account-details`, data, {
     headers: {
       "Content-Type": "multipart/form-data;",
     },
+    onUploadProgress: (progress) =>
+      onUploadProgress(progress.loaded / progress.total),
   });
 
 export const updatePortfolioElement = (profileId, element, value) =>

@@ -162,6 +162,10 @@
   }
 }
 
+body {
+  overflow-y: overlay;
+}
+
 @import "./component-styles/card.scss";
 @import "./component-styles/theme-switch.scss";
 @import "./component-styles/button.scss";
@@ -171,3 +175,4 @@
 @import "./component-styles/multi-button.scss";
 @import "./component-styles/modal.scss";
 @import "./component-styles/jobs-list.scss";
+@import "./component-styles/scrollbar.scss";
