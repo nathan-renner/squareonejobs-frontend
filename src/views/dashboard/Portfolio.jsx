@@ -26,7 +26,11 @@ function Portfolio(props) {
 
   const fetchPortfolio = async () => {
     const response = await getPortfolioApi.request(user.profileId);
-    if (response.ok) setPortfolio(response.data);
+    if (response.ok)
+      setPortfolio({
+        ...response.data,
+        //avatar: `${response.data.avatar}?${Date.now()}`,
+      });
   };
 
   useEffect(() => {

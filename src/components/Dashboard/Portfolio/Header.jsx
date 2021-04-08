@@ -112,7 +112,7 @@ function Header({
     if (response.ok) {
       updateAccountDetails({
         ...response.data,
-        avatar: response.data.avatar.concat(`?v=${Date.now()}`),
+        //avatar: `${response.data.avatar}?${Date.now()}`,
       });
       setIsEditing(false);
     }
@@ -142,7 +142,7 @@ function Header({
             isEditing && imagePreview
               ? imagePreview
               : avatar
-              ? avatar
+              ? `${avatar}?${Date.now()}`
               : defaultAvatar
           }
           alt="Avatar"
