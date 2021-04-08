@@ -13,6 +13,7 @@ import Button from "./../../components/Button";
 import ActivityIndicator from "./../../components/ActivityIndicator";
 import UploadScreen from "./../../components/UploadScreen";
 import References from "./../../components/Dashboard/Portfolio/References";
+import Documents from "../../components/Dashboard/Portfolio/Documents";
 
 function Portfolio(props) {
   const getPortfolioApi = useApi(getPortfolio);
@@ -43,8 +44,9 @@ function Portfolio(props) {
     if (response.ok) {
       setPortfolio({
         ...response.data,
-        userDetails: portfolio.userDetails,
-        references: portfolio.references,
+        userDetails: { ...portfolio.userDetails },
+        references: [...portfolio.references],
+        referencesLength: portfolio.referencesLength,
       });
     }
   };
@@ -52,6 +54,12 @@ function Portfolio(props) {
   const updateAccount = (newData) => {
     const newPortfolio = { ...portfolio };
     newPortfolio.userDetails = newData;
+    setPortfolio(newPortfolio);
+  };
+
+  const updateDocuments = (newData) => {
+    const newPortfolio = { ...portfolio };
+    newPortfolio.documents = newData;
     setPortfolio(newPortfolio);
   };
 
@@ -78,10 +86,20 @@ function Portfolio(props) {
                 setProgress={setProgress}
                 setUploadVisible={setUploadVisible}
               />
-              <References
+              <Documents
                 data-aos="fade-up"
                 data-aos-once={true}
                 data-aos-delay="100"
+                setProgress={setProgress}
+                setUploadVisible={setUploadVisible}
+                updateDocuments={updateDocuments}
+                portfolio={portfolio}
+                setLoading={setLoading}
+              />
+              <References
+                data-aos="fade-up"
+                data-aos-once={true}
+                data-aos-delay="200"
                 portfolio={portfolio}
                 setLoading={setLoading}
               />

@@ -244,6 +244,46 @@
     }
   }
 
+  .documents {
+    height: auto;
+
+    .items {
+      margin-top: 2em;
+    }
+
+    .doc {
+      margin-top: 0.5em;
+      margin-bottom: 0.5em;
+      display: flex;
+      align-items: center;
+
+      a {
+        text-decoration: none;
+        margin-left: 5px;
+
+        @include themed() {
+          color: t("text");
+        }
+
+        &:hover {
+          color: $secondary;
+        }
+      }
+      .remove-icon-container {
+        margin-left: auto;
+      }
+    }
+
+    .ok-button {
+      text-align: right;
+      > * {
+        margin-right: 0;
+        margin-bottom: 0;
+        display: inline-block;
+      }
+    }
+  }
+
   .about {
     height: auto;
     p {

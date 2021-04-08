@@ -27,6 +27,18 @@ export const updateAccount = (data, onUploadProgress) =>
       onUploadProgress(progress.loaded / progress.total),
   });
 
+export const uploadDocument = (data, onUploadProgress) =>
+  client.post(`${portfolioEP}/document`, data, {
+    headers: {
+      "Content-Type": "multipart/form-data;",
+    },
+    onUploadProgress: (progress) =>
+      onUploadProgress(progress.loaded / progress.total),
+  });
+
+export const deleteDocument = (id) =>
+  client.delete(`${portfolioEP}/document/${id}`);
+
 export const updatePortfolioElement = (profileId, element, value) =>
   client.put(`${portfolioEP}/${element}`, {
     profileId,
