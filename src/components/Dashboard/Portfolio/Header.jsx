@@ -105,15 +105,12 @@ function Header({
     formData.append("data", json);
 
     if (file !== null) formData.append("avatar", file);
-
+    console.log(file);
     const response = await updateAccountApi.request(formData, (progress) =>
       setProgress(progress)
     );
     if (response.ok) {
-      updateAccountDetails({
-        ...response.data,
-        //avatar: `${response.data.avatar}?${Date.now()}`,
-      });
+      updateAccountDetails(response.data);
       setIsEditing(false);
     }
   };

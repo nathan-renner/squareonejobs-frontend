@@ -70,7 +70,7 @@ const refData = {
 
 const Navbar = ({ data }) => {
   const history = useHistory();
-  const [avatar] = useState(null);
+  const [avatar] = useState(data.avatar);
   const [streak] = useState(3);
   const [profileHover, setProfileHover] = useState(false);
   const [streakHover, setStreakHover] = useState(false);

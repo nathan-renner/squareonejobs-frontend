@@ -18,9 +18,10 @@ function EducationAddModal({
   handleEditEducation,
   educationToEdit: edu,
 }) {
-  const handleSubmit = (education) => {
+  const handleSubmit = (education, formProps) => {
     handleEditEducation(education, edu.index);
     setIsEditingEducation(false);
+    formProps.resetForm();
   };
 
   const showWarning = (props) => {
