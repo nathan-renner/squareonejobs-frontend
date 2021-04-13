@@ -1,0 +1,28 @@
+.success-modal {
+  position: fixed;
+  z-index: 10000;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: grid;
+  place-items: center;
+  background-color: $primary;
+
+  .animation {
+    width: 20em;
+  }
+
+  h1 {
+    color: $white !important;
+    margin-top: -1.5em;
+    z-index: 1;
+  }
+
+  .sm-container {
+    margin-top: -4em;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
+}

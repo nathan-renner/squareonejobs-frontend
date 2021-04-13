@@ -17,6 +17,8 @@ import Search from "./../views/dashboard/Search";
 
 import { getNavbarData } from "./../api/users";
 import useApi from "./../hooks/useApi";
+import SuccessModal from "../components/SuccessModal";
+import { SuccessProvider } from "../hooks/useSuccessScreen";
 
 const Dashboard = () => {
   const navbarApi = useApi(getNavbarData);
@@ -38,28 +40,31 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <div className="dashboard">
-      <ActivityIndicator visible={navbarApi.loading} />
-      {navData && (
-        <>
-          <Navbar data={navData} />
-          <div className="content-container">
-            <Switch>
-              <Route path={`/listing/:id`} component={Listing} />
-              <Route path={`/search`} component={Search} />
-              <Route path={`/explore`} component={Explore} />
-              <Route path={`/account`} component={Account} />
-              <Route path={`/settings`} component={Settings} />
-              <Route path={`/portfolio`} component={Portfolio} />
-              <Route path={`/payments`} component={Payments} />
-              <Route path={`/my-jobs`} component={MyJobs} />
-              <Route exact path={`/`} component={Home} />
-              <Redirect to="/not-found" />
-            </Switch>
-          </div>
-        </>
-      )}
-    </div>
+    <SuccessProvider>
+      <div className="dashboard">
+        <ActivityIndicator visible={navbarApi.loading} />
+        <SuccessModal />
+        {navData && (
+          <>
+            <Navbar data={navData} />
+            <div className="content-container">
+              <Switch>
+                <Route path={`/listing/:id`} component={Listing} />
+                <Route path={`/search`} component={Search} />
+                <Route path={`/explore`} component={Explore} />
+                <Route path={`/account`} component={Account} />
+                <Route path={`/settings`} component={Settings} />
+                <Route path={`/portfolio`} component={Portfolio} />
+                <Route path={`/payments`} component={Payments} />
+                <Route path={`/my-jobs`} component={MyJobs} />
+                <Route exact path={`/`} component={Home} />
+                <Redirect to="/not-found" />
+              </Switch>
+            </div>
+          </>
+        )}
+      </div>
+    </SuccessProvider>
   );
 };
 

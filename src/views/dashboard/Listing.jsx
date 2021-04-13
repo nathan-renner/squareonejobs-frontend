@@ -9,6 +9,7 @@ import NumberFormat from "react-number-format";
 
 import useApi from "./../../hooks/useApi";
 import { getListing } from "../../api/listings";
+import { useSuccessScreen } from "../../hooks/useSuccessScreen";
 
 // const listing = {
 //   _id: 1,
@@ -28,6 +29,7 @@ import { getListing } from "../../api/listings";
 function Listing({ id = false, modal = false }) {
   const [listing, setListing] = useState(false);
   const listingApi = useApi(getListing);
+  const { showSuccess } = useSuccessScreen();
 
   const fetchListing = async () => {
     setListing(false);
@@ -69,7 +71,12 @@ function Listing({ id = false, modal = false }) {
             </div>
           </div>
           <div>
-            <Button label="Apply" onClick={() => true} />
+            <Button
+              label="Apply"
+              onClick={() => {
+                showSuccess();
+              }}
+            />
           </div>
         </div>
         <div className="l-content">
