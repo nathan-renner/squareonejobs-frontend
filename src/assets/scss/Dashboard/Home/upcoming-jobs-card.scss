@@ -5,6 +5,15 @@
     align-items: center;
     gap: 10px;
     margin-bottom: 15px;
+    cursor: pointer;
+    padding: 0.2em;
+    border-radius: 0.5em;
+
+    &:hover {
+      @include themed() {
+        background-color: t("background");
+      }
+    }
 
     &:last-of-type {
       margin-bottom: 0;

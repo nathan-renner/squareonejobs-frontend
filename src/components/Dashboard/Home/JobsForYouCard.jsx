@@ -31,24 +31,36 @@ function JobsForYouCard({ jobs, onSelect, ...props }) {
         />
       </div>
       <div className="jobs-container">
-        {jobs.map((job) => (
-          <div className="job" key={job._id} onClick={() => onSelect(job._id)}>
-            <img src={job.company.logo} alt="Logo" />
-            <div className="details-container">
-              <p>{moment(job.startDateTime).format("MM/DD/YYYY")}</p>
-              <h3>{job.position}</h3>
+        {jobs.map((job) => {
+          const {
+            position,
+            startDateTime,
+            endDateTime,
+            location: loc,
+          } = job.details;
+          return (
+            <div
+              className="job"
+              key={job._id}
+              onClick={() => onSelect(job._id)}
+            >
+              <img src={job.company.logo} alt="Logo" />
+              <div className="details-container">
+                <p>{moment(startDateTime).format("MM/DD/YYYY")}</p>
+                <h3>{position}</h3>
+              </div>
+              <div className="details-container">
+                <p>
+                  {moment(startDateTime).format("LT") +
+                    " - " +
+                    moment(endDateTime).format("LT")}
+                </p>
+                <p>{`${loc.street}, ${loc.city}, ${loc.state} ${loc.zip}`}</p>
+              </div>
+              <Button label="apply" className="apply" />
             </div>
-            <div className="details-container">
-              <p>
-                {moment(job.startDateTime).format("LT") +
-                  " - " +
-                  moment(job.endDateTime).format("LT")}
-              </p>
-              <p>{job.location}</p>
-            </div>
-            <Button label="apply" className="apply" />
-          </div>
-        ))}
+          );
+        })}
       </div>
     </Card>
   );

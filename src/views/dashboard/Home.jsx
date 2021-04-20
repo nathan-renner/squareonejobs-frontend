@@ -54,12 +54,21 @@ const Home = () => {
               />
             </div>
             <div>
-              <ProgressCard data-aos="fade-up" data-aos-once={true} />
-              <TodaysJobCard
+              <ProgressCard
                 data-aos="fade-up"
-                data-aos-delay="100"
                 data-aos-once={true}
+                points={dashData.points}
+                level={dashData.level}
               />
+              {dashData.todaysJob && (
+                <TodaysJobCard
+                  data-aos="fade-up"
+                  data-aos-delay="100"
+                  data-aos-once={true}
+                  todaysJob={dashData.todaysJob}
+                  onSelect={setSelectedJob}
+                />
+              )}
               <Tasks
                 data-aos="fade-up"
                 data-aos-delay="200"
@@ -69,6 +78,8 @@ const Home = () => {
                 data-aos="fade-up"
                 data-aos-delay="300"
                 data-aos-once={true}
+                jobs={dashData.thisWeeksJobs}
+                onSelect={setSelectedJob}
               />
             </div>
           </div>
