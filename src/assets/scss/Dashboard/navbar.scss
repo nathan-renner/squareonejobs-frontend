@@ -130,11 +130,12 @@
         content: "";
         position: absolute;
         top: 23px;
-        left: 0px;
+        right: 3px;
         height: 10px;
         width: 10px;
         border-radius: 50%;
         background-color: $danger;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
       }
 
       &.notif {

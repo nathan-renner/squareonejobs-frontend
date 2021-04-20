@@ -41,6 +41,10 @@
     font-weight: 600;
   }
 
+  &.outline {
+    border: 1px solid $primary;
+  }
+
   &:hover,
   &:focus {
     transform: scale(1.05);

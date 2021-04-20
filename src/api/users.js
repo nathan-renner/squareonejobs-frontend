@@ -10,11 +10,9 @@ export const getPortfolio = (id) => client.get(`${portfolioEP}/${id}`);
 
 export const getNavbarData = () => client.get(`${userEP}/navbar-data`);
 
+export const getNotifications = () => client.get("/notifications/initial");
+
 export const getDashboardData = () => client.get(`${userEP}/dashboard-data`);
-
-export const getMyDayJobs = () => client.get(`${userEP}/day-jobs`);
-
-export const getMyFullTime = () => client.get(`${userEP}/full-time`);
 
 export const getMyReferences = () => client.get(`${referencesEP}/user`);
 

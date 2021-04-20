@@ -38,10 +38,10 @@ function Header({ data, ...props }) {
             <h3>{data.applied.length}</h3>
             <p>Applied</p>
           </div>
-          <div>
+          {/* <div>
             <h3>{data.watchlist.length}</h3>
             <p>Watchlist</p>
-          </div>
+          </div> */}
         </div>
       </Card>
     );
@@ -58,10 +58,10 @@ function Header({ data, ...props }) {
             <h3>{data.applied.length}</h3>
             <p>Applied</p>
           </div>
-          <div>
+          {/* <div>
             <h3>{data.watchlist.length}</h3>
             <p>Watchlist</p>
-          </div>
+          </div> */}
         </div>
       </Card>
     );

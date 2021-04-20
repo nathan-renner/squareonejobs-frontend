@@ -70,16 +70,9 @@ const refData = {
 
 const Navbar = ({ data }) => {
   const history = useHistory();
-  const [avatar] = useState(data.avatar);
-  const [streak] = useState(3);
-  const [profileHover, setProfileHover] = useState(false);
-  const [streakHover, setStreakHover] = useState(false);
-  const [notifHover, setNotifHover] = useState(false);
-  const [completedHover, setCompletedHover] = useState(false);
-  const [appHover, setAppHover] = useState(false);
-  const [refHover, setRefHover] = useState(false);
   const [searchFocus, setSearchFocus] = useState(false);
   const [search, setSearch] = useState("");
+  const [dropdown, setDropdown] = useState(false);
   const { pathname } = useLocation();
 
   useEffect(() => {
@@ -132,19 +125,36 @@ const Navbar = ({ data }) => {
     });
   };
 
+  const handleDropdown = (drop) => {
+    switch (drop) {
+      case "completedJobs":
+        setDropdown("completedJobs");
+        break;
+      case "applications":
+        setDropdown("applications");
+        break;
+      case "references":
+        setDropdown("references");
+        break;
+      case "streak":
+        setDropdown("streak");
+        break;
+      case "notifications":
+        setDropdown("notifications");
+        break;
+      case "profile":
+        setDropdown("profile");
+        break;
+      default:
+        setDropdown(false);
+    }
+  };
+
   return (
     <>
       <div
-        className={`overlay-bg ${
-          profileHover ||
-          streakHover ||
-          notifHover ||
-          completedHover ||
-          appHover ||
-          refHover
-            ? "active"
-            : null
-        }`}
+        className={`overlay-bg ${dropdown ? "active" : null}`}
+        onClick={handleDropdown}
       />
       <div className="navbar-container">
         <div className="navbar">
@@ -168,65 +178,51 @@ const Navbar = ({ data }) => {
               value={search}
             />
           </div>
-          <div
-            className="stat"
-            onMouseEnter={() => setCompletedHover(true)}
-            onMouseLeave={() => setCompletedHover(false)}
-          >
+          <div className="stat" onClick={() => handleDropdown("completedJobs")}>
             <BriefcaseIcon height={25} width={25} />
             <h2 className="stat-text text-primary">
               {data.completedDayJobsLength}
             </h2>
           </div>
-          <div
-            className="stat"
-            onMouseEnter={() => setAppHover(true)}
-            onMouseLeave={() => setAppHover(false)}
-          >
+          <div className="stat" onClick={() => handleDropdown("applications")}>
             <PencilIcon height={25} width={25} />
             <h2 className="stat-text text-purple">{data.applicationsLength}</h2>
           </div>
-          <div
-            className="stat"
-            onMouseEnter={() => setRefHover(true)}
-            onMouseLeave={() => setRefHover(false)}
-          >
+          <div className="stat" onClick={() => handleDropdown("references")}>
             <ClipboardIcon height={25} width={25} />
             <h2 className="stat-text text-secondary">{data.refsLength}</h2>
           </div>
-          <div
-            className="nav-item"
-            onMouseEnter={() => setStreakHover(true)}
-            onMouseLeave={() => setStreakHover(false)}
-          >
+          <div className="nav-item" onClick={() => handleDropdown("streak")}>
             <StreakIcon height={25} width={30} />
           </div>
-          <div className="nav-item">
+          <div
+            className={`nav-item ${data.isNewNotifications ? "notif" : null}`}
+          >
             <NotificationsIcon
               height={25}
               width={25}
-              onMouseEnter={() => setNotifHover(true)}
-              onMouseLeave={() => setNotifHover(false)}
+              onClick={() => handleDropdown("notifications")}
             />
           </div>
           <img
             className="nav-item avatar"
-            src={avatar ? avatar : defaultAvatar}
+            src={data.avatar ? `${data.avatar}?v=${Date.now()}` : defaultAvatar}
             alt="Avatar"
-            onMouseEnter={() => setProfileHover(true)}
-            onMouseLeave={() => setProfileHover(false)}
+            onClick={() => handleDropdown("profile")}
           />
         </div>
-        <ProfileDropdown {...{ profileHover, setProfileHover, avatar }} />
-        <StreakDropdown {...{ streakHover, setStreakHover, streak }} />
-        <NotificationDropdown {...{ notifHover, setNotifHover }} />
+        <ProfileDropdown
+          visible={dropdown === "profile"}
+          avatar={data.avatar}
+        />
+        <StreakDropdown visible={dropdown === "streak"} streak={data.streak} />
+        <NotificationDropdown visible={dropdown === "notifications"} />
         <StatDropdown
           data={completedData}
-          hover={completedHover}
-          setHover={setCompletedHover}
+          visible={dropdown === "completedJobs"}
         />
-        <StatDropdown data={appData} hover={appHover} setHover={setAppHover} />
-        <StatDropdown data={refData} hover={refHover} setHover={setRefHover} />
+        <StatDropdown data={appData} visible={dropdown === "applications"} />
+        <StatDropdown data={refData} visible={dropdown === "references"} />
       </div>
     </>
   );

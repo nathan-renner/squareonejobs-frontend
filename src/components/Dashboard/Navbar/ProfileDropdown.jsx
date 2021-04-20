@@ -6,19 +6,18 @@ import useAuth from "../../../auth/useAuth";
 import defaultAvatar from "../../../assets/images/default-avatar.png";
 import Icon from "./../../Icon";
 
-function ProfileDropdown({ profileHover, setProfileHover, avatar }) {
+function ProfileDropdown({ visible, avatar }) {
   const { user, logout } = useAuth();
 
   return (
     <div
-      className={`nav-dropdown profile-dropdown ${
-        profileHover ? "active" : null
-      }`}
-      onMouseEnter={() => setProfileHover(true)}
-      onMouseLeave={() => setProfileHover(false)}
+      className={`nav-dropdown profile-dropdown ${visible ? "active" : null}`}
     >
       <div className="user-details">
-        <img src={avatar ? avatar : defaultAvatar} alt="avatar" />
+        <img
+          src={avatar ? `${avatar}?v=${Date.now()}` : defaultAvatar}
+          alt="avatar"
+        />
         <h3>{user.firstName + " " + user.lastName}</h3>
         <p className="subtitle">{user.email}</p>
       </div>

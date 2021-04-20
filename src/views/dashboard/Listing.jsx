@@ -10,6 +10,8 @@ import NumberFormat from "react-number-format";
 import useApi from "./../../hooks/useApi";
 import { getListing } from "../../api/listings";
 import { useSuccessScreen } from "../../hooks/useSuccessScreen";
+import { applyToDayJob } from "./../../api/listings";
+import useAuth from "./../../auth/useAuth";
 
 // const listing = {
 //   _id: 1,
@@ -26,15 +28,21 @@ import { useSuccessScreen } from "../../hooks/useSuccessScreen";
 //   requirements: "asdfadsf asd f asdfsd f sd fs adf s f asf sda f asfas dfas d",
 // };
 
-function Listing({ id = false, modal = false }) {
+function Listing({ id = false, modal = false, onApplyDone = () => true }) {
   const [listing, setListing] = useState(false);
+  const { user } = useAuth();
   const listingApi = useApi(getListing);
+  const applyApi = useApi(applyToDayJob);
   const { showSuccess } = useSuccessScreen();
+  const [isWinner, setIsWinner] = useState(false);
 
   const fetchListing = async () => {
     setListing(false);
     const response = await listingApi.request(id);
-    if (response.ok) setListing(response.data);
+    if (response.ok) {
+      setListing(response.data);
+      setIsWinner(response.data.winner === user._id);
+    }
   };
 
   useEffect(() => {
@@ -44,15 +52,30 @@ function Listing({ id = false, modal = false }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
+  const onApply = async () => {
+    const response = await applyApi.request(id);
+    if (response.ok) {
+      showSuccess();
+      onApplyDone(id);
+    }
+  };
+
+  const renderButton = () => {
+    if (!listing.winner) return <Button label="Apply" onClick={onApply} />;
+    else {
+      if (isWinner) {
+        return <Button label="IsWinner" />;
+      }
+    }
+  };
+
   return (
     <div className={`listing ${modal ? "list-modal" : null}`}>
       <img src={MapImg} alt="Map of Manhattan" className="map" />
       <div className="content">
         <div className="l-header">
           <div className="left">
-            {!listing ? (
-              <Skeleton circle height={80} width={80} />
-            ) : (
+            {!listing ? null : ( // <Skeleton circle height={80} width={80} />
               <img
                 src={listing.company.logo}
                 alt={`${listing.company.name}'s logo`}
@@ -70,14 +93,7 @@ function Listing({ id = false, modal = false }) {
               <h2>{!listing ? <Skeleton width={150} /> : listing.position}</h2>
             </div>
           </div>
-          <div>
-            <Button
-              label="Apply"
-              onClick={() => {
-                showSuccess();
-              }}
-            />
-          </div>
+          <div>{renderButton()}</div>
         </div>
         <div className="l-content">
           {listing.endDateTime && (
@@ -129,12 +145,6 @@ function Listing({ id = false, modal = false }) {
               {listing.description && (
                 <>
                   <h3>Description</h3>
-                  <p>{listing.description}</p>
-                  <p>{listing.description}</p>
-                  <p>{listing.description}</p>
-                  <p>{listing.description}</p>
-                  <p>{listing.description}</p>
-                  <p>{listing.description}</p>
                   <p>{listing.description}</p>
                 </>
               )}

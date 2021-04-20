@@ -2,7 +2,7 @@ import React from "react";
 import moment from "moment";
 import StreakIcon from "./../../icons/StreakIcon";
 
-function StreakDropdown({ streakHover, setStreakHover, streak }) {
+function StreakDropdown({ visible, streak }) {
   const icons = [1, 2, 3, 4, 5, 6, 7];
 
   const renderIcons = () => {
@@ -40,11 +40,7 @@ function StreakDropdown({ streakHover, setStreakHover, streak }) {
 
   return (
     <div
-      className={`nav-dropdown streak-dropdown ${
-        streakHover ? "active" : null
-      }`}
-      onMouseEnter={() => setStreakHover(true)}
-      onMouseLeave={() => setStreakHover(false)}
+      className={`nav-dropdown streak-dropdown ${visible ? "active" : null}`}
     >
       <div className="header">
         <h3>Daily Streak</h3>

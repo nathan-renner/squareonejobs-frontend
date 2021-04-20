@@ -7,26 +7,40 @@ import JobsList from "../../JobsList";
 import Button from "./../../Button";
 import ActivityIndicator from "./../../ActivityIndicator";
 import useApi from "./../../../hooks/useApi";
-import { getMyDayJobs } from "./../../../api/users";
+import Modal from "./../../Modal";
+import Listing from "./../../../views/dashboard/Listing";
+import { getMyJobs } from "../../../api/listings";
 
 function MyDayJobs(props) {
   const history = useHistory();
-  const myDayJobsApi = useApi(getMyDayJobs);
+  const getMyJobsApi = useApi(getMyJobs);
   const [dayJobs, setDayJobs] = useState(false);
+  const [selectedJob, setSelectedJob] = useState(false);
 
   const fetchJobs = async () => {
-    const response = await myDayJobsApi.request();
+    const response = await getMyJobsApi.request("day");
     if (response.ok) setDayJobs(response.data);
   };
 
   useEffect(() => {
-    if (!dayJobs && !myDayJobsApi.error) fetchJobs();
+    if (!dayJobs && !getMyJobsApi.error) fetchJobs();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <div className="my-jobs-content">
-      <ActivityIndicator visible={myDayJobsApi.loading} />
+      <ActivityIndicator visible={getMyJobsApi.loading} />
+      <Modal
+        className="nopadding"
+        visible={selectedJob}
+        Content={Listing}
+        onCancel={() => setSelectedJob(false)}
+        componentProps={{
+          modal: true,
+          id: selectedJob,
+          onExit: () => setSelectedJob(false),
+        }}
+      />
       {dayJobs && (
         <>
           <Header
@@ -40,7 +54,11 @@ function MyDayJobs(props) {
               <div className="section-header">
                 <h2>Upcoming</h2>
               </div>
-              <JobsList jobs={dayJobs.upcoming} />
+              <JobsList
+                type="upcoming"
+                jobs={dayJobs.upcoming}
+                showJobModal={setSelectedJob}
+              />
             </Card>
           )}
           {dayJobs.pending.length > 0 && (
@@ -48,7 +66,7 @@ function MyDayJobs(props) {
               <div className="section-header">
                 <h2>Pending</h2>
               </div>
-              <JobsList jobs={dayJobs.pending} />
+              <JobsList type="pending" jobs={dayJobs.pending} />
             </Card>
           )}
           {dayJobs.previous.length > 0 && (
@@ -57,7 +75,7 @@ function MyDayJobs(props) {
                 <h2>Previous</h2>
                 {/* <NavLink to="/my-jobs/day-jobs">See all</NavLink> */}
               </div>
-              <JobsList jobs={dayJobs.previous} />
+              <JobsList type="previous" jobs={dayJobs.previous} />
             </Card>
           )}
           {dayJobs.upcoming.length === 0 &&
