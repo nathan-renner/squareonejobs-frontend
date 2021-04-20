@@ -8,11 +8,14 @@ import Button from "./../../Button";
 import useApi from "./../../../hooks/useApi";
 import ActivityIndicator from "./../../ActivityIndicator";
 import { getMyJobs } from "./../../../api/listings";
+import Modal from "./../../Modal";
+import Listing from "../../../views/dashboard/Listing";
 
 function MyFullTime(props) {
   const history = useHistory();
   const getMyJobsApi = useApi(getMyJobs);
   const [fullTime, setFullTime] = useState(false);
+  const [selectedJob, setSelectedJob] = useState(false);
 
   const fetchJobs = async () => {
     const response = await getMyJobsApi.request("full");
@@ -27,6 +30,17 @@ function MyFullTime(props) {
   return (
     <div className="my-jobs-content">
       <ActivityIndicator visible={getMyJobsApi.loading} />
+      <Modal
+        className="nopadding"
+        visible={selectedJob}
+        Content={Listing}
+        onCancel={() => setSelectedJob(false)}
+        componentProps={{
+          modal: true,
+          id: selectedJob,
+          onExit: () => setSelectedJob(false),
+        }}
+      />
       {fullTime && (
         <>
           <Header
@@ -40,7 +54,7 @@ function MyFullTime(props) {
               <div className="section-header">
                 <h2>Offers</h2>
               </div>
-              <JobsList jobs={fullTime.offers} />
+              <JobsList jobs={fullTime.offers} showJobModal={setSelectedJob} />
             </Card>
           )}
           {fullTime.applied.length > 0 && (
@@ -48,7 +62,7 @@ function MyFullTime(props) {
               <div className="section-header">
                 <h2>Applied</h2>
               </div>
-              <JobsList jobs={fullTime.applied} />
+              <JobsList jobs={fullTime.applied} showJobModal={setSelectedJob} />
             </Card>
           )}
           {/* {fullTime.watchlist.length > 0 && (

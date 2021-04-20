@@ -65,6 +65,12 @@ function Header({ data, ...props }) {
         </div>
       </Card>
     );
+  else if (pathname.includes("saved"))
+    return (
+      <Card simple className="header" {...props}>
+        <h2>Saved Jobs</h2>
+      </Card>
+    );
   return null;
 }
 

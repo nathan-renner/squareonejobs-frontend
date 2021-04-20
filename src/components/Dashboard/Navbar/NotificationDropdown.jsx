@@ -2,57 +2,10 @@ import React, { useEffect, useState } from "react";
 import { FaBullhorn } from "react-icons/fa";
 import moment from "moment";
 
-import FakeImg from "../../../assets/images/icon-dark.png";
 import Icon from "./../../Icon";
 import useApi from "./../../../hooks/useApi";
 import { getNotifications } from "../../../api/users";
 import ActivityIndicator from "./../../ActivityIndicator";
-
-// const newNotifs = [
-//   {
-//     id: 1,
-//     dateCreated: moment().add(1, "second"),
-//     clicked: false,
-//     notificationType: "Announcement",
-//     linkId: 1,
-//     message:
-//       "This is the message! congrats, you've got a message! Nice message!",
-//     image: FakeImg,
-//   },
-//   {
-//     id: 2,
-//     dateCreated: moment().add(4, "hours"),
-//     clicked: true,
-//     notificationType: "Announcement",
-//     linkId: 1,
-//     message:
-//       "This is the message! congrats, you've got a message! Nice message!",
-//     image: "",
-//   },
-// ];
-
-// const earlierNotifs = [
-//   {
-//     id: 1,
-//     dateCreated: moment().add(6, "hours"),
-//     clicked: false,
-//     notificationType: "Announcement",
-//     linkId: 1,
-//     message:
-//       "This is the message! congrats, you've got a message! Nice message!",
-//     image: "",
-//   },
-//   {
-//     id: 2,
-//     dateCreated: moment().add(12, "days"),
-//     clicked: false,
-//     notificationType: "Announcement",
-//     linkId: 1,
-//     message:
-//       "This is the message! congrats, you've got a message! Nice message!",
-//     image: "",
-//   },
-// ];
 
 function NotificationDropdown({ visible }) {
   const [notifications, setNotifications] = useState(false);
@@ -65,6 +18,7 @@ function NotificationDropdown({ visible }) {
 
   useEffect(() => {
     if (visible && !notifications) fetchNotifications();
+    //eslint-disable-next-line
   }, [visible]);
 
   const renderNotifs = (notifs) => {

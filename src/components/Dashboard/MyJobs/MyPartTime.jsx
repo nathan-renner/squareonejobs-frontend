@@ -8,11 +8,14 @@ import Button from "./../../Button";
 import { getMyJobs } from "../../../api/listings";
 import ActivityIndicator from "./../../ActivityIndicator";
 import useApi from "./../../../hooks/useApi";
+import Modal from "./../../Modal";
+import Listing from "../../../views/dashboard/Listing";
 
 function MyPartTime(props) {
   const history = useHistory();
   const getMyJobsApi = useApi(getMyJobs);
   const [partTime, setPartTime] = useState(false);
+  const [selectedJob, setSelectedJob] = useState(false);
 
   const fetchJobs = async () => {
     const response = await getMyJobsApi.request("part");
@@ -27,6 +30,17 @@ function MyPartTime(props) {
   return (
     <div className="my-jobs-content">
       <ActivityIndicator visible={getMyJobsApi.loading} />
+      <Modal
+        className="nopadding"
+        visible={selectedJob}
+        Content={Listing}
+        onCancel={() => setSelectedJob(false)}
+        componentProps={{
+          modal: true,
+          id: selectedJob,
+          onExit: () => setSelectedJob(false),
+        }}
+      />
       {partTime && (
         <>
           <Header
@@ -40,7 +54,7 @@ function MyPartTime(props) {
               <div className="section-header">
                 <h2>Upcoming</h2>
               </div>
-              <JobsList jobs={partTime.offers} />
+              <JobsList jobs={partTime.offers} showJobModal={setSelectedJob} />
             </Card>
           )}
           {partTime.applied.length > 0 && (
@@ -48,7 +62,7 @@ function MyPartTime(props) {
               <div className="section-header">
                 <h2>Pending</h2>
               </div>
-              <JobsList jobs={partTime.applied} />
+              <JobsList jobs={partTime.applied} showJobModal={setSelectedJob} />
             </Card>
           )}
           {partTime.offers.length === 0 && partTime.applied.length === 0 && (

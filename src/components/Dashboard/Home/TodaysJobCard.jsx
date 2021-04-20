@@ -1,17 +1,7 @@
 import React from "react";
 import Card from "./../../Card";
 import moment from "moment";
-import Badge from "./../../Badge";
-
-const listing = {
-  companyLogo:
-    "https://squareonejobs-images.s3.us-east-2.amazonaws.com/dummy-data/amazon.png",
-  position: "Box Mover",
-  startDateTime: moment(),
-  endDateTime: moment().add(8, "hours"),
-  location: "1 Castle Point Terrace, Hoboken NJ, 07030",
-  points: 100000,
-};
+//import Badge from "./../../Badge";
 
 function TodaysJobCard({ todaysJob, onSelect, ...props }) {
   const {
