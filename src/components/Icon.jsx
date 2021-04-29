@@ -3,6 +3,7 @@ import React from "react";
 function Icon({
   Icon: Component,
   size = 24,
+  sizeFactor = 0.6,
   color = "medium",
   iconColor = "white",
   onClick = () => true,
@@ -24,7 +25,7 @@ function Icon({
       }}
       {...{ onClick }}
     >
-      <Component size={size * 0.6} className={`text-${iconColor}`} />
+      <Component size={size * sizeFactor} className={`text-${iconColor}`} />
     </div>
   );
 }

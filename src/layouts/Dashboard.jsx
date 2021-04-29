@@ -41,7 +41,7 @@ const Dashboard = () => {
 
   return (
     <SuccessProvider>
-      <div className="dashboard">
+      <div className="dashboard user-dash">
         <ActivityIndicator visible={navbarApi.loading} />
         <SuccessModal />
         {navData && (

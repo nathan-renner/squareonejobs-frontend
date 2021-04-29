@@ -20,8 +20,23 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    gap: 1em;
     z-index: 1;
+
+    > * + * {
+      margin-left: 1em;
+    }
+
+    &.employer-nav {
+      .left,
+      .right {
+        display: flex;
+        align-items: center;
+
+        > * + * {
+          margin-left: 1em;
+        }
+      }
+    }
 
     .logo {
       height: 35px;

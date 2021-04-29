@@ -10,6 +10,7 @@
   transform: scale(1);
   transition: transform ease-in-out 150ms;
   user-select: none;
+  display: inline-block;
 
   &.btn-primary {
     background-color: $primary;

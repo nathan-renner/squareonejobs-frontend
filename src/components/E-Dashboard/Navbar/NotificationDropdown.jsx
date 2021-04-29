@@ -8,7 +8,7 @@ import { getNotifications } from "../../../api/users";
 import ActivityIndicator from "./../../ActivityIndicator";
 
 function NotificationDropdown({ visible }) {
-  const [notifications, setNotifications] = useState(false);
+  const [notifications, setNotifications] = useState({ new: [], earlier: [] });
   const getNotificationsApi = useApi(getNotifications);
 
   const fetchNotifications = async () => {
