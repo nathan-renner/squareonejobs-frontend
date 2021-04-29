@@ -10,3 +10,6 @@ export const getListing = (id) => client.get(`${listingsEP}/${id}`);
 export const applyToDayJob = (id) => client.post(`${listingsEP}/apply/${id}`);
 
 export const getMyJobs = (type) => client.get(`${listingsEP}/my-jobs/${type}`);
+
+export const searchListings = (query) =>
+  client.get(`${listingsEP}/search?${query}`);

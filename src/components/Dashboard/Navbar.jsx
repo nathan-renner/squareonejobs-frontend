@@ -89,9 +89,7 @@ const Navbar = ({ data }) => {
   };
   const onSubmitSearch = (e) => {
     e.preventDefault();
-    history.replace("/search", {
-      search,
-    });
+    history.replace(`/search?q=${search}`);
   };
   const onChangeSearch = (e) => {
     setSearch(e.target.value);

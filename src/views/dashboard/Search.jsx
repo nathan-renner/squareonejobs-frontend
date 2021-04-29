@@ -1,126 +1,113 @@
 import React, { useEffect, useState } from "react";
-import NumberFormat from "react-number-format";
-import moment from "moment";
-import { useHistory } from "react-router-dom";
-import { MdAccessTime, MdLocationOn, MdCreditCard } from "react-icons/md";
+import { useHistory, useLocation } from "react-router-dom";
+import queryString from "query-string";
+import ReactPaginate from "react-paginate";
 
-import Card from "./../../components/Card";
 import Listing from "./Listing";
 import Filters from "./../../components/Dashboard/Search/Filters";
 
-import { getActiveDay } from "./../../api/listings";
+import { searchListings } from "./../../api/listings";
 import useApi from "../../hooks/useApi";
 import ActivityIndicator from "./../../components/ActivityIndicator";
 import Button from "./../../components/Button";
-
-// const listings = new Array(15).fill({
-//   _id: 1,
-//   position: "Box Mover",
-//   companyName: "Amazon",
-//   companyLogo:
-//     "https://squareonejobs-images.s3.us-east-2.amazonaws.com/dummy-data/amazon.png",
-//   startDateTime: new Date(2020, 11, 1),
-//   endDateTime: new Date(2020, 11, 1),
-//   location: "1 Castle Point Terrace, Hoboken NJ, 07030",
-//   wage: 80,
-// });
+import JobCard from "../../components/Dashboard/Search/JobCard";
+import useQuery from "../../hooks/useQuery";
 
 function Search(props) {
   const history = useHistory();
-  const { search, category } = history.location.state;
+  const location = useLocation();
+  const query = useQuery();
+  const listingsApi = useApi(searchListings);
   const [selected, setSelected] = useState(false);
+  const [start, setStart] = useState(query.start ? query.start : 0);
   const [filter, setFilter] = useState({
-    category: category ? category : "",
-    jobType: "",
-    radius: "",
+    c: query.c ? query.c : "",
+    t: query.t ? query.t : "",
+    r: query.r ? query.c : "25",
+    remote: query.remote ? query.remote === "true" : false,
+    nodl: query.nodl ? query.nodl === "true" : false,
   });
   const [listings, setListings] = useState(false);
-  const listingsApi = useApi(getActiveDay);
+  const [count, setCount] = useState(false);
 
   const fetchListings = async () => {
-    const response = await listingsApi.request();
-    if (response.ok) setListings(response.data);
+    const response = await listingsApi.request(queryString.stringify(query));
+    if (response.ok) {
+      setListings(response.data.listings);
+      setCount(response.data.count);
+    }
   };
 
   useEffect(() => {
-    if (!listings && !listingsApi.error) fetchListings();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    if (!listingsApi.error && !listings) fetchListings();
+    // eslint-disable-next-line
+  }, [location]);
 
-  const handleFilterChange = (e, type) => {
+  const handleFilterChange = (value, type) => {
     const newFilter = { ...filter };
-    newFilter[type] = e.target.value;
+
+    value === "" ? delete newFilter[type] : (newFilter[type] = value);
     setFilter(newFilter);
+
+    value === "" ? delete query[type] : (query[type] = value);
+
+    const stringified = queryString.stringify(query);
+    history.push(`/search?${stringified}`);
+    fetchListings(stringified);
   };
 
-  const renderListings = () => {
-    return listings.map((listing, index) => (
-      <Card
-        key={index}
-        className={`${listing._id === selected ? "active" : null}`}
-        onClick={() => setSelected(listing._id)}
-      >
-        <div className="card-header">
-          <img
-            src={listing.company.logo}
-            alt={`${listing.company.name}'s logo`}
-            className="logo"
-          />
-          <div>
-            <h2>{listing.position}</h2>
-            <p className="small-text">{listing.company.name}</p>
-            <p></p>
-          </div>
-        </div>
-        {listing.endDateTime && (
-          <div className="detail">
-            <MdAccessTime className="icon" size={18} />
-            <p>
-              {moment(listing.startDateTime).format("LT") +
-                " - " +
-                moment(listing.endDateTime).format("LT")}
-            </p>
-          </div>
-        )}
-        {listing.location && (
-          <div className="detail">
-            <MdLocationOn className="icon" size={18} />
-            <p>{listing.location}</p>
-          </div>
-        )}
-        {listing.wage && (
-          <div className="detail">
-            <MdCreditCard className="icon" size={18} />
-            <NumberFormat
-              decimalScale={2}
-              fixedDecimalScale={true}
-              value={listing.wage}
-              displayType={"text"}
-              prefix={"$"}
-              allowNegative={false}
-              renderText={(value) => <p>{value}</p>}
-            />
-          </div>
-        )}
-        <p className="small-text">
-          Posted {moment(listing.dateCreated).fromNow()}
-        </p>
-      </Card>
-    ));
+  const handlePageChange = ({ selected: pageNum }) => {
+    setStart(pageNum * 15);
+    pageNum === 0 ? delete query.start : (query.start = pageNum * 15);
+
+    console.log(start, pageNum, query.start);
+    const stringified = queryString.stringify(query);
+    history.push(`/search?${stringified}`);
+    fetchListings(stringified);
   };
 
   return (
     <div className="search">
       <Filters filter={filter} handleFilterChange={handleFilterChange} />
-      <h3>Search results for: "{search && search}"</h3>
+      <h3>Search results for: "{query.q && query.q}"</h3>
+      <p>
+        Page {Math.trunc(start / 15 + 1)} of {count} listings.
+      </p>
       <ActivityIndicator visible={listingsApi.loading} />
       {listings && (
-        <div className="results-container">
-          <div className="results">{renderListings()}</div>
-          <div className="selected">
-            {selected ? <Listing id={selected} /> : <div>No listing</div>}
+        <>
+          <div className="results-container">
+            <div className="results">
+              <JobCard
+                listings={listings}
+                setSelected={setSelected}
+                selected={selected}
+              />
+              <ReactPaginate
+                pageCount={Math.ceil(count / 15)}
+                pageRangeDisplayed={3}
+                marginPagesDisplayed={1}
+                nextLabel={">"}
+                previousLabel={"<"}
+                onPageChange={(e) => handlePageChange(e)}
+                containerClassName={"pagination-container"}
+                pageClassName={"pagination-page"}
+                activeClassName={"pagination-active"}
+                previousClassName={"pagination-page"}
+                nextClassName={"pagination-page"}
+              />
+            </div>
+            <div className="selected">
+              {selected ? (
+                <Listing id={selected} />
+              ) : (
+                <div style={{ textAlign: "center", marginTop: "2em" }}>
+                  Click on a listing to view details.
+                </div>
+              )}
+            </div>
           </div>
-        </div>
+        </>
       )}
       {listingsApi.error && (
         <div className="error-container">

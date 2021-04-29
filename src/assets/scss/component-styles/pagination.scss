@@ -1,0 +1,33 @@
+.pagination-container {
+  margin: 2em 0;
+  display: flex;
+  list-style: none;
+  padding: 0;
+
+  > * + * {
+    margin-left: 0.5em;
+  }
+}
+
+.pagination-page {
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  font-size: 1em;
+  height: 2.5em;
+  width: 2.5em;
+  @include themed() {
+    background-color: t("foreground");
+    color: t("text");
+  }
+
+  &:hover {
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.pagination-active {
+  background-color: $secondary !important;
+  color: $white !important;
+}
