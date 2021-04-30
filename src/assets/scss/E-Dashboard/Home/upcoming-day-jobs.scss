@@ -1,0 +1,50 @@
+.upcoming-jobs {
+  .u-job {
+    padding: 0.5em 0 0.5em 1em;
+    position: relative;
+    border-radius: 20px;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0.7em;
+      left: 0;
+      width: 6px;
+      height: 40px;
+      background-color: $primary;
+      border-radius: 3px;
+    }
+
+    .date {
+      font-size: 0.9em;
+      margin-bottom: 0;
+      @include themed() {
+        color: t("medium");
+      }
+    }
+    h4 {
+      margin-top: 0;
+      margin-bottom: 0.3em;
+      font-size: 600;
+    }
+    .worker {
+      display: flex;
+      align-items: center;
+
+      > :first-child {
+        width: auto;
+      }
+      p {
+        margin-left: 0.6em;
+        font-size: 0.9em;
+        margin-bottom: 0;
+      }
+    }
+
+    &:hover {
+      @include themed() {
+        background-color: t("background");
+      }
+    }
+  }
+}
