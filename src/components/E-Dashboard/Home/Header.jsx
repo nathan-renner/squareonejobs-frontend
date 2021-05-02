@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { MdCheck, MdList, MdPerson, MdVisibility } from "react-icons/md";
+import React from "react";
+import { MdCheck, MdPerson, MdVisibility } from "react-icons/md";
 import { FaListUl } from "react-icons/fa";
 import Button from "../../Button";
 import Icon from "../../Icon";
@@ -9,35 +9,32 @@ const stats = [
     name: "Active Listings",
     icon: FaListUl,
     color: "secondary",
+    value: 5,
   },
   {
     name: "Applicants",
     icon: MdPerson,
     color: "purple",
+    value: 20,
   },
   {
     name: "Listing Views",
     icon: MdVisibility,
     color: "yellow",
+    value: 479,
   },
   {
     name: "Positions Filled",
     icon: MdCheck,
     color: "primary",
+    value: 3,
   },
 ];
 
 function Header({ ...props }) {
-  const [statValues] = useState([5, 20, 479, 3]);
-
-  useEffect(() => {
-    stats.map((stat, i) => (stat.value = statValues[i]));
-    // eslint-disable-next-line
-  }, [statValues]);
-  console.log(stats);
   const renderStats = () => {
     return stats.map((stat, i) => (
-      <div className="stat">
+      <div className="stat" key={i}>
         <Icon Icon={stat.icon} color={stat.color} size={50} sizeFactor={0.5} />
         <div>
           <p>{stat.name}</p>

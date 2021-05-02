@@ -33,6 +33,8 @@
 
   &.employer-dash {
     @import "./E-Dashboard/home.scss";
+    @import "./E-Dashboard/settings.scss";
+    @import "./E-Dashboard/recommended-candidates.scss";
   }
 
   .content-container {
@@ -48,12 +50,22 @@
       gap: 3em;
       align-items: flex-start;
 
-      * {
+      > * {
         width: 100%;
       }
 
       > * + * {
         max-width: 20em;
+      }
+
+      &.reversed {
+        > :first-child {
+          max-width: 20em;
+        }
+
+        > * + * {
+          max-width: 100%;
+        }
       }
     }
   }
