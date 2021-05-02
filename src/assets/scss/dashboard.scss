@@ -18,15 +18,22 @@
   }
 
   @import "./Dashboard/navbar.scss";
-  @import "./Dashboard/home.scss";
-  @import "./Dashboard/payments.scss";
-  @import "./Dashboard/portfolio.scss";
-  @import "./Dashboard/myjobs.scss";
-  @import "./Dashboard/settings.scss";
-  @import "./Dashboard/account.scss";
-  @import "./Dashboard/listing.scss";
-  @import "./Dashboard/explore.scss";
-  @import "./Dashboard/search.scss";
+
+  &.user-dash {
+    @import "./Dashboard/home.scss";
+    @import "./Dashboard/payments.scss";
+    @import "./Dashboard/portfolio.scss";
+    @import "./Dashboard/myjobs.scss";
+    @import "./Dashboard/settings.scss";
+    @import "./Dashboard/account.scss";
+    @import "./Dashboard/listing.scss";
+    @import "./Dashboard/explore.scss";
+    @import "./Dashboard/search.scss";
+  }
+
+  &.employer-dash {
+    @import "./E-Dashboard/home.scss";
+  }
 
   .content-container {
     padding-top: 5em;

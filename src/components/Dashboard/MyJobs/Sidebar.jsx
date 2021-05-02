@@ -13,6 +13,9 @@ function Sidebar(props) {
       <NavLink to="/my-jobs/full-time" className="route">
         Full Time
       </NavLink>
+      <NavLink to="/my-jobs/saved" className="route">
+        Saved Listings
+      </NavLink>
     </div>
   );
 }

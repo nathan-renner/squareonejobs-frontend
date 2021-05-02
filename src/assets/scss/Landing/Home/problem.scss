@@ -9,6 +9,7 @@
 
     h2 {
       margin: 0;
+      line-height: 1.2;
       font-size: 1.8em !important;
     }
 
@@ -156,7 +157,7 @@
         }
       }
     }
-    @media only screen and (min-width: 768px) {
+    @media only screen and (min-width: 54em) {
       flex-direction: row;
       padding-top: 8rem;
       padding-bottom: 6rem;
@@ -222,7 +223,7 @@
           }
         }
         .title {
-          font-size: 1.8em;
+          font-size: 1.6em;
           font-weight: 600;
           margin: 0;
           color: $white;
@@ -247,58 +248,58 @@
       }
     }
 
-    @keyframes cards {
-      0%,
-      25% {
-        .card.individual {
-          transform: scale(1.15);
-          .content {
-            .icon {
-              .path {
-                fill: $primary;
-              }
-              transform: translate(110px, 50px) scale(1.8);
-            }
-            .title {
-              transform: translateY(40px);
-            }
-          }
-        }
-      }
-      26%,
-      50% {
-        .business {
-          transform: scale(1.15);
-          .content {
-            .icon {
-              .path {
-                fill: $primary;
-              }
-              transform: translate(110px, 50px) scale(1.8);
-            }
-            .title {
-              transform: translateY(40px);
-            }
-          }
-        }
-      }
-      51%,
-      75% {
-        .nation {
-          transform: scale(1.15);
-          .content {
-            .icon {
-              .path {
-                fill: $primary;
-              }
-              transform: translate(110px, 50px) scale(1.8);
-            }
-            .title {
-              transform: translateY(40px);
-            }
-          }
-        }
-      }
-    }
+    // @keyframes cards {
+    //   0%,
+    //   25% {
+    //     .card.individual {
+    //       transform: scale(1.15);
+    //       .content {
+    //         .icon {
+    //           .path {
+    //             fill: $primary;
+    //           }
+    //           transform: translate(110px, 50px) scale(1.8);
+    //         }
+    //         .title {
+    //           transform: translateY(40px);
+    //         }
+    //       }
+    //     }
+    //   }
+    //   26%,
+    //   50% {
+    //     .business {
+    //       transform: scale(1.15);
+    //       .content {
+    //         .icon {
+    //           .path {
+    //             fill: $primary;
+    //           }
+    //           transform: translate(110px, 50px) scale(1.8);
+    //         }
+    //         .title {
+    //           transform: translateY(40px);
+    //         }
+    //       }
+    //     }
+    //   }
+    //   51%,
+    //   75% {
+    //     .nation {
+    //       transform: scale(1.15);
+    //       .content {
+    //         .icon {
+    //           .path {
+    //             fill: $primary;
+    //           }
+    //           transform: translate(110px, 50px) scale(1.8);
+    //         }
+    //         .title {
+    //           transform: translateY(40px);
+    //         }
+    //       }
+    //     }
+    //   }
+    // }
   }
 }

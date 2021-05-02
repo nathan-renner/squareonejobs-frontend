@@ -1,0 +1,69 @@
+.jobs-container {
+  min-width: 100%;
+}
+.job {
+  min-width: 100%;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1em;
+  border-radius: 20px;
+
+  .details-container {
+    overflow: hidden;
+    flex: 1;
+
+    p {
+      @include themed() {
+        color: t("secondaryText");
+      }
+      font-size: 0.8em;
+
+      font-weight: 600;
+      margin-bottom: 0.5em;
+      line-height: 1.1;
+
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    h3 {
+      margin: 0;
+      font-size: 1em;
+      font-weight: 600;
+      margin-bottom: 0.5em;
+    }
+  }
+  .apply {
+    flex: 0;
+  }
+
+  .status {
+    display: flex;
+    align-items: center;
+    > * + * {
+      margin-left: 0.2em;
+    }
+    p {
+      font-size: 1em;
+      font-weight: 500;
+      @include themed() {
+        color: t("text");
+      }
+      margin-bottom: 0;
+    }
+  }
+
+  &:hover {
+    @include themed() {
+      background-color: t("background");
+    }
+  }
+
+  img {
+    height: 80px;
+    width: 80px;
+  }
+}

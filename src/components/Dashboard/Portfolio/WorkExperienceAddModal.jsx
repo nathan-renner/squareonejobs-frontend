@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import * as Yup from "yup";
-import { Form, FormField } from "../../forms";
-import WarningModal from "../../WarningModal";
+import { FormField } from "../../forms";
 import EditControls from "./EditControls";
 import FormDatePicker from "../../forms/FormDatePicker";
+import { Formik } from "formik";
+import { MdClear } from "react-icons/md";
 
 const schema = Yup.object().shape({
   position: Yup.string().required().max(64).label("Degree"),
@@ -14,53 +15,69 @@ const schema = Yup.object().shape({
 
 function WorkExperienceAddModal({
   setIsAdding,
-  education = {
-    degree: "",
-    school: "",
-    startDate: undefined,
-    endDate: undefined,
-  },
+  handleEditExperience,
+  experienceToEdit: exp,
 }) {
-  const [warningVisible, setWarningVisible] = useState(false);
+  const handleSubmit = (experience) => {
+    handleEditExperience(experience, exp.index);
+    setIsAdding(false);
+  };
+  const showWarning = (props) => {
+    const { position, company, startDate, endDate } = props.values;
 
-  const handleSubmit = ({ about }) => {
-    //updateElement("about", about);
-    setIsAdding(false);
-  };
-  const showWarning = () => {
-    setWarningVisible(true);
-  };
-  const onCancel = () => {
-    setWarningVisible(false);
-  };
-  const onDiscard = () => {
-    setWarningVisible(false);
-    setIsAdding(false);
+    if (
+      position !== exp.experience.position ||
+      company !== exp.experience.company ||
+      startDate !== exp.experience.startDate ||
+      endDate !== exp.experience.endDate
+    ) {
+      const result = window.confirm(
+        "Are you sure you want to discard your changes?"
+      );
+      if (result) {
+        setIsAdding(false);
+        props.resetForm();
+      }
+    } else {
+      setIsAdding(false);
+    }
   };
 
   return (
-    <>
-      <WarningModal
-        visible={warningVisible}
-        title="Discard Changes?"
-        message="Are you sure you want to discard your changes?"
-        submitText="Discard"
-        onCancel={onCancel}
-        onSubmit={onDiscard}
-      />
-      <Form
-        initialValues={education}
-        onSubmit={handleSubmit}
-        validationSchema={schema}
-      >
-        <FormField name="position" placeholder="Position" />
-        <FormField name="company" placeholder="Company name" />
-        <FormDatePicker name="startDate" placeholder="Start date" />
-        <FormDatePicker name="endDate" placeholder="End date" />
-
-        <EditControls onCancel={showWarning} />
-      </Form>
-    </>
+    <Formik
+      initialValues={exp.experience}
+      onSubmit={handleSubmit}
+      validationSchema={schema}
+    >
+      {(formProps) => (
+        <>
+          <MdClear
+            size={25}
+            className="exit"
+            onClick={() => showWarning(formProps)}
+          />
+          <FormField name="position" placeholder="Position" label="Position" />
+          <FormField
+            name="company"
+            placeholder="Company name"
+            label="Company name"
+          />
+          <div className="date-container">
+            <FormDatePicker
+              name="startDate"
+              placeholder="Start date"
+              label="Start Date"
+            />
+            <FormDatePicker
+              name="endDate"
+              placeholder="End date"
+              label="End Date"
+            />
+          </div>
+          <EditControls onCancel={() => showWarning(formProps)} />
+        </>
+      )}
+    </Formik>
   );
 }
 

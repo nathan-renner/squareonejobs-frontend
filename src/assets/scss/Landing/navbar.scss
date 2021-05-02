@@ -23,7 +23,7 @@
         }
       }
       .button {
-        transition: opacity 250ms ease-in-out;
+        transition: opacity 250ms ease-in-out, transform ease-in-out 150ms;
         display: block;
         margin-left: 15px;
         margin-right: 0px;

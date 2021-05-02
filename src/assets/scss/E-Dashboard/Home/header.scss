@@ -1,0 +1,73 @@
+.header {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+
+  > * + * {
+    margin-top: 2em;
+  }
+
+  .left {
+    display: flex;
+    justify-content: space-between;
+    flex-basis: 40%;
+
+    h2 {
+      font-weight: 500;
+      margin-bottom: 0.4em;
+    }
+    .button {
+      margin: 0;
+    }
+  }
+
+  .right {
+    flex-basis: 60%;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-row: auto auto;
+
+    .stat {
+      padding: 1em;
+      flex-basis: 50%;
+      display: flex;
+      border-radius: 20px;
+      cursor: pointer;
+
+      > * + * {
+        margin-left: 1.5em;
+      }
+
+      p {
+        margin-bottom: 0.4em;
+        font-size: 0.9em;
+        @include themed() {
+          color: t("medium");
+        }
+      }
+      h1 {
+        margin-bottom: 0;
+        font-weight: 600;
+      }
+
+      &:hover,
+      &:focus {
+        @include themed() {
+          background-color: t("background");
+        }
+      }
+    }
+  }
+
+  @media (min-width: 37.5em) {
+    flex-direction: row;
+
+    > * + * {
+      margin-top: 0px;
+    }
+
+    .left {
+      flex-direction: column;
+    }
+  }
+}

@@ -8,7 +8,7 @@ import EmployerHow from "../../components/Landing/Employers/EmployerHow";
 
 const Employers = () => {
   return (
-    <div className="landing">
+    <div className="landing employers">
       <Navbar />
       <Header />
       <EmployerWhy />

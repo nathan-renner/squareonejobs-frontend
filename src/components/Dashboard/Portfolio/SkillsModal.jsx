@@ -1,7 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import WarningModal from "../../WarningModal";
-import { MdClear } from "react-icons/md";
+import {
+  MdClear,
+  MdStarBorder,
+  MdStar,
+  MdDelete,
+  MdDragHandle,
+} from "react-icons/md";
 import EditControls from "./EditControls";
 
 const reorder = (list, startIndex, endIndex) => {
@@ -12,75 +17,196 @@ const reorder = (list, startIndex, endIndex) => {
   return result;
 };
 
-const getItemStyle = (isDragging, draggableStyle) => ({
-  userSelect: "none",
-  background: isDragging ? "lightgrey" : "white",
-  ...draggableStyle,
-});
+function SkillsModal({
+  visible,
+  portfolio,
+  updateElement,
+  setIsEditingSkills,
+}) {
+  const [top, setTop] = useState(portfolio.skills.top);
+  const [other, setOther] = useState(portfolio.skills.other);
+  const [dragging, setDragging] = useState(false);
 
-function SkillsModal({ portfolio, updateElement, setIsEditingSkills }) {
-  const [warningVisible, setWarningVisible] = useState(false);
-  const [tempSkills, setTempSkills] = useState(portfolio.skills);
+  useEffect(() => {
+    if (!visible) {
+      setTop(portfolio.skills.top);
+      setOther(portfolio.skills.other);
+    }
+  }, [visible, portfolio.skills.top, portfolio.skills.other]);
 
   const handleSubmit = () => {
-    updateElement("skills", tempSkills);
+    updateElement("skills", { top, other });
     setIsEditingSkills(false);
   };
   const showWarning = () => {
-    setWarningVisible(true);
+    if (top !== portfolio.skills.top || other !== portfolio.skills.other) {
+      const result = window.confirm(
+        "Are you sure you want to discard your changes?"
+      );
+      return result ? setIsEditingSkills(false) : null;
+    } else {
+      setIsEditingSkills(false);
+    }
   };
-  const onCancel = () => {
-    setWarningVisible(false);
+  const handleRemoveSkill = (index, cat) => {
+    const result = window.confirm(
+      "Are you sure you want to remove this skill?"
+    );
+    if (result) {
+      const temp = cat === "top" ? [...top] : [...other];
+      temp.splice(index, 1);
+      cat === "top" ? setTop(temp) : setOther(temp);
+    }
   };
-  const onDiscard = () => {
-    setWarningVisible(false);
-    setIsEditingSkills();
+  const handleRemoveTop = (index) => {
+    const tempTop = [...top];
+    const tempOther = [...other];
+    const skill = tempTop.splice(index, 1);
+    tempOther.push(skill[0]);
+    setTop(tempTop);
+    setOther(tempOther);
+  };
+  const handleAddTop = (index) => {
+    if (top.length === 3)
+      window.alert(
+        "You may not select more than 3 Top Skills. Remove one to select something different."
+      );
+    else {
+      const tempTop = [...top];
+      const tempOther = [...other];
+      const skill = tempOther.splice(index, 1);
+      tempTop.push(skill[0]);
+      setTop(tempTop);
+      setOther(tempOther);
+    }
   };
 
-  const onDragEnd = (result) => {
+  const onDragStart = (cat) => {
+    setDragging(cat);
+  };
+
+  const onDragEnd = (result, cat) => {
+    setDragging(false);
     if (!result.destination) {
       return;
     }
-    const items = reorder(
-      portfolio.skills,
-      result.source.index,
-      result.destination.index
-    );
-    setTempSkills(items);
+    if (result.destination.index === result.source.index) {
+      return;
+    }
+    if (cat === "top") {
+      const items = reorder(top, result.source.index, result.destination.index);
+      setTop(items);
+    } else {
+      const items = reorder(
+        other,
+        result.source.index,
+        result.destination.index
+      );
+      setOther(items);
+    }
   };
-
   return (
     <>
-      <WarningModal
-        visible={warningVisible}
-        title="Discard Changes?"
-        message="Are you sure you want to discard your changes?"
-        submitText="Discard"
-        onCancel={onCancel}
-        onSubmit={onDiscard}
-      />
       <MdClear size={25} className="exit" onClick={showWarning} />
-      <DragDropContext onDragEnd={onDragEnd}>
-        <Droppable droppableId="droppable">
+      <DragDropContext
+        onDragStart={() => onDragStart("top")}
+        onDragEnd={(result) => onDragEnd(result, "top")}
+      >
+        <Droppable droppableId="droppableTop">
           {(provided, snapshot) => (
             <div
               {...provided.droppableProps}
               ref={provided.innerRef}
-              className="skills-modal"
+              className={`skills-droppable ${
+                dragging === "other" ? "disabled" : null
+              }`}
             >
-              {tempSkills.map((skill, index) => (
-                <Draggable key={skill} draggableId={skill} index={index}>
+              <p className="title">Top Skills</p>
+              {top.map((skill, index) => (
+                <Draggable
+                  key={skill}
+                  draggableId={`${skill} - ${index}`}
+                  index={index}
+                >
                   {(provided, snapshot) => (
                     <div
                       ref={provided.innerRef}
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
-                      style={getItemStyle(
-                        snapshot.isDragging,
-                        provided.draggableProps.style
-                      )}
+                      style={{ ...provided.draggableProps.style }}
+                      className={`skill-container ${
+                        snapshot.isDragging ? "active" : null
+                      }`}
+                      //className="sk"
                     >
-                      {skill}
+                      <div className="skill">
+                        <MdStar
+                          size={25}
+                          className="skill-icon active"
+                          onClick={() => handleRemoveTop(index)}
+                        />
+                        <p>{skill}</p>
+                        <MdDelete
+                          size={25}
+                          className="skill-icon"
+                          onClick={() => handleRemoveSkill(index, "top")}
+                        />
+                        <MdDragHandle size={25} className="skill-icon" />
+                      </div>
+                    </div>
+                  )}
+                </Draggable>
+              ))}
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
+      </DragDropContext>
+      <div className="divider" />
+      <DragDropContext
+        onDragStart={() => onDragStart("other")}
+        onDragEnd={(result) => onDragEnd(result, "other")}
+      >
+        <Droppable droppableId="droppableOther">
+          {(provided, snapshot) => (
+            <div
+              {...provided.droppableProps}
+              ref={provided.innerRef}
+              className={`skills-droppable ${
+                dragging === "top" ? "disabled" : null
+              }`}
+            >
+              <p className="title">Other Skills</p>
+              {other.map((skill, index) => (
+                <Draggable
+                  key={skill}
+                  draggableId={`${skill} - ${index}`}
+                  index={index}
+                >
+                  {(provided, snapshot) => (
+                    <div
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                      style={{ ...provided.draggableProps.style }}
+                      className={`skill-container ${
+                        snapshot.isDragging ? "active" : null
+                      }`}
+                    >
+                      <div className="skill">
+                        <MdStarBorder
+                          size={25}
+                          className="skill-icon"
+                          onClick={() => handleAddTop(index)}
+                        />
+                        <p>{skill}</p>
+                        <MdDelete
+                          size={25}
+                          className="skill-icon"
+                          onClick={() => handleRemoveSkill(index, "other")}
+                        />
+                        <MdDragHandle size={25} className="skill-icon" />
+                      </div>
                     </div>
                   )}
                 </Draggable>

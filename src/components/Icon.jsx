@@ -3,11 +3,12 @@ import React from "react";
 function Icon({
   Icon: Component,
   size = 24,
+  sizeFactor = 0.6,
   color = "medium",
   iconColor = "white",
-  onClick,
-  className,
-  style,
+  onClick = () => true,
+  className = "",
+  style = {},
 }) {
   return (
     <div
@@ -19,11 +20,12 @@ function Icon({
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        flexShrink: 0,
         ...style,
       }}
       {...{ onClick }}
     >
-      <Component size={size * 0.6} className={`text-${iconColor}`} />
+      <Component size={size * sizeFactor} className={`text-${iconColor}`} />
     </div>
   );
 }

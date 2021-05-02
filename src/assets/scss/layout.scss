@@ -28,6 +28,10 @@ section {
   flex-direction: column;
 }
 
+.split-cards > * + * {
+  margin-top: 2em;
+}
+
 @media (min-width: 37.5em) {
   .split {
     flex-direction: row;

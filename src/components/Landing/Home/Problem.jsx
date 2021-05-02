@@ -1,8 +1,5 @@
 import React from "react";
 
-import Individual from "../../../assets/images/individual.png";
-import Business from "../../../assets/images/business.png";
-import Nation from "../../../assets/images/nation.png";
 import PersonIcon from "../../icons/PersonIcon";
 import BuildingIcon from "../../icons/BuildingIcon";
 import NationIcon from "../../icons/NationIcon";
@@ -13,7 +10,7 @@ function Problem(props) {
   return (
     <section className="section-problem">
       <div className="container problem-container">
-        <h2 className="title">Barriers to employment harm</h2>
+        <h2 className="title">Breaking employment barriers helps</h2>
         <div className="carousel">
           <h2 className="carousel-item item-1" style={{ marginTop: 0 }}>
             individuals.
@@ -37,28 +34,65 @@ function Problem(props) {
       </div>
       <div className="container">
         <div className="split-cards cards-container">
-          <div className="card individual">
-            <img src={Individual} alt="Individual" />
+          <div
+            className="card individual"
+            onClick={() =>
+              window.open(
+                "https://wol.iza.org/uploads/articles/399/pdfs/do-post-prison-job-opportunities-reduce-recidivism.pdf"
+              )
+            }
+          >
+            <img
+              src="https://squareonejobs-landing.s3.us-east-2.amazonaws.com/Home/individual.jpg"
+              alt="Individual"
+              loading="lazy"
+            />
             <div className="filter" />
             <div className="content">
               <PersonIcon className="icon" />
-              <p className="title">i want this to be short pls</p>
+              <p className="title">
+                Individuals can access their full potential
+              </p>
             </div>
           </div>
-          <div className="card business">
-            <img src={Business} alt="Individual" />
+          <div
+            className="card business"
+            onClick={() =>
+              window.open(
+                "https://www.goodhire.com/blog/7-reasons-to-hire-people-with-criminal-records/"
+              )
+            }
+          >
+            <img
+              src="https://squareonejobs-landing.s3.us-east-2.amazonaws.com/Home/business.jpg"
+              alt="Business"
+              loading="lazy"
+            />
             <div className="filter" />
             <div className="content">
               <BuildingIcon className="icon" />
-              <p className="title">i want this to be short pls</p>
+              <p className="title">
+                Businesses boost growth with motivated workers
+              </p>
             </div>
           </div>
-          <div className="card nation">
-            <img src={Nation} alt="Individual" />
+          <div
+            className="card nation"
+            onClick={() =>
+              window.open(
+                "https://s27147.pcdn.co/wp-content/uploads/Business-Case-Fair-Chance-Employment.pdf"
+              )
+            }
+          >
+            <img
+              src="https://squareonejobs-landing.s3.us-east-2.amazonaws.com/Home/nation.jpg"
+              alt="GDP"
+              loading="lazy"
+            />
             <div className="filter" />
             <div className="content">
               <NationIcon className="icon" />
-              <p className="title">i want this to be short pls</p>
+              <p className="title">GDP can gain tens of billions each year</p>
             </div>
           </div>
         </div>

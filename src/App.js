@@ -11,6 +11,7 @@ import AuthContext from "./auth/context";
 import { getUser } from "./auth/storage";
 import { ThemeProvider } from "./config/ThemeProvider";
 import "./assets/scss/styles.scss";
+import EDashboard from "./layouts/EDashboard";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -31,7 +32,16 @@ function App() {
           <Switch>
             <Route path="/auth" component={Auth} />
             <Route path="/not-found" component={NotFound} />
-            <Route path="/" component={user ? Dashboard : Landing} />
+            <Route
+              path="/"
+              component={
+                user
+                  ? user.userType === "employer"
+                    ? EDashboard
+                    : Dashboard
+                  : Landing
+              }
+            />
           </Switch>
         </AuthContext.Provider>
       </ThemeProvider>

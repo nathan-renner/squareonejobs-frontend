@@ -1,3 +1,8 @@
+.input-label {
+  font-weight: 500;
+  
+}
+
 .input-container {
   @include themed() {
     background-color: t("background");

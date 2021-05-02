@@ -1,10 +1,35 @@
 .portfolio {
-  max-width: 40em;
+  display: flex;
+  flex-direction: column;
+  max-width: 60em;
   margin-inline: auto;
+  margin-left: auto;
+  margin-right: auto;
   margin-bottom: 4em;
+
+  @media (min-width: 40em) {
+    flex-direction: row;
+
+    > * + * {
+      margin-left: 3em;
+    }
+  }
+
+  > * {
+    flex: 1;
+  }
+  > * + * {
+    flex: 2;
+  }
 
   h2 {
     margin-bottom: 1.5em;
+  }
+
+  .content {
+    > * {
+      height: auto;
+    }
   }
 
   .remove-icon {
@@ -58,9 +83,9 @@
 
     > p {
       font-size: 0.9em;
-      font-weight: 600;
+      font-weight: 600 !important;
       margin-bottom: 0;
-      color: $primary;
+      color: $primary !important;
       cursor: pointer;
       transition: transform 250ms ease-in-out;
 
@@ -74,23 +99,56 @@
     margin-top: 4em;
     padding-top: 6em;
     position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    height: auto;
 
-    img {
-      height: 140px;
-      width: 140px;
+    .avatar-container {
       position: absolute;
+      transform: translateX(-50%);
+      left: 50%;
       top: -50px;
-      border-radius: 50%;
-      @include themed() {
-        border: 10px solid t("foreground");
+
+      &.editing {
+        cursor: pointer;
+      }
+
+      img {
+        height: 140px;
+        width: 140px;
+        border-radius: 50%;
+        @include themed() {
+          border: 10px solid t("foreground");
+        }
+      }
+      .edit-icon {
+        @include themed() {
+          color: t("secondaryText");
+        }
+        position: absolute;
+        bottom: 0;
+        left: 90px;
+        cursor: pointer;
+        box-shadow: 0px 4px 10px rgba(black, 0.15);
+      }
+    }
+
+    .details-container {
+      margin-left: 15px;
+      position: relative;
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -15px;
+        bottom: 0;
+        width: 6px;
+        border-radius: 3px;
+        background-color: $primary;
       }
     }
 
     h2 {
-      margin-bottom: 0.2em;
+      margin-bottom: 0.5em;
     }
     p {
       @include themed() {
@@ -98,21 +156,144 @@
       }
       font-size: 0.9em;
       font-weight: 500;
+      margin-bottom: 0.5em;
+    }
+
+    .edit-title {
+      text-align: center;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+  }
+
+  .references {
+    height: auto;
+
+    .ref-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      p {
+        @include themed() {
+          color: t("secondaryText");
+        }
+        font-size: 0.9em;
+        font-weight: 500;
+        margin-bottom: 0.5em;
+        cursor: pointer;
+      }
+    }
+
+    > p {
       margin-bottom: 0;
+    }
+
+    .ref {
+      .divider {
+        margin-top: 0.8em;
+        margin-bottom: 0.8em;
+        height: 1px;
+        width: 100%;
+        @include themed() {
+          background-color: t("background");
+        }
+      }
+      .emp-container {
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.5em;
+
+        img {
+          width: 2.5em;
+        }
+        h4 {
+          margin-left: 5px;
+          font-weight: 500;
+          font-size: 1em;
+          margin-bottom: 0;
+          margin-top: 0;
+          @include themed() {
+            color: t("text");
+          }
+        }
+      }
+      h3 {
+        font-size: 1.1em;
+        font-weight: 600;
+        margin-bottom: 0.1em;
+      }
+      .date {
+        @include themed() {
+          color: t("secondaryText");
+        }
+        font-size: 0.8em;
+        font-weight: 500;
+        margin-bottom: 0.2em;
+      }
+      .review {
+        font-size: 0.9em;
+
+        &.small {
+          display: -webkit-box;
+          -webkit-line-clamp: 3;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+    }
+  }
+
+  .documents {
+    height: auto;
+
+    .items {
+      margin-top: 2em;
+    }
+
+    .doc {
+      margin-top: 0.5em;
+      margin-bottom: 0.5em;
+      display: flex;
+      align-items: center;
+
+      a {
+        text-decoration: none;
+        margin-left: 5px;
+
+        @include themed() {
+          color: t("text");
+        }
+
+        &:hover {
+          color: $secondary;
+        }
+      }
+      .remove-icon-container {
+        margin-left: auto;
+      }
+    }
+
+    .ok-button {
+      text-align: right;
+      > * {
+        margin-right: 0;
+        margin-bottom: 0;
+        display: inline-block;
+      }
     }
   }
 
   .about {
+    height: auto;
     p {
       margin-bottom: 0;
       word-wrap: break-word;
     }
   }
-
   .education {
-    height: 200px;
-  }
-  .experience {
+    height: auto;
+    position: relative;
   }
   .education-container,
   .experience-container {
@@ -122,14 +303,17 @@
     padding: 0.5em;
     border-radius: 10px;
     gap: 1em;
+    border-radius: 10px;
+
+    &.edit {
+      cursor: pointer;
+    }
 
     &.active {
-      cursor: pointer;
+      user-select: none;
 
-      &:hover {
-        @include themed() {
-          background-color: t("background");
-        }
+      @include themed() {
+        background-color: t("background");
       }
     }
 
@@ -177,7 +361,24 @@
     }
   }
 
+  .date-container {
+    display: flex;
+    margin-top: 20px;
+    > * + * {
+      margin-left: 1em;
+    }
+  }
+
   .skills {
+    .divider {
+      @include themed() {
+        background-color: t("background");
+      }
+      width: 100%;
+      height: 0.1em;
+      margin-top: 1em;
+      margin-bottom: 1em;
+    }
     .title {
       font-size: 0.9em;
       font-weight: 600;
@@ -205,14 +406,6 @@
         height: auto;
       }
     }
-    .divider {
-      @include themed() {
-        background-color: t("background");
-      }
-      width: 100%;
-      height: 0.1em;
-      margin-block: 1em;
-    }
     .see-more {
       display: flex;
       align-items: center;
@@ -229,9 +422,82 @@
     }
   }
 
-  .skills-modal {
+  .skills-droppable {
+    border-radius: 10px;
+    position: relative;
+
     > * {
       padding: 10px;
     }
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      opacity: 0;
+      visibility: hidden;
+      @include themed() {
+        background-color: t("foreground");
+      }
+    }
+
+    &.disabled {
+      opacity: 0.6;
+      visibility: visible;
+    }
+
+    .title {
+      font-size: 0.9em;
+      font-weight: 600;
+      line-height: 0;
+    }
+
+    .skill-container {
+      border-radius: 10px;
+      user-select: none;
+
+      &.active {
+        @include themed() {
+          background-color: t("background");
+        }
+      }
+      .skill {
+        display: flex;
+        align-items: center;
+        border-radius: 10px;
+
+        > * + * {
+          margin-left: 1em;
+        }
+
+        p {
+          flex-basis: 100%;
+          margin-bottom: 0;
+        }
+
+        .skill-icon {
+          cursor: pointer;
+          @include themed() {
+            color: t("medium");
+
+            &.active {
+              color: $primary;
+            }
+          }
+        }
+      }
+    }
+  }
+  .divider {
+    @include themed() {
+      background-color: t("background");
+    }
+    width: 100%;
+    height: 0.1em;
+    margin-top: 1em;
+    margin-bottom: 1em;
   }
 }

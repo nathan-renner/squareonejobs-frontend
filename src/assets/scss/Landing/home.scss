@@ -1,6 +1,8 @@
-@import "./Home/header.scss";
-@import "./Home/problem.scss";
-@import "./Home/mission.scss";
-@import "./Home/how-it-works.scss";
-@import "./Home/mobile-app.scss";
-@import "./Home/call-to-action.scss";
+&.home {
+    @import "./Home/header.scss";
+    @import "./Home/problem.scss";
+    @import "./Home/mission.scss";
+    @import "./Home/how-it-works.scss";
+    @import "./Home/mobile-app.scss";
+    @import "./Home/call-to-action.scss";
+}

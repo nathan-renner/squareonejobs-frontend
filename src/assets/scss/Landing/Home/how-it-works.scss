@@ -8,8 +8,12 @@
     justify-content: space-between;
 
     .feature-content {
-      max-width: 400px;
+      max-width: 300px;
       position: relative;
+
+      @media only screen and (min-width: 40em) {
+        max-width: 400px;
+      }
 
       &.feature-content::before {
         content: "";
@@ -50,26 +54,32 @@
         top: 10%;
         left: 20%;
         height: 80%;
-        //width: 90%;
       }
       .blob-2 {
         position: absolute;
-        top: -10%;
-        left: 25%;
-        right: 0;
-        height: 120%;
+        top: 5%;
+        left: 10%;
+        height: 80%;
       }
       .blob-3 {
         position: absolute;
-        top: 10%;
-        left: 20%;
-        height: 80%;
+        top: 15%;
+        left: 10%;
+        height: 90%;
+        transform: rotate(60deg);
       }
       .feature-lottie {
-        height: auto;
-        width: auto;
-        max-height: 500px;
-        max-width: 500px;
+        height: 300px;
+        width: 300px;
+
+        @media only screen and (min-width: 40em) {
+          height: 400px;
+          width: 400px;
+        }
+        @media only screen and (min-width: 54em) {
+          height: 500px;
+          width: 500px;
+        }
       }
     }
   }

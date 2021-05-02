@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import moment from "moment";
+import React, { useEffect, useState } from "react";
 
 import Header from "./../../components/Dashboard/Portfolio/Header";
 import About from "./../../components/Dashboard/Portfolio/About";
@@ -7,97 +6,146 @@ import Education from "./../../components/Dashboard/Portfolio/Education";
 import WorkExperience from "./../../components/Dashboard/Portfolio/WorkExperience";
 import Skills from "./../../components/Dashboard/Portfolio/Skills";
 
+import { getPortfolio, updatePortfolioElement } from "../../api/users";
+import useApi from "./../../hooks/useApi";
+import useAuth from "./../../auth/useAuth";
+import Button from "./../../components/Button";
+import ActivityIndicator from "./../../components/ActivityIndicator";
+import UploadScreen from "./../../components/UploadScreen";
+import References from "./../../components/Dashboard/Portfolio/References";
+import Documents from "../../components/Dashboard/Portfolio/Documents";
+
 function Portfolio(props) {
-  const [portfolio, setPortfolio] = useState({
-    about:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam, reiciendis modi iusto enim ipsum veniam fuga ad quidem, recusandae id debitis rem quasi magni ut ex deleniti sapiente velit officia eligendi at praesentium laboriosam. Labore molestias ipsa debitis. Illum, aperiam.",
-    education: [
-      {
-        degree: "Degree asdfas dfa fasdf asdf  asfasd fas fsadf",
-        school: "School",
-        startDate: moment(),
-        endDate: moment().add(4, "years"),
-      },
-      {
-        degree: "Degree",
-        school: "School",
-        startDate: moment(),
-        endDate: moment().add(4, "years"),
-      },
-    ],
-    workExperience: [
-      {
-        title: "Title",
-        company: "Company",
-        startDate: moment(),
-        endDate: moment().add(4, "years"),
-      },
-      {
-        title: "Title",
-        company: "Company",
-        startDate: moment(),
-        endDate: moment().add(4, "years"),
-      },
-    ],
-    skills: [
-      "skill1",
-      "skill2",
-      "skill3",
-      "skill4",
-      "skill5",
-      "skill6",
-      "skill7",
-    ],
-  });
+  const getPortfolioApi = useApi(getPortfolio);
+  const updateElementApi = useApi(updatePortfolioElement);
+  const { user } = useAuth();
+  const [portfolio, setPortfolio] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [uploadVisible, setUploadVisible] = useState(false);
+  const [progress, setProgress] = useState(0);
 
-  const updateElement = (element, value) => {
-    const port = { ...portfolio };
-    port[element] = value;
-    setPortfolio(port);
+  const fetchPortfolio = async () => {
+    const response = await getPortfolioApi.request(user.profileId);
+    if (response.ok)
+      setPortfolio({
+        ...response.data,
+        //avatar: `${response.data.avatar}?${Date.now()}`,
+      });
+  };
 
-    // const response = await updateElementApi.request(
-    //   user.profileId,
-    //   element,
-    //   value
-    // );
-    // console.log(response.data);
-    // if (response.ok) {
-    //   setPortfolio(response.data);
-    // }
+  useEffect(() => {
+    if (!portfolio && !getPortfolioApi.error) fetchPortfolio();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const updateElement = async (element, value) => {
+    const response = await updateElementApi.request(
+      user.profileId,
+      element,
+      value
+    );
+
+    if (response.ok) {
+      setPortfolio({
+        ...response.data,
+        userDetails: { ...portfolio.userDetails },
+        references: [...portfolio.references],
+        referencesLength: portfolio.referencesLength,
+      });
+    }
+  };
+
+  const updateAccount = (newData) => {
+    const newPortfolio = { ...portfolio };
+    newPortfolio.userDetails = newData;
+    setPortfolio(newPortfolio);
+  };
+
+  const updateDocuments = (newData) => {
+    const newPortfolio = { ...portfolio };
+    newPortfolio.documents = newData;
+    setPortfolio(newPortfolio);
   };
 
   return (
-    <div className="portfolio">
-      <Header data-aos="fade-up" data-aos-once={true} data-aos-offset="0" />
-      <About
-        data-aos="fade-up"
-        data-aos-delay="100"
-        data-aos-once={true}
-        data-aos-offset="0"
-        {...{ portfolio, updateElement }}
+    <>
+      <UploadScreen
+        onDone={() => setUploadVisible(false)}
+        progress={progress}
+        visible={uploadVisible}
       />
-      <Education
-        data-aos="fade-up"
-        data-aos-delay="200"
-        data-aos-once={true}
-        data-aos-offset="0"
-        {...{ portfolio, updateElement }}
+      <ActivityIndicator
+        visible={getPortfolioApi.loading || updateElementApi.loading || loading}
       />
-      <WorkExperience
-        data-aos="fade-up"
-        data-aos-delay="300"
-        data-aos-once={true}
-        data-aos-offset="0"
-        {...{ portfolio, updateElement }}
-      />
-      <Skills
-        data-aos="fade-up"
-        data-aos-delay="400"
-        data-aos-once={true}
-        data-aos-offset="0"
-        {...{ portfolio, updateElement }}
-      />
-    </div>
+      <div className="portfolio">
+        {portfolio && (
+          <>
+            <div>
+              <Header
+                data-aos="fade-up"
+                data-aos-once={true}
+                portfolio={portfolio}
+                setLoading={setLoading}
+                updateAccountDetails={updateAccount}
+                setProgress={setProgress}
+                setUploadVisible={setUploadVisible}
+              />
+              <Documents
+                data-aos="fade-up"
+                data-aos-once={true}
+                data-aos-delay="100"
+                setProgress={setProgress}
+                setUploadVisible={setUploadVisible}
+                updateDocuments={updateDocuments}
+                portfolio={portfolio}
+                setLoading={setLoading}
+              />
+              <References
+                data-aos="fade-up"
+                data-aos-once={true}
+                data-aos-delay="200"
+                portfolio={portfolio}
+                setLoading={setLoading}
+              />
+            </div>
+            <div className="content">
+              <About
+                data-aos="fade-up"
+                data-aos-delay="100"
+                data-aos-once={true}
+                {...{ portfolio, updateElement }}
+              />
+              <Education
+                data-aos="fade-up"
+                data-aos-delay="200"
+                data-aos-once={true}
+                {...{ portfolio, updateElement }}
+              />
+              <WorkExperience
+                data-aos="fade-up"
+                data-aos-delay="300"
+                data-aos-once={true}
+                {...{ portfolio, updateElement }}
+              />
+              <Skills
+                data-aos="fade-up"
+                data-aos-delay="400"
+                data-aos-once={true}
+                {...{ portfolio, updateElement }}
+              />
+            </div>
+          </>
+        )}
+        {getPortfolioApi.error && (
+          <div className="error-container">
+            <div>
+              <h3>Error loading portfolio</h3>
+              <Button label="retry" onClick={() => fetchPortfolio()} />
+            </div>
+          </div>
+        )}
+      </div>
+    </>
   );
 }
 

@@ -2,28 +2,26 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 
 import Button from "../../Button";
-import bg1 from "../../../assets/images/landing-bg-1.jpg";
-import bg2 from "../../../assets/images/landing-bg-2.jpg";
-import bg3 from "../../../assets/images/landing-bg-3.jpg";
-
-function Header() {
+function Header({ setModal }) {
   return (
     <header>
       <div className="image-background">
         <img
           className="bg-1"
-          src={bg1}
+          src="https://squareonejobs-landing.s3.us-east-2.amazonaws.com/Home/landing-bg-1.jpg"
           alt="man standing looking off camera with city in background"
         />
         <img
           className="bg-2"
-          src={bg2}
+          src="https://squareonejobs-landing.s3.us-east-2.amazonaws.com/Home/landing-bg-2.jpg"
           alt="man standing looking off camera with city in background"
+          loading="lazy"
         />
         <img
           className="bg-3"
-          src={bg3}
+          src="https://squareonejobs-landing.s3.us-east-2.amazonaws.com/Home/landing-bg-3.jpg"
           alt="man standing looking off camera with city in background"
+          loading="lazy"
         />
         <svg
           className="line-1"
@@ -48,11 +46,12 @@ function Header() {
             Find your potential, unlock your purpose - regardless of the
             obstacles you’ve overcome.
           </p>
-          <NavLink to="/auth/register">
+          <NavLink to="/">
             <Button
               label="Find jobs"
               className="button"
               textStyle={{ fontSize: 20 }}
+              onClick={() => setModal(true)}
             />
           </NavLink>
         </div>

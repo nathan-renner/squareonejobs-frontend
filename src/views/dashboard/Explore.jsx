@@ -74,7 +74,7 @@ function Explore(props) {
 
   const searchCat = (name) => {
     history.push("/search", {
-      search: name,
+      category: name,
     });
   };
 

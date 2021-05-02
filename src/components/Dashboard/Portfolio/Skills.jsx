@@ -7,11 +7,11 @@ import SkillsModal from "./SkillsModal";
 
 function Skills({ portfolio, updateElement, ...otherProps }) {
   const [opened, setOpened] = useState(false);
-  //const [tempData, setTempData] = useState(portfolio.skills);
   const [isEditingSkills, setIsEditingSkills] = useState(false);
   const [isEditingSkill, setIsEditingSkill] = useState(false);
   const [skillToEdit, setSkillToEdit] = useState({
     skill: "",
+    cat: "other",
     index: undefined,
   });
 
@@ -20,52 +20,39 @@ function Skills({ portfolio, updateElement, ...otherProps }) {
   //   setIsEditing(false);
   // };
 
-  const handleEditSkill = ({ skill, index }) => {
+  const handleEditSkill = ({ skill, cat, index }) => {
     setIsEditingSkill(false);
-    const temp = [...portfolio.skills];
+    const temp = { ...portfolio.skills };
 
-    if (index !== undefined) temp.splice(index, 1, skill);
-    else temp.push(skill);
+    if (index !== undefined) temp[cat].splice(index, 1, skill);
+    else temp[cat].push(skill);
     updateElement("skills", temp);
   };
 
-  const handleCancelEditSkill = () => {
-    setIsEditingSkill(false);
-  };
-
-  // const handleRemoveSkill = (index) => {
-  //   const newTempData = [...tempData];
-  //   newTempData.splice(index, 1);
-  //   setTempData(newTempData);
-  // };
-
   return (
     <>
-      {isEditingSkill && (
-        <Modal
-          className="modal-sm"
-          title="Add a skill"
-          Content={SkillEditModal}
-          componentProps={{
-            skillToEdit,
-            handleEditSkill,
-            handleCancelEditSkill,
-            setIsEditingSkill,
-          }}
-        />
-      )}
-      {isEditingSkills && (
-        <Modal
-          className="modal"
-          title="Your skills"
-          Content={SkillsModal}
-          componentProps={{
-            updateElement,
-            portfolio,
-            setIsEditingSkills,
-          }}
-        />
-      )}
+      <Modal
+        visible={isEditingSkill}
+        className="modal-sm"
+        title="Add a skill"
+        Content={SkillEditModal}
+        componentProps={{
+          skillToEdit,
+          handleEditSkill,
+          setIsEditingSkill,
+        }}
+      />
+      <Modal
+        visible={isEditingSkills}
+        className="modal"
+        title="Your skills"
+        Content={SkillsModal}
+        componentProps={{
+          updateElement,
+          portfolio,
+          setIsEditingSkills,
+        }}
+      />
       <Card className="skills" {...otherProps}>
         <div className="control-icons">
           <MdAdd
@@ -73,7 +60,7 @@ function Skills({ portfolio, updateElement, ...otherProps }) {
             className={"control-icon"}
             onClick={() => {
               setIsEditingSkill(true);
-              setSkillToEdit({ skill: "", index: undefined });
+              setSkillToEdit({ skill: "", cat: "other", index: undefined });
             }}
           />
           <MdModeEdit
@@ -88,7 +75,7 @@ function Skills({ portfolio, updateElement, ...otherProps }) {
         <h2>Skills</h2>
         <p className="title">Top Skills</p>
         <div className="top-skills">
-          {portfolio.skills.slice(0, 3).map((skill) => (
+          {portfolio.skills.top.map((skill) => (
             <p key={skill}>{skill}</p>
           ))}
         </div>
@@ -96,7 +83,7 @@ function Skills({ portfolio, updateElement, ...otherProps }) {
           <div className="divider" />
           <p className="title">Other Skills</p>
           <div className="skills-container">
-            {portfolio.skills.slice(3).map((skill) => (
+            {portfolio.skills.other.map((skill) => (
               <p key={skill}>{skill}</p>
             ))}
           </div>

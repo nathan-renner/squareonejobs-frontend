@@ -2,6 +2,17 @@
   .progress-bar {
     margin-block: 0.8em;
   }
+  p {
+    @include themed() {
+      color: t("secondaryText");
+    }
+    font-size: 0.8em;
+    font-weight: 500;
+    margin-top: 0.3em;
+    margin-bottom: 0;
+    line-height: 1.1;
+    text-align: right;
+  }
   .levels {
     margin-top: 0.8em;
     display: flex;

@@ -80,6 +80,10 @@
       img {
         height: 80px;
         width: 80px;
+        border-radius: 50%;
+        @include themed() {
+          border: 5px solid t("background");
+        }
       }
     }
   }

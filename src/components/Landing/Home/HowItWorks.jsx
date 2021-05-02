@@ -1,11 +1,75 @@
-import React from "react";
+import React, { useRef } from "react";
 import Lottie from "lottie-react";
 
 import CompleteDayJobs from "../../../assets/animations/completeDayJobs.json";
 import EarnReferences from "../../../assets/animations/earnReferences.json";
 import GetHired from "../../../assets/animations/getHired.json";
 
+const dayjobsInteractivity = {
+  mode: "scroll",
+  actions: [
+    {
+      visibility: [0, 0.3],
+      type: "stop",
+      frames: [1],
+    },
+    {
+      visibility: [0.3, 0.7],
+      type: "loop",
+      frames: [1, 172],
+    },
+    {
+      visibility: [0.7, 1],
+      type: "stop",
+      frames: [1],
+    },
+  ],
+};
+const referencesInteractivity = {
+  mode: "scroll",
+  actions: [
+    {
+      visibility: [0, 0.3],
+      type: "stop",
+      frames: [1],
+    },
+    {
+      visibility: [0.3, 0.7],
+      type: "loop",
+      frames: [1, 180],
+    },
+    {
+      visibility: [0.7, 1],
+      type: "stop",
+      frames: [1],
+    },
+  ],
+};
+const fulltimeInteractivity = {
+  mode: "scroll",
+  actions: [
+    {
+      visibility: [0, 0.3],
+      type: "stop",
+      frames: [1],
+    },
+    {
+      visibility: [0.3, 0.7],
+      type: "loop",
+      frames: [1, 91],
+    },
+    {
+      visibility: [0.7, 1],
+      type: "stop",
+      frames: [1],
+    },
+  ],
+};
+
 function HowItWorks(props) {
+  const dayjobs = useRef();
+  const references = useRef();
+  const fulltime = useRef();
   return (
     <section className="section-how-it-works">
       <div className="container split split-right feature-container">
@@ -23,8 +87,8 @@ function HowItWorks(props) {
           </svg>
           <Lottie
             animationData={CompleteDayJobs}
-            loop={true}
-            autoplay={true}
+            lottieRef={dayjobs}
+            interactivity={dayjobsInteractivity}
             className="feature-lottie"
           />
         </div>
@@ -48,11 +112,10 @@ function HowItWorks(props) {
               fill="#EBF5FE"
             />
           </svg>
-
           <Lottie
             animationData={EarnReferences}
-            loop={true}
-            autoplay={true}
+            lottieRef={references}
+            interactivity={referencesInteractivity}
             className="feature-lottie"
           />
         </div>
@@ -78,8 +141,8 @@ function HowItWorks(props) {
           </svg>
           <Lottie
             animationData={GetHired}
-            loop={true}
-            autoplay={true}
+            lottieRef={fulltime}
+            interactivity={fulltimeInteractivity}
             className="feature-lottie"
           />
         </div>

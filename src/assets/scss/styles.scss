@@ -49,6 +49,10 @@
   }
 }
 
+.pointer {
+  cursor: pointer;
+}
+
 .text-primary {
   color: $primary !important;
 }
@@ -106,6 +110,9 @@
 .bg-purple {
   background-color: $purple !important;
 }
+.bg-yellow {
+  background-color: $yellow !important;
+}
 
 .bg-danger {
   background-color: $danger !important;
@@ -146,6 +153,22 @@
   }
 }
 
+.error-container {
+  width: 100%;
+  text-align: center;
+  display: grid;
+  place-items: center;
+  min-height: 80vh;
+
+  > * {
+    max-width: 30em;
+  }
+}
+
+body {
+  overflow-y: overlay;
+}
+
 @import "./component-styles/card.scss";
 @import "./component-styles/theme-switch.scss";
 @import "./component-styles/button.scss";
@@ -154,3 +177,8 @@
 @import "./component-styles/badge.scss";
 @import "./component-styles/multi-button.scss";
 @import "./component-styles/modal.scss";
+@import "./component-styles/jobs-list.scss";
+@import "./component-styles/scrollbar.scss";
+@import "./component-styles/star-ratings.scss";
+@import "./component-styles/success-modal.scss";
+@import "./component-styles/pagination.scss";

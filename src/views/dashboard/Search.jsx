@@ -1,52 +1,122 @@
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useHistory, useLocation } from "react-router-dom";
+import queryString from "query-string";
+import ReactPaginate from "react-paginate";
+
 import Listing from "./Listing";
-import Card from "./../../components/Card";
+import Filters from "./../../components/Dashboard/Search/Filters";
 
-const listings = new Array(15).fill(0);
-
-// const listing = {
-//   _id: 1,
-//   type: "day",
-//   position: "Box Mover",
-//   companyName: "Amazon",
-//   companyLogo:
-//     "https://squareonejobs-images.s3.us-east-2.amazonaws.com/dummy-data/amazon.png",
-//   startDateTime: new Date(2020, 11, 1),
-//   endDateTime: new Date(2020, 11, 1),
-//   location: "1 Castle Point Terrace, Hoboken NJ, 07030",
-//   description:
-//     "Since opening our virtual doors in 1995, we've been pushing the boundaries of 'possible' further and further. Our entire business works hard to delight our customers - from the second an order is placed online to the seamless coordination of that order behind the scenes, we strive to stay agile, fluid and intentional. That can be described in one of our core Leadership Principles, which is Bias for Action. This means that our teams band together, roll up their sleeves, and aren't content with just standing still. We're aiming to become the most customer-centric company on Earth.Shift Assistants are part of the Last Mile operations in Amazon Logistics and play a crucial role in this rapidly growing team. Shift Assistants are responsible for daily management of department duties including: allocating labor, leading meetings, assigning job duties, providing work direction and communicating with internal and external suppliers.Responsibilities:- Track and report ATS/labor hours...",
-//   wage: 80,
-// };
+import { searchListings } from "./../../api/listings";
+import useApi from "../../hooks/useApi";
+import ActivityIndicator from "./../../components/ActivityIndicator";
+import Button from "./../../components/Button";
+import JobCard from "../../components/Dashboard/Search/JobCard";
+import useQuery from "../../hooks/useQuery";
 
 function Search(props) {
   const history = useHistory();
-  const { search } = history.location.state;
-  const [selected, setSelected] = useState();
+  const location = useLocation();
+  const query = useQuery();
+  const listingsApi = useApi(searchListings);
+  const [selected, setSelected] = useState(false);
+  const [start, setStart] = useState(query.start ? query.start : 0);
+  const [filter, setFilter] = useState({
+    c: query.c ? query.c : "",
+    t: query.t ? query.t : "",
+    r: query.r ? query.c : "25",
+    remote: query.remote ? query.remote === "true" : false,
+    nodl: query.nodl ? query.nodl === "true" : false,
+  });
+  const [listings, setListings] = useState(false);
+  const [count, setCount] = useState(false);
 
-  const renderListings = () => {
-    return listings.map((list, index) => (
-      <Card
-        key={index}
-        className={`${index === selected ? "active" : null}`}
-        onClick={() => setSelected(index)}
-      >
-        <h2>{index}</h2>
-      </Card>
-    ));
+  const fetchListings = async () => {
+    const response = await listingsApi.request(queryString.stringify(query));
+    if (response.ok) {
+      setListings(response.data.listings);
+      setCount(response.data.count);
+    }
+  };
+
+  useEffect(() => {
+    if (!listingsApi.error && !listings) fetchListings();
+    // eslint-disable-next-line
+  }, [location]);
+
+  const handleFilterChange = (value, type) => {
+    const newFilter = { ...filter };
+
+    value === "" ? delete newFilter[type] : (newFilter[type] = value);
+    setFilter(newFilter);
+
+    value === "" ? delete query[type] : (query[type] = value);
+
+    const stringified = queryString.stringify(query);
+    history.push(`/search?${stringified}`);
+    fetchListings(stringified);
+  };
+
+  const handlePageChange = ({ selected: pageNum }) => {
+    setStart(pageNum * 15);
+    pageNum === 0 ? delete query.start : (query.start = pageNum * 15);
+
+    console.log(start, pageNum, query.start);
+    const stringified = queryString.stringify(query);
+    history.push(`/search?${stringified}`);
+    fetchListings(stringified);
   };
 
   return (
     <div className="search">
-      <div className="filters">Filters</div>
-      <h1>Search results for: "{search && search}"</h1>
-      <div className="results-container">
-        <div className="results">{renderListings()}</div>
-        <div className="selected">
-          <Listing />
+      <Filters filter={filter} handleFilterChange={handleFilterChange} />
+      <h3>Search results for: "{query.q && query.q}"</h3>
+      <p>
+        Page {Math.trunc(start / 15 + 1)} of {count} listings.
+      </p>
+      <ActivityIndicator visible={listingsApi.loading} />
+      {listings && (
+        <>
+          <div className="results-container">
+            <div className="results">
+              <JobCard
+                listings={listings}
+                setSelected={setSelected}
+                selected={selected}
+              />
+              <ReactPaginate
+                pageCount={Math.ceil(count / 15)}
+                pageRangeDisplayed={3}
+                marginPagesDisplayed={1}
+                nextLabel={">"}
+                previousLabel={"<"}
+                onPageChange={(e) => handlePageChange(e)}
+                containerClassName={"pagination-container"}
+                pageClassName={"pagination-page"}
+                activeClassName={"pagination-active"}
+                previousClassName={"pagination-page"}
+                nextClassName={"pagination-page"}
+              />
+            </div>
+            <div className="selected">
+              {selected ? (
+                <Listing id={selected} />
+              ) : (
+                <div style={{ textAlign: "center", marginTop: "2em" }}>
+                  Click on a listing to view details.
+                </div>
+              )}
+            </div>
+          </div>
+        </>
+      )}
+      {listingsApi.error && (
+        <div className="error-container">
+          <div>
+            <h3>Error loading portfolio</h3>
+            <Button label="retry" onClick={() => fetchListings()} />
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

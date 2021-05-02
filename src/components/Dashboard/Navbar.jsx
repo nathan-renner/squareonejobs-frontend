@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink, useLocation, useHistory } from "react-router-dom";
 import BriefcaseIcon from "./../icons/BriefcaseIcon";
 import PencilIcon from "./../icons/PencilIcon";
@@ -18,6 +18,8 @@ import {
   MdSearch,
 } from "react-icons/md";
 import StreakDropdown from "./Navbar/StreakDropdown";
+import NotificationDropdown from "./Navbar/NotificationDropdown";
+import StatDropdown from "./Navbar/StatDropdown";
 
 const routes = [
   {
@@ -47,15 +49,37 @@ const routes = [
   },
 ];
 
-const Navbar = () => {
+const completedData = {
+  name: "completed",
+  title: "Completed Jobs",
+  subtitle: "Complete day jobs to build your portfolio and earn points",
+  Icon: BriefcaseIcon,
+};
+const appData = {
+  name: "applications",
+  title: "Applications",
+  subtitle: "Fill out applications to increase your chance at full employment",
+  Icon: PencilIcon,
+};
+const refData = {
+  name: "references",
+  title: "References",
+  subtitle: "Build your portfolio with positive employer reviews",
+  Icon: ClipboardIcon,
+};
+
+const Navbar = ({ data }) => {
   const history = useHistory();
-  const [avatar] = useState(null);
-  const [streak] = useState(3);
-  const [profileHover, setProfileHover] = useState(false);
-  const [streakHover, setStreakHover] = useState(false);
   const [searchFocus, setSearchFocus] = useState(false);
   const [search, setSearch] = useState("");
+  const [dropdown, setDropdown] = useState(false);
   const { pathname } = useLocation();
+
+  useEffect(() => {
+    completedData.stat = data.completedDayJobsLength;
+    appData.stat = data.applicationsLength;
+    refData.stat = data.refsLength;
+  });
 
   const handleFocus = () => {
     setSearchFocus(true);
@@ -65,9 +89,7 @@ const Navbar = () => {
   };
   const onSubmitSearch = (e) => {
     e.preventDefault();
-    history.replace("/search", {
-      search,
-    });
+    history.replace(`/search?q=${search}`);
   };
   const onChangeSearch = (e) => {
     setSearch(e.target.value);
@@ -101,12 +123,36 @@ const Navbar = () => {
     });
   };
 
+  const handleDropdown = (drop) => {
+    switch (drop) {
+      case "completedJobs":
+        setDropdown("completedJobs");
+        break;
+      case "applications":
+        setDropdown("applications");
+        break;
+      case "references":
+        setDropdown("references");
+        break;
+      case "streak":
+        setDropdown("streak");
+        break;
+      case "notifications":
+        setDropdown("notifications");
+        break;
+      case "profile":
+        setDropdown("profile");
+        break;
+      default:
+        setDropdown(false);
+    }
+  };
+
   return (
     <>
       <div
-        className={`overlay-bg ${
-          profileHover || streakHover ? "active" : null
-        }`}
+        className={`overlay-bg ${dropdown ? "active" : null}`}
+        onClick={handleDropdown}
       />
       <div className="navbar-container">
         <div className="navbar">
@@ -130,38 +176,51 @@ const Navbar = () => {
               value={search}
             />
           </div>
-          <div className="stat">
+          <div className="stat" onClick={() => handleDropdown("completedJobs")}>
             <BriefcaseIcon height={25} width={25} />
-            <h2 className="stat-text text-primary">2</h2>
+            <h2 className="stat-text text-primary">
+              {data.completedDayJobsLength}
+            </h2>
           </div>
-          <div className="stat">
+          <div className="stat" onClick={() => handleDropdown("applications")}>
             <PencilIcon height={25} width={25} />
-            <h2 className="stat-text text-purple">2</h2>
+            <h2 className="stat-text text-purple">{data.applicationsLength}</h2>
           </div>
-          <div className="stat">
+          <div className="stat" onClick={() => handleDropdown("references")}>
             <ClipboardIcon height={25} width={25} />
-            <h2 className="stat-text text-secondary">2</h2>
+            <h2 className="stat-text text-secondary">{data.refsLength}</h2>
           </div>
-          <div
-            className="nav-item"
-            onMouseEnter={() => setStreakHover(true)}
-            onMouseLeave={() => setStreakHover(false)}
-          >
+          <div className="nav-item" onClick={() => handleDropdown("streak")}>
             <StreakIcon height={25} width={30} />
           </div>
-          <div className="nav-item">
-            <NotificationsIcon height={25} width={25} />
+          <div
+            className={`nav-item ${data.isNewNotifications ? "notif" : null}`}
+          >
+            <NotificationsIcon
+              height={25}
+              width={25}
+              onClick={() => handleDropdown("notifications")}
+            />
           </div>
           <img
             className="nav-item avatar"
-            src={avatar ? avatar : defaultAvatar}
+            src={data.avatar ? `${data.avatar}?v=${Date.now()}` : defaultAvatar}
             alt="Avatar"
-            onMouseEnter={() => setProfileHover(true)}
-            onMouseLeave={() => setProfileHover(false)}
+            onClick={() => handleDropdown("profile")}
           />
         </div>
-        <ProfileDropdown {...{ profileHover, setProfileHover, avatar }} />
-        <StreakDropdown {...{ streakHover, setStreakHover, streak }} />
+        <ProfileDropdown
+          visible={dropdown === "profile"}
+          avatar={data.avatar}
+        />
+        <StreakDropdown visible={dropdown === "streak"} streak={data.streak} />
+        <NotificationDropdown visible={dropdown === "notifications"} />
+        <StatDropdown
+          data={completedData}
+          visible={dropdown === "completedJobs"}
+        />
+        <StatDropdown data={appData} visible={dropdown === "applications"} />
+        <StatDropdown data={refData} visible={dropdown === "references"} />
       </div>
     </>
   );

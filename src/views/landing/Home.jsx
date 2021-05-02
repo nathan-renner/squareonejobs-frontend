@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import Navbar from "../../components/Landing/Navbar";
 import Header from "./../../components/Landing/Home/Header";
@@ -9,17 +9,26 @@ import CallToAction from "./../../components/Landing/Home/CallToAction";
 import Footer from "../../components/Landing/Footer";
 import MobileApp from "./../../components/Landing/Home/MobileApp";
 import ContactUs from "./../../components/Landing/Home/ContactUs";
+import Modal from "./../../components/Modal";
+import TempModalContent from "./../../components/Landing/TempModalContent";
 
 const Home = () => {
+  const [modalVisible, setModalVisible] = useState(false);
   return (
-    <div className="landing">
-      <Navbar />
-      <Header />
+    <div className="landing home">
+      <Modal
+        clasName="modal-sm"
+        visible={modalVisible}
+        Content={TempModalContent}
+        onCancel={() => setModalVisible(false)}
+      />
+      <Navbar setModal={setModalVisible} />
+      <Header setModal={setModalVisible} />
       <Problem />
       <Mission />
       <HowItWorks />
       <MobileApp />
-      <CallToAction />
+      <CallToAction setModal={setModalVisible} />
       <ContactUs />
       <Footer />
     </div>

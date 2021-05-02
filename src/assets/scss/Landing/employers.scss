@@ -1,3 +1,6 @@
-@import "./Employers/header.scss";
-@import "./Employers/problem.scss";
-@import "./Employers/employer-how.scss";
+&.employers {
+  @import "./Employers/header.scss";
+  @import "./Employers/companies.scss";
+  @import "./Employers/problem.scss";
+  @import "./Employers/employer-how.scss";
+}
