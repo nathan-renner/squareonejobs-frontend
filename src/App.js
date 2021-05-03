@@ -10,6 +10,7 @@ import ActivityIndicator from "./components/ActivityIndicator";
 import AuthContext from "./auth/context";
 import { getUser } from "./auth/storage";
 import { ThemeProvider } from "./config/ThemeProvider";
+import "react-calendar/dist/Calendar.css";
 import "./assets/scss/styles.scss";
 import EDashboard from "./layouts/EDashboard";
 
