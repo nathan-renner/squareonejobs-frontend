@@ -9,6 +9,9 @@ import Button from "../../../components/Button";
 import { MdCheck } from "react-icons/md";
 import FormDropdown from "../../../components/forms/FormDropdown";
 import { useHistory } from "react-router-dom";
+import { getLocations } from "./../../../api/companies";
+import ActivityIndicator from "./../../../components/ActivityIndicator";
+import useApi from "./../../../hooks/useApi";
 
 const initialVals = {
   category: "",
@@ -100,17 +103,10 @@ const states = [
 
 function NewListing(props) {
   const history = useHistory();
+  const getLocationsApi = useApi(getLocations);
   const [type, setType] = useState(false);
   const [prevLoc, setPrevLoc] = useState(false);
-  const [savedLocs] = useState([
-    {
-      street: "212 Manor Rd",
-      city: "Harleysville",
-      state: "PA",
-      zip: "19438",
-      coordinates: [75.3706849, 40.2774199],
-    },
-  ]);
+  const [savedLocs, setSavedLocs] = useState(false);
   const [location, setLocation] = useState(false);
   const [dl, setDl] = useState(false);
   const [initialValues] = useState(initialVals);
@@ -148,6 +144,14 @@ function NewListing(props) {
     tags: Yup.array().of(Yup.string()),
   });
 
+  const handlePrevLoc = async () => {
+    if (!prevLoc && !savedLocs) {
+      setPrevLoc(!prevLoc);
+      const response = await getLocationsApi.request();
+      if (response.ok) setSavedLocs(response.data);
+    } else setPrevLoc(!prevLoc);
+  };
+
   const handleSubmit = (i) => {
     const data = {
       type,
@@ -171,6 +175,11 @@ function NewListing(props) {
         },
       },
     };
+
+    if (data.details.qualifications.other === "")
+      delete data.details.qualifications.other;
+    if (!data.details.qualifications.driversLicense)
+      delete data.details.qualifications.driversLicense;
     if (type === "day") {
       data.details.endDateTime = i.endDateTime;
       data.details.wage = i.wage;
@@ -198,6 +207,7 @@ function NewListing(props) {
 
   return (
     <div className="post-listing">
+      <ActivityIndicator visible={getLocationsApi.loading} />
       <h1>Post Listing</h1>
       <Card>
         <div className={`section ${!type ? "nopadding" : ""}`}>
@@ -245,7 +255,7 @@ function NewListing(props) {
                   <h2>Location</h2>
                   <label
                     className="checkbox"
-                    onChange={() => setPrevLoc(!prevLoc)}
+                    onChange={handlePrevLoc}
                     style={{ marginBottom: "1em" }}
                   >
                     <input type="checkbox" defaultChecked={prevLoc} />

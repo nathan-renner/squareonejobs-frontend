@@ -1,15 +1,13 @@
 import client from "./client";
 
-const gigEP = "/gig-listings";
-const listingsEP = "/listings";
+const EP = "/listings";
 
-export const getActiveDay = () => client.get(`${gigEP}/active`);
+export const getListing = (id) => client.get(`${EP}/${id}`);
 
-export const getListing = (id) => client.get(`${listingsEP}/${id}`);
+export const applyToDayJob = (id) => client.post(`${EP}/apply/${id}`);
 
-export const applyToDayJob = (id) => client.post(`${listingsEP}/apply/${id}`);
+export const getMyJobs = (type) => client.get(`${EP}/my-jobs/${type}`);
 
-export const getMyJobs = (type) => client.get(`${listingsEP}/my-jobs/${type}`);
+export const searchListings = (query) => client.get(`${EP}/search?${query}`);
 
-export const searchListings = (query) =>
-  client.get(`${listingsEP}/search?${query}`);
+export const postListing = (listing) => client.post(`${EP}`, listing);
