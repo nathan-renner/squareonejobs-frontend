@@ -1,0 +1,56 @@
+.post-listing {
+  max-width: 40em;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 4em;
+
+  h1 {
+    margin: 1em auto;
+    text-align: center;
+    font-size: 1.6em !important;
+  }
+
+  h2 {
+    margin-bottom: 1em;
+    font-size: 1.3em !important;
+  }
+  .section {
+    margin-bottom: 4em;
+
+    &.nopadding {
+      margin-bottom: 0;
+    }
+  }
+
+  .types-container {
+    display: flex;
+
+    > * + * {
+      margin-left: 1.5em;
+    }
+  }
+
+  .location {
+    padding: 0.5em;
+    border-radius: 0.5em;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+    p {
+      margin-bottom: 0;
+    }
+
+    > * + * {
+      margin-left: 0.625em;
+    }
+
+    &:hover,
+    &:focus,
+    &.active {
+      @include themed() {
+        background-color: t("background");
+      }
+    }
+  }
+}

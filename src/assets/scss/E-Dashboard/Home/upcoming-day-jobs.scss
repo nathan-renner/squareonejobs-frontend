@@ -19,6 +19,9 @@
       margin-top: 0;
       margin-bottom: 0.3em;
       font-size: 600;
+      @include themed() {
+        color: t("text");
+      }
     }
     .worker {
       display: flex;

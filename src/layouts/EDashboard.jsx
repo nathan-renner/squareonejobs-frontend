@@ -13,6 +13,9 @@ import MyListings from "./../views/e-dashboard/MyListings";
 import Account from "./../views/e-dashboard/Account";
 import Payments from "./../views/e-dashboard/Payments";
 import Settings from "./../views/e-dashboard/Settings";
+import ReviewListing from "../views/e-dashboard/new-listing/ReviewListing";
+import NewListing from "./../views/e-dashboard/new-listing/NewListing";
+import Payment from "./../views/e-dashboard/new-listing/Payment";
 
 const EDashboard = () => {
   const [navData] = useState(true);
@@ -46,6 +49,17 @@ const EDashboard = () => {
                 <Route exact path={`/payments`} component={Payments} />
                 <Route exact path={`/my-account`} component={Account} />
                 <Route exact path={`/my-listings`} component={MyListings} />
+                <Route
+                  exact
+                  path={`/new-listing/payment`}
+                  component={Payment}
+                />
+                <Route
+                  exact
+                  path={`/new-listing/review`}
+                  component={ReviewListing}
+                />
+                <Route exact path={`/new-listing`} component={NewListing} />
                 <Route exact path={`/`} component={Home} />
                 <Redirect to="/not-found" />
               </Switch>

@@ -5,6 +5,7 @@ function TextInput({
   active = false,
   label = false,
   onSubmit,
+  size = false,
   containerStyle,
   placeholder,
   textStyle,
@@ -21,7 +22,7 @@ function TextInput({
 }) {
   if (type === "textarea") {
     return (
-      <>
+      <div>
         {label ? <p className="input-label">{label}</p> : null}
         <div className="textarea-container" style={containerStyle}>
           {LeftIcon && (
@@ -47,7 +48,7 @@ function TextInput({
             />
           )}
         </div>
-      </>
+      </div>
     );
   } else if (type === "search") {
     return (
@@ -76,9 +77,12 @@ function TextInput({
     );
   } else {
     return (
-      <>
+      <div>
         {label ? <label className="input-label">{label}</label> : null}
-        <div className="input-container" style={containerStyle}>
+        <div
+          className={`input-container ${size ? size : null}`}
+          style={containerStyle}
+        >
           {LeftIcon && (
             <LeftIcon
               className="left-icon"
@@ -97,7 +101,7 @@ function TextInput({
             />
           )}
         </div>
-      </>
+      </div>
     );
   }
 }

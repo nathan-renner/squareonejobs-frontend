@@ -7,7 +7,12 @@ import ErrorMessage from "./ErrorMessage";
 
 import "react-datepicker/dist/react-datepicker.css";
 
-function FormDatePicker({ name, placeholder, ...otherProps }) {
+function FormDatePicker({
+  name,
+  placeholder,
+  showTimeSelect = false,
+  ...otherProps
+}) {
   const [date, setDate] = useState();
   const {
     values,
@@ -21,7 +26,13 @@ function FormDatePicker({ name, placeholder, ...otherProps }) {
     return (
       <TextInput
         containerStyle={{ marginTop: 5, marginBottom: 5 }}
-        value={values[name] ? moment(values[name]).format("MM/DD/YYYY") : ""}
+        value={
+          values[name]
+            ? showTimeSelect
+              ? moment(values[name]).format("MM/DD/YYYY h:mm a")
+              : moment(values[name]).format("MM/DD/YYYY")
+            : null
+        }
         placeholder={placeholder}
         onClick={onClick}
         onChange={() => true}
@@ -41,6 +52,7 @@ function FormDatePicker({ name, placeholder, ...otherProps }) {
           setFieldValue(name, date);
         }}
         customInput={<Input />}
+        showTimeSelect={showTimeSelect}
       />
       <ErrorMessage error={errors[name]} visible={touched[name]} />
     </>

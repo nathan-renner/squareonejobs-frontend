@@ -1,4 +1,5 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import { MdCheck, MdPerson, MdVisibility } from "react-icons/md";
 import { FaListUl } from "react-icons/fa";
 import Button from "../../Button";
@@ -32,6 +33,8 @@ const stats = [
 ];
 
 function Header({ ...props }) {
+  const history = useHistory();
+
   const renderStats = () => {
     return stats.map((stat, i) => (
       <div className="stat" key={i}>
@@ -52,7 +55,10 @@ function Header({ ...props }) {
           <h1>Jeff</h1>
         </div>
         <div>
-          <Button label="Create New Listing" />
+          <Button
+            label="Create New Listing"
+            onClick={() => history.push("/new-listing")}
+          />
         </div>
       </div>
       <div className="right">{renderStats()}</div>

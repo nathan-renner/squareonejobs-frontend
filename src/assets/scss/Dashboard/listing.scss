@@ -28,6 +28,15 @@
       justify-content: space-between;
       margin-bottom: 1em;
 
+      p {
+        @include themed() {
+          color: t("secondaryText");
+        }
+        font-size: 0.9em;
+        font-weight: 500;
+        margin-bottom: 0;
+      }
+
       .left {
         flex: 1;
         display: flex;
@@ -45,14 +54,6 @@
         h2 {
           font-size: 1.4em !important;
           font-weight: 600;
-          margin-bottom: 0;
-        }
-        p {
-          @include themed() {
-            color: t("secondaryText");
-          }
-          font-size: 0.9em;
-          font-weight: 500;
           margin-bottom: 0;
         }
       }
