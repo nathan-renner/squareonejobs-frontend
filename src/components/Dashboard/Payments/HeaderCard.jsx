@@ -4,10 +4,8 @@ import { MdCreditCard } from "react-icons/md";
 
 function HeaderCard(props) {
   return (
-    <Card simple className="header" {...props}>
-      <h2>Total Earnings</h2>
-      <p className="earnings">$100.00</p>
-      <Card>
+    <div>
+      <Card className="header" {...props}>
         <h2>Linked Accounts</h2>
         <div className="account">
           <MdCreditCard size={40} color={"#1d8cf8"} />
@@ -17,7 +15,7 @@ function HeaderCard(props) {
           </div>
         </div>
       </Card>
-    </Card>
+    </div>
   );
 }
 

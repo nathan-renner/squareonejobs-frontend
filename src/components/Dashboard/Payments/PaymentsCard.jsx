@@ -7,7 +7,7 @@ import Card from "../../Card";
 function PaymentsCard({ payments, ...otherProps }) {
   return (
     <Card {...otherProps}>
-      <h2>Recent Payments</h2>
+      <h2>Payment History</h2>
       {payments.map((payment) => (
         <div className="payment" key={payment._id}>
           <div className={`status ${payment.status}`} />
