@@ -18,24 +18,22 @@
   }
 
   @import "./Dashboard/navbar.scss";
+  @import "./Dashboard/settings.scss";
+  @import "./Dashboard/listing.scss";
+  @import "./Dashboard/portfolio.scss";
 
   &.user-dash {
     @import "./Dashboard/home.scss";
     @import "./Dashboard/payments.scss";
-    @import "./Dashboard/portfolio.scss";
     @import "./Dashboard/myjobs.scss";
-    @import "./Dashboard/settings.scss";
     @import "./Dashboard/account.scss";
-    @import "./Dashboard/listing.scss";
     @import "./Dashboard/explore.scss";
     @import "./Dashboard/search.scss";
   }
 
   &.employer-dash {
     @import "./E-Dashboard/home.scss";
-    @import "./E-Dashboard/settings.scss";
     @import "./E-Dashboard/payments.scss";
-    @import "./Dashboard/listing.scss";
     @import "./E-Dashboard/post-listing.scss";
   }
 

@@ -1,6 +1,6 @@
 .custom-react-calendar {
   .react-calendar__month-view__days__day--weekend {
-    color: #1d8cf8;
+    color: #1d8cf8 !important;
   }
   .react-calendar__month-view__days__day--neighboringMonth {
     @include themed() {
@@ -8,12 +8,13 @@
     }
   }
   .react-calendar__tile:disabled {
-    background-color: #f0f0f0;
+    //background-color: #f0f0f0;
   }
   .react-calendar__tile:enabled:hover,
   .react-calendar__tile:enabled:focus {
     @include themed() {
-      color: t("background");
+      // background: t("background");
+      color: t("text");
     }
     border-radius: 5px;
   }
@@ -43,14 +44,17 @@
     background: #1d8cf8;
   }
   .react-calendar--selectRange .react-calendar__tile--hover {
-    background-color: #e6e6e6;
     border-radius: 5px;
+    @include themed() {
+      background: t("background");
+      color: t("text");
+    }
   }
 }
 .react-calendar {
   @include themed() {
     background: t("foreground");
-    color: t("text");
+    color: t("text") !important;
   }
   border: none !important;
 }

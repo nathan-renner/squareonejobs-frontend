@@ -33,6 +33,7 @@ function Header({
   setProgress,
   setUploadVisible,
   updateAccountDetails,
+  edit = true,
   ...props
 }) {
   const { avatar, firstName, lastName, email, details } = portfolio.userDetails;
@@ -117,12 +118,14 @@ function Header({
 
   return (
     <Card className="header" {...props}>
-      <div className="control-icons" onClick={() => setIsEditing(true)}>
-        <MdModeEdit
-          size={25}
-          className={`control-icon ${isEditing ? "active" : null}`}
-        />
-      </div>
+      {edit && (
+        <div className="control-icons" onClick={() => setIsEditing(true)}>
+          <MdModeEdit
+            size={25}
+            className={`control-icon ${isEditing ? "active" : null}`}
+          />
+        </div>
+      )}
       <div
         className={`avatar-container ${isEditing ? "editing" : null}`}
         onClick={isEditing ? selectImage : () => true}

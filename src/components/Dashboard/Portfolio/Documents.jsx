@@ -25,6 +25,7 @@ function Documents({
   setUploadVisible,
   updateDocuments,
   setLoading,
+  edit = true,
   ...props
 }) {
   const { documents } = portfolio;
@@ -75,25 +76,27 @@ function Documents({
 
   return (
     <Card className="documents" {...props}>
-      <div className="control-icons">
-        <input
-          ref={uploadRef}
-          type="file"
-          accept="application/pdf"
-          onChange={handleDocumentChange}
-          hidden
-        />
-        <MdFileUpload
-          size={25}
-          className="control-icon"
-          onClick={selectDocument}
-        />
-        <MdModeEdit
-          size={25}
-          className={`control-icon ${isEditing ? "active" : null}`}
-          onClick={() => setIsEditing(true)}
-        />
-      </div>
+      {edit && (
+        <div className="control-icons">
+          <input
+            ref={uploadRef}
+            type="file"
+            accept="application/pdf"
+            onChange={handleDocumentChange}
+            hidden
+          />
+          <MdFileUpload
+            size={25}
+            className="control-icon"
+            onClick={selectDocument}
+          />
+          <MdModeEdit
+            size={25}
+            className={`control-icon ${isEditing ? "active" : null}`}
+            onClick={() => setIsEditing(true)}
+          />
+        </div>
+      )}
       <h2>Documents</h2>
       {documents.length === 0 && (
         <p style={{ marginBottom: 0 }}>No documents</p>

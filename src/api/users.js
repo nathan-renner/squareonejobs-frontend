@@ -6,6 +6,8 @@ const referencesEP = "/references";
 
 export const register = (userInfo) => client.post(userEP, userInfo);
 
+export const getUser = (id) => client.get(`${userEP}/${id}`);
+
 export const getPortfolio = (id) => client.get(`${portfolioEP}/${id}`);
 
 export const getNavbarData = () => client.get(`${userEP}/navbar-data`);
@@ -15,6 +17,9 @@ export const getNotifications = () => client.get("/notifications/initial");
 export const getDashboardData = () => client.get(`${userEP}/dashboard-data`);
 
 export const getMyReferences = () => client.get(`${referencesEP}/user`);
+
+export const getUserReferences = (id) =>
+  client.get(`${referencesEP}/user/${id}`);
 
 export const updateAccount = (data, onUploadProgress) =>
   client.put(`${userEP}/account-details`, data, {
