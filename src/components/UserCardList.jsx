@@ -1,11 +1,11 @@
 import React from "react";
 import UserCard from "./UserCard";
 
-function UserCardList({ candidates }) {
+function UserCardList({ users, ...props }) {
   return (
     <div className="user-grid">
-      {candidates.map((user, index) => (
-        <UserCard key={index} user={user} />
+      {users.map((user, index) => (
+        <UserCard key={index} user={user.applicant} {...props} />
       ))}
     </div>
   );

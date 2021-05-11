@@ -5,34 +5,13 @@ import UserCardList from "./../../UserCardList";
 
 const candidates = [
   {
-    _id: 1,
-    avatar: defaultAvatar,
-    firstName: "John",
-    lastName: "Smith",
-  },
-  {
-    _id: 1,
-    avatar: defaultAvatar,
-    firstName: "John",
-    lastName: "Smith",
-  },
-  {
-    _id: 1,
-    avatar: defaultAvatar,
-    firstName: "John",
-    lastName: "Smith",
-  },
-  {
-    _id: 1,
-    avatar: defaultAvatar,
-    firstName: "John",
-    lastName: "Smith",
-  },
-  {
-    _id: 1,
-    avatar: defaultAvatar,
-    firstName: "John",
-    lastName: "Smith",
+    applicant: {
+      _id: 1,
+      avatar: defaultAvatar,
+      firstName: "John",
+      lastName: "Smith",
+    },
+    dateCreated: new Date(),
   },
 ];
 
@@ -41,7 +20,7 @@ function RecommendedCandidates({ ...props }) {
     <div className="card" {...props}>
       <h2>Recommended Candidates</h2>
       <div className="recommended-candidates">
-        <UserCardList candidates={candidates} />
+        <UserCardList users={candidates} />
       </div>
     </div>
   );

@@ -17,6 +17,7 @@ import ReviewListing from "../views/e-dashboard/new-listing/ReviewListing";
 import NewListing from "./../views/e-dashboard/new-listing/NewListing";
 import Payment from "./../views/e-dashboard/new-listing/Payment";
 import UserPage from "./../views/e-dashboard/UserPage";
+import Listing from "../views/e-dashboard/ListingPage";
 
 const EDashboard = () => {
   const [navData] = useState(true);
@@ -50,6 +51,7 @@ const EDashboard = () => {
                 <Route exact path={`/user/:id`} component={UserPage} />
                 <Route exact path={`/payments`} component={Payments} />
                 <Route exact path={`/my-account`} component={Account} />
+                <Route exact path={`/my-listings/:id`} component={Listing} />
                 <Route exact path={`/my-listings`} component={MyListings} />
                 <Route
                   exact
