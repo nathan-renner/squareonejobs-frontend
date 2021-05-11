@@ -18,6 +18,7 @@ import NewListing from "./../views/e-dashboard/new-listing/NewListing";
 import Payment from "./../views/e-dashboard/new-listing/Payment";
 import UserPage from "./../views/e-dashboard/UserPage";
 import Listing from "../views/e-dashboard/ListingPage";
+import ListingPage from "../views/e-dashboard/ListingPage";
 
 const EDashboard = () => {
   const [navData] = useState(true);
@@ -47,24 +48,16 @@ const EDashboard = () => {
             <Navbar data={navData} />
             <div className="content-container">
               <Switch>
-                <Route exact path={`/settings`} component={Settings} />
-                <Route exact path={`/user/:id`} component={UserPage} />
-                <Route exact path={`/payments`} component={Payments} />
-                <Route exact path={`/my-account`} component={Account} />
-                <Route exact path={`/my-listings/:id`} component={Listing} />
-                <Route exact path={`/my-listings`} component={MyListings} />
-                <Route
-                  exact
-                  path={`/new-listing/payment`}
-                  component={Payment}
-                />
-                <Route
-                  exact
-                  path={`/new-listing/review`}
-                  component={ReviewListing}
-                />
-                <Route exact path={`/new-listing`} component={NewListing} />
-                <Route exact path={`/`} component={Home} />
+                <Route path={`/settings`} component={Settings} />
+                <Route path={`/user/:id`} component={UserPage} />
+                <Route path={`/payments`} component={Payments} />
+                <Route path={`/my-account`} component={Account} />
+                <Route path={`/my-listings`} component={MyListings} />
+                <Route path={`/listing/:id`} component={ListingPage} />
+                <Route path={`/new-listing/payment`} component={Payment} />
+                <Route path={`/new-listing/review`} component={ReviewListing} />
+                <Route path={`/new-listing`} component={NewListing} />
+                <Route exact path="/" component={Home} />
                 <Redirect to="/not-found" />
               </Switch>
             </div>

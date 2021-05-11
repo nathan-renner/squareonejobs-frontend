@@ -24,7 +24,7 @@ function MyDayJobs(props) {
 
   useEffect(() => {
     if (!dayJobs && !getMyJobsApi.error) fetchJobs();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line
   }, []);
 
   return (

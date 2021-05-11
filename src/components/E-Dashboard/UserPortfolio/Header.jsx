@@ -6,7 +6,6 @@ import defaultAvatar from "../../../assets/images/default-avatar.png";
 
 function Header({ user, ...props }) {
   const { avatar, firstName, lastName, details } = user;
-  const { city, state } = details.address;
 
   return (
     <Card className="header" {...props}>
@@ -18,7 +17,9 @@ function Header({ user, ...props }) {
       </div>
       <div className="details-container">
         <h2>{`${firstName} ${lastName}`}</h2>
-        {city && state ? <p>{`${city}, ${state}`}</p> : null}
+        {details && details.address ? (
+          <p>{`${details.address.city}, ${details.address.state}`}</p>
+        ) : null}
       </div>
     </Card>
   );
