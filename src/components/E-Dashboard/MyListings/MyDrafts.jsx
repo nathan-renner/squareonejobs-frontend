@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { getMyListings } from "../../../api/listings";
+import Card from "../../Card";
 import useApi from "./../../../hooks/useApi";
 import ActivityIndicator from "./../../ActivityIndicator";
+import ListingsList from "./../../ListingsList";
 
 function MyDrafts(props) {
   const [listings, setListings] = useState(false);
   const getMyListingsApi = useApi(getMyListings);
 
   const fetchJobs = async () => {
-    const response = await getMyListingsApi.request("draft");
+    const response = await getMyListingsApi.request("day");
     if (response.ok) setListings(response.data);
   };
 
@@ -20,7 +22,23 @@ function MyDrafts(props) {
   return (
     <div className="my-listings-content">
       <ActivityIndicator visible={getMyListingsApi.loading} />
-      my drafts
+      {listings && (
+        <div>
+          <Card
+            style={{ marginTop: 0 }}
+            data-aos="fade-up"
+            data-aos-once={true}
+            data-aos-delay="100"
+          >
+            <h2>Drafts</h2>
+            {listings.length > 0 ? (
+              <ListingsList listings={listings} drafts />
+            ) : (
+              <p style={{ marginBottom: 0 }}>No drafts</p>
+            )}
+          </Card>
+        </div>
+      )}
     </div>
   );
 }

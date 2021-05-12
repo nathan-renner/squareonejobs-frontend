@@ -1,0 +1,77 @@
+.listings-list {
+  > * + * {
+    margin-top: 1em;
+  }
+  .listing-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 1em;
+    border-radius: 15px;
+    @include themed() {
+      border: 2px solid t("background");
+    }
+
+    .left {
+      flex-basis: 50%;
+      width: 50%;
+    }
+
+    .user-section {
+      flex-basis: 25%;
+    }
+
+    > * + * {
+      margin-left: 0.625em;
+    }
+
+    .button {
+      margin-left: 0;
+      margin-bottom: 0;
+    }
+    .text {
+      @include themed() {
+        color: t("secondaryText");
+      }
+      font-size: 0.8em;
+
+      font-weight: 600;
+      margin-bottom: 0.5em;
+      line-height: 1.1;
+
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .header-link {
+      display: inline-block;
+      font-size: 1em;
+      font-weight: 600;
+      margin-bottom: 0.5em;
+      cursor: pointer;
+      text-decoration: none;
+      @include themed() {
+        color: t("text");
+      }
+    }
+    .status {
+      display: flex;
+      align-items: center;
+      margin-bottom: 5px;
+
+      p {
+        @include themed() {
+          color: t("text");
+        }
+
+        margin-left: 6px;
+        margin-bottom: 0;
+      }
+    }
+
+    .options-child {
+      flex-shrink: 1;
+      flex-grow: 0;
+    }
+  }
+}

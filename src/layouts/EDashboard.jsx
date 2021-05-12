@@ -17,7 +17,6 @@ import ReviewListing from "../views/e-dashboard/new-listing/ReviewListing";
 import NewListing from "./../views/e-dashboard/new-listing/NewListing";
 import Payment from "./../views/e-dashboard/new-listing/Payment";
 import UserPage from "./../views/e-dashboard/UserPage";
-import Listing from "../views/e-dashboard/ListingPage";
 import ListingPage from "../views/e-dashboard/ListingPage";
 
 const EDashboard = () => {

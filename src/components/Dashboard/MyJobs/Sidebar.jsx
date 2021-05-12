@@ -11,16 +11,16 @@ function Sidebar({ emp = false, ...props }) {
         Day Jobs
       </NavLink>
       <NavLink
-        to={`/${emp ? "my-listings" : "my-jobs"}/part-time`}
-        className="route"
-      >
-        Part Time
-      </NavLink>
-      <NavLink
         to={`/${emp ? "my-listings" : "my-jobs"}/full-time`}
         className="route"
       >
         Full Time
+      </NavLink>
+      <NavLink
+        to={`/${emp ? "my-listings" : "my-jobs"}/part-time`}
+        className="route"
+      >
+        Part Time
       </NavLink>
       {emp ? (
         <NavLink to="/my-listings/drafts" className="route">

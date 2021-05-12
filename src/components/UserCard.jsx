@@ -1,5 +1,5 @@
 import React from "react";
-import { useHistory } from "react-router";
+import { useHistory } from "react-router-dom";
 
 import defaultAvatar from "../assets/images/default-avatar.png";
 import Button from "./Button";

@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { getMyListings } from "../../../api/listings";
+import Card from "../../Card";
 import useApi from "./../../../hooks/useApi";
 import ActivityIndicator from "./../../ActivityIndicator";
+import ListingsList from "./../../ListingsList";
 
 function MyFullListings(props) {
   const [listings, setListings] = useState(false);
@@ -20,7 +22,39 @@ function MyFullListings(props) {
   return (
     <div className="my-listings-content">
       <ActivityIndicator visible={getMyListingsApi.loading} />
-      my full listings
+      {listings && (
+        <div>
+          <Card
+            style={{ marginTop: 0 }}
+            data-aos="fade-up"
+            data-aos-once={true}
+            data-aos-delay="100"
+          >
+            <h2>Active Full Time Listings</h2>
+            {listings.active.length > 0 ? (
+              <ListingsList listings={listings.active} />
+            ) : (
+              <p style={{ marginBottom: 0 }}>No active positions</p>
+            )}
+          </Card>
+          <Card data-aos="fade-up" data-aos-once={true} data-aos-delay="200">
+            <h2>Filled Full Time Listings</h2>
+            {listings.filled.length > 0 ? (
+              <ListingsList listings={listings.filled} />
+            ) : (
+              <p style={{ marginBottom: 0 }}>No filled positions</p>
+            )}
+          </Card>
+          <Card data-aos="fade-up" data-aos-once={true} data-aos-delay="200">
+            <h2>Cancelled Full Time Listings</h2>
+            {listings.cancelled.length > 0 ? (
+              <ListingsList listings={listings.filled} />
+            ) : (
+              <p style={{ marginBottom: 0 }}>No cancelled listings</p>
+            )}
+          </Card>
+        </div>
+      )}
     </div>
   );
 }
