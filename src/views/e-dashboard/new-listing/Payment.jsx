@@ -15,7 +15,7 @@ function Payment(props) {
 
     const response = await postListingApi.request(listing);
     if (response.ok) {
-      history.push("/listings");
+      history.push("/my-listings");
     } else {
       console.log(response.error);
     }

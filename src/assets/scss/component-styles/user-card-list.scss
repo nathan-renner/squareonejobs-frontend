@@ -14,7 +14,7 @@
     border: 2px solid t("background");
   }
 
-  &::before {
+  &::after {
     content: "";
     position: absolute;
     border-radius: 10px;
@@ -23,18 +23,19 @@
     bottom: 0;
     left: 0;
     opacity: 0;
+    z-index: -1;
     box-shadow: 0px 4px 4px rgba(black, 0.2);
     transition: opacity 100ms ease;
   }
 
-  &::after {
+  &::before {
     content: "";
     position: absolute;
     top: 0;
     right: 0;
     left: 0;
     height: 50px;
-    z-index: -1;
+    //z-index: -1;
 
     @include themed() {
       background-color: t("background");
@@ -42,7 +43,7 @@
   }
 
   &:hover {
-    &::before {
+    &::after {
       opacity: 1;
     }
   }

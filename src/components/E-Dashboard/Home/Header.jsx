@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { MdCheck, MdPerson, MdVisibility } from "react-icons/md";
 import { FaListUl } from "react-icons/fa";
@@ -10,30 +10,33 @@ const stats = [
     name: "Active Listings",
     icon: FaListUl,
     color: "secondary",
-    value: 5,
   },
   {
     name: "Applicants",
     icon: MdPerson,
     color: "purple",
-    value: 20,
   },
   {
     name: "Listing Views",
     icon: MdVisibility,
     color: "yellow",
-    value: 479,
   },
   {
     name: "Positions Filled",
     icon: MdCheck,
     color: "primary",
-    value: 3,
   },
 ];
 
-function Header({ ...props }) {
+function Header({ data, ...props }) {
   const history = useHistory();
+
+  useEffect(() => {
+    stats[0].value = data.numOfActiveListings;
+    stats[1].value = data.numOfApplicants;
+    stats[2].value = data.numOfViews;
+    stats[3].value = data.numOfPositionsFilled;
+  }, [data]);
 
   const renderStats = () => {
     return stats.map((stat, i) => (
@@ -52,7 +55,7 @@ function Header({ ...props }) {
       <div className="left">
         <div>
           <h2>Welcome back,</h2>
-          <h1>Jeff</h1>
+          <h1>{data.firstName}</h1>
         </div>
         <div>
           <Button
