@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { MdCheck, MdPerson, MdVisibility } from "react-icons/md";
 import { FaListUl } from "react-icons/fa";
 import Button from "../../Button";
 import Icon from "../../Icon";
 
-const stats = [
+const statData = [
   {
     name: "Active Listings",
     icon: FaListUl,
@@ -30,13 +30,16 @@ const stats = [
 
 function Header({ data, ...props }) {
   const history = useHistory();
+  const [stats, setStats] = useState(statData);
 
   useEffect(() => {
-    stats[0].value = data.numOfActiveListings;
-    stats[1].value = data.numOfApplicants;
-    stats[2].value = data.numOfViews;
-    stats[3].value = data.numOfPositionsFilled;
-  }, [data]);
+    const newStats = [...stats];
+    newStats[0].value = data.numOfActiveListings;
+    newStats[1].value = data.numOfApplicants;
+    newStats[2].value = data.numOfViews;
+    newStats[3].value = data.numOfPositionsFilled;
+    setStats(newStats);
+  }, []);
 
   const renderStats = () => {
     return stats.map((stat, i) => (

@@ -12,6 +12,7 @@ import About from "./../../components/E-Dashboard/UserPortfolio/About";
 import Education from "./../../components/E-Dashboard/UserPortfolio/Education";
 import WorkExperience from "./../../components/E-Dashboard/UserPortfolio/WorkExperience";
 import Skills from "./../../components/E-Dashboard/UserPortfolio/Skills";
+import History from "./../../components/E-Dashboard/UserPortfolio/History";
 
 function UserPage(props) {
   const { id } = useParams();
@@ -51,6 +52,13 @@ function UserPage(props) {
             />
           </div>
           <div className="content">
+            {(user.history.current !== [] || user.history.previous !== []) && (
+              <History
+                data-aos="fade-up"
+                data-aos-once={true}
+                history={user.history}
+              />
+            )}
             <About
               data-aos="fade-up"
               data-aos-delay="100"
