@@ -123,6 +123,11 @@ function ListingPage(props) {
   const getOptions = () => {
     const options = [];
 
+    if (listing.status === "pending-completion")
+      options.push({
+        name: "Mark Job as Complete",
+        onClick: () => handleComplete(),
+      });
     if (
       listing.status === "active" &&
       moment(details.startDateTime).diff(moment(), "hours") > 24
@@ -131,6 +136,10 @@ function ListingPage(props) {
         name: "Edit Listing",
         onClick: () => history.push(`/update-listing/${id}`),
       });
+    options.push({
+      name: "Post Similar",
+      onClick: () => history.push(`/new-listing`, id),
+    });
     if (listing.status === "cancelled")
       options.push({
         name: "Delete Listing",
@@ -143,11 +152,6 @@ function ListingPage(props) {
       options.push({
         name: "Cancel Listing",
         onClick: () => handleCancel(),
-      });
-    if (listing.status === "pending-completion")
-      options.push({
-        name: "Mark Job as Complete",
-        onClick: () => handleComplete(),
       });
 
     return options;

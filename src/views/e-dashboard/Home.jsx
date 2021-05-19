@@ -24,7 +24,7 @@ const Home = () => {
     if (!dashData && !dashboardApi.error) fetchDashboardData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  console.log(dashData);
+
   return (
     <>
       <ActivityIndicator visible={dashboardApi.loading} />

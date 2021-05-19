@@ -108,8 +108,7 @@ function Listing({ listing }) {
                     <h3>Qualifications</h3>
                     {listing.details.qualifications.driversLicense && (
                       <p>
-                        <b>Driver's License Required:</b>{" "}
-                        {listing.details.qualifications.driversLicense}
+                        <b>Driver's License Required</b>
                       </p>
                     )}
                     {listing.details.qualifications.other && (

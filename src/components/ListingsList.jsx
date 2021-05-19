@@ -63,13 +63,17 @@ function ListingsList({ listings, setModal, setShowRef, drafts = false }) {
   };
 
   const getOptions = (status, startDateTime, _id, position) => {
-    const options = [
-      {
-        name: "View Listing",
-        onClick: () => history.push(`/listing/${_id}`),
-      },
-    ];
+    const options = [];
 
+    if (status === "pending-completion")
+      options.push({
+        name: "Mark Job as Complete",
+        onClick: () => handleComplete(_id),
+      });
+    options.push({
+      name: "View Listing",
+      onClick: () => history.push(`/listing/${_id}`),
+    });
     if (
       status === "active" &&
       moment(startDateTime).diff(moment(), "hours") > 24
@@ -78,6 +82,10 @@ function ListingsList({ listings, setModal, setShowRef, drafts = false }) {
         name: "Edit Listing",
         onClick: () => history.push(`/update-listing/${_id}`),
       });
+    options.push({
+      name: "Post Similar",
+      onClick: () => history.push(`/new-listing`, _id),
+    });
     if (status === "active")
       options.push({
         name: "Delete Listing",
@@ -87,11 +95,6 @@ function ListingsList({ listings, setModal, setShowRef, drafts = false }) {
       options.push({
         name: "Cancel Listing",
         onClick: () => handleCancel(_id, position),
-      });
-    if (status === "pending-completion")
-      options.push({
-        name: "Mark Job as Complete",
-        onClick: () => handleComplete(_id),
       });
 
     return options;

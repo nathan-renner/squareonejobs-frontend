@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Formik } from "formik";
 import FormField from "../../../components/forms/FormField";
 import * as Yup from "yup";
@@ -8,10 +8,12 @@ import SubmitButton from "../../../components/forms/SubmitButton";
 import Button from "../../../components/Button";
 import { MdCheck } from "react-icons/md";
 import FormDropdown from "../../../components/forms/FormDropdown";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { getLocations } from "./../../../api/companies";
 import ActivityIndicator from "./../../../components/ActivityIndicator";
 import useApi from "./../../../hooks/useApi";
+import ResponseModal from "./../../../components/ResponseModal";
+import { getListing } from "./../../../api/listings";
 
 const initialVals = {
   category: "",
@@ -103,13 +105,43 @@ const states = [
 
 function NewListing(props) {
   const history = useHistory();
-  const getLocationsApi = useApi(getLocations);
+  const { state: prevListing } = useLocation();
   const [type, setType] = useState(false);
   const [prevLoc, setPrevLoc] = useState(false);
   const [savedLocs, setSavedLocs] = useState(false);
   const [location, setLocation] = useState(false);
   const [dl, setDl] = useState(false);
-  const [initialValues] = useState(initialVals);
+  const [initialValues, setInitialValues] = useState(false);
+  const [modal, setModal] = useState(false);
+
+  const getLocationsApi = useApi(getLocations);
+  const getListingApi = useApi(getListing);
+
+  const fetchListing = async () => {
+    const res = await getListingApi.request(prevListing);
+    if (res.ok) {
+      setType(res.data.type);
+      handlePrevLoc();
+      setDl(
+        res.data.details.qualifications &&
+          res.data.details.qualifications.driversLicense
+      );
+      setLocation(res.data.details.location);
+      setInitialValues({
+        category: res.data.category,
+        otherQualifications: res.data.details.qualifications
+          ? res.data.details.qualifications.other
+          : "",
+        ...res.data.details,
+      });
+    } else setModal({ type: "error", body: res.data });
+  };
+
+  useEffect(() => {
+    if (prevListing && !initialValues && !getListingApi.error) fetchListing();
+    else setInitialValues(initialVals);
+    // eslint-disable-next-line
+  }, []);
 
   const schema = Yup.object().shape({
     category: Yup.string().required().label("Category"),
@@ -207,162 +239,176 @@ function NewListing(props) {
 
   return (
     <div className="post-listing">
-      <ActivityIndicator visible={getLocationsApi.loading} />
+      <ActivityIndicator
+        visible={getLocationsApi.loading || getListingApi.loading}
+      />
+      <ResponseModal
+        visible={modal}
+        onButtonClick={!modal.update ? fetchListing : () => setModal(false)}
+        type={modal.type}
+        body={modal.body}
+        header={modal.header}
+        buttonText={!modal.update ? "retry" : "OK"}
+      />
       <h1>Post Listing</h1>
       <Card>
-        <div className={`section ${!type ? "nopadding" : ""}`}>
-          <h2>Job Type</h2>
-          <div className="types-container">{renderTypes()}</div>
-        </div>
-        {type && (
-          <Formik
-            validationSchema={schema}
-            initialValues={initialValues}
-            onSubmit={handleSubmit}
-          >
-            {() => (
-              <>
-                <div className="section">
-                  <h2>Overview</h2>
-                  <FormField size="sm" name="position" label="Position" />
-                  <FormDropdown
-                    size="sm"
-                    name="category"
-                    label="Category"
-                    items={categories}
-                  />
-                  {type === "day" ? (
-                    <FormField size="sm" name="wage" label="Wage" />
-                  ) : (
-                    <FormField size="sm" name="salary" label="Salary" />
-                  )}
-                  <FormDatePicker
-                    size="sm"
-                    name="startDateTime"
-                    label={`Start Date${type === "day" ? "/Time" : ""}`}
-                    showTimeSelect={type === "day"}
-                  />
-                  {type === "day" && (
-                    <FormDatePicker
-                      size="sm"
-                      name="endDateTime"
-                      label="End Date/Time"
-                      showTimeSelect={type === "day"}
-                    />
-                  )}
-                </div>
-                <div className="section">
-                  <h2>Location</h2>
-                  <label
-                    className="checkbox"
-                    onChange={handlePrevLoc}
-                    style={{ marginBottom: "1em" }}
-                  >
-                    <input type="checkbox" defaultChecked={prevLoc} />
-                    <span className="checkmark"></span>
-                    Use Previous Location
-                  </label>
-                  {prevLoc ? (
-                    <>
-                      {!savedLocs ? (
-                        <div>Loading Previous Locations...</div>
+        {initialValues && (
+          <>
+            <div className={`section ${!type ? "nopadding" : ""}`}>
+              <h2>Job Type</h2>
+              <div className="types-container">{renderTypes()}</div>
+            </div>
+            {type && (
+              <Formik
+                validationSchema={schema}
+                initialValues={initialValues}
+                onSubmit={handleSubmit}
+              >
+                {() => (
+                  <>
+                    <div className="section">
+                      <h2>Overview</h2>
+                      <FormField size="sm" name="position" label="Position" />
+                      <FormDropdown
+                        size="sm"
+                        name="category"
+                        label="Category"
+                        items={categories}
+                      />
+                      {type === "day" ? (
+                        <FormField size="sm" name="wage" label="Wage" />
                       ) : (
+                        <FormField size="sm" name="salary" label="Salary" />
+                      )}
+                      <FormDatePicker
+                        size="sm"
+                        name="startDateTime"
+                        label={`Start Date${type === "day" ? "/Time" : ""}`}
+                        showTimeSelect={type === "day"}
+                      />
+                      {type === "day" && (
+                        <FormDatePicker
+                          size="sm"
+                          name="endDateTime"
+                          label="End Date/Time"
+                          showTimeSelect={type === "day"}
+                        />
+                      )}
+                    </div>
+                    <div className="section">
+                      <h2>Location</h2>
+                      <label
+                        className="checkbox"
+                        onChange={handlePrevLoc}
+                        style={{ marginBottom: "1em" }}
+                      >
+                        <input type="checkbox" defaultChecked={prevLoc} />
+                        <span className="checkmark"></span>
+                        Use Previous Location
+                      </label>
+                      {prevLoc ? (
                         <>
-                          {savedLocs.length === 0 ? (
-                            <div>No saved locations.</div>
+                          {!savedLocs ? (
+                            <div>Loading Previous Locations...</div>
                           ) : (
                             <>
-                              {savedLocs.map((loc, i) => (
-                                <div
-                                  key={i}
-                                  className={`location ${
-                                    loc.street === location.street
-                                      ? "active"
-                                      : ""
-                                  }`}
-                                  onClick={() =>
-                                    setLocation(
-                                      location.street === loc.street
-                                        ? false
-                                        : loc
-                                    )
-                                  }
-                                >
-                                  {loc.street === location.street && (
-                                    <MdCheck size={20} color="#51cc8e" />
-                                  )}
-                                  <p>
-                                    -{" "}
-                                    {`${loc.street} ${loc.city} ${loc.state} ${loc.zip}`}
-                                  </p>
-                                </div>
-                              ))}
+                              {savedLocs.length === 0 ? (
+                                <div>No saved locations.</div>
+                              ) : (
+                                <>
+                                  {savedLocs.map((loc, i) => (
+                                    <div
+                                      key={i}
+                                      className={`location ${
+                                        loc.street === location.street
+                                          ? "active"
+                                          : ""
+                                      }`}
+                                      onClick={() =>
+                                        setLocation(
+                                          location.street === loc.street
+                                            ? false
+                                            : loc
+                                        )
+                                      }
+                                    >
+                                      {loc.street === location.street && (
+                                        <MdCheck size={20} color="#51cc8e" />
+                                      )}
+                                      <p>
+                                        -{" "}
+                                        {`${loc.street} ${loc.city} ${loc.state} ${loc.zip}`}
+                                      </p>
+                                    </div>
+                                  ))}
+                                </>
+                              )}
                             </>
                           )}
                         </>
+                      ) : (
+                        <>
+                          <FormField size="sm" name="street" label="Address" />
+                          <FormField size="sm" name="city" label="City" />
+                          <div className="split">
+                            <FormDropdown
+                              size="sm"
+                              name="state"
+                              label="State"
+                              items={states}
+                            />
+                            <FormField size="sm" name="zip" label="Zip Code" />
+                          </div>
+                        </>
                       )}
-                    </>
-                  ) : (
-                    <>
-                      <FormField size="sm" name="street" label="Address" />
-                      <FormField size="sm" name="city" label="City" />
-                      <div className="split">
-                        <FormDropdown
-                          size="sm"
-                          name="state"
-                          label="State"
-                          items={states}
+                    </div>
+                    <div className="section">
+                      <h2>Details</h2>
+                      <FormField
+                        name="description"
+                        label="Description"
+                        type="textarea"
+                      />
+                      {type !== "day" && (
+                        <FormField
+                          name="benefits"
+                          label="Benefits"
+                          type="textarea"
                         />
-                        <FormField size="sm" name="zip" label="Zip Code" />
-                      </div>
-                    </>
-                  )}
-                </div>
-                <div className="section">
-                  <h2>Details</h2>
-                  <FormField
-                    name="description"
-                    label="Description"
-                    type="textarea"
-                  />
-                  {type !== "day" && (
-                    <FormField
-                      name="benefits"
-                      label="Benefits"
-                      type="textarea"
+                      )}
+                    </div>
+                    <div className="section">
+                      <h2>Qualifications</h2>
+                      <label
+                        className="checkbox"
+                        onChange={() => setDl(!dl)}
+                        style={{ marginBottom: "1em" }}
+                      >
+                        <input type="checkbox" defaultChecked={dl} />
+                        <span className="checkmark"></span>
+                        Driver's License Required
+                      </label>
+                      <FormField
+                        name="otherQualifications"
+                        label="Other Qualifications"
+                        type="textarea"
+                      />
+                    </div>
+                    <SubmitButton
+                      label="Review Listing"
+                      style={{ marginLeft: "auto" }}
                     />
-                  )}
-                </div>
-                <div className="section">
-                  <h2>Qualifications</h2>
-                  <label
-                    className="checkbox"
-                    onChange={() => setDl(!dl)}
-                    style={{ marginBottom: "1em" }}
-                  >
-                    <input type="checkbox" defaultChecked={dl} />
-                    <span className="checkmark"></span>
-                    Driver's License Required
-                  </label>
-                  <FormField
-                    name="otherQualifications"
-                    label="Other Qualifications"
-                    type="textarea"
-                  />
-                </div>
-                <SubmitButton
-                  label="Review Listing"
-                  style={{ marginLeft: "auto" }}
-                />
-                <Button
-                  label="Save as Draft"
-                  color="white"
-                  textColor="primary"
-                  style={{ marginLeft: ".1em" }}
-                />
-              </>
+                    <Button
+                      label="Save as Draft"
+                      color="white"
+                      textColor="primary"
+                      style={{ marginLeft: ".1em" }}
+                    />
+                  </>
+                )}
+              </Formik>
             )}
-          </Formik>
+          </>
         )}
       </Card>
     </div>

@@ -123,10 +123,17 @@ function UpdateListing(props) {
     const res = await getListingApi.request(id);
     if (res.ok) {
       setType(res.data.type);
+      setDl(
+        res.data.details.qualifications &&
+          res.data.details.qualifications.driversLicense
+      );
       handlePrevLoc();
       setLocation(res.data.details.location);
       setInitialVals({
         category: res.data.category,
+        otherQualifications: res.data.details.qualifications
+          ? res.data.details.qualifications.other
+          : "",
         ...res.data.details,
       });
     } else setModal({ type: "error", body: res.data });
