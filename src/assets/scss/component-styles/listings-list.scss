@@ -18,6 +18,44 @@
 
     .user-section {
       flex-basis: 25%;
+
+      .applicant-minis {
+        display: flex;
+        cursor: pointer;
+
+        img {
+          border-radius: 50%;
+          height: 30px;
+          width: 30px;
+          box-shadow: 1px 1px 5px rgba(black, 0.4);
+
+          &:first-of-type {
+            z-index: 3;
+          }
+          &:nth-of-type(2) {
+            z-index: -1;
+            margin-left: -6px;
+          }
+          &:nth-of-type(3) {
+            z-index: -2;
+            margin-left: -6px;
+          }
+        }
+        .extra {
+          border-radius: 50%;
+          height: 30px;
+          width: 30px;
+          display: grid;
+          place-items: center;
+          z-index: -3;
+          margin-left: -6px;
+          line-height: 0;
+          @include themed() {
+            background-color: t("foreground");
+            border: 3px solid t("background");
+          }
+        }
+      }
     }
 
     > * + * {

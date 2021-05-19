@@ -50,7 +50,7 @@ function ListingsList({ listings, setModal, setShowRef, drafts = false }) {
   };
 
   const handleComplete = async (_id) => {
-    const response = { ok: true }; //await completeListingApi.request(_id);
+    const response = await completeListingApi.request(_id);
     if (response.ok) {
       setShowRef(_id);
       //setModal({ type: "success", header: "Job completed!" });
@@ -170,7 +170,18 @@ function ListingsList({ listings, setModal, setShowRef, drafts = false }) {
                 <UserCard user={listing.candidateHired} />
               </>
             ) : (
-              <p className="text">Applicants: {listing.applicants}</p>
+              <>
+                <p className="text">Applicants ({listing.applicants})</p>
+                <div
+                  className="applicant-minis"
+                  onClick={() => history.push(`/listing/${listing._id}`)}
+                >
+                  {listing.applicantAvatars.map((a) => (
+                    <img src={a.avatar} alt="Applicant's avatar" key={a._id} />
+                  ))}
+                  <div className="extra">...</div>
+                </div>
+              </>
             )}
           </div>
           <div className="options-child">

@@ -28,11 +28,13 @@ import UserCard from "../../components/UserCard";
 import ResponseModal from "../../components/ResponseModal";
 import OptionsDropdown from "./../../components/OptionsDropdown";
 import Icon from "./../../components/Icon";
+import ReferenceModal from "../../components/E-Dashboard/Listings/ReferenceModal";
 
 function ListingPage(props) {
   const { id } = useParams();
   const history = useHistory();
   const getListingApi = useApi(getListing);
+  const [showRef, setShowRef] = useState(false);
   const [listing, setListing] = useState(false);
   const [modal, setModal] = useState(false);
   const { details } = listing;
@@ -107,10 +109,9 @@ function ListingPage(props) {
   };
 
   const handleComplete = async () => {
-    const response = { ok: true }; //await completeListingApi.request(id);
+    const response = await completeListingApi.request(id);
     if (response.ok) {
-      setModal({ type: "success", header: "Marked as Complete!" });
-      // OPEN REFERNCE MODAL
+      setShowRef(id);
     } else
       setModal({
         type: "error",
@@ -184,202 +185,210 @@ function ListingPage(props) {
   };
 
   return (
-    <div
-      className="listing"
-      style={{ marginLeft: "auto", marginRight: "auto" }}
-    >
-      <ResponseModal
-        visible={modal}
-        onButtonClick={() => setModal(false)}
-        type={modal.type}
-        body={modal.body}
-        header={modal.header}
-      />
-      <img src={MapImg} alt="Map of Manhattan" className="map" />
-      <div className="content">
-        {listing && (
-          <>
-            <div className="l-header">
-              <div className="left">
-                <img
-                  src={listing.company.logo}
-                  alt={`${listing.company.name}'s logo`}
-                  className="logo"
-                />
-                <div>
-                  {renderStatus()}
-                  <h2>{details.position}</h2>
-                  <p>{moment(details.startDateTime).format("MM/DD/YYYY")}</p>
-                  {listing.status === "pending-completion" ? (
-                    <Button
-                      label="Mark as Complete"
-                      onClick={() => console.log("mark as complete")}
-                      color="yellow"
+    <>
+      <div
+        className="listing"
+        style={{ marginLeft: "auto", marginRight: "auto" }}
+      >
+        <ResponseModal
+          visible={modal}
+          onButtonClick={() => setModal(false)}
+          type={modal.type}
+          body={modal.body}
+          header={modal.header}
+        />
+        <img src={MapImg} alt="Map of Manhattan" className="map" />
+        <div className="content">
+          {listing && (
+            <>
+              <div className="l-header">
+                <div className="left">
+                  <img
+                    src={listing.company.logo}
+                    alt={`${listing.company.name}'s logo`}
+                    className="logo"
+                  />
+                  <div>
+                    {renderStatus()}
+                    <h2>{details.position}</h2>
+                    <p>{moment(details.startDateTime).format("MM/DD/YYYY")}</p>
+                    {listing.status === "pending-completion" ? (
+                      <Button
+                        label="Mark as Complete"
+                        onClick={handleComplete}
+                        color="yellow"
+                      />
+                    ) : listing.status === "pending-cancellation" ? (
+                      <Button
+                        label="Cancel Job"
+                        onClick={handleCancel}
+                        color="yellow"
+                      />
+                    ) : null}
+                  </div>
+                </div>
+                {getOptions().length > 0 && (
+                  <OptionsDropdown options={getOptions()} />
+                )}
+              </div>
+              <div className="l-content">
+                {listing.candidateHired && (
+                  <>
+                    <h3>Candidate Hired</h3>
+                    <UserCard
+                      user={listing.candidateHired}
+                      buttonLabel="View"
+                      onButtonClick={() =>
+                        history.push(`/user/${listing.candidateHired._id}`)
+                      }
                     />
-                  ) : listing.status === "pending-cancellation" ? (
-                    <Button
-                      label="Cancel Job"
-                      onClick={() => console.log("Cancel Job")}
-                      color="yellow"
+                  </>
+                )}
+                {listing.candidateGivenOffer && !listing.candidateHired && (
+                  <>
+                    <h3>Candidate Given Offer</h3>
+                    <UserCard
+                      user={listing.candidateGivenOffer}
+                      buttonLabel="View"
+                      onButtonClick={() =>
+                        history.push(`/user/${listing.candidateGivenOffer._id}`)
+                      }
                     />
-                  ) : null}
-                </div>
-              </div>
-              {getOptions().length > 0 && (
-                <OptionsDropdown options={getOptions()} />
-              )}
-            </div>
-            <div className="l-content">
-              {listing.candidateHired && (
+                  </>
+                )}
+                <h3>Details</h3>
+                {details.endDateTime && (
+                  <div className="detail">
+                    <MdAccessTime className="icon" size={25} />
+                    <p>
+                      {moment(details.startDateTime).format("LT") +
+                        " - " +
+                        moment(details.endDateTime).format("LT")}
+                    </p>
+                  </div>
+                )}
+                {
+                  <div className="detail">
+                    <MdLocationOn className="icon" size={25} />
+                    <p>
+                      {`${`${details.location.street}, ${details.location.city}, ${details.location.state} ${details.location.zip}`}`}
+                    </p>
+                  </div>
+                }
+                {details.wage && (
+                  <div className="detail">
+                    <MdCreditCard className="icon" size={25} />
+                    <NumberFormat
+                      decimalScale={2}
+                      fixedDecimalScale={true}
+                      value={details.wage}
+                      displayType={"text"}
+                      prefix={"$"}
+                      allowNegative={false}
+                      renderText={(value) => <p>{value}</p>}
+                    />
+                  </div>
+                )}
+                {details.salary && (
+                  <div className="detail">
+                    <MdCreditCard className="icon" size={25} />
+                    <p>{details.salary}</p>
+                  </div>
+                )}
                 <>
-                  <h3>Candidate Hired</h3>
-                  <UserCard
-                    user={listing.candidateHired}
-                    buttonLabel="View"
-                    onButtonClick={() =>
-                      history.push(`/user/${listing.candidateHired._id}`)
-                    }
-                  />
+                  {details.qualifications && (
+                    <>
+                      <h3>Qualification</h3>
+                      {details.qualifications.driversLicense && (
+                        <p>
+                          <b>Driver's License Required:</b>{" "}
+                          {details.qualifications.driversLicense}
+                        </p>
+                      )}
+                      {details.qualifications.other && (
+                        <p>
+                          <b>Other qualifications:</b>{" "}
+                          {details.qualifications.other}
+                        </p>
+                      )}
+                    </>
+                  )}
+                  {details.description && (
+                    <>
+                      <h3>Description</h3>
+                      <p>{details.description}</p>
+                    </>
+                  )}
+                  {details.benefits && (
+                    <>
+                      <h3>Benefits</h3>
+                      <p>{details.benefits}</p>
+                    </>
+                  )}
                 </>
-              )}
-              {listing.candidateGivenOffer && !listing.candidateHired && (
-                <>
-                  <h3>Candidate Given Offer</h3>
-                  <UserCard
-                    user={listing.candidateGivenOffer}
-                    buttonLabel="View"
-                    onButtonClick={() =>
-                      history.push(`/user/${listing.candidateGivenOffer._id}`)
+                <h3>Applicants</h3>
+                {listing.applicants ? (
+                  <UserCardList
+                    users={listing.applicants}
+                    buttonLabel={
+                      listing.candidateHired || listing.candidateGivenOffer
+                        ? false
+                        : "Hire"
                     }
+                    onButtonClick={handleHireUser}
                   />
-                </>
-              )}
-              <h3>Details</h3>
-              {details.endDateTime && (
-                <div className="detail">
-                  <MdAccessTime className="icon" size={25} />
-                  <p>
-                    {moment(details.startDateTime).format("LT") +
-                      " - " +
-                      moment(details.endDateTime).format("LT")}
-                  </p>
-                </div>
-              )}
-              {
-                <div className="detail">
-                  <MdLocationOn className="icon" size={25} />
-                  <p>
-                    {`${`${details.location.street}, ${details.location.city}, ${details.location.state} ${details.location.zip}`}`}
-                  </p>
-                </div>
-              }
-              {details.wage && (
-                <div className="detail">
-                  <MdCreditCard className="icon" size={25} />
-                  <NumberFormat
-                    decimalScale={2}
-                    fixedDecimalScale={true}
-                    value={details.wage}
-                    displayType={"text"}
-                    prefix={"$"}
-                    allowNegative={false}
-                    renderText={(value) => <p>{value}</p>}
-                  />
-                </div>
-              )}
-              {details.salary && (
-                <div className="detail">
-                  <MdCreditCard className="icon" size={25} />
-                  <p>{details.salary}</p>
-                </div>
-              )}
-              <>
-                {details.qualifications && (
-                  <>
-                    <h3>Qualification</h3>
-                    {details.qualifications.driversLicense && (
-                      <p>
-                        <b>Driver's License Required:</b>{" "}
-                        {details.qualifications.driversLicense}
-                      </p>
-                    )}
-                    {details.qualifications.other && (
-                      <p>
-                        <b>Other qualifications:</b>{" "}
-                        {details.qualifications.other}
-                      </p>
-                    )}
-                  </>
+                ) : (
+                  <p>No Applicants</p>
                 )}
-                {details.description && (
-                  <>
-                    <h3>Description</h3>
-                    <p>{details.description}</p>
-                  </>
-                )}
-                {details.benefits && (
-                  <>
-                    <h3>Benefits</h3>
-                    <p>{details.benefits}</p>
-                  </>
-                )}
-              </>
-              <h3>Applicants</h3>
-              {listing.applicants ? (
-                <UserCardList
-                  users={listing.applicants}
-                  buttonLabel={
-                    listing.candidateHired || listing.candidateGivenOffer
-                      ? false
-                      : "Hire"
-                  }
-                  onButtonClick={handleHireUser}
-                />
-              ) : (
-                <p>No Applicants</p>
-              )}
-            </div>
-          </>
-        )}
-        {!listing && !getListingApi.error && (
-          <>
-            <div className="l-header">
-              <div className="left">
-                <Skeleton circle height={80} width={80} />
-                <div>
-                  <p>
-                    <Skeleton width={100} />
-                  </p>
-                  <h2>
-                    <Skeleton width={150} />
-                  </h2>
+              </div>
+            </>
+          )}
+          {!listing && !getListingApi.error && (
+            <>
+              <div className="l-header">
+                <div className="left">
+                  <Skeleton circle height={80} width={80} />
+                  <div>
+                    <p>
+                      <Skeleton width={100} />
+                    </p>
+                    <h2>
+                      <Skeleton width={150} />
+                    </h2>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="l-content">
-              <div className="detail">
-                <Skeleton width={150} />
+              <div className="l-content">
+                <div className="detail">
+                  <Skeleton width={150} />
+                </div>
+                <div className="detail">
+                  <Skeleton width={200} />
+                </div>
+                <div className="detail">
+                  <Skeleton width={150} />
+                </div>
+                <Skeleton count={8} />
               </div>
-              <div className="detail">
-                <Skeleton width={200} />
+            </>
+          )}
+          {getListingApi.error && (
+            <div className="error-container">
+              <div>
+                <h3>Error loading listing</h3>
+                <Button label="retry" onClick={() => fetchListing()} />
               </div>
-              <div className="detail">
-                <Skeleton width={150} />
-              </div>
-              <Skeleton count={8} />
             </div>
-          </>
-        )}
-        {getListingApi.error && (
-          <div className="error-container">
-            <div>
-              <h3>Error loading listing</h3>
-              <Button label="retry" onClick={() => fetchListing()} />
-            </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
-    </div>
+      <ReferenceModal
+        visible={showRef}
+        setVisible={setShowRef}
+        id={showRef}
+        title="Job completed!"
+      />
+    </>
   );
 }
 
