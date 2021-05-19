@@ -18,9 +18,11 @@ import NewListing from "./../views/e-dashboard/new-listing/NewListing";
 import Payment from "./../views/e-dashboard/new-listing/Payment";
 import UserPage from "./../views/e-dashboard/UserPage";
 import ListingPage from "../views/e-dashboard/ListingPage";
+import ResponseModal from "./../components/ResponseModal";
 
 const EDashboard = () => {
   const [navData] = useState(true);
+  const [modal, setModal] = useState(false);
 
   useEffect(() => {
     AOS.init();
@@ -40,11 +42,18 @@ const EDashboard = () => {
   return (
     <SuccessProvider>
       <div className="dashboard employer-dash">
+        <ResponseModal
+          visible={modal}
+          onButtonClick={() => setModal(false)}
+          type={modal.type}
+          body={modal.body}
+          header={modal.header}
+        />
         <ActivityIndicator visible={false} />
         <SuccessModal />
         {navData && (
           <>
-            <Navbar data={navData} />
+            <Navbar data={navData} setModal={setModal} />
             <div className="content-container">
               <Switch>
                 <Route path={`/settings`} component={Settings} />

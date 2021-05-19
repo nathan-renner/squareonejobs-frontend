@@ -21,6 +21,7 @@ import useApi from "../../hooks/useApi.jsx";
 import { login } from "../../api/auth";
 import useAuth from "../../auth/useAuth";
 import ActivityIndicator from "./../../components/ActivityIndicator";
+import { Formik } from "formik";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
@@ -47,38 +48,47 @@ function Login() {
     <Card className="auth-container">
       <ActivityIndicator visible={loginApi.loading} />
       <div className="single-slide-container" ref={slideRef}>
-        <Form
+        <Formik
           initialValues={{ email: "", password: "" }}
           onSubmit={handleSubmit}
           validationSchema={validationSchema}
         >
-          <div className="content">
-            <Icon
-              Icon={MdArrowBack}
-              size={30}
-              color={"background"}
-              iconColor={"medium"}
-              onClick={() => history.goBack()}
-              className="icon-back"
-            />
-            <h3 className="auth-title">Login</h3>
-            <FormField name="email" LeftIcon={MdEmail} placeholder="Email" />
-            <FormField
-              type={passVisible ? "text" : "password"}
-              name="password"
-              LeftIcon={MdLock}
-              placeholder="Password"
-              RightIcon={passVisible ? MdVisibilityOff : MdVisibility}
-              rightIconSize={30}
-              rightIconOnClick={() => setPassVisible(!passVisible)}
-            />
-            <ErrorMessage
-              error="Invalid email and/or password."
-              visible={loginFailed}
-            />
-            <SubmitButton label="Login" className="login-button" />
-          </div>
-        </Form>
+          {({ handleSubmit }) => (
+            <div
+              className="content"
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  handleSubmit();
+                }
+              }}
+            >
+              <Icon
+                Icon={MdArrowBack}
+                size={30}
+                color={"background"}
+                iconColor={"medium"}
+                onClick={() => history.goBack()}
+                className="icon-back"
+              />
+              <h3 className="auth-title">Login</h3>
+              <FormField name="email" LeftIcon={MdEmail} placeholder="Email" />
+              <FormField
+                type={passVisible ? "text" : "password"}
+                name="password"
+                LeftIcon={MdLock}
+                placeholder="Password"
+                RightIcon={passVisible ? MdVisibilityOff : MdVisibility}
+                rightIconSize={30}
+                rightIconOnClick={() => setPassVisible(!passVisible)}
+              />
+              <ErrorMessage
+                error="Invalid email and/or password."
+                visible={loginFailed}
+              />
+              <SubmitButton label="Login" className="login-button" />
+            </div>
+          )}
+        </Formik>
         <NavLink to="/auth/register" className="help-text">
           Don't have an account?
         </NavLink>

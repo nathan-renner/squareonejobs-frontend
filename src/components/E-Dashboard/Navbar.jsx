@@ -28,7 +28,7 @@ const routes = [
   },
 ];
 
-const Navbar = ({ data }) => {
+const Navbar = ({ data, setModal }) => {
   const [dropdown, setDropdown] = useState(false);
   const { pathname } = useLocation();
 
@@ -113,7 +113,10 @@ const Navbar = ({ data }) => {
           visible={dropdown === "profile"}
           avatar={data.avatar}
         />
-        <NotificationDropdown visible={dropdown === "notifications"} />
+        <NotificationDropdown
+          visible={dropdown === "notifications"}
+          setModal={setModal}
+        />
       </div>
     </>
   );

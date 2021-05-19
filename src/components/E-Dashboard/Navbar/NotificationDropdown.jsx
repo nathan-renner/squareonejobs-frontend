@@ -6,14 +6,22 @@ import Icon from "./../../Icon";
 import useApi from "./../../../hooks/useApi";
 import { getNotifications } from "../../../api/users";
 import ActivityIndicator from "./../../ActivityIndicator";
+import { Button } from "../..";
 
-function NotificationDropdown({ visible }) {
-  const [notifications, setNotifications] = useState({ new: [], earlier: [] });
+function NotificationDropdown({ visible, setModal }) {
+  const [notifications, setNotifications] = useState(false);
   const getNotificationsApi = useApi(getNotifications);
 
   const fetchNotifications = async () => {
     const response = await getNotificationsApi.request();
     if (response.ok) setNotifications(response.data);
+    else {
+      setModal({
+        type: "error",
+        header: "Something went wrong.",
+        body: response.data,
+      });
+    }
   };
 
   useEffect(() => {
@@ -65,6 +73,21 @@ function NotificationDropdown({ visible }) {
     <div className={`nav-dropdown notif-dropdown ${visible ? "active" : null}`}>
       <h3>Notifications</h3>
       <ActivityIndicator visible={getNotificationsApi.loading} />
+      {!getNotificationsApi.ok && (
+        <div>
+          <p style={{ textAlign: "center", marginBottom: "1em" }}>
+            Something went wrong.
+          </p>
+          <Button
+            label="retry"
+            onClick={fetchNotifications}
+            buttonStyle={{
+              marginLeft: 100,
+              marginTop: 0,
+            }}
+          />
+        </div>
+      )}
       {notifications && (
         <>
           <div>

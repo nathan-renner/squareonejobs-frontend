@@ -10,7 +10,7 @@ const iconStyle = {
   marginBottom: "2em",
 };
 
-function ErrorModal({
+function ResponseModal({
   visible,
   type = "success",
   header = "",
@@ -43,4 +43,4 @@ function ErrorModal({
   );
 }
 
-export default ErrorModal;
+export default ResponseModal;
