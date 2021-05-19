@@ -56,6 +56,7 @@ function MyDayListings(props) {
                 listings={listings.active}
                 setModal={setModal}
                 setShowRef={setShowRef}
+                fetchJobs={fetchJobs}
               />
             ) : (
               <p style={{ marginBottom: 0 }}>No active jobs</p>
@@ -64,7 +65,11 @@ function MyDayListings(props) {
           <Card data-aos="fade-up" data-aos-once={true} data-aos-delay="200">
             <h2>Previous Day Jobs</h2>
             {listings.previous.length > 0 ? (
-              <ListingsList listings={listings.previous} setModal={setModal} />
+              <ListingsList
+                listings={listings.previous}
+                setModal={setModal}
+                fetchJobs={fetchJobs}
+              />
             ) : (
               <p style={{ marginBottom: 0 }}>No previous jobs</p>
             )}

@@ -32,7 +32,7 @@ function MyFullListings(props) {
           >
             <h2>Active Full Time Listings</h2>
             {listings.active.length > 0 ? (
-              <ListingsList listings={listings.active} />
+              <ListingsList listings={listings.active} fetchJobs={fetchJobs} />
             ) : (
               <p style={{ marginBottom: 0 }}>No active positions</p>
             )}
@@ -40,7 +40,7 @@ function MyFullListings(props) {
           <Card data-aos="fade-up" data-aos-once={true} data-aos-delay="200">
             <h2>Filled Full Time Listings</h2>
             {listings.filled.length > 0 ? (
-              <ListingsList listings={listings.filled} />
+              <ListingsList listings={listings.filled} fetchJobs={fetchJobs} />
             ) : (
               <p style={{ marginBottom: 0 }}>No filled positions</p>
             )}
@@ -48,7 +48,7 @@ function MyFullListings(props) {
           <Card data-aos="fade-up" data-aos-once={true} data-aos-delay="200">
             <h2>Cancelled Full Time Listings</h2>
             {listings.cancelled.length > 0 ? (
-              <ListingsList listings={listings.filled} />
+              <ListingsList listings={listings.filled} fetchJobs={fetchJobs} />
             ) : (
               <p style={{ marginBottom: 0 }}>No cancelled listings</p>
             )}

@@ -32,7 +32,7 @@ function MyDrafts(props) {
           >
             <h2>Drafts</h2>
             {listings.length > 0 ? (
-              <ListingsList listings={listings} drafts />
+              <ListingsList listings={listings} drafts fetchJobs={fetchJobs} />
             ) : (
               <p style={{ marginBottom: 0 }}>No drafts</p>
             )}

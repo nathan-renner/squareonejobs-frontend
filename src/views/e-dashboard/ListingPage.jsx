@@ -80,8 +80,7 @@ function ListingPage(props) {
     );
     if (result) {
       const response = await deleteListingApi.request(id);
-      if (response.ok)
-        setModal({ type: "success", header: "Successfully Deleted" });
+      if (response.ok) history.push("/my-listings");
       else
         setModal({
           type: "error",
@@ -97,9 +96,10 @@ function ListingPage(props) {
     );
     if (result) {
       const response = await cancelListingApi.request(id);
-      if (response.ok)
+      if (response.ok) {
         setModal({ type: "success", header: "Successfully Cancelled" });
-      else
+        fetchListing();
+      } else
         setModal({
           type: "error",
           header: "Something went wrong",
@@ -112,6 +112,7 @@ function ListingPage(props) {
     const response = await completeListingApi.request(id);
     if (response.ok) {
       setShowRef(id);
+      fetchListing();
     } else
       setModal({
         type: "error",
@@ -305,8 +306,7 @@ function ListingPage(props) {
                       <h3>Qualification</h3>
                       {details.qualifications.driversLicense && (
                         <p>
-                          <b>Driver's License Required:</b>{" "}
-                          {details.qualifications.driversLicense}
+                          <b>Driver's License Required</b>
                         </p>
                       )}
                       {details.qualifications.other && (
@@ -331,7 +331,7 @@ function ListingPage(props) {
                   )}
                 </>
                 <h3>Applicants</h3>
-                {listing.applicants ? (
+                {listing.applicants.length > 0 ? (
                   <UserCardList
                     users={listing.applicants}
                     buttonLabel={

@@ -9,7 +9,13 @@ import UserCard from "./UserCard";
 import useApi from "./../hooks/useApi";
 import { deleteListing, cancelListing, completeListing } from "../api/listings";
 
-function ListingsList({ listings, setModal, setShowRef, drafts = false }) {
+function ListingsList({
+  listings,
+  fetchJobs,
+  setModal,
+  setShowRef,
+  drafts = false,
+}) {
   const history = useHistory();
   const completeListingApi = useApi(completeListing);
   const cancelListingApi = useApi(cancelListing);
@@ -21,9 +27,10 @@ function ListingsList({ listings, setModal, setShowRef, drafts = false }) {
     );
     if (result) {
       const response = await deleteListingApi.request(_id);
-      if (response.ok)
+      if (response.ok) {
         setModal({ type: "success", header: "Successfully Deleted" });
-      else
+        fetchJobs();
+      } else
         setModal({
           type: "error",
           header: "Something went wrong",
@@ -38,9 +45,10 @@ function ListingsList({ listings, setModal, setShowRef, drafts = false }) {
     );
     if (result) {
       const response = await cancelListingApi.request(_id);
-      if (response.ok)
+      if (response.ok) {
         setModal({ type: "success", header: "Successfully Cancelled" });
-      else
+        fetchJobs();
+      } else
         setModal({
           type: "error",
           header: "Something went wrong",
@@ -53,6 +61,7 @@ function ListingsList({ listings, setModal, setShowRef, drafts = false }) {
     const response = await completeListingApi.request(_id);
     if (response.ok) {
       setShowRef(_id);
+      fetchJobs();
       //setModal({ type: "success", header: "Job completed!" });
     } else
       setModal({
@@ -86,7 +95,7 @@ function ListingsList({ listings, setModal, setShowRef, drafts = false }) {
       name: "Post Similar",
       onClick: () => history.push(`/new-listing`, _id),
     });
-    if (status === "active")
+    if (status === "cancelled")
       options.push({
         name: "Delete Listing",
         onClick: () => handleDelete(_id, position),
@@ -171,6 +180,11 @@ function ListingsList({ listings, setModal, setShowRef, drafts = false }) {
               <>
                 <p className="text">Candidate Hired</p>
                 <UserCard user={listing.candidateHired} />
+              </>
+            ) : listing.candidateGivenOffer ? (
+              <>
+                <p className="text">Candidate Hired</p>
+                <UserCard user={listing.candidateGivenOffer} />
               </>
             ) : (
               <>
