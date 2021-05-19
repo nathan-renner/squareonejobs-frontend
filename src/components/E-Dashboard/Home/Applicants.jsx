@@ -4,49 +4,6 @@ import { useHistory, NavLink } from "react-router-dom";
 import defaultAvatar from "../../../assets/images/default-avatar.png";
 import StarRating from "./../../StarRating";
 
-const applicants = [
-  {
-    position: "Frontend Developer",
-    firstName: "John",
-    lastName: "Smith",
-    avatar: defaultAvatar,
-    rating: 5,
-    skills: ["Html, CSS", "Javascript", "React", "another", "Another"],
-  },
-  {
-    position: "Frontend Developer",
-    firstName: "John",
-    lastName: "Smith",
-    avatar: defaultAvatar,
-    rating: 5,
-    skills: ["Html, CSS", "Javascript", "React", "another", "Another"],
-  },
-  {
-    position: "Frontend Developer",
-    firstName: "John",
-    lastName: "Smith",
-    avatar: defaultAvatar,
-    rating: 5,
-    skills: ["Html, CSS", "Javascript", "React", "another", "Another"],
-  },
-  {
-    position: "Frontend Developer",
-    firstName: "John",
-    lastName: "Smith",
-    avatar: defaultAvatar,
-    rating: 5,
-    skills: ["Html, CSS", "Javascript", "React", "another", "Another"],
-  },
-  {
-    position: "Frontend Developer",
-    firstName: "John",
-    lastName: "Smith",
-    avatar: defaultAvatar,
-    rating: 5,
-    skills: ["Html, CSS", "Javascript", "React", "another", "Another"],
-  },
-];
-
 function Applicants({ applicants, ...props }) {
   const history = useHistory();
   const renderApplicants = () => {

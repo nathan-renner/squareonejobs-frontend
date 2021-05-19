@@ -17,10 +17,8 @@ function Icon({
         height: size,
         width: size,
         borderRadius: size / 2,
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        flexShrink: 0,
+        display: "grid",
+        placeItems: "center",
         ...style,
       }}
       {...{ onClick }}

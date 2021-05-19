@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useHistory, NavLink } from "react-router-dom";
 import moment from "moment";
 import Button from "./Button";
@@ -6,11 +6,63 @@ import OptionsDropdown from "./OptionsDropdown";
 import Icon from "./Icon";
 import { MdCheck, MdClear, MdErrorOutline } from "react-icons/md";
 import UserCard from "./UserCard";
+import useApi from "./../hooks/useApi";
+import { deleteListing, cancelListing, completeListing } from "../api/listings";
 
-function ListingsList({ listings, drafts = false }) {
+function ListingsList({ listings, setModal, setShowRef, drafts = false }) {
   const history = useHistory();
+  const completeListingApi = useApi(completeListing);
+  const cancelListingApi = useApi(cancelListing);
+  const deleteListingApi = useApi(deleteListing);
 
-  const getOptions = (status, startDateTime, _id) => {
+  const handleDelete = async (_id, position) => {
+    const result = window.confirm(
+      `Are you sure you want to delete "${position}"?`
+    );
+    if (result) {
+      const response = await deleteListingApi.request(_id);
+      if (response.ok)
+        setModal({ type: "success", header: "Successfully Deleted" });
+      else
+        setModal({
+          type: "error",
+          header: "Something went wrong",
+          body: response.data,
+        });
+    }
+  };
+
+  const handleCancel = async (_id, position) => {
+    const result = window.confirm(
+      `Are you sure you want to cancel "${position}"?`
+    );
+    if (result) {
+      const response = await cancelListingApi.request(_id);
+      if (response.ok)
+        setModal({ type: "success", header: "Successfully Cancelled" });
+      else
+        setModal({
+          type: "error",
+          header: "Something went wrong",
+          body: response.data,
+        });
+    }
+  };
+
+  const handleComplete = async (_id) => {
+    const response = { ok: true }; //await completeListingApi.request(_id);
+    if (response.ok) {
+      setShowRef(_id);
+      //setModal({ type: "success", header: "Job completed!" });
+    } else
+      setModal({
+        type: "error",
+        header: "Something went wrong",
+        body: response.data,
+      });
+  };
+
+  const getOptions = (status, startDateTime, _id, position) => {
     const options = [
       {
         name: "View Listing",
@@ -26,25 +78,20 @@ function ListingsList({ listings, drafts = false }) {
         name: "Edit Listing",
         onClick: () => console.log("navigate to edit page"),
       });
-    if (status === "cancelled")
-      options.push({
-        name: "Delete Listing",
-        onClick: () => console.log("Delete listing"),
-      });
     if (status === "active")
       options.push({
+        name: "Delete Listing",
+        onClick: () => handleDelete(_id, position),
+      });
+    if (status === "active" || status === "pending-cancellation")
+      options.push({
         name: "Cancel Listing",
-        onClick: () => console.log("Cancel listing"),
+        onClick: () => handleCancel(_id, position),
       });
     if (status === "pending-completion")
       options.push({
         name: "Mark Job as Complete",
-        onClick: () => console.log("mark as complete"),
-      });
-    if (status === "pending-cancellation")
-      options.push({
-        name: "Cancel Job",
-        onClick: () => console.log("cancel job"),
+        onClick: () => handleComplete(_id),
       });
 
     return options;
@@ -103,13 +150,15 @@ function ListingsList({ listings, drafts = false }) {
             {listing.status === "pending-completion" ? (
               <Button
                 label="Mark as Complete"
-                onClick={() => console.log("mark as complete")}
+                onClick={() => handleComplete(listing._id)}
                 color="yellow"
               />
             ) : listing.status === "pending-cancellation" ? (
               <Button
                 label="Cancel Job"
-                onClick={() => console.log("Cancel Job")}
+                onClick={() =>
+                  handleCancel(listing._id, listing.details.position)
+                }
                 color="yellow"
               />
             ) : null}
@@ -129,7 +178,8 @@ function ListingsList({ listings, drafts = false }) {
               options={getOptions(
                 listing.status,
                 listing.details.startDateTime,
-                listing._id
+                listing._id,
+                listing.details.position
               )}
             />
           </div>

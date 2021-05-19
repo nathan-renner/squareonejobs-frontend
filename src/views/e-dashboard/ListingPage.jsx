@@ -5,7 +5,13 @@ import Skeleton from "react-loading-skeleton";
 import NumberFormat from "react-number-format";
 
 import useApi from "./../../hooks/useApi";
-import { getListing } from "./../../api/listings";
+import {
+  cancelListing,
+  completeListing,
+  deleteListing,
+  getListing,
+  selectCandidate,
+} from "./../../api/listings";
 
 import MapImg from "../../assets/images/map.png";
 import {
@@ -19,6 +25,7 @@ import {
 import Button from "../../components/Button";
 import UserCardList from "./../../components/UserCardList";
 import UserCard from "../../components/UserCard";
+import ResponseModal from "../../components/ResponseModal";
 import OptionsDropdown from "./../../components/OptionsDropdown";
 import Icon from "./../../components/Icon";
 
@@ -27,13 +34,17 @@ function ListingPage(props) {
   const history = useHistory();
   const getListingApi = useApi(getListing);
   const [listing, setListing] = useState(false);
+  const [modal, setModal] = useState(false);
   const { details } = listing;
+  const completeListingApi = useApi(completeListing);
+  const cancelListingApi = useApi(cancelListing);
+  const deleteListingApi = useApi(deleteListing);
+  const hireUserApi = useApi(selectCandidate);
 
   const fetchListing = async () => {
     const response = await getListingApi.request(id);
-    if (response.ok) {
-      setListing(response.data);
-    }
+    if (response.ok) setListing(response.data);
+    else setModal({ type: "error", body: response.data });
   };
 
   useEffect(() => {
@@ -41,8 +52,71 @@ function ListingPage(props) {
     // eslint-disable-next-line
   }, []);
 
-  const handleHireUser = async (id) => {
-    console.log(id);
+  const handleHireUser = async (userId, name) => {
+    const result = window.confirm(
+      listing.type === "day"
+        ? `About to hire ${name} for "${listing.details.position}"`
+        : `About to send offer to ${name} for "${listing.details.position}"`
+    );
+    if (result) {
+      const response = await hireUserApi.request(id, userId);
+      if (response.ok) {
+        setModal({ type: "success", header: `Hired ${name}!` });
+        fetchListing();
+      } else
+        setModal({
+          type: "error",
+          header: "Something went wrong",
+          body: response.data,
+        });
+    }
+  };
+
+  const handleDelete = async () => {
+    const result = window.confirm(
+      `Are you sure you want to delete "${listing.details.position}"?`
+    );
+    if (result) {
+      const response = await deleteListingApi.request(id);
+      if (response.ok)
+        setModal({ type: "success", header: "Successfully Deleted" });
+      else
+        setModal({
+          type: "error",
+          header: "Something went wrong",
+          body: response.data,
+        });
+    }
+  };
+
+  const handleCancel = async () => {
+    const result = window.confirm(
+      `Are you sure you want to cancel "${listing.details.position}"?`
+    );
+    if (result) {
+      const response = await cancelListingApi.request(id);
+      if (response.ok)
+        setModal({ type: "success", header: "Successfully Cancelled" });
+      else
+        setModal({
+          type: "error",
+          header: "Something went wrong",
+          body: response.data,
+        });
+    }
+  };
+
+  const handleComplete = async () => {
+    const response = { ok: true }; //await completeListingApi.request(id);
+    if (response.ok) {
+      setModal({ type: "success", header: "Marked as Complete!" });
+      // OPEN REFERNCE MODAL
+    } else
+      setModal({
+        type: "error",
+        header: "Something went wrong",
+        body: response.data,
+      });
   };
 
   const getOptions = () => {
@@ -59,22 +133,20 @@ function ListingPage(props) {
     if (listing.status === "cancelled")
       options.push({
         name: "Delete Listing",
-        onClick: () => console.log("Delete listing"),
+        onClick: () => handleDelete(),
       });
-    if (listing.status === "active")
+    if (
+      listing.status === "active" ||
+      listing.status === "pending-cancellation"
+    )
       options.push({
         name: "Cancel Listing",
-        onClick: () => console.log("Cancel listing"),
+        onClick: () => handleCancel(),
       });
     if (listing.status === "pending-completion")
       options.push({
         name: "Mark Job as Complete",
-        onClick: () => console.log("mark as complete"),
-      });
-    if (listing.status === "pending-cancellation")
-      options.push({
-        name: "Cancel Job",
-        onClick: () => console.log("cancel job"),
+        onClick: () => handleComplete(),
       });
 
     return options;
@@ -116,6 +188,13 @@ function ListingPage(props) {
       className="listing"
       style={{ marginLeft: "auto", marginRight: "auto" }}
     >
+      <ResponseModal
+        visible={modal}
+        onButtonClick={() => setModal(false)}
+        type={modal.type}
+        body={modal.body}
+        header={modal.header}
+      />
       <img src={MapImg} alt="Map of Manhattan" className="map" />
       <div className="content">
         {listing && (
@@ -159,6 +238,18 @@ function ListingPage(props) {
                     buttonLabel="View"
                     onButtonClick={() =>
                       history.push(`/user/${listing.candidateHired._id}`)
+                    }
+                  />
+                </>
+              )}
+              {listing.candidateGivenOffer && !listing.candidateHired && (
+                <>
+                  <h3>Candidate Given Offer</h3>
+                  <UserCard
+                    user={listing.candidateGivenOffer}
+                    buttonLabel="View"
+                    onButtonClick={() =>
+                      history.push(`/user/${listing.candidateGivenOffer._id}`)
                     }
                   />
                 </>
@@ -237,7 +328,11 @@ function ListingPage(props) {
               {listing.applicants ? (
                 <UserCardList
                   users={listing.applicants}
-                  buttonLabel={listing.candidateHired ? false : "Hire"}
+                  buttonLabel={
+                    listing.candidateHired || listing.candidateGivenOffer
+                      ? false
+                      : "Hire"
+                  }
                   onButtonClick={handleHireUser}
                 />
               ) : (

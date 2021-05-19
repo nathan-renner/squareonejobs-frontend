@@ -39,6 +39,7 @@ function Header({ data, ...props }) {
     newStats[2].value = data.numOfViews;
     newStats[3].value = data.numOfPositionsFilled;
     setStats(newStats);
+    // eslint-disable-next-line
   }, []);
 
   const renderStats = () => {

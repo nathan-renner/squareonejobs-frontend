@@ -2,6 +2,17 @@
   display: flex;
   align-items: center;
 
+  &.editable {
+    .star {
+      cursor: pointer;
+      transition: transform 200ms ease;
+
+      &:hover {
+        transform: translateY(-2px);
+      }
+    }
+  }
+
   .star {
     margin-right: 0.3em;
   }

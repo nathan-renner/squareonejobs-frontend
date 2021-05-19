@@ -24,7 +24,9 @@ function UserCard({ user, onButtonClick = () => true, buttonLabel = false }) {
           textColor="primary"
           className="btn-sm"
           label={buttonLabel}
-          onClick={() => onButtonClick(user._id)}
+          onClick={() =>
+            onButtonClick(user._id, `${user.firstName} ${user.lastName}`)
+          }
         />
       )}
     </div>

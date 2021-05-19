@@ -60,3 +60,15 @@
     overflow-y: overlay;
   }
 }
+
+.error-modal {
+  text-align: center;
+
+  .icon {
+    display: inline-block;
+  }
+
+  .button {
+    margin-bottom: 0;
+  }
+}

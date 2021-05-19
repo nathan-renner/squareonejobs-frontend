@@ -78,7 +78,7 @@ function TextInput({
   } else {
     return (
       <div>
-        {label ? <label className="input-label">{label}</label> : null}
+        {label ? <p className="input-label">{label}</p> : null}
         <div
           className={`input-container ${size ? size : null}`}
           style={containerStyle}

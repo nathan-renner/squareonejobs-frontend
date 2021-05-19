@@ -12,7 +12,14 @@ function OptionsDropdown({ options }) {
       />
       <div className={`options ${isShowing ? "active" : null}`}>
         {options.map((option) => (
-          <div className="option" key={option.name} onClick={option.onClick}>
+          <div
+            className="option"
+            key={option.name}
+            onClick={() => {
+              setIsShowing(false);
+              option.onClick();
+            }}
+          >
             {option.name}
           </div>
         ))}

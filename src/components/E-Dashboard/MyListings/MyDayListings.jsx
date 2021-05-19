@@ -4,14 +4,19 @@ import Card from "../../Card";
 import useApi from "./../../../hooks/useApi";
 import ActivityIndicator from "./../../ActivityIndicator";
 import ListingsList from "./../../ListingsList";
+import ResponseModal from "../../ResponseModal";
+import ReferenceModal from "../Listings/ReferenceModal";
 
 function MyDayListings(props) {
   const [listings, setListings] = useState(false);
+  const [showRef, setShowRef] = useState(false);
+  const [modal, setModal] = useState(false);
   const getMyListingsApi = useApi(getMyListings);
 
   const fetchJobs = async () => {
     const response = await getMyListingsApi.request("day");
     if (response.ok) setListings(response.data);
+    else setModal({ type: "error", header: response.data });
   };
 
   useEffect(() => {
@@ -21,7 +26,22 @@ function MyDayListings(props) {
 
   return (
     <div className="my-listings-content">
-      <ActivityIndicator visible={getMyListingsApi.loading} />
+      <ActivityIndicator
+        visible={getMyListingsApi.loading && !getMyListingsApi.error}
+      />
+      <ResponseModal
+        visible={modal}
+        onButtonClick={() => setModal(false)}
+        type={modal.type}
+        body={modal.body}
+        header={modal.header}
+      />
+      <ReferenceModal
+        visible={showRef}
+        setVisible={setShowRef}
+        id={showRef}
+        title="Job completed!"
+      />
       {listings && (
         <div>
           <Card
@@ -32,7 +52,11 @@ function MyDayListings(props) {
           >
             <h2>Active Day Jobs</h2>
             {listings.active.length > 0 ? (
-              <ListingsList listings={listings.active} />
+              <ListingsList
+                listings={listings.active}
+                setModal={setModal}
+                setShowRef={setShowRef}
+              />
             ) : (
               <p style={{ marginBottom: 0 }}>No active jobs</p>
             )}
@@ -40,7 +64,7 @@ function MyDayListings(props) {
           <Card data-aos="fade-up" data-aos-once={true} data-aos-delay="200">
             <h2>Previous Day Jobs</h2>
             {listings.previous.length > 0 ? (
-              <ListingsList listings={listings.previous} />
+              <ListingsList listings={listings.previous} setModal={setModal} />
             ) : (
               <p style={{ marginBottom: 0 }}>No previous jobs</p>
             )}
