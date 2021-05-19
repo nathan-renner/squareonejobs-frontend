@@ -137,6 +137,16 @@ function ListingPage(props) {
         name: "Edit Listing",
         onClick: () => history.push(`/update-listing/${id}`),
       });
+    if (listing.status === "draft") {
+      options.push({
+        name: "Edit Draft",
+        onClick: () => history.push(`/new-listing`, id),
+      });
+      options.push({
+        name: "Delete Draft",
+        onClick: () => handleDelete(),
+      });
+    }
     options.push({
       name: "Post Similar",
       onClick: () => history.push(`/new-listing`, id),
@@ -228,6 +238,12 @@ function ListingPage(props) {
                         label="Cancel Job"
                         onClick={handleCancel}
                         color="yellow"
+                      />
+                    ) : listing.status === "draft" ? (
+                      <Button
+                        label="Edit Draft"
+                        onClick={() => history.push(`/new-listing`, id)}
+                        color="primary"
                       />
                     ) : null}
                   </div>

@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 import useApi from "./../../hooks/useApi";
 import { getUser } from "../../api/users";
 import ActivityIndicator from "./../../components/ActivityIndicator";
-import Button from "../../components/Button";
 import Header from "../../components/E-Dashboard/UserPortfolio/Header";
 import Documents from "./../../components/Dashboard/Portfolio/Documents";
 import References from "./../../components/E-Dashboard/UserPortfolio/References";
@@ -42,12 +41,12 @@ function UserPage(props) {
     <div className="portfolio e-portfolio">
       <ResponseModal
         visible={modal}
-        onButtonClick={() => setModal(false)}
         type={modal.type}
         body={modal.body}
         header={modal.header}
         buttonText="retry"
         onButtonClick={fetchUser}
+        onCancel={() => setModal(false)}
       />
       <ActivityIndicator visible={getUserApi.loading} />
       {user && (

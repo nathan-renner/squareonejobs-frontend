@@ -17,11 +17,13 @@ function ResponseModal({
   body = "",
   buttonText = "OK",
   onButtonClick = () => true,
+  ...otherProps
 }) {
   return (
     <Modal
       visible={visible}
       className="error-modal modal-sm"
+      {...otherProps}
       Content={() => (
         <>
           <Icon

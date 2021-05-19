@@ -12,13 +12,15 @@ export const searchListings = (query) => client.get(`${EP}/search?${query}`);
 
 export const postListing = (listing) => client.post(`${EP}`, listing);
 
+export const postDraft = (listing) => client.post(`${EP}/draft`, listing);
+
 export const applyToDayJob = (id) => client.post(`${EP}/apply/${id}`);
 
 export const applyToListing = (id) => client.post(`${EP}/apply/${id}`);
 
 export const saveListing = (id) => client.post(`${EP}/save/${id}`);
 
-export const unsaveaveListing = (id) => client.post(`${EP}/unsave/${id}`);
+export const unsaveListing = (id) => client.post(`${EP}/unsave/${id}`);
 
 export const selectCandidate = (listingId, userId) =>
   client.post(`${EP}/select-candidate`, { listingId, userId });
@@ -31,5 +33,8 @@ export const cancelListing = (id) => client.post(`${EP}/cancel/${id}`);
 
 export const updateListing = (listing, id) =>
   client.put(`${EP}/${id}`, listing);
+
+export const updateDraft = (listing, id) =>
+  client.put(`${EP}/draft/${id}`, listing);
 
 export const deleteListing = (id) => client.delete(`${EP}/${id}`);

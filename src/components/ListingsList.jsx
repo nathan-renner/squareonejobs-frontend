@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useHistory, NavLink } from "react-router-dom";
 import moment from "moment";
 import Button from "./Button";
@@ -79,10 +79,12 @@ function ListingsList({
         name: "Mark Job as Complete",
         onClick: () => handleComplete(_id),
       });
-    options.push({
-      name: "View Listing",
-      onClick: () => history.push(`/listing/${_id}`),
-    });
+    if (status !== "draft") {
+      options.push({
+        name: "View Listing",
+        onClick: () => history.push(`/listing/${_id}`),
+      });
+    }
     if (
       status === "active" &&
       moment(startDateTime).diff(moment(), "hours") > 24
@@ -91,6 +93,16 @@ function ListingsList({
         name: "Edit Listing",
         onClick: () => history.push(`/update-listing/${_id}`),
       });
+    if (status === "draft") {
+      options.push({
+        name: "Edit Draft",
+        onClick: () => history.push(`/new-listing`, _id),
+      });
+      options.push({
+        name: "Delete Draft",
+        onClick: () => handleDelete(_id, position),
+      });
+    }
     options.push({
       name: "Post Similar",
       onClick: () => history.push(`/new-listing`, _id),
@@ -173,34 +185,46 @@ function ListingsList({
                 }
                 color="yellow"
               />
+            ) : listing.status === "draft" ? (
+              <Button
+                label="Edit Draft"
+                onClick={() => history.push(`/new-listing`, listing._id)}
+                color="primary"
+              />
             ) : null}
           </div>
-          <div className="user-section">
-            {listing.candidateHired ? (
-              <>
-                <p className="text">Candidate Hired</p>
-                <UserCard user={listing.candidateHired} />
-              </>
-            ) : listing.candidateGivenOffer ? (
-              <>
-                <p className="text">Candidate Hired</p>
-                <UserCard user={listing.candidateGivenOffer} />
-              </>
-            ) : (
-              <>
-                <p className="text">Applicants ({listing.applicants})</p>
-                <div
-                  className="applicant-minis"
-                  onClick={() => history.push(`/listing/${listing._id}`)}
-                >
-                  {listing.applicantAvatars.map((a) => (
-                    <img src={a.avatar} alt="Applicant's avatar" key={a._id} />
-                  ))}
-                  <div className="extra">...</div>
-                </div>
-              </>
-            )}
-          </div>
+          {!drafts && (
+            <div className="user-section">
+              {listing.candidateHired ? (
+                <>
+                  <p className="text">Candidate Hired</p>
+                  <UserCard user={listing.candidateHired} />
+                </>
+              ) : listing.candidateGivenOffer ? (
+                <>
+                  <p className="text">Candidate Hired</p>
+                  <UserCard user={listing.candidateGivenOffer} />
+                </>
+              ) : (
+                <>
+                  <p className="text">Applicants ({listing.applicants})</p>
+                  <div
+                    className="applicant-minis"
+                    onClick={() => history.push(`/listing/${listing._id}`)}
+                  >
+                    {listing.applicantAvatars.map((a) => (
+                      <img
+                        src={a.avatar}
+                        alt="Applicant's avatar"
+                        key={a._id}
+                      />
+                    ))}
+                    <div className="extra">...</div>
+                  </div>
+                </>
+              )}
+            </div>
+          )}
           <div className="options-child">
             <OptionsDropdown
               options={getOptions(

@@ -9,7 +9,6 @@ import Applicants from "./../../components/E-Dashboard/Home/Applicants";
 import RecommendedCandidates from "./../../components/E-Dashboard/Home/RecommendedCandidates";
 import useApi from "./../../hooks/useApi";
 import { getDashboardData } from "./../../api/employers";
-import ResponseModal from "./../../components/ResponseModal";
 
 const Home = () => {
   const dashboardApi = useApi(getDashboardData);

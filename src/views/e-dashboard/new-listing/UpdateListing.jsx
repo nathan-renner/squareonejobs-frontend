@@ -5,7 +5,6 @@ import * as Yup from "yup";
 import Card from "../../../components/Card";
 import FormDatePicker from "../../../components/forms/FormDatePicker";
 import SubmitButton from "../../../components/forms/SubmitButton";
-import Button from "../../../components/Button";
 import { MdCheck } from "react-icons/md";
 import FormDropdown from "../../../components/forms/FormDropdown";
 import { useHistory, useParams } from "react-router-dom";
@@ -35,11 +34,6 @@ import ResponseModal from "./../../../components/ResponseModal";
 //   otherQualifications: "",
 //   tags: [],
 // };
-const types = [
-  { type: "day", name: "Day Job" },
-  { type: "part", name: "Part Time" },
-  { type: "full", name: "Full Time" },
-];
 const categories = [
   "Restaurant Services",
   "Sales",
@@ -226,20 +220,6 @@ function UpdateListing(props) {
       setModal({ type: "error", body: response.data, update: true });
       setInitialVals(i);
     }
-  };
-
-  const renderTypes = () => {
-    return types.map((t) => (
-      <label
-        className="radio-button"
-        key={t.type}
-        onClick={() => setType(t.type)}
-      >
-        <input type="radio" checked={type === t.type} />
-        <span className="checkmark"></span>
-        {t.name}
-      </label>
-    ));
   };
 
   return (

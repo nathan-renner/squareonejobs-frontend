@@ -13,7 +13,7 @@ import { getLocations } from "./../../../api/companies";
 import ActivityIndicator from "./../../../components/ActivityIndicator";
 import useApi from "./../../../hooks/useApi";
 import ResponseModal from "./../../../components/ResponseModal";
-import { getListing } from "./../../../api/listings";
+import { getListing, postDraft, updateDraft } from "./../../../api/listings";
 
 const initialVals = {
   category: "",
@@ -113,6 +113,7 @@ function NewListing(props) {
   const [dl, setDl] = useState(false);
   const [initialValues, setInitialValues] = useState(false);
   const [modal, setModal] = useState(false);
+  const [status, setStatus] = useState(false);
 
   const getLocationsApi = useApi(getLocations);
   const getListingApi = useApi(getListing);
@@ -120,6 +121,7 @@ function NewListing(props) {
   const fetchListing = async () => {
     const res = await getListingApi.request(prevListing);
     if (res.ok) {
+      setStatus(res.data.status);
       setType(res.data.type);
       handlePrevLoc();
       setDl(
@@ -134,7 +136,13 @@ function NewListing(props) {
           : "",
         ...res.data.details,
       });
-    } else setModal({ type: "error", body: res.data });
+    } else
+      setModal({
+        type: "error",
+        body: res.data,
+        buttonText: "retry",
+        onClick: fetchListing,
+      });
   };
 
   useEffect(() => {
@@ -220,7 +228,71 @@ function NewListing(props) {
       data.details.benefits = i.benefits;
     }
 
+    if (status === "draft") {
+      data._id = prevListing;
+    }
+
     history.push("/new-listing/review", data);
+  };
+
+  const handleSaveDraft = async (i) => {
+    const data = {
+      type,
+      category: i.category,
+      details: {
+        position: i.position,
+        startDateTime: i.startDateTime,
+        location:
+          prevLoc && location
+            ? location
+            : {
+                street: i.street,
+                city: i.city,
+                state: i.state,
+                zip: i.zip,
+              },
+        description: i.description,
+        qualifications: {
+          driversLicense: dl,
+          other: i.otherQualifications,
+        },
+      },
+    };
+
+    if (data.details.qualifications.other === "")
+      delete data.details.qualifications.other;
+    if (!data.details.qualifications.driversLicense)
+      delete data.details.qualifications.driversLicense;
+    if (type === "day") {
+      data.details.endDateTime = i.endDateTime;
+      data.details.wage = i.wage;
+    } else {
+      data.details.salary = i.salary;
+      data.details.benefits = i.benefits;
+    }
+    if (status === "draft") {
+      const response = await updateDraft(data, prevListing);
+      if (response.ok) history.push("/my-listings/drafts");
+      else
+        setModal({
+          type: "error",
+          header: "Something went wrong",
+          body: response.data,
+          buttonText: "Retry",
+          onClick: () => handleSaveDraft(i),
+        });
+    } else {
+      const response = await postDraft(data);
+      if (response.ok) history.push("/my-listings/drafts");
+      else
+        setModal({
+          type: "error",
+          header: "Something went wrong",
+          body: response.data,
+          buttonText: "Retry",
+          onClick: () => handleSaveDraft(i),
+        });
+    }
   };
 
   const renderTypes = () => {
@@ -244,11 +316,12 @@ function NewListing(props) {
       />
       <ResponseModal
         visible={modal}
-        onButtonClick={!modal.update ? fetchListing : () => setModal(false)}
+        onButtonClick={modal.onClick ? modal.onClick : () => setModal(false)}
         type={modal.type}
         body={modal.body}
         header={modal.header}
-        buttonText={!modal.update ? "retry" : "OK"}
+        buttonText={modal.buttonText ? modal.buttonText : "OK"}
+        onCancel={() => setModal(false)}
       />
       <h1>Post Listing</h1>
       <Card>
@@ -264,7 +337,7 @@ function NewListing(props) {
                 initialValues={initialValues}
                 onSubmit={handleSubmit}
               >
-                {() => (
+                {({ validateForm, values }) => (
                   <>
                     <div className="section">
                       <h2>Overview</h2>
@@ -403,6 +476,9 @@ function NewListing(props) {
                       color="white"
                       textColor="primary"
                       style={{ marginLeft: ".1em" }}
+                      onClick={() =>
+                        validateForm().then(() => handleSaveDraft(values))
+                      }
                     />
                   </>
                 )}
