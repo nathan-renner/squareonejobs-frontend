@@ -76,7 +76,7 @@ function ListingsList({ listings, setModal, setShowRef, drafts = false }) {
     )
       options.push({
         name: "Edit Listing",
-        onClick: () => console.log("navigate to edit page"),
+        onClick: () => history.push(`/update-listing/${_id}`),
       });
     if (status === "active")
       options.push({

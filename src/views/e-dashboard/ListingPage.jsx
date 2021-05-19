@@ -129,7 +129,7 @@ function ListingPage(props) {
     )
       options.push({
         name: "Edit Listing",
-        onClick: () => console.log("navigate to edit page"),
+        onClick: () => history.push(`/update-listing/${id}`),
       });
     if (listing.status === "cancelled")
       options.push({

@@ -14,7 +14,6 @@ import ResponseModal from "./../../components/ResponseModal";
 const Home = () => {
   const dashboardApi = useApi(getDashboardData);
   const [dashData, setDashData] = useState(false);
-  const [modal, setModal] = useState(false);
 
   const fetchDashboardData = async () => {
     const response = await dashboardApi.request();
@@ -28,13 +27,6 @@ const Home = () => {
   console.log(dashData);
   return (
     <>
-      <ResponseModal
-        visible={modal}
-        onButtonClick={() => setModal(false)}
-        type={modal.type}
-        body={modal.body}
-        header={modal.header}
-      />
       <ActivityIndicator visible={dashboardApi.loading} />
       {dashData && (
         <>

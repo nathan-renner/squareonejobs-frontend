@@ -19,6 +19,7 @@ import Payment from "./../views/e-dashboard/new-listing/Payment";
 import UserPage from "./../views/e-dashboard/UserPage";
 import ListingPage from "../views/e-dashboard/ListingPage";
 import ResponseModal from "./../components/ResponseModal";
+import UpdateListing from "../views/e-dashboard/new-listing/UpdateListing";
 
 const EDashboard = () => {
   const [navData] = useState(true);
@@ -65,6 +66,7 @@ const EDashboard = () => {
                 <Route path={`/new-listing/payment`} component={Payment} />
                 <Route path={`/new-listing/review`} component={ReviewListing} />
                 <Route path={`/new-listing`} component={NewListing} />
+                <Route path={`/update-listing/:id`} component={UpdateListing} />
                 <Route exact path="/" component={Home} />
                 <Redirect to="/not-found" />
               </Switch>
