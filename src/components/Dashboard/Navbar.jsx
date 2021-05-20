@@ -212,6 +212,7 @@ const Navbar = ({ data }) => {
         <ProfileDropdown
           visible={dropdown === "profile"}
           avatar={data.avatar}
+          setDropdown={setDropdown}
         />
         <StreakDropdown visible={dropdown === "streak"} streak={data.streak} />
         <NotificationDropdown visible={dropdown === "notifications"} />

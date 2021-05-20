@@ -111,10 +111,12 @@ const Navbar = ({ data, setModal }) => {
         </div>
         <ProfileDropdown
           visible={dropdown === "profile"}
+          setDropdown={setDropdown}
           avatar={data.avatar}
         />
         <NotificationDropdown
           visible={dropdown === "notifications"}
+          setDropdown={setDropdown}
           setModal={setModal}
         />
       </div>

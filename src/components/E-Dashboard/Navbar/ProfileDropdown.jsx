@@ -6,7 +6,7 @@ import useAuth from "../../../auth/useAuth";
 import defaultAvatar from "../../../assets/images/default-avatar.png";
 import Icon from "./../../Icon";
 
-function ProfileDropdown({ visible, avatar }) {
+function ProfileDropdown({ visible, setDropdown, avatar }) {
   const { user, logout } = useAuth();
 
   return (
@@ -26,7 +26,7 @@ function ProfileDropdown({ visible, avatar }) {
           <Icon Icon={MdPerson} size={25} color="secondary" />
           <p>Account</p>
         </NavLink> */}
-        <NavLink to="/settings">
+        <NavLink to="/settings" onClick={() => setDropdown(false)}>
           <Icon Icon={MdSettings} size={25} color="secondary" />
           <p>Settings</p>
         </NavLink>
