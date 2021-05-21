@@ -10,7 +10,6 @@ import { resetPassword } from "./../../api/passwords";
 import ActivityIndicator from "./../../components/ActivityIndicator";
 
 const schema = Yup.object().shape({
-  current: Yup.string().required().label("Current Password"),
   new: Yup.string().required().min(8).max(1024).label("New Password"),
   newConfirm: Yup.string()
     .required()
@@ -27,7 +26,7 @@ function ResetPassword(props) {
   const resetPasswordApi = useApi(resetPassword);
 
   const handleSubmit = async (i) => {
-    const data = { current: i.current, new: i.new };
+    const data = { new: i.new };
     console.log(data, userId, code);
     const response = await resetPasswordApi.request(data, userId, code);
     console.log(response.data);
@@ -57,18 +56,12 @@ function ResetPassword(props) {
       />
       <ActivityIndicator visible={resetPasswordApi.loading} />
       <Card className="change-password">
-        <h2>Change Password</h2>
+        <h2>Reset Password</h2>
         <Form
           validationSchema={schema}
-          initialValues={{ current: "", new: "", newConfirm: "" }}
+          initialValues={{ new: "", newConfirm: "" }}
           onSubmit={handleSubmit}
         >
-          <FormField
-            name="current"
-            size="sm"
-            label="Current Password"
-            type="password"
-          />
           <FormField
             name="new"
             size="sm"
