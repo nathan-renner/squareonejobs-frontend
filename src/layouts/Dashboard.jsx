@@ -19,6 +19,7 @@ import { getNavbarData } from "./../api/users";
 import useApi from "./../hooks/useApi";
 import SuccessModal from "../components/SuccessModal";
 import { SuccessProvider } from "../hooks/useSuccessScreen";
+import ChangePassword from "./../views/common/ChangePassword";
 
 const Dashboard = () => {
   const navbarApi = useApi(getNavbarData);
@@ -53,6 +54,10 @@ const Dashboard = () => {
                 <Route path={`/search`} component={Search} />
                 <Route path={`/explore`} component={Explore} />
                 <Route path={`/account`} component={Account} />
+                <Route
+                  path={`/settings/change-password`}
+                  component={ChangePassword}
+                />
                 <Route path={`/settings`} component={Settings} />
                 <Route path={`/portfolio`} component={Portfolio} />
                 <Route path={`/payments`} component={Payments} />
