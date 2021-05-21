@@ -30,6 +30,10 @@
     .form-dropdown-item {
       padding: 0.625em;
 
+      @include themed() {
+        color: t("text");
+      }
+
       &:hover {
         @include themed() {
           background-color: t("background");

@@ -70,7 +70,12 @@ function Login() {
                 className="icon-back"
               />
               <h3 className="auth-title">Login</h3>
-              <FormField name="email" LeftIcon={MdEmail} placeholder="Email" />
+              <FormField
+                name="email"
+                LeftIcon={MdEmail}
+                placeholder="Email"
+                size="sm"
+              />
               <FormField
                 type={passVisible ? "text" : "password"}
                 name="password"
@@ -79,6 +84,7 @@ function Login() {
                 RightIcon={passVisible ? MdVisibilityOff : MdVisibility}
                 rightIconSize={30}
                 rightIconOnClick={() => setPassVisible(!passVisible)}
+                size="sm"
               />
               <ErrorMessage
                 error="Invalid email and/or password."

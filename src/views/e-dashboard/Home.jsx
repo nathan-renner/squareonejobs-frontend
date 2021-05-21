@@ -49,12 +49,14 @@ const Home = () => {
               />
             </div>
             <div>
-              <Applicants
-                data-aos="fade-up"
-                data-aos-once={true}
-                data-aos-delay={200}
-                applicants={dashData.applicants}
-              />
+              {dashData.applicants.length > 0 && (
+                <Applicants
+                  data-aos="fade-up"
+                  data-aos-once={true}
+                  data-aos-delay={200}
+                  applicants={dashData.applicants}
+                />
+              )}
               <RecommendedCandidates
                 data-aos="fade-up"
                 data-aos-once={true}

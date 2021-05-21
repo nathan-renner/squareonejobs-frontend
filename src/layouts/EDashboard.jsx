@@ -20,6 +20,7 @@ import UserPage from "./../views/e-dashboard/UserPage";
 import ListingPage from "../views/e-dashboard/ListingPage";
 import ResponseModal from "./../components/ResponseModal";
 import UpdateListing from "../views/e-dashboard/new-listing/UpdateListing";
+import ChangePassword from "./../views/common/ChangePassword";
 
 const EDashboard = () => {
   const [navData] = useState(true);
@@ -57,6 +58,10 @@ const EDashboard = () => {
             <Navbar data={navData} setModal={setModal} />
             <div className="content-container">
               <Switch>
+                <Route
+                  path={`/settings/change-password`}
+                  component={ChangePassword}
+                />
                 <Route path={`/settings`} component={Settings} />
                 <Route path={`/user/:id`} component={UserPage} />
                 <Route path={`/payments`} component={Payments} />

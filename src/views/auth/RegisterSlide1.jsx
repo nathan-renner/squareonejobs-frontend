@@ -24,6 +24,7 @@ function RegisterSlide1({ slideWidth, onNext, onBack }) {
           name="name"
           LeftIcon={MdPerson}
           placeholder="E.g. Bob Smith"
+          size="sm"
         />
         <Button
           label="Next"

@@ -33,7 +33,12 @@ function RegisterSlide2({ slideWidth, error, onBack }) {
           <br />
           Register your email
         </h3>
-        <FormField name="email" LeftIcon={MdEmail} placeholder="Email" />
+        <FormField
+          name="email"
+          LeftIcon={MdEmail}
+          placeholder="Email"
+          size="sm"
+        />
         <FormField
           type={passVisible ? "text" : "password"}
           name="password"
@@ -42,6 +47,7 @@ function RegisterSlide2({ slideWidth, error, onBack }) {
           RightIcon={passVisible ? MdVisibilityOff : MdVisibility}
           rightIconSize={30}
           rightIconOnClick={() => setPassVisible(!passVisible)}
+          size="sm"
         />
         <ErrorMessage error={error} visible={error} />
         <SubmitButton label="Next" />

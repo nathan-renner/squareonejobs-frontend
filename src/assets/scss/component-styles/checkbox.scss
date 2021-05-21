@@ -10,6 +10,10 @@
   -ms-user-select: none;
   user-select: none;
 
+  @include themed() {
+    color: t("text") !important;
+  }
+
   input {
     position: absolute;
     opacity: 0;

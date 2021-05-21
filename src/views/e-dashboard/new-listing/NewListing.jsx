@@ -473,7 +473,7 @@ function NewListing(props) {
                     />
                     <Button
                       label="Save as Draft"
-                      color="white"
+                      color="transparent"
                       textColor="primary"
                       style={{ marginLeft: ".1em" }}
                       onClick={() =>
