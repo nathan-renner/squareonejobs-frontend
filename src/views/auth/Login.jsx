@@ -52,7 +52,7 @@ function Login() {
           onSubmit={handleSubmit}
           validationSchema={validationSchema}
         >
-          {({ handleSubmit }) => (
+          {({ handleSubmit, values }) => (
             <div
               className="content"
               onKeyDown={(e) => {
@@ -76,16 +76,27 @@ function Login() {
                 placeholder="Email"
                 size="sm"
               />
-              <FormField
-                type={passVisible ? "text" : "password"}
-                name="password"
-                LeftIcon={MdLock}
-                placeholder="Password"
-                RightIcon={passVisible ? MdVisibilityOff : MdVisibility}
-                rightIconSize={30}
-                rightIconOnClick={() => setPassVisible(!passVisible)}
-                size="sm"
-              />
+              <div>
+                <FormField
+                  type={passVisible ? "text" : "password"}
+                  name="password"
+                  LeftIcon={MdLock}
+                  placeholder="Password"
+                  RightIcon={passVisible ? MdVisibilityOff : MdVisibility}
+                  rightIconSize={30}
+                  rightIconOnClick={() => setPassVisible(!passVisible)}
+                  size="sm"
+                />
+                <NavLink
+                  to={{
+                    pathname: "/auth/forgot-password",
+                    state: values.email !== "" && values.email,
+                  }}
+                  className="help-text"
+                >
+                  Forgot Password?
+                </NavLink>
+              </div>
               <ErrorMessage
                 error="Invalid email and/or password."
                 visible={loginFailed}
@@ -94,7 +105,7 @@ function Login() {
             </div>
           )}
         </Formik>
-        <NavLink to="/auth/register" className="help-text">
+        <NavLink to="/auth/register" className="help-text bottom">
           Don't have an account?
         </NavLink>
       </div>

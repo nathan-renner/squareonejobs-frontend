@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import * as Yup from "yup";
+import { useHistory, useParams } from "react-router-dom";
 
 import { Card } from "../../components";
-import SubmitButton from "../../components/forms/SubmitButton";
-import Form from "../../components/forms/Form";
-import FormField from "../../components/forms/FormField";
+import { Form, FormField, SubmitButton } from "../../components/forms";
+import ResponseModal from "../../components/ResponseModal";
 import useApi from "./../../hooks/useApi";
-import { changePassword } from "./../../api/passwords";
-import ResponseModal from "./../../components/ResponseModal";
-import { useHistory } from "react-router";
+import { resetPassword } from "./../../api/passwords";
+import ActivityIndicator from "./../../components/ActivityIndicator";
 
 const schema = Yup.object().shape({
   current: Yup.string().required().label("Current Password"),
@@ -21,19 +20,22 @@ const schema = Yup.object().shape({
     .label("Confirm New Password"),
 });
 
-function ChangePassword(props) {
+function ResetPassword(props) {
   const history = useHistory();
-  const changePasswordApi = useApi(changePassword);
+  const { userId, code } = useParams();
   const [modal, setModal] = useState(false);
+  const resetPasswordApi = useApi(resetPassword);
 
   const handleSubmit = async (i) => {
     const data = { current: i.current, new: i.new };
-    const response = await changePasswordApi.request(data);
+    console.log(data, userId, code);
+    const response = await resetPasswordApi.request(data, userId, code);
+    console.log(response.data);
     if (response.ok)
       setModal({
         type: "success",
         header: "Password Updated",
-        onClick: () => history.goBack(),
+        onClick: () => history.replace("/auth/login"),
       });
     else
       setModal({
@@ -43,6 +45,7 @@ function ChangePassword(props) {
         onClick: () => setModal(false),
       });
   };
+
   return (
     <>
       <ResponseModal
@@ -52,6 +55,7 @@ function ChangePassword(props) {
         body={modal.body}
         onButtonClick={modal.onClick}
       />
+      <ActivityIndicator visible={resetPasswordApi.loading} />
       <Card className="change-password">
         <h2>Change Password</h2>
         <Form
@@ -87,4 +91,4 @@ function ChangePassword(props) {
   );
 }
 
-export default ChangePassword;
+export default ResetPassword;

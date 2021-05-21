@@ -13,6 +13,7 @@
     width: 100%;
     display: flex;
     align-items: center;
+    z-index: 1;
 
     .nav-content {
       padding-left: 30px;
@@ -31,6 +32,15 @@
     padding: 20px;
     margin-top: -80px;
 
+    .change-password {
+      height: auto;
+      max-width: 20em;
+      margin-left: auto;
+      margin-right: auto;
+      h2 {
+        margin-bottom: 1.5em;
+      }
+    }
     .auth-container {
       max-width: 600px;
       width: 100%;
@@ -108,9 +118,8 @@
                 }
                 text-decoration: none;
                 border: none;
-                font-size: 14px;
+                font-size: 0.9em;
                 font-weight: 600;
-                align-self: fle;
                 justify-self: flex-end;
                 position: absolute;
                 bottom: 0;
@@ -168,17 +177,56 @@
           }
           text-decoration: none;
           border: none;
-          font-size: 14px;
+          font-size: 0.9em;
           font-weight: 600;
           justify-self: flex-end;
-          position: absolute;
-          bottom: 0;
+
+          &.bottom {
+            position: absolute;
+            bottom: 0;
+          }
 
           &:hover {
             filter: brightness(80%);
           }
         }
       }
+    }
+  }
+
+  .forgot-password {
+    text-align: center;
+    display: grid;
+    place-items: center;
+
+    p {
+      @include themed() {
+        color: t("secondaryText");
+      }
+      text-align: center;
+      text-decoration: none;
+      border: none;
+      font-size: 1em;
+      font-weight: 600;
+      max-width: 20em;
+      margin-right: auto;
+      margin-left: auto;
+    }
+
+    .input-container {
+      max-width: 20em;
+      margin-right: auto;
+      margin-left: auto;
+    }
+
+    .subtitle {
+      margin-top: 1em;
+      margin-bottom: 2em;
+    }
+
+    .help-text {
+      margin-bottom: 0;
+      font-size: 0.9em;
     }
   }
 
