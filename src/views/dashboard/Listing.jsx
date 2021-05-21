@@ -3,7 +3,6 @@ import moment from "moment";
 import { MdAccessTime, MdCreditCard, MdLocationOn } from "react-icons/md";
 import Skeleton from "react-loading-skeleton";
 
-import MapImg from "../../assets/images/map.png";
 import Button from "./../../components/Button";
 import NumberFormat from "react-number-format";
 
@@ -12,8 +11,14 @@ import { getListing } from "../../api/listings";
 import { useSuccessScreen } from "../../hooks/useSuccessScreen";
 import { applyToDayJob } from "./../../api/listings";
 import useAuth from "./../../auth/useAuth";
+import GoogleMaps from "../../components/GoogleMaps";
 
-function Listing({ id = false, modal = false, onApplyDone = () => true }) {
+function Listing({
+  id = false,
+  modal = false,
+  onApplyDone = () => true,
+  map = true,
+}) {
   const [listing, setListing] = useState(false);
   const { user } = useAuth();
   const listingApi = useApi(getListing);
@@ -56,38 +61,45 @@ function Listing({ id = false, modal = false, onApplyDone = () => true }) {
 
   return (
     <div className={`listing ${modal ? "list-modal" : null}`}>
-      <img src={MapImg} alt="Map of Manhattan" className="map" />
-      <div className="content">
-        {!listing ? (
-          <>
-            <div className="l-header">
-              <div className="left">
-                <Skeleton circle height={80} width={80} />
-                <div>
-                  <p>
-                    <Skeleton width={100} />
-                  </p>
-                  <h2>
-                    <Skeleton width={150} />
-                  </h2>
-                </div>
+      {!listing ? (
+        <div className="content">
+          <div className="l-header">
+            <div className="left">
+              <Skeleton circle height={80} width={80} />
+              <div>
+                <p>
+                  <Skeleton width={100} />
+                </p>
+                <h2>
+                  <Skeleton width={150} />
+                </h2>
               </div>
             </div>
-            <div className="l-content">
-              <div className="detail">
-                <Skeleton width={150} />
-              </div>
-              <div className="detail">
-                <Skeleton width={200} />
-              </div>
-              <div className="detail">
-                <Skeleton width={150} />
-              </div>
-              <Skeleton count={8} />
+          </div>
+          <div className="l-content">
+            <div className="detail">
+              <Skeleton width={150} />
             </div>
-          </>
-        ) : (
-          <>
+            <div className="detail">
+              <Skeleton width={200} />
+            </div>
+            <div className="detail">
+              <Skeleton width={150} />
+            </div>
+            <Skeleton count={8} />
+          </div>
+        </div>
+      ) : (
+        <>
+          {map && (
+            <GoogleMaps
+              coords={{
+                lng: details.location.coordinates[0],
+                lat: details.location.coordinates[1],
+              }}
+            />
+          )}
+          <div className="content">
             <div className="l-header">
               <div className="left">
                 <img
@@ -173,9 +185,9 @@ function Listing({ id = false, modal = false, onApplyDone = () => true }) {
                 )}
               </>
             </div>
-          </>
-        )}
-      </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }

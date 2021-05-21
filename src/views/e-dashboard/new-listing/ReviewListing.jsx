@@ -10,7 +10,7 @@ function ReviewListing(props) {
   return (
     <div className="post-listing">
       <h1>Review Listing</h1>
-      <Listing listing={listing} />
+      <Listing listing={listing} map={false} />
       <div style={{ textAlign: "right" }}>
         <Button
           label="Proceed to Payment"

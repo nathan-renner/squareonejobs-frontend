@@ -13,7 +13,6 @@ import {
   selectCandidate,
 } from "./../../api/listings";
 
-import MapImg from "../../assets/images/map.png";
 import {
   MdAccessTime,
   MdLocationOn,
@@ -29,6 +28,7 @@ import ResponseModal from "../../components/ResponseModal";
 import OptionsDropdown from "./../../components/OptionsDropdown";
 import Icon from "./../../components/Icon";
 import ReferenceModal from "../../components/E-Dashboard/Listings/ReferenceModal";
+import GoogleMaps from "../../components/GoogleMaps";
 
 function ListingPage(props) {
   const { id } = useParams();
@@ -212,10 +212,15 @@ function ListingPage(props) {
           body={modal.body}
           header={modal.header}
         />
-        <img src={MapImg} alt="Map of Manhattan" className="map" />
-        <div className="content">
-          {listing && (
-            <>
+        {listing && (
+          <>
+            <GoogleMaps
+              coords={{
+                lng: details.location.coordinates[0],
+                lat: details.location.coordinates[1],
+              }}
+            />
+            <div className="content">
               <div className="l-header">
                 <div className="left">
                   <img
@@ -361,8 +366,10 @@ function ListingPage(props) {
                   <p>No Applicants</p>
                 )}
               </div>
-            </>
-          )}
+            </div>
+          </>
+        )}
+        <div className="content">
           {!listing && !getListingApi.error && (
             <>
               <div className="l-header">

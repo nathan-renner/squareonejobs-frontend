@@ -3,10 +3,10 @@ import moment from "moment";
 import { MdAccessTime, MdCreditCard, MdLocationOn } from "react-icons/md";
 import Skeleton from "react-loading-skeleton";
 
-import MapImg from "../../../assets/images/map.png";
 import NumberFormat from "react-number-format";
+import GoogleMaps from "../../../components/GoogleMaps";
 
-function Listing({ listing }) {
+function Listing({ listing, map = true }) {
   const renderType = () => {
     if (listing.type === "day") return "Day Job";
     else if (listing.type === "part") return "Part Time";
@@ -15,38 +15,45 @@ function Listing({ listing }) {
 
   return (
     <div className={`listing`}>
-      <img src={MapImg} alt="Map of Manhattan" className="map" />
-      <div className="content">
-        {!listing ? (
-          <>
-            <div className="l-header">
-              <div className="left">
-                <Skeleton circle height={80} width={80} />
-                <div>
-                  <p>
-                    <Skeleton width={100} />
-                  </p>
-                  <h2>
-                    <Skeleton width={150} />
-                  </h2>
-                </div>
+      {!listing ? (
+        <div className="content">
+          <div className="l-header">
+            <div className="left">
+              <Skeleton circle height={80} width={80} />
+              <div>
+                <p>
+                  <Skeleton width={100} />
+                </p>
+                <h2>
+                  <Skeleton width={150} />
+                </h2>
               </div>
             </div>
-            <div className="l-content">
-              <div className="detail">
-                <Skeleton width={150} />
-              </div>
-              <div className="detail">
-                <Skeleton width={200} />
-              </div>
-              <div className="detail">
-                <Skeleton width={150} />
-              </div>
-              <Skeleton count={8} />
+          </div>
+          <div className="l-content">
+            <div className="detail">
+              <Skeleton width={150} />
             </div>
-          </>
-        ) : (
-          <>
+            <div className="detail">
+              <Skeleton width={200} />
+            </div>
+            <div className="detail">
+              <Skeleton width={150} />
+            </div>
+            <Skeleton count={8} />
+          </div>
+        </div>
+      ) : (
+        <>
+          {map && (
+            <GoogleMaps
+              coords={{
+                lng: listing.details.location.coordinates[0],
+                lat: listing.details.location.coordinates[1],
+              }}
+            />
+          )}
+          <div className="content">
             <div className="l-header">
               <div className="left">
                 {/* <img
@@ -133,9 +140,9 @@ function Listing({ listing }) {
                 )}
               </>
             </div>
-          </>
-        )}
-      </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }
