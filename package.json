@@ -10,6 +10,7 @@
     "apisauce": "^2.0.1",
     "formik": "^2.2.6",
     "jwt-decode": "^3.1.2",
+    "lodash": "^4.17.21",
     "lottie-react": "^2.1.0",
     "lottie-web": "^5.7.6",
     "moment": "^2.29.1",

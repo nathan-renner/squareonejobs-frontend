@@ -18,10 +18,12 @@ function References({ portfolio, setLoading, id, ...props }) {
       />
       <Card className="references" {...props}>
         <div className="ref-header">
-          <h2>References ({portfolio.references.length})</h2>
+          <h2>
+            References ({portfolio.references && portfolio.references.length})
+          </h2>
           <p onClick={() => setIsOpen(true)}>See more</p>
         </div>
-        {portfolio.references.length !== undefined ? (
+        {portfolio.references && portfolio.references.length !== undefined ? (
           <ReferencesList small references={portfolio.references} />
         ) : (
           <p>No references</p>
