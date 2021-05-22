@@ -72,3 +72,110 @@
     margin-bottom: 0;
   }
 }
+
+.points-modal {
+  .modal-content {
+    width: 30em;
+    height: 20em;
+    display: grid;
+    place-items: center;
+    position: relative;
+  }
+
+  .points-content {
+    .text-container {
+      text-align: center;
+      margin-top: 4em;
+
+      .counter {
+        &.animation {
+          animation: count 200ms linear 0s 4,
+            sizeup 200ms cubic-bezier(1, 0, 1, 1) 800ms;
+          -webkit-animation: count 200ms linear 0s 4,
+            sizeup 200ms cubic-bezier(1, 0, 1, 1) 800ms;
+
+          @-webkit-keyframes count {
+            0% {
+              transform: rotate(0) scale(0.5);
+            }
+            25% {
+              transform: rotate(-2deg) scale(0.5);
+            }
+            75% {
+              transform: rotate(2deg) scale(0.5);
+            }
+            100% {
+              transform: rotate(0) scale(0.5);
+            }
+          }
+          @keyframes count {
+            0% {
+              transform: rotate(0) scale(0.5);
+            }
+            25% {
+              transform: rotate(-2deg) scale(0.5);
+            }
+            75% {
+              transform: rotate(2deg) scale(0.5);
+            }
+            100% {
+              transform: rotate(0) scale(0.5);
+            }
+          }
+          @-webkit-keyframes sizeup {
+            0% {
+              transform: scale(0.5);
+            }
+            100% {
+              transform: scale(1);
+            }
+          }
+          @keyframes sizeup {
+            0% {
+              transform: scale(0.5);
+            }
+            100% {
+              transform: scale(1);
+            }
+          }
+        }
+        .count-up {
+          font-size: 4em;
+          font-weight: 700;
+        }
+      }
+
+      .subtitle {
+        font-size: 1.1em;
+        font-weight: 500;
+        @include themed() {
+          color: t("medium");
+        }
+        opacity: 1;
+        // animation: opacity 500ms ease 2s 1;
+      }
+      .button {
+        opacity: 0;
+        transition: opacity 500ms ease; //, transform 250ms ease;
+        //animation: opacity 500ms ease 2s 1;
+      }
+
+      .active {
+        opacity: 1;
+      }
+      @keyframes opacity {
+        0% {
+          opacity: 0;
+          visibility: visible;
+        }
+        99.999% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 1;
+          visibility: visible;
+        }
+      }
+    }
+  }
+}

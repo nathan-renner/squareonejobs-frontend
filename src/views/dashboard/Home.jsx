@@ -12,11 +12,13 @@ import JobsForYouCard from "./../../components/Dashboard/Home/JobsForYouCard";
 
 import useApi from "./../../hooks/useApi";
 import { getDashboardData } from "../../api/users";
+import PointsModal from "../../components/PointsModal";
 
 const Home = () => {
   const dashboardApi = useApi(getDashboardData);
   const [selectedJob, setSelectedJob] = useState(false);
   const [dashData, setDashData] = useState(false);
+  const [pointsModal, setPointsModal] = useState(true);
 
   const fetchDashboardData = async () => {
     const response = await dashboardApi.request();
@@ -30,6 +32,13 @@ const Home = () => {
 
   return (
     <>
+      {pointsModal && (
+        <PointsModal
+          setVisible={setPointsModal}
+          points={351430}
+          pointsAdded={51430}
+        />
+      )}
       <ActivityIndicator visible={dashboardApi.loading} />
       {dashData && (
         <>
