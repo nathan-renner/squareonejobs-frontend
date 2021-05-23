@@ -10,6 +10,7 @@ import {
 import Button from "../../Button";
 import useApi from "./../../../hooks/useApi";
 import { deleteDocument, uploadDocument } from "./../../../api/users";
+import { useResponseModal } from "./../../../hooks/useResponseModal";
 
 // const documents = [
 //   {
@@ -33,6 +34,7 @@ function Documents({
   const uploadDocApi = useApi(uploadDocument);
   const deleteDocApi = useApi(deleteDocument);
   const uploadRef = useRef();
+  const { setModal } = useResponseModal();
 
   const selectDocument = () => {
     uploadRef.current.click();
@@ -59,7 +61,12 @@ function Documents({
       updateDocuments(response.data);
       uploadRef.current.value = null;
       setIsEditing(false);
-    }
+    } else
+      setModal({
+        type: "error",
+        header: "Something went wrong",
+        body: response.data,
+      });
   };
 
   const handleDeleteDocument = async (index) => {
@@ -71,7 +78,12 @@ function Documents({
       updateDocuments(response.data);
       setIsEditing(false);
       setLoading(false);
-    }
+    } else
+      setModal({
+        type: "error",
+        header: "Something went wrong",
+        body: response.data,
+      });
   };
 
   return (

@@ -4,21 +4,27 @@ import Button from "../../../components/Button";
 import useApi from "./../../../hooks/useApi";
 import { postListing } from "./../../../api/listings";
 import ActivityIndicator from "./../../../components/ActivityIndicator";
+import { useResponseModal } from "./../../../hooks/useResponseModal";
 
 function Payment(props) {
   const postListingApi = useApi(postListing);
+  const { setModal } = useResponseModal();
   const history = useHistory();
   const { state: listing } = useLocation();
 
   const handleSubmit = async () => {
-    console.log(listing);
-
     const response = await postListingApi.request(listing);
     if (response.ok) {
       history.push("/my-listings");
-    } else {
-      console.log(response.error);
-    }
+    } else
+      setModal({
+        type: "error",
+        header: "Something went wrong",
+        body: response.data,
+        buttonText: "retry",
+        onClick: handleSubmit,
+        onCancel: () => setModal(false),
+      });
   };
 
   return (

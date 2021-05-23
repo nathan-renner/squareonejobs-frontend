@@ -13,16 +13,24 @@ import JobsForYouCard from "./../../components/Dashboard/Home/JobsForYouCard";
 import useApi from "./../../hooks/useApi";
 import { getDashboardData } from "../../api/users";
 import PointsModal from "../../components/PointsModal";
+import { useResponseModal } from "./../../hooks/useResponseModal";
 
 const Home = () => {
   const dashboardApi = useApi(getDashboardData);
   const [selectedJob, setSelectedJob] = useState(false);
   const [dashData, setDashData] = useState(false);
-  const [pointsModal, setPointsModal] = useState(true);
+  const [pointsModal, setPointsModal] = useState(false);
+  const { setModal } = useResponseModal();
 
   const fetchDashboardData = async () => {
     const response = await dashboardApi.request();
     if (response.ok) setDashData(response.data);
+    else
+      setModal({
+        type: "error",
+        header: "Something went wrong",
+        body: response.data,
+      });
   };
 
   useEffect(() => {

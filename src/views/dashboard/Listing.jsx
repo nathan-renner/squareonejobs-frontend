@@ -12,6 +12,7 @@ import { useSuccessScreen } from "../../hooks/useSuccessScreen";
 import { applyToDayJob } from "./../../api/listings";
 import useAuth from "./../../auth/useAuth";
 import GoogleMaps from "../../components/GoogleMaps";
+import { useResponseModal } from "./../../hooks/useResponseModal";
 
 function Listing({
   id = false,
@@ -26,13 +27,20 @@ function Listing({
   const { showSuccess } = useSuccessScreen();
   const [isWinner, setIsWinner] = useState(false);
   const { details } = listing;
+  const { setModal } = useResponseModal();
+
   const fetchListing = async () => {
     setListing(false);
     const response = await listingApi.request(id);
     if (response.ok) {
       setListing(response.data);
       setIsWinner(response.data.winner === user._id);
-    }
+    } else
+      setModal({
+        type: "error",
+        header: "Something went wrong",
+        body: response.data,
+      });
   };
 
   useEffect(() => {
@@ -47,7 +55,12 @@ function Listing({
     if (response.ok) {
       showSuccess();
       onApplyDone(id);
-    }
+    } else
+      setModal({
+        type: "error",
+        header: "Something went wrong",
+        body: response.data,
+      });
   };
 
   const renderButton = () => {

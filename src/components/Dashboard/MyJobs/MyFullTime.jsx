@@ -10,16 +10,24 @@ import ActivityIndicator from "./../../ActivityIndicator";
 import { getMyJobs } from "./../../../api/listings";
 import Modal from "./../../Modal";
 import Listing from "../../../views/dashboard/Listing";
+import { useResponseModal } from "./../../../hooks/useResponseModal";
 
 function MyFullTime(props) {
   const history = useHistory();
   const getMyJobsApi = useApi(getMyJobs);
   const [fullTime, setFullTime] = useState(false);
   const [selectedJob, setSelectedJob] = useState(false);
+  const { setModal } = useResponseModal();
 
   const fetchJobs = async () => {
     const response = await getMyJobsApi.request("full");
     if (response.ok) setFullTime(response.data);
+    else
+      setModal({
+        type: "error",
+        header: "Something went wrong",
+        body: response.data,
+      });
   };
 
   useEffect(() => {

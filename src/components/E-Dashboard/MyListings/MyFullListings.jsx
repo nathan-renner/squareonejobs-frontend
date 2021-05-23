@@ -4,14 +4,22 @@ import Card from "../../Card";
 import useApi from "./../../../hooks/useApi";
 import ActivityIndicator from "./../../ActivityIndicator";
 import ListingsList from "./../../ListingsList";
+import { useResponseModal } from "./../../../hooks/useResponseModal";
 
 function MyFullListings(props) {
   const [listings, setListings] = useState(false);
   const getMyListingsApi = useApi(getMyListings);
+  const { setModal } = useResponseModal();
 
   const fetchJobs = async () => {
     const response = await getMyListingsApi.request("full");
     if (response.ok) setListings(response.data);
+    else
+      setModal({
+        type: "error",
+        header: "Something went wrong",
+        body: response.data,
+      });
   };
 
   useEffect(() => {

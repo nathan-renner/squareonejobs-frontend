@@ -24,7 +24,6 @@ import ChangePassword from "./../views/common/ChangePassword";
 
 const EDashboard = () => {
   const [navData] = useState(true);
-  const [modal, setModal] = useState(false);
 
   useEffect(() => {
     AOS.init();
@@ -44,18 +43,12 @@ const EDashboard = () => {
   return (
     <SuccessProvider>
       <div className="dashboard employer-dash">
-        <ResponseModal
-          visible={modal}
-          onButtonClick={() => setModal(false)}
-          type={modal.type}
-          body={modal.body}
-          header={modal.header}
-        />
+        <ResponseModal />
         <ActivityIndicator visible={false} />
         <SuccessModal />
         {navData && (
           <>
-            <Navbar data={navData} setModal={setModal} />
+            <Navbar data={navData} />
             <div className="content-container">
               <Switch>
                 <Route

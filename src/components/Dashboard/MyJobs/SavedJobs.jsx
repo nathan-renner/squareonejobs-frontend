@@ -10,16 +10,24 @@ import useApi from "./../../../hooks/useApi";
 import Modal from "./../../Modal";
 import Listing from "./../../../views/dashboard/Listing";
 import { getMyJobs } from "../../../api/listings";
+import { useResponseModal } from "./../../../hooks/useResponseModal";
 
 function SavedJobs(props) {
   const history = useHistory();
   const getMyJobsApi = useApi(getMyJobs);
   const [saved, setSaved] = useState(false);
   const [selectedJob, setSelectedJob] = useState(false);
+  const { setModal } = useResponseModal();
 
   const fetchJobs = async () => {
     const response = await getMyJobsApi.request("saved");
     if (response.ok) setSaved(response.data);
+    else
+      setModal({
+        type: "error",
+        header: "Something went wrong",
+        body: response.data,
+      });
   };
 
   useEffect(() => {

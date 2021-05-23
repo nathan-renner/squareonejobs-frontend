@@ -4,19 +4,24 @@ import Card from "../../Card";
 import useApi from "./../../../hooks/useApi";
 import ActivityIndicator from "./../../ActivityIndicator";
 import ListingsList from "./../../ListingsList";
-import ResponseModal from "../../ResponseModal";
 import ReferenceModal from "../Listings/ReferenceModal";
+import { useResponseModal } from "./../../../hooks/useResponseModal";
 
 function MyDayListings(props) {
   const [listings, setListings] = useState(false);
   const [showRef, setShowRef] = useState(false);
-  const [modal, setModal] = useState(false);
   const getMyListingsApi = useApi(getMyListings);
+  const { setModal } = useResponseModal();
 
   const fetchJobs = async () => {
     const response = await getMyListingsApi.request("day");
     if (response.ok) setListings(response.data);
-    else setModal({ type: "error", header: response.data });
+    else
+      setModal({
+        type: "error",
+        header: "Something went wrong",
+        body: response.data,
+      });
   };
 
   useEffect(() => {
@@ -28,13 +33,6 @@ function MyDayListings(props) {
     <div className="my-listings-content">
       <ActivityIndicator
         visible={getMyListingsApi.loading && !getMyListingsApi.error}
-      />
-      <ResponseModal
-        visible={modal}
-        onButtonClick={() => setModal(false)}
-        type={modal.type}
-        body={modal.body}
-        header={modal.header}
       />
       <ReferenceModal
         visible={showRef}

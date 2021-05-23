@@ -12,6 +12,7 @@ import ActivityIndicator from "./../../components/ActivityIndicator";
 import Button from "./../../components/Button";
 import JobCard from "../../components/Dashboard/Search/JobCard";
 import useQuery from "../../hooks/useQuery";
+import { useResponseModal } from "./../../hooks/useResponseModal";
 
 function Search(props) {
   const history = useHistory();
@@ -29,13 +30,19 @@ function Search(props) {
   });
   const [listings, setListings] = useState(false);
   const [count, setCount] = useState(false);
+  const { setModal } = useResponseModal();
 
   const fetchListings = async () => {
     const response = await listingsApi.request(queryString.stringify(query));
     if (response.ok) {
       setListings(response.data.listings);
       setCount(response.data.count);
-    }
+    } else
+      setModal({
+        type: "error",
+        header: "Something went wrong",
+        body: response.data,
+      });
   };
 
   useEffect(() => {

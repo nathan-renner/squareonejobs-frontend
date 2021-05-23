@@ -14,6 +14,7 @@ import ActivityIndicator from "./../../components/ActivityIndicator";
 import UploadScreen from "./../../components/UploadScreen";
 import References from "./../../components/Dashboard/Portfolio/References";
 import Documents from "../../components/Dashboard/Portfolio/Documents";
+import { useResponseModal } from "./../../hooks/useResponseModal";
 
 function Portfolio(props) {
   const getPortfolioApi = useApi(getPortfolio);
@@ -23,6 +24,7 @@ function Portfolio(props) {
   const [loading, setLoading] = useState(false);
   const [uploadVisible, setUploadVisible] = useState(false);
   const [progress, setProgress] = useState(0);
+  const { setModal } = useResponseModal();
 
   const fetchPortfolio = async () => {
     const response = await getPortfolioApi.request(user.profileId);
@@ -30,6 +32,17 @@ function Portfolio(props) {
       setPortfolio({
         ...response.data,
         //avatar: `${response.data.avatar}?${Date.now()}`,
+      });
+    else
+      setModal({
+        type: "error",
+        header: "Something went wrong",
+        body: response.data,
+        buttonText: "Retry",
+        onButtonClick: () => {
+          setModal(false);
+          fetchPortfolio();
+        },
       });
   };
 
@@ -52,7 +65,12 @@ function Portfolio(props) {
         references: [...portfolio.references],
         referencesLength: portfolio.referencesLength,
       });
-    }
+    } else
+      setModal({
+        type: "error",
+        header: "Something went wrong",
+        body: response.data,
+      });
   };
 
   const updateAccount = (newData) => {
@@ -136,14 +154,14 @@ function Portfolio(props) {
             </div>
           </>
         )}
-        {getPortfolioApi.error && (
+        {/* {getPortfolioApi.error && (
           <div className="error-container">
             <div>
               <h3>Error loading portfolio</h3>
               <Button label="retry" onClick={() => fetchPortfolio()} />
             </div>
           </div>
-        )}
+        )} */}
       </div>
     </>
   );

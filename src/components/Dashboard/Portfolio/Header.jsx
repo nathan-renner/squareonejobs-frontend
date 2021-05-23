@@ -11,6 +11,7 @@ import useApi from "./../../../hooks/useApi";
 import { updateAccount } from "./../../../api/users";
 
 import defaultAvatar from "../../../assets/images/default-avatar.png";
+import { useResponseModal } from "./../../../hooks/useResponseModal";
 
 const schema = Yup.object().shape({
   firstName: Yup.string().required().label("First Name").min(1).max(64),
@@ -43,6 +44,7 @@ function Header({
   const [file, setFile] = useState(null);
   const uploadRef = useRef(null);
   const updateAccountApi = useApi(updateAccount);
+  const { setModal } = useResponseModal();
 
   // useEffect(() => {
   //   setLoading(updateAccountApi.loading);
@@ -113,7 +115,12 @@ function Header({
     if (response.ok) {
       updateAccountDetails(response.data);
       setIsEditing(false);
-    }
+    } else
+      setModal({
+        type: "error",
+        header: "Something went wrong",
+        body: response.data,
+      });
   };
 
   return (

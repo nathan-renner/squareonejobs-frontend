@@ -12,8 +12,8 @@ import { useHistory, useLocation } from "react-router-dom";
 import { getLocations } from "./../../../api/companies";
 import ActivityIndicator from "./../../../components/ActivityIndicator";
 import useApi from "./../../../hooks/useApi";
-import ResponseModal from "./../../../components/ResponseModal";
 import { getListing, postDraft, updateDraft } from "./../../../api/listings";
+import { useResponseModal } from "./../../../hooks/useResponseModal";
 
 const initialVals = {
   category: "",
@@ -112,7 +112,7 @@ function NewListing(props) {
   const [location, setLocation] = useState(false);
   const [dl, setDl] = useState(false);
   const [initialValues, setInitialValues] = useState(false);
-  const [modal, setModal] = useState(false);
+  const { setModal } = useResponseModal();
   const [status, setStatus] = useState(false);
 
   const getLocationsApi = useApi(getLocations);
@@ -139,6 +139,7 @@ function NewListing(props) {
     } else
       setModal({
         type: "error",
+        header: "Something went wrong",
         body: res.data,
         buttonText: "retry",
         onClick: fetchListing,
@@ -313,15 +314,6 @@ function NewListing(props) {
     <div className="post-listing">
       <ActivityIndicator
         visible={getLocationsApi.loading || getListingApi.loading}
-      />
-      <ResponseModal
-        visible={modal}
-        onButtonClick={modal.onClick ? modal.onClick : () => setModal(false)}
-        type={modal.type}
-        body={modal.body}
-        header={modal.header}
-        buttonText={modal.buttonText ? modal.buttonText : "OK"}
-        onCancel={() => setModal(false)}
       />
       <h1>Post Listing</h1>
       <Card>

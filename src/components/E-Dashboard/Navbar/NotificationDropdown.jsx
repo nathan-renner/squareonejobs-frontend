@@ -6,10 +6,11 @@ import Icon from "./../../Icon";
 import useApi from "./../../../hooks/useApi";
 import { getNotifications } from "../../../api/users";
 import ActivityIndicator from "./../../ActivityIndicator";
-import { Button } from "../..";
+import { useResponseModal } from "./../../../hooks/useResponseModal";
 
-function NotificationDropdown({ visible, setModal }) {
+function NotificationDropdown({ visible }) {
   const [notifications, setNotifications] = useState(false);
+  const { setModal } = useResponseModal();
   const getNotificationsApi = useApi(getNotifications);
 
   const fetchNotifications = async () => {
@@ -73,21 +74,6 @@ function NotificationDropdown({ visible, setModal }) {
     <div className={`nav-dropdown notif-dropdown ${visible ? "active" : null}`}>
       <h3>Notifications</h3>
       <ActivityIndicator visible={getNotificationsApi.loading} />
-      {!getNotificationsApi.ok && (
-        <div>
-          <p style={{ textAlign: "center", marginBottom: "1em" }}>
-            Something went wrong.
-          </p>
-          <Button
-            label="retry"
-            onClick={fetchNotifications}
-            buttonStyle={{
-              marginLeft: 100,
-              marginTop: 0,
-            }}
-          />
-        </div>
-      )}
       {notifications && (
         <>
           <div>

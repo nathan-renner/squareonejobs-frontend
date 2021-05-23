@@ -24,11 +24,11 @@ import {
 import Button from "../../components/Button";
 import UserCardList from "./../../components/UserCardList";
 import UserCard from "../../components/UserCard";
-import ResponseModal from "../../components/ResponseModal";
 import OptionsDropdown from "./../../components/OptionsDropdown";
 import Icon from "./../../components/Icon";
 import ReferenceModal from "../../components/E-Dashboard/Listings/ReferenceModal";
 import GoogleMaps from "../../components/GoogleMaps";
+import { useResponseModal } from "./../../hooks/useResponseModal";
 
 function ListingPage(props) {
   const { id } = useParams();
@@ -36,17 +36,22 @@ function ListingPage(props) {
   const getListingApi = useApi(getListing);
   const [showRef, setShowRef] = useState(false);
   const [listing, setListing] = useState(false);
-  const [modal, setModal] = useState(false);
   const { details } = listing;
   const completeListingApi = useApi(completeListing);
   const cancelListingApi = useApi(cancelListing);
   const deleteListingApi = useApi(deleteListing);
   const hireUserApi = useApi(selectCandidate);
+  const { setModal } = useResponseModal();
 
   const fetchListing = async () => {
     const response = await getListingApi.request(id);
     if (response.ok) setListing(response.data);
-    else setModal({ type: "error", body: response.data });
+    else
+      setModal({
+        type: "error",
+        header: "Something went wrong",
+        body: response.data,
+      });
   };
 
   useEffect(() => {
@@ -205,13 +210,6 @@ function ListingPage(props) {
         className="listing"
         style={{ marginLeft: "auto", marginRight: "auto" }}
       >
-        <ResponseModal
-          visible={modal}
-          onButtonClick={() => setModal(false)}
-          type={modal.type}
-          body={modal.body}
-          header={modal.header}
-        />
         {listing && (
           <>
             <GoogleMaps

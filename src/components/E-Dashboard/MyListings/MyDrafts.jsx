@@ -4,12 +4,12 @@ import Card from "../../Card";
 import useApi from "./../../../hooks/useApi";
 import ActivityIndicator from "./../../ActivityIndicator";
 import ListingsList from "./../../ListingsList";
-import ResponseModal from "./../../ResponseModal";
+import { useResponseModal } from "./../../../hooks/useResponseModal";
 
 function MyDrafts(props) {
   const [listings, setListings] = useState(false);
-  const [modal, setModal] = useState(false);
   const getMyListingsApi = useApi(getMyListings);
+  const { setModal } = useResponseModal();
 
   const fetchJobs = async () => {
     const response = await getMyListingsApi.request("draft");
@@ -23,13 +23,6 @@ function MyDrafts(props) {
 
   return (
     <div className="my-listings-content">
-      <ResponseModal
-        visible={modal}
-        onButtonClick={() => setModal(false)}
-        type={modal.type}
-        body={modal.body}
-        header={modal.header}
-      />
       <ActivityIndicator visible={getMyListingsApi.loading} />
       {listings && (
         <div>

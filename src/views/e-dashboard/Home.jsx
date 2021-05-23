@@ -9,14 +9,24 @@ import Applicants from "./../../components/E-Dashboard/Home/Applicants";
 import RecommendedCandidates from "./../../components/E-Dashboard/Home/RecommendedCandidates";
 import useApi from "./../../hooks/useApi";
 import { getDashboardData } from "./../../api/employers";
+import { useResponseModal } from "./../../hooks/useResponseModal";
 
 const Home = () => {
   const dashboardApi = useApi(getDashboardData);
   const [dashData, setDashData] = useState(false);
+  const { setModal } = useResponseModal();
 
   const fetchDashboardData = async () => {
     const response = await dashboardApi.request();
     if (response.ok) setDashData(response.data);
+    else
+      setModal({
+        type: "error",
+        header: "Something went wrong",
+        body: response.data,
+        buttonText: "Retry",
+        onButtonClick: () => fetchDashboardData(),
+      });
   };
 
   useEffect(() => {

@@ -12,13 +12,13 @@ import Education from "./../../components/E-Dashboard/UserPortfolio/Education";
 import WorkExperience from "./../../components/E-Dashboard/UserPortfolio/WorkExperience";
 import Skills from "./../../components/E-Dashboard/UserPortfolio/Skills";
 import History from "./../../components/E-Dashboard/UserPortfolio/History";
-import ResponseModal from "../../components/ResponseModal";
+import { useResponseModal } from "./../../hooks/useResponseModal";
 
 function UserPage(props) {
   const { id } = useParams();
   const getUserApi = useApi(getUser);
   const [user, setUser] = useState(false);
-  const [modal, setModal] = useState(false);
+  const { setModal } = useResponseModal(useResponseModal);
 
   const fetchUser = async () => {
     const response = await getUserApi.request(id);
@@ -39,15 +39,6 @@ function UserPage(props) {
 
   return (
     <div className="portfolio e-portfolio">
-      <ResponseModal
-        visible={modal}
-        type={modal.type}
-        body={modal.body}
-        header={modal.header}
-        buttonText="retry"
-        onButtonClick={fetchUser}
-        onCancel={() => setModal(false)}
-      />
       <ActivityIndicator visible={getUserApi.loading} />
       {user && (
         <>

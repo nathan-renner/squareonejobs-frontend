@@ -19,11 +19,14 @@ import { getNavbarData } from "./../api/users";
 import useApi from "./../hooks/useApi";
 import SuccessModal from "../components/SuccessModal";
 import { SuccessProvider } from "../hooks/useSuccessScreen";
+import { useResponseModal } from "../hooks/useResponseModal";
 import ChangePassword from "./../views/common/ChangePassword";
+import ResponseModal from "../components/ResponseModal";
 
 const Dashboard = () => {
   const navbarApi = useApi(getNavbarData);
   const [navData, setNavData] = useState(false);
+  const { setModal } = useResponseModal();
 
   useEffect(() => {
     AOS.init();
@@ -33,6 +36,12 @@ const Dashboard = () => {
   const fetchNavbarData = async () => {
     const response = await navbarApi.request();
     if (response.ok) setNavData(response.data);
+    else
+      setModal({
+        type: "error",
+        header: "Something went wrong",
+        body: response.data,
+      });
   };
 
   useEffect(() => {
@@ -43,6 +52,7 @@ const Dashboard = () => {
   return (
     <SuccessProvider>
       <div className="dashboard user-dash">
+        <ResponseModal />
         <ActivityIndicator visible={navbarApi.loading} />
         <SuccessModal />
         {navData && (
