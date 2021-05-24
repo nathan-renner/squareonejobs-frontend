@@ -37,18 +37,19 @@ function MyDayJobs(props) {
 
   return (
     <div className="my-jobs-content">
-      <ActivityIndicator visible={getMyJobsApi.loading} />
       <Modal
         className="nopadding"
         visible={selectedJob}
         Content={Listing}
         onCancel={() => setSelectedJob(false)}
+        listing
         componentProps={{
           modal: true,
           id: selectedJob,
           onExit: () => setSelectedJob(false),
         }}
       />
+      <ActivityIndicator visible={getMyJobsApi.loading} />
       {dayJobs && (
         <>
           <Header

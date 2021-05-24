@@ -52,9 +52,6 @@ const Dashboard = () => {
   return (
     <SuccessProvider>
       <div className="dashboard user-dash">
-        <ResponseModal />
-        <ActivityIndicator visible={navbarApi.loading} />
-        <SuccessModal />
         {navData && (
           <>
             <Navbar data={navData} />
@@ -78,6 +75,9 @@ const Dashboard = () => {
             </div>
           </>
         )}
+        <ResponseModal />
+        <ActivityIndicator visible={navbarApi.loading} />
+        <SuccessModal />
       </div>
     </SuccessProvider>
   );

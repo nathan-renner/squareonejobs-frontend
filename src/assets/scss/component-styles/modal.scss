@@ -37,7 +37,8 @@
     }
   }
 
-  .exit {
+  .exit,
+  .exit-listing {
     position: absolute;
     z-index: 1;
     top: 20px;
@@ -46,6 +47,12 @@
       color: t("medium");
     }
     cursor: pointer;
+  }
+
+  .exit-listing {
+    top: 1em;
+    right: 4em;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
   }
 
   .modal-content {

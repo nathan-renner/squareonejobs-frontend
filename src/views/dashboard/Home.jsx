@@ -55,6 +55,7 @@ const Home = () => {
             visible={selectedJob}
             Content={Listing}
             onCancel={() => setSelectedJob(false)}
+            listing
             componentProps={{
               modal: true,
               id: selectedJob,

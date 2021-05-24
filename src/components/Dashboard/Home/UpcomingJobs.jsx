@@ -30,7 +30,11 @@ function UpcomingJobs({ jobs, onSelect, ...props }) {
   return (
     <Card className="upcoming-jobs-card" {...props}>
       <h2>This Week</h2>
-      {jobs.length === 0 ? <p>No more jobs this week.</p> : <>{renderJobs()}</>}
+      {jobs.length === 0 ? (
+        <p style={{ marginBottom: 0 }}>No more jobs this week.</p>
+      ) : (
+        <>{renderJobs()}</>
+      )}
     </Card>
   );
 }
