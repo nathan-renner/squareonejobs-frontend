@@ -36,6 +36,13 @@
       margin-bottom: 0.5em;
     }
   }
+
+  .options-child {
+    flex-shrink: 1;
+    flex-grow: 0;
+    align-self: flex-start;
+  }
+
   .apply {
     flex: 0;
   }
@@ -43,6 +50,8 @@
   .status {
     display: flex;
     align-items: center;
+    margin-bottom: 5px;
+
     > * + * {
       margin-left: 0.2em;
     }

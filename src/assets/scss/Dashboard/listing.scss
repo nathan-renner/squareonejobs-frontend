@@ -100,7 +100,29 @@
   }
   .l-content {
     padding: 0px 20px 20px 20px;
-    //height: 100%;
-    //overflow-y: scroll;
+  }
+
+  hr {
+    height: 1px;
+    @include themed() {
+      border: 1px solid t("background") !important;
+    }
+  }
+
+  .company-info {
+    h3,
+    a,
+    p {
+      margin-bottom: 1em;
+    }
+
+    a {
+      display: block;
+    }
+
+    .attr {
+      font-weight: 600;
+      margin-bottom: 0.2em;
+    }
   }
 }

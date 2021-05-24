@@ -1,76 +1,77 @@
 import React from "react";
 import moment from "moment";
+import { MdCheck, MdClear, MdErrorOutline } from "react-icons/md";
+import Icon from "./Icon";
 // import Button from "./Button";
 // import Icon from "./Icon";
 // import { BsExclamation } from "react-icons/bs";
 // import { HiCheck } from "react-icons/hi";
+import OptionsDropdown from "./OptionsDropdown";
+import Button from "./Button";
 
-function JobListItem({ job, type = "", showJobModal = () => true }) {
-  // const [comps, setComps] = useState(false);
+function JobListItem({ job, showJobModal = () => true }) {
+  const handleComplete = () => {};
 
-  // useEffect(() => {
-  //   setComps(renderComps);
-  //   // eslint-disable-next-line
-  // }, []);
+  const handleWithdraw = () => {};
 
-  // const renderStatus = (text, icon, color) => {
-  //   return (
-  //     <div className="status">
-  //       <Icon Icon={icon} size={25} color={color} />
-  //       <p>{text}</p>
-  //     </div>
-  //   );
-  // };
+  const getOptions = () => {
+    const options = [];
 
-  // const renderButtons = (label1, onClick1, label2, onClick2) => {
-  //   return (
-  //     <div className="text-center" style={{ width: 150 }}>
-  //       <Button label={label1} onClick={onClick1} />
-  //       <Button
-  //         label={label2}
-  //         color="white"
-  //         textColor="primary"
-  //         outline
-  //         onClick={onClick2}
-  //       />
-  //     </div>
-  //   );
-  // };
+    if (
+      job.type === "day" &&
+      job.status === "active" &&
+      moment(job.details.endDateTime).isAfter(moment())
+    )
+      options.push({
+        name: "Mark Job as Complete",
+        onClick: () => handleComplete(),
+      });
+    options.push({
+      name: "View Listing",
+      onClick: () => showJobModal(job._id),
+    });
+    if (
+      job.status === "active" &&
+      moment(job.details.startDateTime).diff(moment(), "days") > 1
+    )
+      options.push({
+        name: "Withdraw Application",
+        onClick: () => handleWithdraw(),
+      });
 
-  // const renderComps = () => {
-  //   switch (type) {
-  //     case "pending":
-  //       return {
-  //         status: renderStatus("Waiting for Employer", BsExclamation, "yellow"),
-  //         buttons: renderButtons(
-  //           "View Job",
-  //           () => showJobModal(job._id),
-  //           "Withdraw Application",
-  //           () => true
-  //         ),
-  //       };
-  //     case "upcoming":
-  //       return {
-  //         status: renderStatus("Upcoming", HiCheck, "primary"),
-  //         buttons: renderButtons(
-  //           "View Job",
-  //           () => showJobModal(job._id),
-  //           "Cancel Job",
-  //           () => true
-  //         ),
-  //       };
-  //     case "previous":
-  //       return {
-  //         status: renderStatus(
-  //           job.status === "completed" ? "Completed" : "Cancelled",
-  //           HiCheck,
-  //           "primary"
-  //         ),
-  //       };
-  //     default:
-  //       return null;
-  //   }
-  // };
+    return options;
+  };
+
+  const renderStatus = () => {
+    const statusText =
+      job.status.charAt(0).toUpperCase() +
+      job.status.slice(1).replaceAll("-", " ");
+    if (
+      job.status === "pending-completion" ||
+      job.status === "pending-cancellation"
+    ) {
+      return (
+        <div className="status">
+          <Icon Icon={MdErrorOutline} size={25} color="yellow" />
+          <p className="text">{statusText}</p>
+        </div>
+      );
+    } else if (job.status === "cancelled") {
+      return (
+        <div className="status">
+          <Icon Icon={MdClear} size={25} color="danger" />
+          <p className="text">{statusText}</p>
+        </div>
+      );
+    } else {
+      return (
+        <div className="status">
+          <Icon Icon={MdCheck} size={25} color="primary" />
+          <p className="text">{statusText}</p>
+        </div>
+      );
+    }
+  };
 
   return (
     <div className="job">
@@ -79,9 +80,16 @@ function JobListItem({ job, type = "", showJobModal = () => true }) {
         className="details-container pointer"
         onClick={() => showJobModal(job._id)}
       >
-        <p>{moment(job.details.startDateTime).format("MM/DD/YYYY")}</p>
+        {renderStatus()}
         <h3>{job.details.position}</h3>
-        {/* {comps.status} */}
+        <p>{moment(job.details.startDateTime).format("MM/DD/YYYY")}</p>
+        {job.status === "pending-completion" ? (
+          <Button
+            label="Mark as Complete"
+            onClick={() => handleComplete(job._id)}
+            color="yellow"
+          />
+        ) : null}
       </div>
       <div className="details-container">
         <p>
@@ -90,6 +98,9 @@ function JobListItem({ job, type = "", showJobModal = () => true }) {
             moment(job.details.endDateTime).format("LT")}
         </p>
         <p>{`${job.details.location.street}, ${job.details.location.city}, ${job.details.location.state} ${job.details.location.zip}`}</p>
+      </div>
+      <div className="options-child">
+        <OptionsDropdown options={getOptions()} />
       </div>
       {/* {comps.buttons} */}
     </div>

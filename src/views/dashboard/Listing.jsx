@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from "react";
 import moment from "moment";
-import { MdAccessTime, MdCreditCard, MdLocationOn } from "react-icons/md";
+import {
+  MdAccessTime,
+  MdCheck,
+  MdClear,
+  MdCreditCard,
+  MdErrorOutline,
+  MdLocationOn,
+} from "react-icons/md";
 import Skeleton from "react-loading-skeleton";
 
 import Button from "./../../components/Button";
@@ -13,6 +20,9 @@ import { applyToDayJob } from "./../../api/listings";
 import useAuth from "./../../auth/useAuth";
 import GoogleMaps from "../../components/GoogleMaps";
 import { useResponseModal } from "./../../hooks/useResponseModal";
+import Icon from "../../components/Icon";
+import OptionsDropdown from "./../../components/OptionsDropdown";
+import { NavLink } from "react-router-dom";
 
 function Listing({
   id = false,
@@ -25,7 +35,6 @@ function Listing({
   const listingApi = useApi(getListing);
   const applyApi = useApi(applyToDayJob);
   const { showSuccess } = useSuccessScreen();
-  const [isWinner, setIsWinner] = useState(false);
   const { details } = listing;
   const { setModal } = useResponseModal();
 
@@ -34,7 +43,6 @@ function Listing({
     const response = await listingApi.request(id);
     if (response.ok) {
       setListing(response.data);
-      setIsWinner(response.data.winner === user._id);
     } else
       setModal({
         type: "error",
@@ -50,7 +58,7 @@ function Listing({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
-  const onApply = async () => {
+  const handleApply = async () => {
     const response = await applyApi.request(id);
     if (response.ok) {
       showSuccess();
@@ -63,12 +71,62 @@ function Listing({
       });
   };
 
-  const renderButton = () => {
-    if (!listing.winner) return <Button label="Apply" onClick={onApply} />;
-    else {
-      if (isWinner) {
-        return <Button label="IsWinner" />;
-      }
+  const handleComplete = () => {};
+
+  const handleWithdraw = () => {};
+
+  const getOptions = () => {
+    const options = [];
+
+    if (
+      listing.type === "day" &&
+      listing.status === "active" &&
+      moment(listing.details.endDateTime).isAfter(moment())
+    )
+      options.push({
+        name: "Mark Job as Complete",
+        onClick: () => handleComplete(),
+      });
+    if (
+      listing.status === "active" &&
+      moment(listing.details.startDateTime).diff(moment(), "days") > 1
+    )
+      options.push({
+        name: "Withdraw Application",
+        onClick: () => handleWithdraw(),
+      });
+
+    return options;
+  };
+
+  const renderStatus = () => {
+    const statusText =
+      listing.status.charAt(0).toUpperCase() +
+      listing.status.slice(1).replaceAll("-", " ");
+    if (
+      listing.status === "pending-completion" ||
+      listing.status === "pending-cancellation"
+    ) {
+      return (
+        <div className="status">
+          <Icon Icon={MdErrorOutline} size={25} color="yellow" />
+          <p className="text">{statusText}</p>
+        </div>
+      );
+    } else if (listing.status === "cancelled") {
+      return (
+        <div className="status">
+          <Icon Icon={MdClear} size={25} color="danger" />
+          <p className="text">{statusText}</p>
+        </div>
+      );
+    } else {
+      return (
+        <div className="status">
+          <Icon Icon={MdCheck} size={25} color="primary" />
+          <p className="text">{statusText}</p>
+        </div>
+      );
     }
   };
 
@@ -121,11 +179,22 @@ function Listing({
                   className="logo"
                 />
                 <div>
-                  <p>{moment(details.startDateTime).format("MM/DD/YYYY")}</p>
+                  {renderStatus()}
                   <h2>{details.position}</h2>
+                  <p>{moment(details.startDateTime).format("MM/DD/YYYY")}</p>
                 </div>
               </div>
-              <div>{renderButton()}</div>
+              <div>
+                {listing.applied ? (
+                  <p>Applied</p>
+                ) : listing.isMyJob || listing.isMyOffer ? (
+                  getOptions().length > 0 && (
+                    <OptionsDropdown options={getOptions()} />
+                  )
+                ) : (
+                  <Button label="Apply" onClick={handleApply} />
+                )}
+              </div>
             </div>
             <div className="l-content">
               {details.endDateTime && (
@@ -197,6 +266,24 @@ function Listing({
                   </>
                 )}
               </>
+              <hr />
+              <div className="company-info">
+                <h3>About {listing.company.name}</h3>
+                <p className="attr">Website: </p>
+                <a
+                  href={listing.company.websiteUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {listing.company.websiteUrl}
+                </a>
+                <p className="attr">Industry:</p>
+                <p>{listing.company.industry}</p>
+                <p className="attr">Size:</p>
+                <p>{listing.company.size}</p>
+                <p className="attr">Company Description:</p>
+                <p>{listing.company.description}</p>
+              </div>
             </div>
           </div>
         </>

@@ -1,10 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { MdMoreVert } from "react-icons/md";
 
 function OptionsDropdown({ options }) {
   const [isShowing, setIsShowing] = useState(false);
+  const wrapperRef = useRef();
+
+  const useOutsideAlerter = (ref) => {
+    useEffect(() => {
+      const handleClickOutside = (event) => {
+        if (ref.current && !ref.current.contains(event.target)) {
+          setIsShowing(false);
+        }
+      };
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }, [ref]);
+  };
+  useOutsideAlerter(wrapperRef);
+
   return (
-    <div className="options-dropdown">
+    <div className="options-dropdown" ref={wrapperRef}>
       <MdMoreVert
         className="more-icon"
         size={30}
