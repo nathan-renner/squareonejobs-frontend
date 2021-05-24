@@ -1,4 +1,5 @@
-import React from "react";
+/* global google */
+import React, { useEffect, useState } from "react";
 import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api";
 
 function GoogleMaps({
@@ -7,11 +8,25 @@ function GoogleMaps({
   className = false,
   zoom = 11,
 }) {
-  // const [map, setMap] = useState(null);
+  const [google, setGoogle] = useState(false);
+
+  useEffect(() => {
+    !google && setGoogle(window.google);
+    // eslint-disable-next-line
+  }, [window.google]);
+
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
   });
+
+  const options = {
+    fullscreenControls: true,
+    fullscreenControlOptions: {
+      position: google && google.maps.ControlPosition.LEFT_TOP,
+    },
+  };
+
   return (
     <>
       {isLoaded ? (
@@ -19,6 +34,7 @@ function GoogleMaps({
           mapContainerClassName={className ? className : "map"}
           center={coords}
           zoom={zoom}
+          options={options}
         >
           {marker && <Marker position={coords} />}
           {/* Child components, such as markers, info windows, etc. */}

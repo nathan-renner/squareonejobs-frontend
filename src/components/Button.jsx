@@ -9,15 +9,16 @@ function Button({
   buttonStyle,
   onClick,
   className,
+  disabled = false,
   ...otherProps
 }) {
   return (
     <div
       className={`button btn-${color} ${className} ${
         outline ? "outline" : null
-      }`}
+      } ${disabled ? "disabled" : null}`}
       style={buttonStyle}
-      onClick={onClick}
+      onClick={disabled ? undefined : onClick}
       {...otherProps}
     >
       <p className={`btn-text text-${textColor}`} style={textStyle}>

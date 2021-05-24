@@ -18,6 +18,8 @@ export const applyToDayJob = (id) => client.post(`${EP}/apply/${id}`);
 
 export const applyToListing = (id) => client.post(`${EP}/apply/${id}`);
 
+export const withdrawListing = (id) => client.post(`${EP}/withdraw-app/${id}`);
+
 export const saveListing = (id) => client.post(`${EP}/save/${id}`);
 
 export const unsaveListing = (id) => client.post(`${EP}/unsave/${id}`);

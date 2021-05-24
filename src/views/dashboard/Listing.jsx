@@ -14,26 +14,29 @@ import Button from "./../../components/Button";
 import NumberFormat from "react-number-format";
 
 import useApi from "./../../hooks/useApi";
-import { getListing } from "../../api/listings";
+import {
+  getListing,
+  completeListing,
+  withdrawListing,
+} from "../../api/listings";
 import { useSuccessScreen } from "../../hooks/useSuccessScreen";
 import { applyToDayJob } from "./../../api/listings";
-import useAuth from "./../../auth/useAuth";
 import GoogleMaps from "../../components/GoogleMaps";
 import { useResponseModal } from "./../../hooks/useResponseModal";
 import Icon from "../../components/Icon";
 import OptionsDropdown from "./../../components/OptionsDropdown";
-import { NavLink } from "react-router-dom";
 
 function Listing({
   id = false,
   modal = false,
-  onApplyDone = () => true,
+  refreshListings = () => true,
   map = true,
 }) {
   const [listing, setListing] = useState(false);
-  const { user } = useAuth();
   const listingApi = useApi(getListing);
   const applyApi = useApi(applyToDayJob);
+  const completeListingApi = useApi(completeListing);
+  const withdrawAppApi = useApi(withdrawListing);
   const { showSuccess } = useSuccessScreen();
   const { details } = listing;
   const { setModal } = useResponseModal();
@@ -59,10 +62,34 @@ function Listing({
   }, [id]);
 
   const handleApply = async () => {
-    const response = await applyApi.request(id);
+    const result = window.confirm(
+      `About to apply to: "${listing.details.position}"`
+    );
+    if (result) {
+      const response = await applyApi.request(id);
+      if (response.ok) {
+        showSuccess();
+        refreshListings();
+        fetchListing();
+      } else
+        setModal({
+          type: "error",
+          header: "Something went wrong",
+          body: response.data,
+        });
+    }
+  };
+
+  const handleComplete = async () => {
+    const response = await completeListingApi.request(listing._id);
     if (response.ok) {
-      showSuccess();
-      onApplyDone(id);
+      fetchListing();
+      refreshListings();
+      setModal({
+        type: "success",
+        header: "Job marked as complete!",
+        body: "Now, sit tight and wait for your employer to verify and finalize the transaction.",
+      });
     } else
       setModal({
         type: "error",
@@ -71,9 +98,27 @@ function Listing({
       });
   };
 
-  const handleComplete = () => {};
-
-  const handleWithdraw = () => {};
+  const handleWithdraw = async () => {
+    const result = window.confirm(
+      `Are you sure you want to withdraw your application for "${listing.details.position}"?`
+    );
+    if (result) {
+      const response = await withdrawAppApi.request(listing._id);
+      if (response.ok) {
+        fetchListing();
+        refreshListings();
+        setModal({
+          type: "success",
+          header: "Application Withdrawn",
+        });
+      } else
+        setModal({
+          type: "error",
+          header: "Something went wrong",
+          body: response.data,
+        });
+    }
+  };
 
   const getOptions = () => {
     const options = [];
@@ -185,14 +230,28 @@ function Listing({
                 </div>
               </div>
               <div>
-                {listing.applied ? (
-                  <p>Applied</p>
-                ) : listing.isMyJob || listing.isMyOffer ? (
+                {listing.isMyJob || listing.isMyOffer ? (
                   getOptions().length > 0 && (
                     <OptionsDropdown options={getOptions()} />
                   )
                 ) : (
-                  <Button label="Apply" onClick={handleApply} />
+                  <>
+                    <Button
+                      label={listing.applied ? "Applied" : "Apply"}
+                      onClick={handleApply}
+                      disabled={listing.applied}
+                    />
+                    {listing.applied && (
+                      <OptionsDropdown
+                        options={[
+                          {
+                            name: "Withdraw Application",
+                            onClick: handleWithdraw,
+                          },
+                        ]}
+                      />
+                    )}
+                  </>
                 )}
               </div>
             </div>
