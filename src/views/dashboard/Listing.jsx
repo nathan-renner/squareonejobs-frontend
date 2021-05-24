@@ -6,6 +6,7 @@ import {
   MdClear,
   MdCreditCard,
   MdErrorOutline,
+  MdLibraryAdd,
   MdLocationOn,
 } from "react-icons/md";
 import Skeleton from "react-loading-skeleton";
@@ -18,6 +19,8 @@ import {
   getListing,
   completeListing,
   withdrawListing,
+  saveListing,
+  unsaveListing,
 } from "../../api/listings";
 import { useSuccessScreen } from "../../hooks/useSuccessScreen";
 import { applyToDayJob } from "./../../api/listings";
@@ -37,6 +40,8 @@ function Listing({
   const applyApi = useApi(applyToDayJob);
   const completeListingApi = useApi(completeListing);
   const withdrawAppApi = useApi(withdrawListing);
+  const saveListingApi = useApi(saveListing);
+  const unsaveListingApi = useApi(unsaveListing);
   const { showSuccess } = useSuccessScreen();
   const { details } = listing;
   const { setModal } = useResponseModal();
@@ -120,6 +125,26 @@ function Listing({
     }
   };
 
+  const handleSaved = async () => {
+    const api = listing.saved ? unsaveListingApi : saveListingApi;
+    const response = await api.request(listing._id);
+    if (response.ok) {
+      setModal({
+        type: "success",
+        header: !listing.saved ? "Listing saved!" : "Listing unsaved",
+        body: !listing.saved
+          ? 'You can find this listing in the My Jobs tab under "Saved Listings"'
+          : "",
+      });
+      setListing({ ...listing, saved: !listing.saved });
+    } else
+      setModal({
+        type: "error",
+        header: "Something went wrong",
+        body: response.data,
+      });
+  };
+
   const getOptions = () => {
     const options = [];
 
@@ -134,7 +159,7 @@ function Listing({
       });
     if (
       listing.status === "active" &&
-      moment(listing.details.startDateTime).diff(moment(), "days") > 1
+      moment().diff(moment(listing.details.startDateTime), "days") > 1
     )
       options.push({
         name: "Withdraw Application",
@@ -227,32 +252,45 @@ function Listing({
                   {renderStatus()}
                   <h2>{details.position}</h2>
                   <p>{moment(details.startDateTime).format("MM/DD/YYYY")}</p>
+                  <p>Posted {moment(listing.dateCreated).fromNow()}</p>
                 </div>
               </div>
               <div>
-                {listing.isMyJob || listing.isMyOffer ? (
-                  getOptions().length > 0 && (
-                    <OptionsDropdown options={getOptions()} />
-                  )
-                ) : (
-                  <>
+                <div className="icons">
+                  <Icon
+                    className="saved"
+                    Icon={MdLibraryAdd}
+                    size={30}
+                    sizeFactor={0.7}
+                    color="white"
+                    iconColor={listing.saved ? "secondary" : "medium"}
+                    onClick={handleSaved}
+                  />
+                  <OptionsDropdown
+                    options={
+                      listing.isMyJob || listing.isMyOffer
+                        ? getOptions()
+                        : [
+                            {
+                              name: "Withdraw Application",
+                              onClick: handleWithdraw,
+                            },
+                          ]
+                    }
+                  />
+                </div>
+                <div>
+                  {!listing.isMyJob && !listing.isMyOffer && (
                     <Button
                       label={listing.applied ? "Applied" : "Apply"}
                       onClick={handleApply}
-                      disabled={listing.applied}
+                      disabled={
+                        listing.applied ||
+                        moment().isAfter(listing.details.startDateTime)
+                      }
                     />
-                    {listing.applied && (
-                      <OptionsDropdown
-                        options={[
-                          {
-                            name: "Withdraw Application",
-                            onClick: handleWithdraw,
-                          },
-                        ]}
-                      />
-                    )}
-                  </>
-                )}
+                  )}
+                </div>
               </div>
             </div>
             <div className="l-content">

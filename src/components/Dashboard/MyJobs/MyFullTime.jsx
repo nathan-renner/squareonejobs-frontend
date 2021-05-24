@@ -37,18 +37,6 @@ function MyFullTime(props) {
 
   return (
     <div className="my-jobs-content">
-      <ActivityIndicator visible={getMyJobsApi.loading} />
-      <Modal
-        className="nopadding"
-        visible={selectedJob}
-        Content={Listing}
-        onCancel={() => setSelectedJob(false)}
-        componentProps={{
-          modal: true,
-          id: selectedJob,
-          onExit: () => setSelectedJob(false),
-        }}
-      />
       {fullTime && (
         <>
           <Header
@@ -98,6 +86,19 @@ function MyFullTime(props) {
           )}
         </>
       )}
+      <Modal
+        className="nopadding"
+        visible={selectedJob}
+        Content={Listing}
+        onCancel={() => setSelectedJob(false)}
+        componentProps={{
+          modal: true,
+          id: selectedJob,
+          onExit: () => setSelectedJob(false),
+          refreshListings: fetchJobs,
+        }}
+      />
+      <ActivityIndicator visible={getMyJobsApi.loading} />
     </div>
   );
 }

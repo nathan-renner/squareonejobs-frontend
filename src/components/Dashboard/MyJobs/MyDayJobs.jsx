@@ -54,7 +54,6 @@ function MyDayJobs(props) {
                 type="upcoming"
                 jobs={dayJobs.upcoming}
                 showJobModal={setSelectedJob}
-                refreshListings={fetchJobs}
               />
             </Card>
           )}
@@ -67,7 +66,6 @@ function MyDayJobs(props) {
                 type="pending"
                 jobs={dayJobs.pending}
                 showJobModal={setSelectedJob}
-                refreshListings={fetchJobs}
               />
             </Card>
           )}
@@ -81,7 +79,6 @@ function MyDayJobs(props) {
                 type="previous"
                 jobs={dayJobs.previous}
                 showJobModal={setSelectedJob}
-                refreshListings={fetchJobs}
               />
             </Card>
           )}
@@ -113,6 +110,7 @@ function MyDayJobs(props) {
           modal: true,
           id: selectedJob,
           onExit: () => setSelectedJob(false),
+          refreshListings: fetchJobs,
         }}
       />
       <ActivityIndicator visible={getMyJobsApi.loading} />

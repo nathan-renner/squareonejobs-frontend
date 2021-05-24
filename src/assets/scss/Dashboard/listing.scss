@@ -44,7 +44,23 @@
           margin-bottom: 0;
         }
       }
-      .button {
+
+      .icons {
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-start;
+      }
+
+      .saved {
+        margin-right: 0.5em;
+        cursor: pointer;
+        background-color: transparent;
+
+        &:hover {
+          @include themed() {
+            background-color: t("background") !important;
+          }
+        }
       }
 
       p {
@@ -73,7 +89,7 @@
         h2 {
           font-size: 1.4em !important;
           font-weight: 600;
-          margin-bottom: 0;
+          margin-bottom: 0.2em;
         }
       }
     }

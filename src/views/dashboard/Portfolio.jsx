@@ -9,7 +9,6 @@ import Skills from "./../../components/Dashboard/Portfolio/Skills";
 import { getPortfolio, updatePortfolioElement } from "../../api/users";
 import useApi from "./../../hooks/useApi";
 import useAuth from "./../../auth/useAuth";
-import Button from "./../../components/Button";
 import ActivityIndicator from "./../../components/ActivityIndicator";
 import UploadScreen from "./../../components/UploadScreen";
 import References from "./../../components/Dashboard/Portfolio/References";

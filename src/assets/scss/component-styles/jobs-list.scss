@@ -41,6 +41,21 @@
     flex-shrink: 1;
     flex-grow: 0;
     align-self: flex-start;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+
+    .saved {
+      margin-right: 0.5em;
+      cursor: pointer;
+      background-color: transparent;
+
+      &:hover {
+        @include themed() {
+          background-color: t("background");
+        }
+      }
+    }
   }
 
   .apply {
@@ -67,7 +82,7 @@
 
   &:hover {
     @include themed() {
-      background-color: t("background");
+      background-color: rgba(t("background"), 0.3);
     }
   }
 
