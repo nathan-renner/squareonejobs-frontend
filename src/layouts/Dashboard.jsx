@@ -70,7 +70,7 @@ const Dashboard = () => {
                 <Route path={`/payments`} component={Payments} />
                 <Route path={`/my-jobs`} component={MyJobs} />
                 <Route exact path={`/`} component={Home} />
-                <Redirect to="/not-found" />
+                <Redirect to="/" />
               </Switch>
             </div>
           </>

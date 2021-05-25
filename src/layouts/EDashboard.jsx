@@ -66,7 +66,7 @@ const EDashboard = () => {
                 <Route path={`/new-listing`} component={NewListing} />
                 <Route path={`/update-listing/:id`} component={UpdateListing} />
                 <Route exact path="/" component={Home} />
-                <Redirect to="/not-found" />
+                <Redirect to="/" />
               </Switch>
             </div>
           </>
