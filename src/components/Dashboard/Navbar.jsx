@@ -204,7 +204,7 @@ const Navbar = ({ data }) => {
           </div>
           <img
             className="nav-item avatar"
-            src={data.avatar ? `${data.avatar}?v=${Date.now()}` : defaultAvatar}
+            src={data.avatar ? data.avatar : defaultAvatar}
             alt="Avatar"
             onClick={() => handleDropdown("profile")}
           />

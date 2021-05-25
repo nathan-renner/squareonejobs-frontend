@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import queryString from "query-string";
 import ReactPaginate from "react-paginate";
 
@@ -13,10 +13,10 @@ import Button from "./../../components/Button";
 import JobCard from "../../components/Dashboard/Search/JobCard";
 import useQuery from "../../hooks/useQuery";
 import { useResponseModal } from "./../../hooks/useResponseModal";
+import Zip from "./../../components/Dashboard/Search/Zip";
 
 function Search(props) {
   const history = useHistory();
-  const location = useLocation();
   const query = useQuery();
   const listingsApi = useApi(searchListings);
   const [selected, setSelected] = useState(false);
@@ -24,19 +24,30 @@ function Search(props) {
   const [filter, setFilter] = useState({
     c: query.c ? query.c : "",
     t: query.t ? query.t : "",
-    r: query.r ? query.c : "25",
+    r: query.r ? query.r : "25",
+    d: query.d ? query.d : "",
     remote: query.remote ? query.remote === "true" : false,
     nodl: query.nodl ? query.nodl === "true" : false,
+    zip: query.zip ? query.zip : false,
+    lat: query.lat ? query.lat : false,
+    lng: query.lng ? query.lng : false,
   });
   const [listings, setListings] = useState(false);
   const [count, setCount] = useState(false);
   const { setModal } = useResponseModal();
 
   const fetchListings = async () => {
+    setSelected(false);
     const response = await listingsApi.request(queryString.stringify(query));
     if (response.ok) {
-      setListings(response.data.listings);
+      setFilter({
+        ...filter,
+        zip: response.data.zip,
+        lat: response.data.lat,
+        lng: response.data.lng,
+      });
       setCount(response.data.count);
+      setListings(response.data.listings);
     } else
       setModal({
         type: "error",
@@ -46,21 +57,30 @@ function Search(props) {
   };
 
   useEffect(() => {
-    if (!listingsApi.error && !listings) fetchListings();
+    fetchListings();
     // eslint-disable-next-line
-  }, [location]);
+  }, [query]);
 
   const handleFilterChange = (value, type) => {
     const newFilter = { ...filter };
+
+    if (type === "zip" && value !== filter.zip) {
+      delete newFilter.lat;
+      delete newFilter.lng;
+    }
 
     value === "" ? delete newFilter[type] : (newFilter[type] = value);
     setFilter(newFilter);
 
     value === "" ? delete query[type] : (query[type] = value);
 
+    if ((newFilter.lng && !query.lng) || newFilter.lng !== query.lng)
+      query.lng = newFilter.lng;
+    if ((newFilter.lat && !query.lat) || newFilter.lat !== query.lat)
+      query.lat = newFilter.lat;
+
     const stringified = queryString.stringify(query);
     history.push(`/search?${stringified}`);
-    fetchListings(stringified);
   };
 
   const handlePageChange = ({ selected: pageNum }) => {
@@ -70,18 +90,22 @@ function Search(props) {
     console.log(start, pageNum, query.start);
     const stringified = queryString.stringify(query);
     history.push(`/search?${stringified}`);
-    fetchListings(stringified);
   };
 
   return (
     <div className="search">
-      <Filters filter={filter} handleFilterChange={handleFilterChange} />
+      <div className="search-header">
+        {filter.zip && (
+          <Zip zip={filter.zip} handleFilterChange={handleFilterChange} />
+        )}
+        <Filters filter={filter} handleFilterChange={handleFilterChange} />
+      </div>
       <h3>Search results for: "{query.q && query.q}"</h3>
       <p>
         Page {Math.trunc(start / 15 + 1)} of {count} listings.
       </p>
       <ActivityIndicator visible={listingsApi.loading} />
-      {listings && (
+      {listings.length > 0 ? (
         <>
           <div className="results-container">
             <div className="results">
@@ -115,15 +139,17 @@ function Search(props) {
             </div>
           </div>
         </>
+      ) : (
+        <p className="text-center">No listings found for this search.</p>
       )}
-      {listingsApi.error && (
+      {/* {listingsApi.error && (
         <div className="error-container">
           <div>
             <h3>Error loading portfolio</h3>
             <Button label="retry" onClick={() => fetchListings()} />
           </div>
         </div>
-      )}
+      )} */}
     </div>
   );
 }

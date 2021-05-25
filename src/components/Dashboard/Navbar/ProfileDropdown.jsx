@@ -17,10 +17,7 @@ function ProfileDropdown({ visible, setDropdown, avatar }) {
       className={`nav-dropdown profile-dropdown ${visible ? "active" : null}`}
     >
       <div className="user-details">
-        <img
-          src={avatar ? `${avatar}?v=${Date.now()}` : defaultAvatar}
-          alt="avatar"
-        />
+        <img src={avatar ? avatar : defaultAvatar} alt="avatar" />
         <h3>{user.firstName + " " + user.lastName}</h3>
         <p className="subtitle">{user.email}</p>
       </div>

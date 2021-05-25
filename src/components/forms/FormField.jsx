@@ -16,7 +16,11 @@ function FormField({ name, width, ...otherProps }) {
         width={width}
         {...otherProps}
       />
-      <ErrorMessage error={errors[name]} visible={touched[name]} />
+      <ErrorMessage
+        error={errors[name]}
+        visible={touched[name]}
+        backgroundColor="foreground"
+      />
     </>
   );
 }

@@ -4,6 +4,7 @@ function TextInput({
   type = "input",
   active = false,
   label = false,
+  backgroundColor = false,
   onSubmit,
   size = false,
   containerStyle,
@@ -80,7 +81,9 @@ function TextInput({
       <div>
         {label ? <p className="input-label">{label}</p> : null}
         <div
-          className={`input-container ${size ? size : null}`}
+          className={`input-container ${size ? size : null} ${
+            backgroundColor ? backgroundColor : null
+          }`}
           style={containerStyle}
         >
           {LeftIcon && (

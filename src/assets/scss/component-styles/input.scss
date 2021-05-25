@@ -21,6 +21,16 @@
     height: 40px;
   }
 
+  &.foreground {
+    @include themed() {
+      background-color: t("foreground");
+
+      input {
+        background-color: t("foreground");
+      }
+    }
+  }
+
   input {
     @include themed() {
       background-color: t("background");
