@@ -14,6 +14,8 @@ import useApi from "./../../hooks/useApi";
 import { getDashboardData } from "../../api/users";
 import PointsModal from "../../components/PointsModal";
 import { useResponseModal } from "./../../hooks/useResponseModal";
+import Card from "../../components/Card";
+import JobsList from "./../../components/JobsList";
 
 const Home = () => {
   const dashboardApi = useApi(getDashboardData);
@@ -64,9 +66,25 @@ const Home = () => {
           />
           <div className="content-split">
             <div>
+              {dashData.offers.length > 0 && (
+                <Card
+                  data-aos="fade-up"
+                  data-aos-once={true}
+                  className="card-outline-yellow"
+                >
+                  <h2>Offers</h2>
+                  <JobsList
+                    jobs={dashData.offers}
+                    showJobModal={setSelectedJob}
+                    refreshListings={fetchDashboardData}
+                    offers
+                  />
+                </Card>
+              )}
               <JobsForYouCard
                 data-aos="fade-up"
                 data-aos-once={true}
+                data-aos-delay={dashData.offers.length > 0 ? "100" : "0"}
                 onSelect={setSelectedJob}
                 jobs={dashData.jobsForYou}
               />

@@ -68,7 +68,11 @@ function ListingPage(props) {
     if (result) {
       const response = await hireUserApi.request(id, userId);
       if (response.ok) {
-        setModal({ type: "success", header: `Hired ${name}!` });
+        setModal({
+          type: "success",
+          header:
+            listing.type === "day" ? `Hired ${name}!` : `Sent offer to ${name}`,
+        });
         fetchListing();
       } else
         setModal({

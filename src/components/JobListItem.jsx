@@ -11,6 +11,7 @@ import Button from "./Button";
 import useApi from "./../hooks/useApi";
 import { useResponseModal } from "./../hooks/useResponseModal";
 import {
+  acceptOffer,
   completeListing,
   saveListing,
   unsaveListing,
@@ -21,12 +22,14 @@ function JobListItem({
   job: listing,
   showJobModal = () => true,
   saved = false,
+  offers = false,
   refreshListings = () => true,
 }) {
   const completeListingApi = useApi(completeListing);
   const withdrawAppApi = useApi(withdrawListing);
   const saveListingApi = useApi(saveListing);
   const unsaveListingApi = useApi(unsaveListing);
+  const acceptOfferApi = useApi(acceptOffer);
   const { setModal } = useResponseModal();
 
   const handleComplete = async () => {
@@ -98,9 +101,43 @@ function JobListItem({
     }
   };
 
+  const handleAcceptOffer = async () => {
+    const result = window.confirm(
+      `About to accept "${listing.details.position}" at ${listing.company.name}`
+    );
+    if (result) {
+      const response = await acceptOfferApi.request(listing._id);
+      if (response.ok) {
+        refreshListings();
+        setModal({
+          type: "success",
+          header: "Congratulations!",
+          body: "Nice work on getting a new job!",
+        });
+      } else
+        setModal({
+          type: "error",
+          header: "Something went wrong",
+          body: response.data,
+        });
+    }
+  };
+
+  const handleDeclineOffer = async () => {};
+
   const getOptions = () => {
     const options = [];
 
+    if (listing.status === "in-progress" && offers) {
+      options.push({
+        name: "Accept Offer",
+        onClick: () => handleAcceptOffer(),
+      });
+      options.push({
+        name: "Decline Offer",
+        onClick: () => handleDeclineOffer(),
+      });
+    }
     if (
       listing.type === "day" &&
       listing.status === "active" &&
@@ -140,6 +177,13 @@ function JobListItem({
           <p className="text">{statusText}</p>
         </div>
       );
+    } else if (listing.status === "in-progress" && offers) {
+      return (
+        <div className="status">
+          <Icon Icon={MdErrorOutline} size={25} color="yellow" />
+          <p className="text">Job Offer Received</p>
+        </div>
+      );
     } else if (listing.status === "cancelled") {
       return (
         <div className="status">
@@ -167,13 +211,20 @@ function JobListItem({
         {renderStatus()}
         <h3>{listing.details.position}</h3>
         <p>{moment(listing.details.startDateTime).format("MM/DD/YYYY")}</p>
-        {!saved && listing.status === "pending-completion" ? (
+        {!saved && listing.status === "pending-completion" && (
           <Button
             label="Mark as Complete"
-            onClick={() => handleComplete(listing._id)}
+            onClick={() => handleComplete()}
             color="yellow"
           />
-        ) : null}
+        )}
+        {listing.status === "in-progress" && offers && (
+          <Button
+            label="Accept Offer"
+            onClick={() => handleAcceptOffer()}
+            color="yellow"
+          />
+        )}
       </div>
       <div className="details-container">
         <p>

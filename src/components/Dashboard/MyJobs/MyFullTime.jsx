@@ -50,7 +50,11 @@ function MyFullTime(props) {
               <div className="section-header">
                 <h2>Offers</h2>
               </div>
-              <JobsList jobs={fullTime.offers} showJobModal={setSelectedJob} />
+              <JobsList
+                jobs={fullTime.offers}
+                showJobModal={setSelectedJob}
+                offers
+              />
             </Card>
           )}
           {fullTime.applied.length > 0 && (
