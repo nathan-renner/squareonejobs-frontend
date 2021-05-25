@@ -53,7 +53,7 @@ function NotificationDropdown({ visible }) {
             {notif.message}
           </p>
           <p className={`date-text ${notif.clicked ? "clicked" : null}`}>
-            {moment().from(notif.dateCreated)}
+            {moment(notif.dateCreated).fromNow()}
           </p>
         </div>
         {!notif.clicked && <div className="new-msg-circle" />}

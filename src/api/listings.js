@@ -29,6 +29,8 @@ export const selectCandidate = (listingId, userId) =>
 
 export const acceptOffer = (id) => client.post(`${EP}/accept-offer/${id}`);
 
+export const declineOffer = (id) => client.post(`${EP}/decline-offer/${id}`);
+
 export const completeListing = (id) => client.post(`${EP}/complete/${id}`);
 
 export const cancelListing = (id) => client.post(`${EP}/cancel/${id}`);

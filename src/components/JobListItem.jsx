@@ -13,6 +13,7 @@ import { useResponseModal } from "./../hooks/useResponseModal";
 import {
   acceptOffer,
   completeListing,
+  declineOffer,
   saveListing,
   unsaveListing,
   withdrawListing,
@@ -30,6 +31,7 @@ function JobListItem({
   const saveListingApi = useApi(saveListing);
   const unsaveListingApi = useApi(unsaveListing);
   const acceptOfferApi = useApi(acceptOffer);
+  const declineOfferApi = useApi(declineOffer);
   const { setModal } = useResponseModal();
 
   const handleComplete = async () => {
@@ -123,7 +125,27 @@ function JobListItem({
     }
   };
 
-  const handleDeclineOffer = async () => {};
+  const handleDeclineOffer = async () => {
+    const result = window.confirm(
+      `Are you sure you want to decline your offer for "${listing.details.position}" at ${listing.company.name}`
+    );
+    if (result) {
+      const response = await declineOfferApi.request(listing._id);
+      if (response.ok) {
+        refreshListings();
+        setModal({
+          type: "success",
+          header: "Offer Declined.",
+          body: "Don't worry, you'll find a job that's right for you soon enough!",
+        });
+      } else
+        setModal({
+          type: "error",
+          header: "Something went wrong",
+          body: response.data,
+        });
+    }
+  };
 
   const getOptions = () => {
     const options = [];

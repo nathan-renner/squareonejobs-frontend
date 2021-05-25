@@ -57,7 +57,12 @@ function JobsForYouCard({ jobs, onSelect, ...props }) {
                 </p>
                 <p>{`${loc.street}, ${loc.city}, ${loc.state} ${loc.zip}`}</p>
               </div>
-              <Button label="View" color="white" outline textColor="primary" />
+              <Button
+                label="View"
+                color="transparent"
+                outline
+                textColor="primary"
+              />
             </div>
           );
         })}

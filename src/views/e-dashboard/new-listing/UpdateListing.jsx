@@ -13,6 +13,7 @@ import ActivityIndicator from "./../../../components/ActivityIndicator";
 import useApi from "./../../../hooks/useApi";
 import { getListing, updateListing } from "./../../../api/listings";
 import ResponseModal from "./../../../components/ResponseModal";
+import { useResponseModal } from "./../../../hooks/useResponseModal";
 
 // const initialVals = {
 //   category: "",
@@ -111,7 +112,7 @@ function UpdateListing(props) {
   const [savedLocs, setSavedLocs] = useState(false);
   const [location, setLocation] = useState(false);
   const [dl, setDl] = useState(false);
-  const [modal, setModal] = useState(false);
+  const { setModal } = useResponseModal();
 
   const fetchListing = async () => {
     const res = await getListingApi.request(id);
@@ -217,21 +218,18 @@ function UpdateListing(props) {
     if (response.ok) {
       history.push(`/listing/${id}`);
     } else {
-      setModal({ type: "error", body: response.data, update: true });
+      setModal({
+        type: "error",
+        body: response.data,
+        buttonText: "Retry",
+        onButtonClick: fetchListing,
+      });
       setInitialVals(i);
     }
   };
 
   return (
     <div className="post-listing">
-      <ResponseModal
-        visible={modal}
-        onButtonClick={!modal.update ? fetchListing : () => setModal(false)}
-        type={modal.type}
-        body={modal.body}
-        header={modal.header}
-        buttonText={!modal.update ? "retry" : "OK"}
-      />
       <ActivityIndicator
         visible={getLocationsApi.loading || getListingApi.loading}
       />
