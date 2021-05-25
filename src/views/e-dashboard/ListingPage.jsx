@@ -20,6 +20,7 @@ import {
   MdCheck,
   MdErrorOutline,
   MdClear,
+  MdHome,
 } from "react-icons/md";
 import Button from "../../components/Button";
 import UserCardList from "./../../components/UserCardList";
@@ -321,6 +322,12 @@ function ListingPage(props) {
                   <div className="detail">
                     <MdCreditCard className="icon" size={25} />
                     <p>{details.salary}</p>
+                  </div>
+                )}
+                {details.remote && (
+                  <div className="detail">
+                    <MdHome className="icon" size={25} />
+                    <p>Remote work</p>
                   </div>
                 )}
                 <>

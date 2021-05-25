@@ -6,6 +6,7 @@ import {
   MdClear,
   MdCreditCard,
   MdErrorOutline,
+  MdHome,
   MdLibraryAdd,
   MdLocationOn,
 } from "react-icons/md";
@@ -408,6 +409,12 @@ function Listing({
                 <div className="detail">
                   <MdCreditCard className="icon" size={25} />
                   <p>{details.salary}</p>
+                </div>
+              )}
+              {details.remote && (
+                <div className="detail">
+                  <MdHome className="icon" size={25} />
+                  <p>Remote work</p>
                 </div>
               )}
               <>

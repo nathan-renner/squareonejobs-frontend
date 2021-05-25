@@ -111,6 +111,7 @@ function NewListing(props) {
   const [savedLocs, setSavedLocs] = useState(false);
   const [location, setLocation] = useState(false);
   const [dl, setDl] = useState(false);
+  const [remote, setRemote] = useState(false);
   const [initialValues, setInitialValues] = useState(false);
   const { setModal } = useResponseModal();
   const [status, setStatus] = useState(false);
@@ -128,6 +129,7 @@ function NewListing(props) {
         res.data.details.qualifications &&
           res.data.details.qualifications.driversLicense
       );
+      setRemote(res.data.details.remote && res.data.details.remote);
       setLocation(res.data.details.location);
       setInitialValues({
         category: res.data.category,
@@ -209,6 +211,7 @@ function NewListing(props) {
                 state: i.state,
                 zip: i.zip,
               },
+        remote,
         description: i.description,
         qualifications: {
           driversLicense: dl,
@@ -252,6 +255,7 @@ function NewListing(props) {
                 state: i.state,
                 zip: i.zip,
               },
+        remote,
         description: i.description,
         qualifications: {
           driversLicense: dl,
@@ -429,6 +433,15 @@ function NewListing(props) {
                     </div>
                     <div className="section">
                       <h2>Details</h2>
+                      <label
+                        className="checkbox"
+                        onChange={() => setRemote(!remote)}
+                        style={{ marginBottom: "1em" }}
+                      >
+                        <input type="checkbox" defaultChecked={remote} />
+                        <span className="checkmark"></span>
+                        Remote Work
+                      </label>
                       <FormField
                         name="description"
                         label="Description"

@@ -1,6 +1,11 @@
 import React from "react";
 import moment from "moment";
-import { MdAccessTime, MdCreditCard, MdLocationOn } from "react-icons/md";
+import {
+  MdAccessTime,
+  MdCreditCard,
+  MdHome,
+  MdLocationOn,
+} from "react-icons/md";
 import Skeleton from "react-loading-skeleton";
 
 import NumberFormat from "react-number-format";
@@ -107,6 +112,12 @@ function Listing({ listing, map = true }) {
                 <div className="detail">
                   <MdCreditCard className="icon" size={25} />
                   <p>{listing.details.salary}</p>
+                </div>
+              )}
+              {listing.details.remote && (
+                <div className="detail">
+                  <MdHome className="icon" size={25} />
+                  <p>Remote work</p>
                 </div>
               )}
               <>
