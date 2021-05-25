@@ -6,7 +6,7 @@ import ActivityIndicator from "./../../components/ActivityIndicator";
 import Header from "./../../components/E-Dashboard/Home/Header";
 import UpcomingDayJobs from "./../../components/E-Dashboard/Home/UpcomingDayJobs";
 import Applicants from "./../../components/E-Dashboard/Home/Applicants";
-import RecommendedCandidates from "./../../components/E-Dashboard/Home/RecommendedCandidates";
+import RecommendedWorkers from "../../components/E-Dashboard/Home/RecommendedWorkers";
 import useApi from "./../../hooks/useApi";
 import { getDashboardData } from "./../../api/employers";
 import { useResponseModal } from "./../../hooks/useResponseModal";
@@ -67,10 +67,11 @@ const Home = () => {
                   applicants={dashData.applicants}
                 />
               )}
-              <RecommendedCandidates
+              <RecommendedWorkers
                 data-aos="fade-up"
                 data-aos-once={true}
                 data-aos-delay={300}
+                workers={dashData.recommendedWorkers}
               />
             </div>
           </div>

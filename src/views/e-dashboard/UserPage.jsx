@@ -60,7 +60,8 @@ function UserPage(props) {
             />
           </div>
           <div className="content">
-            {(user.history.current !== [] || user.history.previous !== []) && (
+            {(user.history.current.length > 0 ||
+              user.history.previous.length > 0) && (
               <History
                 data-aos="fade-up"
                 data-aos-once={true}

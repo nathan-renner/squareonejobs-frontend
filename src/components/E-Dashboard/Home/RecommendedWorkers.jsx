@@ -1,7 +1,7 @@
 import React from "react";
 
 import defaultAvatar from "../../../assets/images/default-avatar.png";
-import UserCardList from "./../../UserCardList";
+import UserCardList from "../../UserCardList";
 
 const candidates = [
   {
@@ -15,15 +15,15 @@ const candidates = [
   },
 ];
 
-function RecommendedCandidates({ ...props }) {
+function RecommendedWorkers({ workers, ...props }) {
   return (
     <div className="card" {...props}>
-      <h2>Recommended Candidates</h2>
+      <h2>Recommended Workers</h2>
       <div className="recommended-candidates">
-        <UserCardList users={candidates} />
+        <UserCardList users={workers} applicant={false} />
       </div>
     </div>
   );
 }
 
-export default RecommendedCandidates;
+export default RecommendedWorkers;

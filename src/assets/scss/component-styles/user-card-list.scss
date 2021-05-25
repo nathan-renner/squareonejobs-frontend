@@ -1,6 +1,6 @@
 .user-grid {
   display: grid;
-  grid-template-columns: auto auto auto auto;
+  grid-template-columns: repeat(4, 1fr);
   grid-gap: 1em;
   place-items: start;
 }
