@@ -31,6 +31,7 @@ import GoogleMaps from "../../components/GoogleMaps";
 import { useResponseModal } from "./../../hooks/useResponseModal";
 import Icon from "../../components/Icon";
 import OptionsDropdown from "./../../components/OptionsDropdown";
+import { useHistory } from "react-router-dom";
 
 function Listing({
   id = false,
@@ -38,6 +39,7 @@ function Listing({
   refreshListings = () => true,
   map = true,
 }) {
+  const history = useHistory();
   const [listing, setListing] = useState(false);
   const listingApi = useApi(getListing);
   const applyApi = useApi(applyToDayJob);
@@ -214,6 +216,7 @@ function Listing({
     if (
       listing.type === "day" &&
       listing.status === "active" &&
+      listing.isMyJob &&
       moment(listing.details.endDateTime).isAfter(moment())
     )
       options.push({
@@ -221,12 +224,18 @@ function Listing({
         onClick: () => handleComplete(),
       });
     if (
+      listing.applied &&
       listing.status === "active" &&
-      moment().diff(moment(listing.details.startDateTime), "days") > 1
+      moment(listing.details.startDateTime).diff(moment(), "days") >= 1
     )
       options.push({
         name: "Withdraw Application",
         onClick: () => handleWithdraw(),
+      });
+    if (modal)
+      options.push({
+        name: "Go to Listing Page",
+        onClick: () => history.push(`/listing/${listing._id}`),
       });
 
     return options;
@@ -336,18 +345,7 @@ function Listing({
                     iconColor={listing.saved ? "secondary" : "medium"}
                     onClick={handleSaved}
                   />
-                  <OptionsDropdown
-                    options={
-                      listing.isMyJob || listing.isMyOffer
-                        ? getOptions()
-                        : [
-                            {
-                              name: "Withdraw Application",
-                              onClick: handleWithdraw,
-                            },
-                          ]
-                    }
-                  />
+                  <OptionsDropdown options={getOptions()} />
                 </div>
                 <div>
                   {!listing.isMyJob && !listing.isMyOffer && (

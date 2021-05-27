@@ -2,10 +2,7 @@ import React from "react";
 import moment from "moment";
 import { MdCheck, MdClear, MdErrorOutline, MdLibraryAdd } from "react-icons/md";
 import Icon from "./Icon";
-// import Button from "./Button";
-// import Icon from "./Icon";
-// import { BsExclamation } from "react-icons/bs";
-// import { HiCheck } from "react-icons/hi";
+import { useHistory } from "react-router-dom";
 import OptionsDropdown from "./OptionsDropdown";
 import Button from "./Button";
 import useApi from "./../hooks/useApi";
@@ -26,6 +23,7 @@ function JobListItem({
   offers = false,
   refreshListings = () => true,
 }) {
+  const history = useHistory();
   const completeListingApi = useApi(completeListing);
   const withdrawAppApi = useApi(withdrawListing);
   const saveListingApi = useApi(saveListing);
@@ -181,7 +179,10 @@ function JobListItem({
         name: "Withdraw Application",
         onClick: () => handleWithdraw(),
       });
-
+    options.push({
+      name: "Go to Listing Page",
+      onClick: () => history.push(`/listing/${listing._id}`),
+    });
     return options;
   };
 

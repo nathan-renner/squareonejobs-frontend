@@ -11,7 +11,6 @@ import Payments from "./../views/dashboard/Payments";
 import Portfolio from "./../views/dashboard/Portfolio";
 import Settings from "./../views/dashboard/Settings";
 import Account from "./../views/dashboard/Account";
-import Listing from "./../views/dashboard/Listing";
 import Explore from "./../views/dashboard/Explore";
 import Search from "./../views/dashboard/Search";
 
@@ -22,6 +21,7 @@ import { SuccessProvider } from "../hooks/useSuccessScreen";
 import { useResponseModal } from "../hooks/useResponseModal";
 import ChangePassword from "./../views/common/ChangePassword";
 import ResponseModal from "../components/ResponseModal";
+import ListingPage from "./../views/dashboard/ListingPage";
 
 const Dashboard = () => {
   const navbarApi = useApi(getNavbarData);
@@ -57,7 +57,7 @@ const Dashboard = () => {
             <Navbar data={navData} />
             <div className="content-container">
               <Switch>
-                <Route path={`/listing/:id`} component={Listing} />
+                <Route path={`/listing/:id`} component={ListingPage} />
                 <Route path={`/search`} component={Search} />
                 <Route path={`/explore`} component={Explore} />
                 <Route path={`/account`} component={Account} />

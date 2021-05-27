@@ -9,7 +9,6 @@ import Filters from "./../../components/Dashboard/Search/Filters";
 import { searchListings } from "./../../api/listings";
 import useApi from "../../hooks/useApi";
 import ActivityIndicator from "./../../components/ActivityIndicator";
-import Button from "./../../components/Button";
 import JobCard from "../../components/Dashboard/Search/JobCard";
 import useQuery from "../../hooks/useQuery";
 import { useResponseModal } from "./../../hooks/useResponseModal";

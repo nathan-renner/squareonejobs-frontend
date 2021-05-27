@@ -12,29 +12,8 @@ import { getLocations } from "./../../../api/companies";
 import ActivityIndicator from "./../../../components/ActivityIndicator";
 import useApi from "./../../../hooks/useApi";
 import { getListing, updateListing } from "./../../../api/listings";
-import ResponseModal from "./../../../components/ResponseModal";
 import { useResponseModal } from "./../../../hooks/useResponseModal";
 
-// const initialVals = {
-//   category: "",
-//   position: "",
-//   location: {
-//     street: "",
-//     city: "",
-//     state: "",
-//     zip: "",
-//     coordinates: undefined,
-//   },
-//   startDateTime: null,
-//   endDateTime: null,
-//   salary: "",
-//   wage: undefined,
-//   remote: "",
-//   description: "",
-//   benefits: "",
-//   otherQualifications: "",
-//   tags: [],
-// };
 const categories = [
   "Restaurant Services",
   "Sales",

@@ -1,19 +1,6 @@
 import React from "react";
 
-import defaultAvatar from "../../../assets/images/default-avatar.png";
 import UserCardList from "../../UserCardList";
-
-const candidates = [
-  {
-    applicant: {
-      _id: 1,
-      avatar: defaultAvatar,
-      firstName: "John",
-      lastName: "Smith",
-    },
-    dateCreated: new Date(),
-  },
-];
 
 function RecommendedWorkers({ workers, ...props }) {
   return (
