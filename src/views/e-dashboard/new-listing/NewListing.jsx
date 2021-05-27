@@ -8,7 +8,7 @@ import SubmitButton from "../../../components/forms/SubmitButton";
 import Button from "../../../components/Button";
 import { MdCheck } from "react-icons/md";
 import FormDropdown from "../../../components/forms/FormDropdown";
-import { useHistory, useLocation, Prompt } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { getLocations } from "./../../../api/companies";
 import ActivityIndicator from "./../../../components/ActivityIndicator";
 import useApi from "./../../../hooks/useApi";
@@ -316,10 +316,10 @@ function NewListing(props) {
 
   return (
     <div className="post-listing">
-      <Prompt
+      {/* <Prompt
         when={type}
         message="Are you sure you want to discard this listing?"
-      />
+      /> */}
       <ActivityIndicator
         visible={getLocationsApi.loading || getListingApi.loading}
       />

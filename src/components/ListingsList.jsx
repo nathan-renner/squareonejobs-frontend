@@ -9,6 +9,8 @@ import UserCard from "./UserCard";
 import useApi from "./../hooks/useApi";
 import { deleteListing, cancelListing, completeListing } from "../api/listings";
 
+import defaultAvatar from "../assets/images/default-avatar.png";
+
 function ListingsList({
   listings,
   fetchJobs,
@@ -214,7 +216,7 @@ function ListingsList({
                   >
                     {listing.applicantAvatars.map((a) => (
                       <img
-                        src={a.avatar}
+                        src={a.avatar ? a.avatar : defaultAvatar}
                         alt="Applicant's avatar"
                         key={a._id}
                       />

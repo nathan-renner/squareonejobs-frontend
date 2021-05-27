@@ -215,7 +215,10 @@ const Navbar = ({ data }) => {
           setDropdown={setDropdown}
         />
         <StreakDropdown visible={dropdown === "streak"} streak={data.streak} />
-        <NotificationDropdown visible={dropdown === "notifications"} />
+        <NotificationDropdown
+          visible={dropdown === "notifications"}
+          closeDropdown={() => setDropdown(false)}
+        />
         <StatDropdown
           data={completedData}
           visible={dropdown === "completedJobs"}

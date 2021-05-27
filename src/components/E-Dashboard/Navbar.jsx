@@ -4,7 +4,7 @@ import { MdHome, MdCreditCard } from "react-icons/md";
 import { BiSpreadsheet } from "react-icons/bi";
 
 import ProfileDropdown from "./Navbar/ProfileDropdown";
-import NotificationDropdown from "./Navbar/NotificationDropdown";
+import NotificationDropdown from "../Dashboard/Navbar/NotificationDropdown";
 
 import NotificationsIcon from "./../icons/NotificationsIcon";
 import defaultAvatar from "../../assets/images/default-avatar.png";
