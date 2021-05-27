@@ -13,12 +13,19 @@ import { Icon } from "../../components";
 import { ErrorMessage, FormField, SubmitButton } from "../../components/forms";
 
 function RegisterSlide2({ slideWidth, error, onBack }) {
-  const { values } = useFormikContext();
+  const { values, handleSubmit } = useFormikContext();
   const [passVisible, setPassVisible] = useState(false);
 
   return (
     <div className="slide" style={{ width: slideWidth }}>
-      <div className="content">
+      <div
+        className="content"
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            handleSubmit();
+          }
+        }}
+      >
         <Icon
           Icon={MdArrowBack}
           size={30}

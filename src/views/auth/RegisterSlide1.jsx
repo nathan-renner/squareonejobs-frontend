@@ -25,6 +25,11 @@ function RegisterSlide1({ slideWidth, onNext, onBack }) {
           LeftIcon={MdPerson}
           placeholder="E.g. Bob Smith"
           size="sm"
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              return !values["name"] || errors["name"] ? null : onNext();
+            }
+          }}
         />
         <Button
           label="Next"

@@ -160,8 +160,12 @@ function PostJob(props) {
             onSubmit={handleSubmit}
             validationSchema={schema}
           >
-            {() => (
-              <>
+            {({ handleSubmit }) => (
+              <div
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") handleSubmit();
+                }}
+              >
                 <p className="image-label">Company Logo</p>
                 <div className="image-picker" onClick={selectImage}>
                   <input
@@ -205,7 +209,7 @@ function PostJob(props) {
                   <div />
                   <SubmitButton label="Next" />
                 </div>
-              </>
+              </div>
             )}
           </Formik>
         )}
