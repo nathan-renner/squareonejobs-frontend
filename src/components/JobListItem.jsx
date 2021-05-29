@@ -159,9 +159,8 @@ function JobListItem({
       });
     }
     if (
-      listing.type === "day" &&
-      listing.status === "active" &&
-      moment(listing.details.endDateTime).isAfter(moment())
+      listing.status === "in-progress" &&
+      moment().isAfter(listing.details.endDateTime)
     )
       options.push({
         name: "Mark Job as Complete",
@@ -234,13 +233,15 @@ function JobListItem({
         {renderStatus()}
         <h3>{listing.details.position}</h3>
         <p>{moment(listing.details.startDateTime).format("MM/DD/YYYY")}</p>
-        {!saved && listing.status === "pending-completion" && (
-          <Button
-            label="Mark as Complete"
-            onClick={() => handleComplete()}
-            color="yellow"
-          />
-        )}
+        {!saved &&
+          listing.status === "in-progress" &&
+          moment().isAfter(listing.details.endDateTime) && (
+            <Button
+              label="Mark as Complete"
+              onClick={() => handleComplete()}
+              color="yellow"
+            />
+          )}
         {listing.status === "in-progress" && offers && (
           <Button
             label="Accept Offer"

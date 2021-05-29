@@ -198,7 +198,7 @@ function Listing({
 
   const getOptions = () => {
     const options = [];
-
+    console.log(listing.details.endDateTime);
     if (
       listing.status === "in-progress" &&
       listing.isMyOffer &&
@@ -215,9 +215,9 @@ function Listing({
     }
     if (
       listing.type === "day" &&
-      listing.status === "active" &&
+      listing.status === "in-progress" &&
       listing.isMyJob &&
-      moment(listing.details.endDateTime).isAfter(moment())
+      moment().isAfter(listing.details.endDateTime)
     )
       options.push({
         name: "Mark Job as Complete",
@@ -332,6 +332,15 @@ function Listing({
                   <h2>{details.position}</h2>
                   <p>{moment(details.startDateTime).format("MM/DD/YYYY")}</p>
                   <p>Posted {moment(listing.dateCreated).fromNow()}</p>
+                  {listing.type === "day" &&
+                    listing.status === "in-progress" &&
+                    moment().isAfter(listing.details.endDateTime) && (
+                      <Button
+                        label="Mark as Complete"
+                        onClick={() => handleComplete()}
+                        color="yellow"
+                      />
+                    )}
                 </div>
               </div>
               <div>

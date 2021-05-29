@@ -7,6 +7,7 @@ import Modal from "./Modal";
 import Confetti from "../assets/animations/confetti-new.json";
 import Button from "./Button";
 import NumberFormat from "react-number-format";
+import { usePointsModal } from "./../hooks/usePointsModal";
 
 const confettiStyle = {
   position: "absolute",
@@ -17,66 +18,73 @@ const confettiStyle = {
   zIndex: -1,
 };
 
-function PointsModal({ setVisible = () => true, points, pointsAdded }) {
-  const [initialRun, setInitialRun] = useState(true);
+function PointsModal() {
+  const { points, setPoints } = usePointsModal();
   const lottie = useRef(null);
 
   useEffect(() => {
-    setTimeout(() => {
-      lottie.current.play();
-      setInitialRun(false);
-    }, 900);
-  });
+    if (points) {
+      setTimeout(() => {
+        lottie.current.play();
+      }, 1900);
+    }
+  }, [points]);
 
-  return (
-    <Modal
-      className="points-modal"
-      visible={true}
-      Content={() => (
-        <div className="points-content">
-          <Lottie
-            lottieRef={lottie}
-            autoplay={false}
-            loop={true}
-            animationData={Confetti}
-            style={confettiStyle}
-          />
-          <div className="text-container">
-            <div className={`counter ${initialRun ? "animation" : null}`}>
-              <CountUp
-                start={points - pointsAdded}
-                end={points}
-                className="count-up"
-                separator=","
-                duration={1}
-              />
-            </div>
-            <div className="details">
-              <p className="subtitle">
-                +{" "}
-                <NumberFormat
-                  fixedDecimalScale={true}
-                  thousandSeparator=","
-                  value={pointsAdded}
-                  displayType={"text"}
-                  renderText={(value) => <span>{value}</span>}
-                />{" "}
-                Points
-              </p>
-              <Button
-                //className={!initialRun ? "active" : ""}
-                label="YAY"
-                onClick={() => {
-                  setVisible(false);
-                  setInitialRun(true);
-                }}
-              />
+  if (!points) return null;
+  else
+    return (
+      <Modal
+        className="points-modal"
+        visible={points}
+        Content={() => (
+          <div className="points-content">
+            <Lottie
+              lottieRef={lottie}
+              autoplay={false}
+              loop={true}
+              animationData={Confetti}
+              style={confettiStyle}
+            />
+            <div className="text-container">
+              <div className="counter">
+                <CountUp
+                  start={points.previous}
+                  end={points.previous + points.added + points.bonus}
+                  className="count-up"
+                  separator=","
+                  duration={2}
+                />
+              </div>
+              <div className="details">
+                <p className="subtitle">
+                  +{" "}
+                  <NumberFormat
+                    fixedDecimalScale={true}
+                    thousandSeparator=","
+                    value={points.added}
+                    displayType={"text"}
+                    renderText={(value) => <span>{value}</span>}
+                  />{" "}
+                  Points
+                </p>
+                <p className="subtitle blue">
+                  +{" "}
+                  <NumberFormat
+                    fixedDecimalScale={true}
+                    thousandSeparator=","
+                    value={points.bonus}
+                    displayType={"text"}
+                    renderText={(value) => <span>{value}</span>}
+                  />{" "}
+                  Bonus Points
+                </p>
+                <Button label="YAY" onClick={() => setPoints(false)} />
+              </div>
             </div>
           </div>
-        </div>
-      )}
-    />
-  );
+        )}
+      />
+    );
 }
 
 export default PointsModal;

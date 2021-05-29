@@ -22,10 +22,13 @@ import { useResponseModal } from "../hooks/useResponseModal";
 import ChangePassword from "./../views/common/ChangePassword";
 import ResponseModal from "../components/ResponseModal";
 import ListingPage from "./../views/dashboard/ListingPage";
+import PointsModal from "./../components/PointsModal";
+import PointsContext from "./../context/pointsContext";
 
 const Dashboard = () => {
   const navbarApi = useApi(getNavbarData);
   const [navData, setNavData] = useState(false);
+  const [points, setPoints] = useState(false);
   const { setModal } = useResponseModal();
 
   useEffect(() => {
@@ -51,34 +54,37 @@ const Dashboard = () => {
 
   return (
     <SuccessProvider>
-      <div className="dashboard user-dash">
-        {navData && (
-          <>
-            <Navbar data={navData} />
-            <div className="content-container">
-              <Switch>
-                <Route path={`/listing/:id`} component={ListingPage} />
-                <Route path={`/search`} component={Search} />
-                <Route path={`/explore`} component={Explore} />
-                <Route path={`/account`} component={Account} />
-                <Route
-                  path={`/settings/change-password`}
-                  component={ChangePassword}
-                />
-                <Route path={`/settings`} component={Settings} />
-                <Route path={`/portfolio`} component={Portfolio} />
-                <Route path={`/payments`} component={Payments} />
-                <Route path={`/my-jobs`} component={MyJobs} />
-                <Route exact path={`/`} component={Home} />
-                <Redirect to="/" />
-              </Switch>
-            </div>
-          </>
-        )}
-        <ResponseModal />
-        <ActivityIndicator visible={navbarApi.loading} />
-        <SuccessModal />
-      </div>
+      <PointsContext.Provider value={{ points, setPoints }}>
+        <div className="dashboard user-dash">
+          {navData && (
+            <>
+              <Navbar data={navData} />
+              <div className="content-container">
+                <Switch>
+                  <Route path={`/listing/:id`} component={ListingPage} />
+                  <Route path={`/search`} component={Search} />
+                  <Route path={`/explore`} component={Explore} />
+                  <Route path={`/account`} component={Account} />
+                  <Route
+                    path={`/settings/change-password`}
+                    component={ChangePassword}
+                  />
+                  <Route path={`/settings`} component={Settings} />
+                  <Route path={`/portfolio`} component={Portfolio} />
+                  <Route path={`/payments`} component={Payments} />
+                  <Route path={`/my-jobs`} component={MyJobs} />
+                  <Route exact path={`/`} component={Home} />
+                  <Redirect to="/" />
+                </Switch>
+              </div>
+            </>
+          )}
+          <ResponseModal />
+          <PointsModal />
+          <ActivityIndicator visible={navbarApi.loading} />
+          <SuccessModal />
+        </div>
+      </PointsContext.Provider>
     </SuccessProvider>
   );
 };

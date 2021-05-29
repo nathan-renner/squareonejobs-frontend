@@ -134,7 +134,11 @@ function ListingPage(props) {
   const getOptions = () => {
     const options = [];
 
-    if (listing.status === "pending-completion")
+    if (
+      listing.status === "pending-completion" ||
+      (moment().isAfter(details.endDateTime) &&
+        listing.status === "in-progress")
+    )
       options.push({
         name: "Mark Job as Complete",
         onClick: () => handleComplete(),
@@ -235,7 +239,9 @@ function ListingPage(props) {
                     {renderStatus()}
                     <h2>{details.position}</h2>
                     <p>{moment(details.startDateTime).format("MM/DD/YYYY")}</p>
-                    {listing.status === "pending-completion" ? (
+                    {listing.status === "pending-completion" ||
+                    (moment().isAfter(details.endDateTime) &&
+                      listing.status === "in-progress") ? (
                       <Button
                         label="Mark as Complete"
                         onClick={handleComplete}

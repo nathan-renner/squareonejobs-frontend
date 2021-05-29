@@ -73,10 +73,10 @@ function ListingsList({
       });
   };
 
-  const getOptions = (status, startDateTime, _id, position) => {
+  const getOptions = (status, startDateTime, _id, position, endDateTime) => {
     const options = [];
 
-    if (status === "pending-completion")
+    if (status === "pending-completion" || moment().isAfter(endDateTime))
       options.push({
         name: "Mark Job as Complete",
         onClick: () => handleComplete(_id),
@@ -173,7 +173,8 @@ function ListingsList({
             <p className="text">
               {`${`${listing.details.location.street}, ${listing.details.location.city}, ${listing.details.location.state} ${listing.details.location.zip}`}`}
             </p>
-            {listing.status === "pending-completion" ? (
+            {listing.status === "pending-completion" ||
+            moment().isAfter(listing.details.endDateTime) ? (
               <Button
                 label="Mark as Complete"
                 onClick={() => handleComplete(listing._id)}
@@ -233,7 +234,8 @@ function ListingsList({
                 listing.status,
                 listing.details.startDateTime,
                 listing._id,
-                listing.details.position
+                listing.details.position,
+                listing.details.endDateTime
               )}
             />
           </div>

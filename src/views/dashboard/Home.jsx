@@ -12,17 +12,17 @@ import JobsForYouCard from "./../../components/Dashboard/Home/JobsForYouCard";
 
 import useApi from "./../../hooks/useApi";
 import { getDashboardData } from "../../api/users";
-import PointsModal from "../../components/PointsModal";
 import { useResponseModal } from "./../../hooks/useResponseModal";
 import Card from "../../components/Card";
 import JobsList from "./../../components/JobsList";
+import { usePointsModal } from "./../../hooks/usePointsModal";
 
 const Home = () => {
   const dashboardApi = useApi(getDashboardData);
   const [selectedJob, setSelectedJob] = useState(false);
   const [dashData, setDashData] = useState(false);
-  const [pointsModal, setPointsModal] = useState(false);
   const { setModal } = useResponseModal();
+  const { setPoints } = usePointsModal();
 
   const fetchDashboardData = async () => {
     const response = await dashboardApi.request();
@@ -42,13 +42,6 @@ const Home = () => {
 
   return (
     <>
-      {pointsModal && (
-        <PointsModal
-          setVisible={setPointsModal}
-          points={351430}
-          pointsAdded={51430}
-        />
-      )}
       <ActivityIndicator visible={dashboardApi.loading} />
       {dashData && (
         <>

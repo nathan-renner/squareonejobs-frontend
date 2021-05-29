@@ -11,6 +11,7 @@ import SubmitButton from "./../../forms/SubmitButton";
 import useApi from "./../../../hooks/useApi";
 import { postReference } from "./../../../api/references";
 import ResponseModal from "../../ResponseModal";
+import { useResponseModal } from "./../../../hooks/useResponseModal";
 
 const schema = Yup.object().shape({
   title: Yup.string().min(1).max(50).required().label("Title"),
@@ -26,8 +27,8 @@ function ReferenceModal({
 }) {
   const postRefApi = useApi(postReference);
   const [rating, setRating] = useState(0);
-  const [modal, setModal] = useState(false);
   const [initialVals, setInitialVals] = useState({ title: "", review: "" });
+  const { setModal } = useResponseModal();
 
   const handleSubmit = async (data) => {
     if (rating === 0) {
@@ -90,13 +91,6 @@ function ReferenceModal({
             </Form>
           </div>
         )}
-      />
-      <ResponseModal
-        visible={modal}
-        onButtonClick={() => setModal(false)}
-        type={modal.type}
-        body={modal.body}
-        header={modal.header}
       />
     </>
   );
