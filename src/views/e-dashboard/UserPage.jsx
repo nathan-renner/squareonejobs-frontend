@@ -13,6 +13,9 @@ import WorkExperience from "./../../components/E-Dashboard/UserPortfolio/WorkExp
 import Skills from "./../../components/E-Dashboard/UserPortfolio/Skills";
 import History from "./../../components/E-Dashboard/UserPortfolio/History";
 import { useResponseModal } from "./../../hooks/useResponseModal";
+import Card from "../../components/Card";
+import Icon from "./../../components/Icon";
+import { FaUserCircle } from "react-icons/fa";
 
 function UserPage(props) {
   const { id } = useParams();
@@ -23,7 +26,7 @@ function UserPage(props) {
   const fetchUser = async () => {
     const response = await getUserApi.request(id);
     if (response.ok) setUser(response.data);
-    else {
+    else if (response.status !== 400) {
       setModal({
         type: "error",
         header: "Something went wrong",
@@ -40,7 +43,7 @@ function UserPage(props) {
   return (
     <div className="portfolio e-portfolio">
       <ActivityIndicator visible={getUserApi.loading} />
-      {user && (
+      {user ? (
         <>
           <div>
             <Header data-aos="fade-up" data-aos-once={true} user={user.user} />
@@ -94,6 +97,18 @@ function UserPage(props) {
             />
           </div>
         </>
+      ) : (
+        <Card className="not-found">
+          <Icon
+            Icon={FaUserCircle}
+            sizeFactor={1}
+            size={50}
+            iconColor="medium"
+            color="white"
+            className="icon"
+          />
+          <h2>User not found</h2>
+        </Card>
       )}
     </div>
   );

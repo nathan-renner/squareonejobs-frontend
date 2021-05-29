@@ -22,6 +22,24 @@
     flex: 2;
   }
 
+  .not-found {
+    max-width: 15em;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    padding: 3em;
+
+    .icon {
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 1em;
+    }
+
+    h2 {
+      margin-bottom: 0;
+    }
+  }
+
   h2 {
     margin-bottom: 1.5em;
   }

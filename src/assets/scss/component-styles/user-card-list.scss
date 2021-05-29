@@ -7,7 +7,7 @@
 .user-card {
   position: relative;
   width: 150px;
-  height: auto;
+  height: 9em;
   border-radius: 10px;
   text-align: center;
   @include themed() {
@@ -48,7 +48,9 @@
     }
   }
 
-  img {
+  img,
+  .icon {
+    z-index: 1;
     cursor: pointer;
     height: 75px;
     width: 75px;
