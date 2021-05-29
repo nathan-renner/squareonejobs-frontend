@@ -15,7 +15,7 @@ function Button({
   return (
     <div
       className={`button btn-${color} ${className} ${
-        outline ? "outline" : null
+        outline ? `outline outline-${textColor}` : null
       } ${disabled ? "disabled" : null}`}
       style={buttonStyle}
       onClick={disabled ? undefined : onClick}

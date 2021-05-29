@@ -98,7 +98,7 @@ function UserPage(props) {
           </div>
         </>
       ) : (
-        <Card className="not-found">
+        <Card className="user-not-found">
           <Icon
             Icon={FaUserCircle}
             sizeFactor={1}

@@ -12,7 +12,6 @@ const useApi = (apiFunc) => {
     const response = await apiFunc(...args);
     setLoading(false);
 
-    console.log(response.status);
     if (response.status === 401) logout();
 
     setError(!response.ok);

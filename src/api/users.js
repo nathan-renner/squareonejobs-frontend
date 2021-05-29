@@ -45,3 +45,5 @@ export const updatePortfolioElement = (profileId, element, value) =>
     profileId,
     [element]: value,
   });
+
+export const deleteUser = () => client.delete(userEP);

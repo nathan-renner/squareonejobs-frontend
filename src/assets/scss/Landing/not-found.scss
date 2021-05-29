@@ -5,6 +5,10 @@
   text-align: center;
   background-color: $light-background;
 
+  > :first-child {
+    align-self: start;
+  }
+
   h1 {
     font-size: 12em !important;
   }

@@ -12,7 +12,7 @@ function Icon({
 }) {
   return (
     <div
-      className={`bg-${color} ${className}`}
+      className={`icon bg-${color} ${className}`}
       style={{
         height: size,
         width: size,

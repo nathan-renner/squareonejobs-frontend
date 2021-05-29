@@ -18,6 +18,22 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    margin: 0.5em 0;
+    padding: 0.3em;
+    border-radius: 0.8em;
+
+    &.highlight {
+      cursor: pointer;
+      justify-content: flex-start;
+      &:hover {
+        @include themed() {
+          background-color: t("background");
+        }
+      }
+      > * + * {
+        margin-left: 0.8em;
+      }
+    }
 
     p {
       font-size: 0.9em;
@@ -30,6 +46,28 @@
       @include themed() {
         color: t("medium");
       }
+    }
+  }
+  hr {
+    height: 1px;
+    @include themed() {
+      border: 1px solid rgba(t("medium"), 0.2);
+    }
+  }
+  .advanced-text {
+    margin-top: 2em;
+    font-size: 0.9em;
+    cursor: pointer;
+    @include themed() {
+      color: t("medium");
+    }
+  }
+
+  .advanced-options {
+    display: none;
+
+    &.opened {
+      display: block;
     }
   }
 }

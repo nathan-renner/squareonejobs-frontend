@@ -51,6 +51,12 @@
     border: 1px solid $primary;
   }
 
+  &.outline-medium {
+    @include themed() {
+      border: 1px solid t("medium");
+    }
+  }
+
   &.disabled {
     pointer-events: none;
     opacity: 0.5;
