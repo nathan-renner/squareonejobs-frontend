@@ -10,7 +10,6 @@ import FormField from "./../../forms/FormField";
 import SubmitButton from "./../../forms/SubmitButton";
 import useApi from "./../../../hooks/useApi";
 import { postReference } from "./../../../api/references";
-import ResponseModal from "../../ResponseModal";
 import { useResponseModal } from "./../../../hooks/useResponseModal";
 
 const schema = Yup.object().shape({

@@ -15,14 +15,12 @@ import { getDashboardData } from "../../api/users";
 import { useResponseModal } from "./../../hooks/useResponseModal";
 import Card from "../../components/Card";
 import JobsList from "./../../components/JobsList";
-import { usePointsModal } from "./../../hooks/usePointsModal";
 
 const Home = () => {
   const dashboardApi = useApi(getDashboardData);
   const [selectedJob, setSelectedJob] = useState(false);
   const [dashData, setDashData] = useState(false);
   const { setModal } = useResponseModal();
-  const { setPoints } = usePointsModal();
 
   const fetchDashboardData = async () => {
     const response = await dashboardApi.request();
