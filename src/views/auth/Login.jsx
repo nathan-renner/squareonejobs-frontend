@@ -21,6 +21,7 @@ import { login } from "../../api/auth";
 import useAuth from "../../auth/useAuth";
 import ActivityIndicator from "./../../components/ActivityIndicator";
 import { Formik } from "formik";
+import GoogleButton from "../../components/GoogleButton";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
@@ -41,6 +42,17 @@ function Login() {
     setLoginFailed(false);
     auth.login(result.data);
     history.push("/");
+  };
+
+  const responseGoogle = (response) => {
+    if (!response.error) {
+      const { profileObj: user } = response;
+      const data = {
+        email: user.email,
+        password: user.googleId,
+      };
+      handleSubmit(data);
+    }
   };
 
   return (
@@ -105,6 +117,7 @@ function Login() {
             </div>
           )}
         </Formik>
+        <GoogleButton response={responseGoogle} />
         <NavLink to="/auth/register" className="help-text bottom">
           Don't have an account?
         </NavLink>

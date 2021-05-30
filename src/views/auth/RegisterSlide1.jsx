@@ -4,9 +4,10 @@ import { useFormikContext } from "formik";
 import { MdArrowBack, MdPerson } from "react-icons/md";
 
 import { Button, Icon } from "../../components";
-import { FormField } from "../../components/forms";
+import { ErrorMessage, FormField } from "../../components/forms";
+import GoogleButton from "../../components/GoogleButton";
 
-function RegisterSlide1({ slideWidth, onNext, onBack }) {
+function RegisterSlide1({ slideWidth, onNext, onBack, responseGoogle, error }) {
   const { values, errors } = useFormikContext();
   return (
     <div className="slide" style={{ width: slideWidth }}>
@@ -19,7 +20,13 @@ function RegisterSlide1({ slideWidth, onNext, onBack }) {
           onClick={onBack}
           className="icon-back"
         />
-        <h3 className="auth-title">What's your full name?</h3>
+        <h3 className="auth-title no-bottom">
+          Sign up <br />
+          What's your full name?
+        </h3>
+        <NavLink to="/auth/login" className="help-text bottom">
+          Already have an account?
+        </NavLink>
         <FormField
           name="name"
           LeftIcon={MdPerson}
@@ -31,13 +38,13 @@ function RegisterSlide1({ slideWidth, onNext, onBack }) {
             }
           }}
         />
+        <ErrorMessage error={error} visible={error} />
         <Button
           label="Next"
           onClick={!values["name"] || errors["name"] ? null : onNext}
         />
-        <NavLink to="/auth/login" className="help-text">
-          Already have an account?
-        </NavLink>
+        <hr />
+        <GoogleButton response={responseGoogle} login={false} />
       </div>
     </div>
   );

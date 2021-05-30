@@ -6,7 +6,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  // overflow: hidden;
 
   .navbar {
     height: 80px;
@@ -26,9 +26,9 @@
 
   .content-container {
     flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: grid;
+    place-items: center;
+    min-height: 100vh;
     padding: 20px;
     margin-top: -80px;
 
@@ -108,6 +108,11 @@
 
               .auth-title {
                 text-align: center;
+                line-height: 1.3;
+
+                &.no-bottom {
+                  margin-bottom: 0.2em;
+                }
               }
 
               .auth-description {
@@ -122,14 +127,16 @@
                 }
                 text-decoration: none;
                 border: none;
-                font-size: 0.9em;
+                font-size: 0.8em;
                 font-weight: 600;
                 justify-self: flex-end;
-                position: absolute;
-                bottom: 0;
 
                 &:hover {
                   filter: brightness(80%);
+                }
+
+                &.bottom {
+                  margin-bottom: 1em;
                 }
               }
             }

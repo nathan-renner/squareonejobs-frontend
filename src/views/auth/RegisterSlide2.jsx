@@ -6,7 +6,6 @@ import {
   MdVisibility,
   MdVisibilityOff,
 } from "react-icons/md";
-import { NavLink } from "react-router-dom";
 import { useFormikContext } from "formik";
 
 import { Icon } from "../../components";
@@ -58,9 +57,6 @@ function RegisterSlide2({ slideWidth, error, onBack }) {
         />
         <ErrorMessage error={error} visible={error} />
         <SubmitButton label="Next" />
-        <NavLink to="/auth/login" className="help-text">
-          Already have an account?
-        </NavLink>
       </div>
     </div>
   );

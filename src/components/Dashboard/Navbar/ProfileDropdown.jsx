@@ -2,6 +2,7 @@ import React from "react";
 import { MdHome, MdSettings } from "react-icons/md";
 import { NavLink, useHistory } from "react-router-dom";
 import useAuth from "../../../auth/useAuth";
+import { useGoogleLogout } from "react-google-login";
 
 import defaultAvatar from "../../../assets/images/default-avatar.png";
 import Icon from "./../../Icon";
@@ -11,6 +12,9 @@ function ProfileDropdown({ visible, setDropdown, avatar }) {
   const { user, logout } = useAuth();
   const { isDark, toggleTheme } = useTheme();
   const history = useHistory();
+  const { signOut } = useGoogleLogout({
+    clientId: process.env.REACT_APP_GOOGLE_AUTH_CLIENT_ID,
+  });
 
   return (
     <div
@@ -35,6 +39,7 @@ function ProfileDropdown({ visible, setDropdown, avatar }) {
           onClick={() => {
             if (isDark) toggleTheme();
             logout();
+            signOut();
             history.replace("/");
           }}
         >

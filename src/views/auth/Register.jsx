@@ -11,6 +11,7 @@ import ActivityIndicator from "./../../components/ActivityIndicator";
 import useApi from "./../../hooks/useApi";
 import { register } from "./../../api/users";
 import { resendLink } from "../../api/auth";
+import useAuth from "../../auth/useAuth";
 
 const registerSchema = Yup.object().shape({
   name: Yup.string()
@@ -27,6 +28,7 @@ function Register(props) {
   const registerApi = useApi(register);
   const resendLinkApi = useApi(resendLink);
   const history = useHistory();
+  const auth = useAuth();
   const [slideWidth, setSlideWidth] = useState();
   const [index, setIndex] = useState(0);
   const [data, setData] = useState();
@@ -57,6 +59,22 @@ function Register(props) {
     }
   };
 
+  const responseGoogle = (response) => {
+    if (!response.error) {
+      const { profileObj: user } = response;
+      const data = {
+        email: user.email,
+        firstName: user.givenName,
+        lastName: user.familyName,
+        password: user.googleId,
+        avatar: user.imageUrl,
+        withGoogle: true,
+      };
+
+      requestRegister(data, true);
+    }
+  };
+
   const handleSubmit = async (data) => {
     const index = data.name.indexOf(" ");
     data.firstName = data.name.substr(0, index);
@@ -66,16 +84,26 @@ function Register(props) {
     delete userInfo.name;
     setData(userInfo);
 
-    const result = await registerApi.request(userInfo);
+    await requestRegister(userInfo);
+
+    onNext();
+  };
+
+  const requestRegister = async (data, withGoogle = false) => {
+    const result = await registerApi.request(data);
     if (!result.ok) {
       if (result.data) setError(result.data);
       else {
         setError("An unexpected error occurred.");
       }
       return;
-    } else setError(false);
-
-    onNext();
+    } else {
+      setError(false);
+      if (withGoogle) {
+        auth.login(result.data);
+        history.push("/");
+      }
+    }
   };
 
   return (
@@ -95,6 +123,8 @@ function Register(props) {
             <RegisterSlide1
               {...{ slideWidth, onNext }}
               onBack={() => history.goBack()}
+              responseGoogle={responseGoogle}
+              error={error}
             />
             <RegisterSlide2 {...{ slideWidth, onBack, error }} />
             <RegisterSlide3

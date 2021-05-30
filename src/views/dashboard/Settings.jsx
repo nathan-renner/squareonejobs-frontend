@@ -10,6 +10,7 @@ import useApi from "./../../hooks/useApi";
 import { deleteUser } from "../../api/users";
 import { useResponseModal } from "./../../hooks/useResponseModal";
 import { useTheme } from "../../config/ThemeProvider";
+import { useGoogleLogout } from "react-google-login";
 
 function Settings(props) {
   const history = useHistory();
@@ -18,10 +19,14 @@ function Settings(props) {
   const { logout } = useAuth();
   const { setModal } = useResponseModal();
   const { isDark, toggleTheme } = useTheme();
+  const { signOut } = useGoogleLogout({
+    clientId: process.env.REACT_APP_GOOGLE_AUTH_CLIENT_ID,
+  });
 
   const handleLogout = () => {
     if (isDark) toggleTheme();
     logout();
+    signOut();
     history.replace("/");
   };
 
