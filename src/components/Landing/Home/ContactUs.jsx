@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Form, FormField, SubmitButton } from "./../../forms";
 import * as Yup from "yup";
-import Button from "./../../Button";
+import ReCAPTCHA from "react-google-recaptcha";
 import { useResponseModal } from "./../../../hooks/useResponseModal";
 import useApi from "./../../../hooks/useApi";
 import { sendContactUsEmail } from "./../../../api/misc";
@@ -16,25 +16,26 @@ const schema = Yup.object().shape({
 function ContactUs(props) {
   const { setModal } = useResponseModal();
   const sendEmailApi = useApi(sendContactUsEmail);
+  const recaptchaRef = useRef();
 
   const handleSubmit = async (data, { resetForm }) => {
-    const response = await sendEmailApi.request(data);
-    if (response.ok) {
-      setModal({
-        type: "success",
-        header: "Message Sent!",
-        body: "We'll be in contact within the next 1-5 business days.",
-      });
-      resetForm();
-    } else
-      setModal({
-        type: "error",
-        header: "Something went wrong :(",
-        body: response.data,
-      });
-  };
-  const openEmail = () => {
-    window.open("mailto:hello@squareonejobs.com");
+    const token = await recaptchaRef.current.executeAsync();
+    if (token) {
+      const response = await sendEmailApi.request(data);
+      if (response.ok) {
+        setModal({
+          type: "success",
+          header: "Message Sent!",
+          body: "We'll be in contact within the next 1-5 business days.",
+        });
+        resetForm();
+      } else
+        setModal({
+          type: "error",
+          header: "Something went wrong :(",
+          body: response.data,
+        });
+    }
   };
 
   return (
@@ -50,12 +51,7 @@ function ContactUs(props) {
             Got a question? <br />
             We'd love to hear from you!
           </p>
-          {/* <Button
-            className="btn-lg"
-            buttonStyle={{ display: "inline-block" }}
-            label="Email us"
-            onClick={() => openEmail()}
-          /> */}
+
           <Form
             initialValues={{
               name: "",
@@ -91,7 +87,31 @@ function ContactUs(props) {
               textStyle={{ backgroundColor: "#fff" }}
               type="textarea"
             />
+            <div className="google-text">
+              This site is protected by reCAPTCHA and the Google{" "}
+              <a
+                href="https://policies.google.com/privacy"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Privacy Policy
+              </a>{" "}
+              and{" "}
+              <a
+                href="https://policies.google.com/terms"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Terms of Service
+              </a>{" "}
+              apply.
+            </div>
             <SubmitButton label="Submit" style={{ display: "inline-block" }} />
+            <ReCAPTCHA
+              ref={recaptchaRef}
+              size="invisible"
+              sitekey="6Ld5KxEbAAAAAAlKUtiaaHawn3UDSt2vvhETw-m7"
+            />
           </Form>
         </div>
       </div>
