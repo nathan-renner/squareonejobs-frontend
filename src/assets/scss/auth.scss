@@ -41,6 +41,87 @@
         margin-bottom: 1.5em;
       }
     }
+
+    .login-page {
+      max-width: 50em;
+      height: auto;
+      display: grid;
+      grid-template-areas:
+        "header header header"
+        "login divider otherlogins"
+        "footer footer footer";
+
+      gap: 3em 2em;
+
+      .header {
+        grid-area: header;
+        text-align: center;
+
+        h3 {
+          margin-bottom: 0em;
+        }
+        .icon-back {
+          cursor: pointer;
+          transition: scale ease-in-out 100ms;
+          position: absolute;
+          top: 1em;
+          left: 1em;
+
+          &:hover,
+          &:focus {
+            filter: brightness(95%);
+          }
+
+          &:active {
+            filter: brightness(90%);
+            transform: scale(0.9);
+          }
+        }
+      }
+      .content {
+        grid-area: login;
+        text-align: center;
+        padding: 1em;
+        max-width: 20em;
+
+        .input-container:first-of-type {
+          margin-top: 0;
+        }
+        .login-button {
+          margin: 1em 0;
+        }
+      }
+      .divider {
+        grid-area: divider;
+        height: 100%;
+        width: 2px;
+        place-self: center;
+        background-color: $light-background;
+      }
+      .other-logins {
+        max-width: 20em;
+        grid-area: otherlogins;
+        text-align: center;
+        padding: 1em;
+      }
+
+      .help-text {
+        @include themed() {
+          color: t("secondaryText");
+        }
+        grid-area: footer;
+        text-decoration: none;
+        border: none;
+        font-size: 0.8em;
+        font-weight: 400;
+        text-align: center;
+
+        &:hover {
+          filter: brightness(80%);
+        }
+      }
+    }
+
     .auth-container {
       max-width: 600px;
       width: 100%;
@@ -81,6 +162,11 @@
 
               .input-container {
                 width: 18em;
+              }
+
+              .google-text {
+                width: 25em;
+                text-align: center;
               }
 
               input {
@@ -128,7 +214,7 @@
                 text-decoration: none;
                 border: none;
                 font-size: 0.8em;
-                font-weight: 600;
+                font-weight: 400;
                 justify-self: flex-end;
 
                 &:hover {
@@ -189,7 +275,7 @@
           text-decoration: none;
           border: none;
           font-size: 0.9em;
-          font-weight: 600;
+          font-weight: 400;
           justify-self: flex-end;
 
           &.bottom {
@@ -376,5 +462,12 @@
       }
       text-decoration: none;
     }
+  }
+
+  .google-text {
+    font-size: 0.7em;
+  }
+  .grecaptcha-badge {
+    visibility: hidden;
   }
 }

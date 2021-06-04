@@ -12,6 +12,7 @@ import useApi from "./../../hooks/useApi";
 import { register } from "./../../api/users";
 import { resendLink } from "../../api/auth";
 import useAuth from "../../auth/useAuth";
+import ReCAPTCHA from "react-google-recaptcha";
 
 const registerSchema = Yup.object().shape({
   name: Yup.string()
@@ -33,6 +34,7 @@ function Register(props) {
   const [index, setIndex] = useState(0);
   const [data, setData] = useState();
   const [error, setError] = useState(false);
+  const recaptchaRef = useRef();
 
   useEffect(() => {
     const width = slideRef.current.clientWidth;
@@ -90,18 +92,21 @@ function Register(props) {
   };
 
   const requestRegister = async (data, withGoogle = false) => {
-    const result = await registerApi.request(data);
-    if (!result.ok) {
-      if (result.data) setError(result.data);
-      else {
-        setError("An unexpected error occurred.");
-      }
-      return;
-    } else {
-      setError(false);
-      if (withGoogle) {
-        auth.login(result.data);
-        history.push("/");
+    const token = await recaptchaRef.current.executeAsync();
+    if (token) {
+      const result = await registerApi.request(data);
+      if (!result.ok) {
+        if (result.data) setError(result.data);
+        else {
+          setError("An unexpected error occurred.");
+        }
+        return;
+      } else {
+        setError(false);
+        if (withGoogle) {
+          auth.login(result.data);
+          history.push("/");
+        }
       }
     }
   };
@@ -134,6 +139,11 @@ function Register(props) {
           </div>
         </Form>
       </div>
+      <ReCAPTCHA
+        ref={recaptchaRef}
+        size="invisible"
+        sitekey={process.env.REACT_APP_RECAPTCHA_KEY}
+      />
     </Card>
   );
 }

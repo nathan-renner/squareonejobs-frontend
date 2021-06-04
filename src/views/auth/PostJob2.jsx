@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Card } from "../../components";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -11,6 +11,7 @@ import useApi from "../../hooks/useApi";
 import { registerEmployer } from "../../api/employers";
 import UploadScreen from "./../../components/UploadScreen";
 import useAuth from "./../../auth/useAuth";
+import ReCAPTCHA from "react-google-recaptcha";
 const _ = require("lodash");
 
 const schema = Yup.object().shape({
@@ -33,45 +34,49 @@ function PostJob2(props) {
   const [uploadVisible, setUploadVisible] = useState(false);
   const [progress, setProgress] = useState(0);
   const registerEmployerApi = useApi(registerEmployer);
+  const recaptchaRef = useRef();
 
   const handleSubmit = async (i) => {
-    setProgress(0);
-    setUploadVisible(true);
-    const index = i.name.indexOf(" ");
-    i.firstName = i.name.substr(0, index);
-    i.lastName = i.name.substr(index + 1);
+    const token = await recaptchaRef.current.executeAsync();
+    if (token) {
+      setProgress(0);
+      setUploadVisible(true);
+      const index = i.name.indexOf(" ");
+      i.firstName = i.name.substr(0, index);
+      i.lastName = i.name.substr(index + 1);
 
-    const info = { ...i, ...data };
-    let finalData;
-    if (info.companyId) {
-      finalData = _.pick(info, [
-        "firstName",
-        "lastName",
-        "email",
-        "password",
-        "position",
-        "companyId",
-      ]);
-    } else
-      finalData = _.omit(info, [
-        "companyId",
-        "companyLogo",
-        "imagePreview",
-        "name",
-      ]);
+      const info = { ...i, ...data };
+      let finalData;
+      if (info.companyId) {
+        finalData = _.pick(info, [
+          "firstName",
+          "lastName",
+          "email",
+          "password",
+          "position",
+          "companyId",
+        ]);
+      } else
+        finalData = _.omit(info, [
+          "companyId",
+          "companyLogo",
+          "imagePreview",
+          "name",
+        ]);
 
-    const json = JSON.stringify(finalData);
-    const formData = new FormData();
-    formData.append("data", json);
+      const json = JSON.stringify(finalData);
+      const formData = new FormData();
+      formData.append("data", json);
 
-    if (!info.companyId) formData.append("logo", i.companyLogo);
+      if (!info.companyId) formData.append("logo", i.companyLogo);
 
-    const response = await registerEmployerApi.request(formData, (progress) =>
-      setProgress(progress)
-    );
-    if (response.ok) {
-      login(response.headers["x-auth-token"]);
-      history.push("/");
+      const response = await registerEmployerApi.request(formData, (progress) =>
+        setProgress(progress)
+      );
+      if (response.ok) {
+        login(response.headers["x-auth-token"]);
+        history.push("/");
+      }
     }
   };
   return (
@@ -115,6 +120,25 @@ function PostJob2(props) {
                   rightIconSize={30}
                   rightIconOnClick={() => setPassVisible(!passVisible)}
                 />
+                <div className="google-text">
+                  This site is protected by reCAPTCHA and the Google{" "}
+                  <a
+                    href="https://policies.google.com/privacy"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Privacy Policy
+                  </a>{" "}
+                  and{" "}
+                  <a
+                    href="https://policies.google.com/terms"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Terms of Service
+                  </a>{" "}
+                  apply.
+                </div>
                 <div className="logo-input"></div>
                 <div className="success-button">
                   <Button
@@ -137,6 +161,11 @@ function PostJob2(props) {
         onDone={() => setUploadVisible(false)}
         progress={progress}
         visible={uploadVisible}
+      />
+      <ReCAPTCHA
+        ref={recaptchaRef}
+        size="invisible"
+        sitekey={process.env.REACT_APP_RECAPTCHA_KEY}
       />
     </>
   );

@@ -55,6 +55,25 @@ function RegisterSlide2({ slideWidth, error, onBack }) {
           rightIconOnClick={() => setPassVisible(!passVisible)}
           size="sm"
         />
+        <div className="google-text">
+          This site is protected by reCAPTCHA and the Google{" "}
+          <a
+            href="https://policies.google.com/privacy"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Privacy Policy
+          </a>{" "}
+          and{" "}
+          <a
+            href="https://policies.google.com/terms"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Terms of Service
+          </a>{" "}
+          apply.
+        </div>
         <ErrorMessage error={error} visible={error} />
         <SubmitButton label="Next" />
       </div>

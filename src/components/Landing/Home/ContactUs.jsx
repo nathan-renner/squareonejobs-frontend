@@ -110,7 +110,7 @@ function ContactUs(props) {
             <ReCAPTCHA
               ref={recaptchaRef}
               size="invisible"
-              sitekey="6Ld5KxEbAAAAAAlKUtiaaHawn3UDSt2vvhETw-m7"
+              sitekey={process.env.REACT_APP_RECAPTCHA_KEY}
             />
           </Form>
         </div>
