@@ -77,13 +77,13 @@ function UserPage(props) {
               data-aos-once={true}
               portfolio={user.portfolio}
             />
-            <Education
+            <WorkExperience
               data-aos="fade-up"
               data-aos-delay="200"
               data-aos-once={true}
               portfolio={user.portfolio}
             />
-            <WorkExperience
+            <Education
               data-aos="fade-up"
               data-aos-delay="300"
               data-aos-once={true}

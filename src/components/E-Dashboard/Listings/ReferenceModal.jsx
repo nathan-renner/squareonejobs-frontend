@@ -37,7 +37,6 @@ function ReferenceModal({
       const ref = { listingId: id, rating, ...data };
       const response = postRefApi.request(ref);
       if (response.ok) {
-        setModal({ type: "success", header: "Reference posted!" });
         setVisible(false);
       } else
         setModal({
@@ -52,6 +51,7 @@ function ReferenceModal({
     <>
       <Modal
         visible={visible}
+        onCancel={() => setVisible(false)}
         Content={() => (
           <div className="reference-modal">
             <Icon

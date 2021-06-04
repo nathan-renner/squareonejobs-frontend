@@ -7,7 +7,7 @@
 .user-card {
   position: relative;
   width: 150px;
-  height: 9em;
+  height: #{"max(9em, auto)"};
   border-radius: 10px;
   text-align: center;
   @include themed() {

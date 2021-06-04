@@ -341,8 +341,8 @@ function ListingPage(props) {
                     <>
                       <h3>Qualification</h3>
                       {details.qualifications.driversLicense && (
-                        <p>
-                          <b>Driver's License Required</b>
+                        <p style={{ fontWeight: 500 }}>
+                          Driver's License Required
                         </p>
                       )}
                       {details.qualifications.other && (
