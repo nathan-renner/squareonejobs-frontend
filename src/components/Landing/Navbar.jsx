@@ -8,6 +8,7 @@ import Button from "../Button";
 
 function Navbar({ className, setModal }) {
   const [drawerOpened, setDrawerOpened] = useState(false);
+  const [dropdown, setDropdown] = useState(false);
   const hamburgerRef = useRef();
 
   useEffect(() => {
@@ -60,15 +61,48 @@ function Navbar({ className, setModal }) {
           </NavLink>
         </div>
         <div className="nav-links-container">
-          <div className="nav-link-container" tabIndex="0">
+          <div
+            className="nav-link-container"
+            tabIndex="0"
+            onMouseOver={() => setDropdown("job-seekers")}
+            onMouseLeave={() => setDropdown(false)}
+          >
             <NavLink to="/" className="nav-link">
               Job Seekers
             </NavLink>
+            <div
+              className={`nav-dropdown ${
+                dropdown === "job-seekers" ? "opened" : null
+              }`}
+            >
+              <h3>Job Seekers</h3>
+              <NavLink to="/resources" className="nav-dropdown-link">
+                Resource Locator
+              </NavLink>
+            </div>
           </div>
-          <div className="nav-link-container" tabIndex="0">
+          <div
+            className="nav-link-container"
+            tabIndex="0"
+            onMouseOver={() => setDropdown("employers")}
+            onMouseLeave={() => setDropdown(false)}
+          >
             <NavLink to="/employers" className="nav-link">
               Employers
             </NavLink>
+            <div
+              className={`nav-dropdown ${
+                dropdown === "employers" ? "opened" : null
+              }`}
+            >
+              <h3>Employers</h3>
+              <NavLink to="/post-job" className="nav-dropdown-link">
+                Post a Job
+              </NavLink>
+              <NavLink to="/employers" className="nav-dropdown-link">
+                Pricing
+              </NavLink>
+            </div>
           </div>
           <div className="nav-link-container" tabIndex="0">
             <NavLink to="/auth/login" className="nav-link">

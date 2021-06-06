@@ -17,6 +17,7 @@
         box-shadow: none !important;
         transform: scale(1) !important;
         padding: 0;
+        position: relative;
 
         .nav-link-container {
           transform: translateX(0px);
@@ -136,6 +137,15 @@
           justify-content: center;
           align-items: center;
           transition: background-color linear 250ms, color linear 250ms;
+          position: relative;
+
+          &::after {
+            position: absolute;
+            content: "";
+            height: 3.5em;
+            width: 100%;
+            top: 0;
+          }
 
           .nav-link {
             color: $dark;
@@ -143,9 +153,67 @@
             font-weight: 700;
             text-decoration: none;
             padding: 10px;
+            z-index: 1;
 
             &:focus {
               outline: none;
+            }
+          }
+
+          .nav-dropdown {
+            position: absolute;
+            top: 3.5em;
+            right: 0;
+
+            visibility: hidden;
+            overflow: hidden;
+            background-color: $white;
+            border-radius: 50%;
+            min-width: 15em;
+            padding: 1em;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            transform: scale(0);
+            transition: transform 350ms ease, border-radius 350ms ease;
+
+            &::after {
+              content: "";
+              position: absolute;
+              background-color: $dark;
+              width: 1.5em;
+              left: 0;
+              top: 0;
+              bottom: 0;
+            }
+
+            &.opened {
+              visibility: visible;
+              border-radius: 20px;
+              transform: scale(1);
+              transform-origin: top right;
+            }
+
+            h3,
+            a {
+              margin-left: 1.5em;
+            }
+
+            h3 {
+              font-size: 1em;
+              margin-bottom: 1em;
+            }
+
+            a {
+              color: $light-medium;
+              font-weight: 500;
+              font-size: 0.9em;
+              text-decoration: none;
+              display: block;
+              margin-top: 0.5em;
+
+              &:hover,
+              &:focus {
+                filter: brightness(150%);
+              }
             }
           }
 
@@ -157,17 +225,13 @@
             .nav-link {
               color: $white;
             }
-
-            &:active {
-              filter: brightness(80%);
-            }
           }
         }
 
-        &:hover,
-        &:focus {
-          transform: scale(1.02);
-        }
+        // &:hover,
+        // &:focus {
+        //   transform: scale(1.02);
+        // }
       }
     }
   }
