@@ -2,9 +2,9 @@ import React from "react";
 import * as Yup from "yup";
 import { FormField } from "../../forms";
 import EditControls from "./EditControls";
-import FormDatePicker from "../../forms/FormDatePicker";
 import { Formik } from "formik";
 import { MdClear } from "react-icons/md";
+import FormDate from "./../../forms/FormDate";
 
 const schema = Yup.object().shape({
   position: Yup.string().required().max(64).label("Degree"),
@@ -63,16 +63,8 @@ function WorkExperienceAddModal({
             label="Company name"
           />
           <div className="date-container">
-            <FormDatePicker
-              name="startDate"
-              placeholder="Start date"
-              label="Start Date"
-            />
-            <FormDatePicker
-              name="endDate"
-              placeholder="End date"
-              label="End Date"
-            />
+            <FormDate name="startDate" label="Start Date" />
+            <FormDate name="endDate" label="End Date" />
           </div>
           <EditControls onCancel={() => showWarning(formProps)} />
         </>

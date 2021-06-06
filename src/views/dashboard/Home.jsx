@@ -15,7 +15,7 @@ import { getDashboardData } from "../../api/users";
 import { useResponseModal } from "./../../hooks/useResponseModal";
 import Card from "../../components/Card";
 import JobsList from "./../../components/JobsList";
-import { usePointsModal } from "./../../hooks/usePointsModal";
+//import { usePointsModal } from "./../../hooks/usePointsModal";
 
 const Home = () => {
   const dashboardApi = useApi(getDashboardData);

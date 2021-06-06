@@ -49,34 +49,34 @@ function Navbar({ className, setModal }) {
         </div>
         <div className={`nav-drawer ${drawerOpened ? "opened" : null}`}>
           <h3 className="nav-title">NAVIGATION</h3>
-          <NavLink to="/" className="nav-link" onClick={() => setModal(true)}>
+          <NavLink to="/" className="nav-link">
+            Job seekers
+          </NavLink>
+          <NavLink to="/employers" className="nav-link">
             Employers
           </NavLink>
-          <NavLink
-            to="/auth/login"
-            className="nav-link"
-            onClick={() => setModal(true)}
-          >
+          <NavLink to="/auth/login" className="nav-link">
             Login
           </NavLink>
         </div>
         <div className="nav-links-container">
           <div className="nav-link-container" tabIndex="0">
-            <NavLink to="/" className="nav-link" onClick={() => setModal(true)}>
+            <NavLink to="/" className="nav-link">
+              Job Seekers
+            </NavLink>
+          </div>
+          <div className="nav-link-container" tabIndex="0">
+            <NavLink to="/employers" className="nav-link">
               Employers
             </NavLink>
           </div>
           <div className="nav-link-container" tabIndex="0">
-            <NavLink to="/" className="nav-link" onClick={() => setModal(true)}>
+            <NavLink to="/auth/login" className="nav-link">
               Login
             </NavLink>
           </div>
-          <NavLink to="/" style={{ textDecoration: "none" }}>
-            <Button
-              label="Find jobs"
-              className="button btn-lg"
-              onClick={() => setModal(true)}
-            />
+          <NavLink to="/auth/register" style={{ textDecoration: "none" }}>
+            <Button label="Find jobs" className="button btn-lg" />
           </NavLink>
         </div>
       </div>

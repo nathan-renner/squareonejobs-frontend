@@ -2,7 +2,7 @@ import React from "react";
 import * as Yup from "yup";
 import { FormField } from "../../forms";
 import EditControls from "./EditControls";
-import FormDatePicker from "./../../forms/FormDatePicker";
+import FormDate from "./../../forms/FormDate";
 import { Formik } from "formik";
 import { MdClear } from "react-icons/md";
 
@@ -58,23 +58,21 @@ function EducationAddModal({
             className="exit"
             onClick={() => showWarning(formProps)}
           />
-          <FormField name="degree" placeholder="Degree" label="Degree" />
+          <FormField
+            name="degree"
+            placeholder="Degree"
+            label="Degree"
+            size="sm"
+          />
           <FormField
             name="school"
             placeholder="School name"
             label="School name"
+            size="sm"
           />
           <div className="date-container">
-            <FormDatePicker
-              name="startDate"
-              placeholder="Start date"
-              label="Start Date"
-            />
-            <FormDatePicker
-              name="endDate"
-              placeholder="End date"
-              label="End Date"
-            />
+            <FormDate name="startDate" label="Start Date" />
+            <FormDate name="endDate" label="End Date" />
           </div>
 
           <EditControls onCancel={() => showWarning(formProps)} />
