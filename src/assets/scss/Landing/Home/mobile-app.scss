@@ -1,5 +1,6 @@
 .section-mobile {
   position: relative;
+  background-color: $medium;
   .line-4 {
     position: absolute;
     z-index: -1;
@@ -18,6 +19,7 @@
       margin-top: 2em;
       max-width: 400px;
       min-width: 300px;
+      color: $white;
       h2 {
         color: $white;
       }

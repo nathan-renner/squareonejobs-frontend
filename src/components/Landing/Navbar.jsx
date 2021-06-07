@@ -11,14 +11,14 @@ function Navbar({ className, fixed = false }) {
   const hamburgerRef = useRef();
 
   useEffect(() => {
-    if (!fixed) window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll);
   });
 
   const handleScroll = () => {
-    if (window.scrollY > 300) {
-      document.querySelector(".navbar").className = "navbar navbar-light";
-    } else {
+    if (!fixed && window.scrollY <= 300) {
       document.querySelector(".navbar").className = "navbar";
+    } else {
+      document.querySelector(".navbar").className = "navbar navbar-light";
     }
   };
 
@@ -77,7 +77,7 @@ function Navbar({ className, fixed = false }) {
             </NavLink>
             <div className="nav-dropdown">
               <h3>Employers</h3>
-              <NavLink to="/post-job" className="nav-dropdown-link">
+              <NavLink to="/auth/postjob" className="nav-dropdown-link">
                 Post a Job
               </NavLink>
               <NavLink to="/employers" className="nav-dropdown-link">

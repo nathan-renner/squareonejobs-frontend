@@ -94,6 +94,17 @@ export const nonprofits = [
       lng: -73.760299,
     },
   },
+  {
+    name: "Equal Justice Initiative",
+    url: "https://eji.org/criminal-justice-reform/",
+    description:
+      "The United States incarcerates its citizens more than any other country. Mass incarceration disproportionately impacts the poor and people of color and does not make us safer. EJI is working to end our misguided reliance on over-incarceration.",
+    address: "122 Commerce Street Montgomery, AL 36104",
+    coords: {
+      lat: 32.3795656,
+      lng: -86.310794,
+    },
+  },
 ];
 
 export const businesses = [];

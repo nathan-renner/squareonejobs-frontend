@@ -178,7 +178,7 @@
             &::after {
               content: "";
               position: absolute;
-              background-color: $dark;
+              background-color: $medium;
               width: 1.5em;
               left: 0;
               top: 0;
@@ -212,7 +212,7 @@
 
           &:hover,
           &:focus {
-            background-color: $dark;
+            background-color: $medium;
             outline: none;
 
             .nav-link {

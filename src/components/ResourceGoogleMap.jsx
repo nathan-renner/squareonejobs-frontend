@@ -6,7 +6,7 @@ import {
   InfoWindow,
 } from "@react-google-maps/api";
 
-function ResourceGoogleMaps({ markers = [], zoom = 10 }) {
+function ResourceGoogleMaps({ markers = [], zoom = 11 }) {
   const [google, setGoogle] = useState(false);
   const [info, setInfo] = useState(false);
 
@@ -51,7 +51,7 @@ function ResourceGoogleMaps({ markers = [], zoom = 10 }) {
                       <h5>{marker.name}</h5>
                       <p>{marker.description}</p>
                       <p>{marker.address}</p>
-                      <a href={marker.url} target="_blank" rel="noopener">
+                      <a href={marker.url} target="_blank" rel="noreferrer">
                         {marker.url}
                       </a>
                     </>

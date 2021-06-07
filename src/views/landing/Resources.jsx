@@ -17,8 +17,8 @@ function Resources(props) {
   }, [filter]);
 
   const renderListItem = (item) => (
-    <div className="list-item">
-      <h5 key={item.url}>{item.name}</h5>
+    <div className="list-item" key={item.url}>
+      <h5>{item.name}</h5>
       <div className="list-item-tooltip">
         <p>{item.description}</p>
         {item.address && <p>{item.address}</p>}
@@ -54,11 +54,13 @@ function Resources(props) {
           setActive={() => setFilter("nonprofits")}
           active={filter === "nonprofits"}
         />
-        <ToggleButton
-          label="Businesses & Orgs"
-          setActive={() => setFilter("businesses")}
-          active={filter === "businesses"}
-        />
+        {businesses.length > 0 && (
+          <ToggleButton
+            label="Businesses & Orgs"
+            setActive={() => setFilter("businesses")}
+            active={filter === "businesses"}
+          />
+        )}
         <ResourceGoogleMaps markers={locations} />
         <h3>Homeless Shelters</h3>
         <div className="resource-list">
@@ -72,12 +74,16 @@ function Resources(props) {
             <>{renderListItem(nonprofit)}</>
           ))}
         </div>
-        <h3>Businesses and Other Organizations</h3>
-        <div className="resource-list">
-          {businesses.map((business) => (
-            <>{renderListItem(business)}</>
-          ))}
-        </div>
+        {businesses.length > 0 && (
+          <>
+            <h3>Businesses and Other Organizations</h3>
+            <div className="resource-list">
+              {businesses.map((business) => (
+                <>{renderListItem(business)}</>
+              ))}
+            </div>
+          </>
+        )}
       </div>
       <Footer />
     </div>

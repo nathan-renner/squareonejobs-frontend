@@ -5,7 +5,7 @@ import React from "react";
 
 function MobileApp(props) {
   return (
-    <section className="bg-dark section-mobile">
+    <section className="section-mobile">
       <svg
         className="line-4"
         preserveAspectRatio="none"
@@ -15,7 +15,7 @@ function MobileApp(props) {
       >
         <path
           d="M-1.00837 603.405L-1.05316 688.756L1440 688L-1.00837 603.405Z"
-          fill="#2F4858"
+          fill="#006b8d"
         />
       </svg>
       <div className="container-sm">
