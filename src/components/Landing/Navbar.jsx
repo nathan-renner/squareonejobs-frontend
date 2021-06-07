@@ -6,13 +6,12 @@ import Logo from "../../assets/images/logotext.png";
 import Hamburger from "../../assets/animations/hamburger.json";
 import Button from "../Button";
 
-function Navbar({ className, setModal }) {
+function Navbar({ className, fixed = false }) {
   const [drawerOpened, setDrawerOpened] = useState(false);
-  const [dropdown, setDropdown] = useState(false);
   const hamburgerRef = useRef();
 
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
+    if (!fixed) window.addEventListener("scroll", handleScroll);
   });
 
   const handleScroll = () => {
@@ -61,40 +60,22 @@ function Navbar({ className, setModal }) {
           </NavLink>
         </div>
         <div className="nav-links-container">
-          <div
-            className="nav-link-container"
-            tabIndex="0"
-            onMouseOver={() => setDropdown("job-seekers")}
-            onMouseLeave={() => setDropdown(false)}
-          >
+          <div className="nav-link-container" tabIndex="0">
             <NavLink to="/" className="nav-link">
               Job Seekers
             </NavLink>
-            <div
-              className={`nav-dropdown ${
-                dropdown === "job-seekers" ? "opened" : null
-              }`}
-            >
+            <div className="nav-dropdown">
               <h3>Job Seekers</h3>
               <NavLink to="/resources" className="nav-dropdown-link">
                 Resource Locator
               </NavLink>
             </div>
           </div>
-          <div
-            className="nav-link-container"
-            tabIndex="0"
-            onMouseOver={() => setDropdown("employers")}
-            onMouseLeave={() => setDropdown(false)}
-          >
+          <div className="nav-link-container" tabIndex="0">
             <NavLink to="/employers" className="nav-link">
               Employers
             </NavLink>
-            <div
-              className={`nav-dropdown ${
-                dropdown === "employers" ? "opened" : null
-              }`}
-            >
+            <div className="nav-dropdown">
               <h3>Employers</h3>
               <NavLink to="/post-job" className="nav-dropdown-link">
                 Post a Job
