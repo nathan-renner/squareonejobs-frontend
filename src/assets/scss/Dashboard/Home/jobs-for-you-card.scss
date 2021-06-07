@@ -1,6 +1,9 @@
 .recommended-jobs-card {
   display: flex;
   flex-direction: column;
+  position: relative;
+  min-height: 40em;
+
   .header {
     display: flex;
     flex-direction: row;
