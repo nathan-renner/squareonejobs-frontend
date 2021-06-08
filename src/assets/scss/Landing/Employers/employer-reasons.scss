@@ -1,0 +1,51 @@
+.employer-reasons {
+  .icon {
+    text-align: center;
+  }
+  h1 {
+    text-align: center;
+    padding-bottom: 100px;
+  }
+  h2 {
+    color: $dark; //whats the grey color again?
+  }
+  p {
+    color: $dark;
+    width: 300px;
+    text-align: left;
+  }
+  .text-container {
+    width: 400px;
+    text-align: left;
+  }
+  .reason-1 {
+    text-align: center;
+    padding-top: 30px;
+
+    &.reason-1::before {
+      content: "";
+      height: 120px;
+      width: 8px;
+      border-radius: 4px;
+      position: absolute;
+      top: -20;
+      left: 275px;
+      background-color: $primary;
+    }
+  }
+  .reason-2 {
+    text-align: center;
+    padding-top: 30px;
+
+    &.reason-2::before {
+      content: "";
+      height: 120px;
+      width: 8px;
+      border-radius: 4px;
+      position: absolute;
+      top: -20;
+      left: 775px;
+      background-color: $secondary;
+    }
+  }
+}

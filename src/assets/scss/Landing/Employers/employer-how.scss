@@ -1,47 +1,58 @@
 .employer-how {
-  .icon {
-    text-align: center;
+  .part-time-container {
+    align-items: center;
+    height: 24em;
   }
-  h1 {
-    text-align: center;
-    padding-bottom: 100px;
-  }
-  h2 {
-    color: $dark; //whats the grey color again?
-  }
-  p {
-    color: $dark;
-  }
-  .text-container {
-    width: 400px;
+  .part-time {
     text-align: left;
+    width: 300px;
   }
-  .reason-1 {
-    text-align: center;
-    padding-top: 30px;
-    &.reason-1::before {
-      content: "";
-      height: 120px;
-      width: 8px;
-      border-radius: 4px;
-      position: absolute;
-      top: -20;
-      left: 275px;
-      background-color: $primary;
+  .blob-container {
+    position: relative;
+    height: 100%;
+  }
+  .part-time-blob {
+    position: absolute;
+    width: 600px;
+    height: 550px;
+    top: -25%;
+    left: 0px;
+    right: 0px;
+  }
+  .full-time-container {
+    margin-top: 20em;
+    margin-bottom: 10em;
+    align-items: center;
+    height: 24em;
+  }
+  .full-time-text {
+    @media only screen and (min-width: 40em) {
+      margin-left: 15em;
     }
   }
-  .reason-2 {
-    text-align: center;
-    padding-top: 30px;
-    &.reason-2::before {
-      content: "";
-      height: 120px;
-      width: 8px;
-      border-radius: 4px;
-      position: absolute;
-      top: -20;
-      left: 775px;
-      background-color: $secondary;
+  .full-time-blob {
+    position: absolute;
+    width: 550px;
+    height: 600px;
+    top: -30%;
+    left: 0px;
+  }
+  .full-time {
+    text-align: left;
+    width: 300px;
+  }
+  .check-list {
+    > * {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1em;
+      > * + * {
+        color: $dark;
+        font-size: 1.2em;
+        font-weight: 500;
+        margin-left: 1em;
+        margin-bottom: 0px;
+      }
     }
   }
 }

@@ -29,7 +29,7 @@ function EmployerWhy(props) {
             </Card>
             <h3>Transcending adversity builds character</h3>
           </div>
-          <div className="reason">
+          <div className="reason-2">
             <Card>
               <h3>Second chances inspire loyalty</h3>
               <p>
@@ -40,12 +40,13 @@ function EmployerWhy(props) {
             </Card>
             <h3>Second chances inspire loyalty</h3>
           </div>
-          <div className="reason">
+          <div className="reason-3">
             <Card>
               <h3>Qualify for tax incentives with WOTC</h3>
               <p>
-                Many of our users qualify for the Work Opportunity Tax Credit,
-                which can save you up to 40% of their first-year wage.
+                Many of our users qualify for the Work Opportunity Tax Credit
+                <br></br>
+                <br></br> This can save you up to 40% of their first-year wage.
               </p>
             </Card>
             <h3>Qualify for tax incentives with WOTC</h3>
