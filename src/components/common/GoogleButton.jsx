@@ -1,6 +1,6 @@
 import React from "react";
 import GoogleLogin from "react-google-login";
-import GoogleIcon from "./icons/GoogleIcon";
+import GoogleIcon from "./../icons/GoogleIcon";
 
 function GoogleButton({ response = () => true, login = true }) {
   return (

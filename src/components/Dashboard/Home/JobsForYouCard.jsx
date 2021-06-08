@@ -2,10 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import moment from "moment";
 
-import Card from "../../Card";
-import MultiButton from "../../MultiButton";
-import Button from "./../../Button";
-import ActivityIndicator from "./../../ActivityIndicator";
+import { ActivityIndicator, Button, Card, MultiButton } from "../../common";
 import useApi from "./../../../hooks/useApi";
 
 import { getRecommended } from "../../../api/listings";

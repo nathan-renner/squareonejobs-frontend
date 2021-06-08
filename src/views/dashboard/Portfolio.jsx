@@ -6,11 +6,10 @@ import Education from "./../../components/Dashboard/Portfolio/Education";
 import WorkExperience from "./../../components/Dashboard/Portfolio/WorkExperience";
 import Skills from "./../../components/Dashboard/Portfolio/Skills";
 
+import { ActivityIndicator, UploadScreen } from "../../components/common";
 import { getPortfolio, updatePortfolioElement } from "../../api/users";
 import useApi from "./../../hooks/useApi";
 import useAuth from "./../../auth/useAuth";
-import ActivityIndicator from "./../../components/ActivityIndicator";
-import UploadScreen from "./../../components/UploadScreen";
 import References from "./../../components/Dashboard/Portfolio/References";
 import Documents from "../../components/Dashboard/Portfolio/Documents";
 import { useResponseModal } from "./../../hooks/useResponseModal";

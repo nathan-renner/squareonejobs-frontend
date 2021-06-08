@@ -3,8 +3,9 @@ import { MdHome, MdSettings } from "react-icons/md";
 import { NavLink, useHistory } from "react-router-dom";
 import useAuth from "../../../auth/useAuth";
 
+import { Icon } from "../../common";
+
 import defaultAvatar from "../../../assets/images/default-avatar.png";
-import Icon from "./../../Icon";
 import { useTheme } from "../../../config/ThemeProvider";
 
 function ProfileDropdown({ visible, setDropdown, avatar }) {

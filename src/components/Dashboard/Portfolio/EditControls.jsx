@@ -1,6 +1,7 @@
 import React from "react";
 import SubmitButton from "./../../forms/SubmitButton";
-import Button from "./../../Button";
+
+import { Button } from "../../common";
 
 function EditControls({
   onCancel,

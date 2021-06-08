@@ -1,13 +1,15 @@
 import React, { useRef, useState } from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { Button, Card } from "../../components";
+import { useHistory, useLocation } from "react-router-dom";
+import { MdCloudUpload } from "react-icons/md";
+
+import { Button, Card } from "../../components/common";
 import { ErrorMessage, FormField } from "../../components/forms";
+
 import CompanySearch from "../../components/Auth/CompanySearch";
 import FormDropdown from "./../../components/forms/FormDropdown";
 import SubmitButton from "./../../components/forms/SubmitButton";
-import { useHistory, useLocation } from "react-router-dom";
-import { MdCloudUpload } from "react-icons/md";
 
 const industries = [
   "Aerospace & Defense",

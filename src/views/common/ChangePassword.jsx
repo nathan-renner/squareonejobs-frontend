@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import * as Yup from "yup";
 
-import { Card } from "../../components";
-import SubmitButton from "../../components/forms/SubmitButton";
-import Form from "../../components/forms/Form";
-import FormField from "../../components/forms/FormField";
+import { Card, ResponseModal } from "../../components/common";
+import { Form, FormField, SubmitButton } from "../../components/forms";
+
 import useApi from "./../../hooks/useApi";
 import { changePassword } from "./../../api/passwords";
-import ResponseModal from "./../../components/ResponseModal";
 import { useHistory } from "react-router";
 
 const schema = Yup.object().shape({

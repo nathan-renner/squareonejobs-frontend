@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import Card from "./../../Card";
-import Modal from "./../../Modal";
+
 import ReferencesList from "./../../Dashboard/Portfolio/ReferencesList";
 import ReferencesModal from "./../../Dashboard/Portfolio/ReferencesModal";
+
+import { Card, Modal } from "../../common";
 
 function References({ portfolio, setLoading, id, ...props }) {
   const [isOpen, setIsOpen] = useState(false);

@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, useLocation, useHistory } from "react-router-dom";
+import {
+  MdHome,
+  MdCreditCard,
+  MdLocalShipping,
+  MdPerson,
+  MdSearch,
+} from "react-icons/md";
+
 import BriefcaseIcon from "./../icons/BriefcaseIcon";
 import PencilIcon from "./../icons/PencilIcon";
 import ClipboardIcon from "./../icons/ClipboardIcon";
@@ -8,15 +16,10 @@ import StreakIcon from "./../icons/StreakIcon";
 
 import defaultAvatar from "../../assets/images/default-avatar.png";
 import Logo from "../../assets/images/logo.png";
-import TextInput from "./../TextInput";
+
+import { TextInput } from "../common";
+
 import ProfileDropdown from "./Navbar/ProfileDropdown";
-import {
-  MdHome,
-  MdCreditCard,
-  MdLocalShipping,
-  MdPerson,
-  MdSearch,
-} from "react-icons/md";
 import StreakDropdown from "./Navbar/StreakDropdown";
 import NotificationDropdown from "./Navbar/NotificationDropdown";
 import StatDropdown from "./Navbar/StatDropdown";

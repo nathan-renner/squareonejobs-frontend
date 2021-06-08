@@ -4,10 +4,10 @@ import CountUp from "react-countup";
 
 import Modal from "./Modal";
 
-import Confetti from "../assets/animations/confetti-new.json";
+import Confetti from "../../assets/animations/confetti-new.json";
 import Button from "./Button";
 import NumberFormat from "react-number-format";
-import { usePointsModal } from "./../hooks/usePointsModal";
+import { usePointsModal } from "./../../hooks/usePointsModal";
 
 const confettiStyle = {
   position: "absolute",

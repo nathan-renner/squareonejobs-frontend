@@ -4,9 +4,9 @@ import { NavLink, useHistory } from "react-router-dom";
 import useAuth from "../../../auth/useAuth";
 import { useGoogleLogout } from "react-google-login";
 
-import defaultAvatar from "../../../assets/images/default-avatar.png";
-import Icon from "./../../Icon";
+import { Icon } from "../../common";
 import { useTheme } from "../../../config/ThemeProvider";
+import defaultAvatar from "../../../assets/images/default-avatar.png";
 
 function ProfileDropdown({ visible, setDropdown, avatar }) {
   const { user, logout } = useAuth();

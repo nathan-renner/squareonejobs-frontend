@@ -6,10 +6,14 @@ import OptionsDropdown from "./OptionsDropdown";
 import Icon from "./Icon";
 import { MdCheck, MdClear, MdErrorOutline } from "react-icons/md";
 import UserCard from "./UserCard";
-import useApi from "./../hooks/useApi";
-import { deleteListing, cancelListing, completeListing } from "../api/listings";
+import useApi from "./../../hooks/useApi";
+import {
+  deleteListing,
+  cancelListing,
+  completeListing,
+} from "../../api/listings";
 
-import defaultAvatar from "../assets/images/default-avatar.png";
+import defaultAvatar from "../../assets/images/default-avatar.png";
 
 function ListingsList({
   listings,

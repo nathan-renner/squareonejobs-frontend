@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useFormikContext } from "formik";
-
-import TextInput from "../TextInput";
-import ErrorMessage from "./ErrorMessage";
 import { MdArrowDropDown } from "react-icons/md";
+
+import { TextInput } from "../common";
+
+import ErrorMessage from "./ErrorMessage";
 
 function FormDropdown({ name, width, items, ...otherProps }) {
   const wrapperRef = useRef(null);

@@ -1,6 +1,5 @@
 import React from "react";
-import Card from "./../../Card";
-import ProgressBar from "./../../ProgressBar";
+import { Card, ProgressBar } from "../../common";
 
 function ProgressCard({ level = 1, points = 0, ...props }) {
   const levels = [1, 100000, 500000, 1000000, 3000000];

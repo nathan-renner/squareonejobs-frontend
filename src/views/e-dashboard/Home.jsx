@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
 import Calendar from "../../components/E-Dashboard/Home/Calendar";
 
-import ActivityIndicator from "./../../components/ActivityIndicator";
-
 import Header from "./../../components/E-Dashboard/Home/Header";
 import UpcomingDayJobs from "./../../components/E-Dashboard/Home/UpcomingDayJobs";
 import Applicants from "./../../components/E-Dashboard/Home/Applicants";
 import RecommendedWorkers from "../../components/E-Dashboard/Home/RecommendedWorkers";
 import useApi from "./../../hooks/useApi";
+
 import { getDashboardData } from "./../../api/employers";
 import { useResponseModal } from "./../../hooks/useResponseModal";
+
+import { ActivityIndicator } from "../../components/common";
 
 const Home = () => {
   const dashboardApi = useApi(getDashboardData);

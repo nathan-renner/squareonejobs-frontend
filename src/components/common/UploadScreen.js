@@ -3,7 +3,7 @@ import Lottie from "lottie-react";
 
 import ProgressBar from "./ProgressBar";
 
-import Done from "../assets/animations/done.json";
+import Done from "../../assets/animations/done.json";
 
 function UploadScreen({ onDone, progress = 0, visible = false }) {
   const styles = {

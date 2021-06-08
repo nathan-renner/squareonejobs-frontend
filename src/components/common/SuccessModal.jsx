@@ -1,8 +1,8 @@
 import React from "react";
 import Lottie from "lottie-react";
 
-import Done from "../assets/animations/done.json";
-import { useSuccessScreen } from "../hooks/useSuccessScreen";
+import Done from "../../assets/animations/done.json";
+import { useSuccessScreen } from "../../hooks/useSuccessScreen";
 
 function SuccessModal() {
   const { visible, onDone, text } = useSuccessScreen();

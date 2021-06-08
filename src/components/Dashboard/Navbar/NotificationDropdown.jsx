@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
+import moment from "moment";
 import { useHistory } from "react-router-dom";
 import { FaBullhorn } from "react-icons/fa";
 import { BiSpreadsheet } from "react-icons/bi";
 import { MdFeedback, MdPerson, MdCreditCard, MdWarning } from "react-icons/md";
-import moment from "moment";
 
 import useApi from "./../../../hooks/useApi";
 
-import Icon from "./../../Icon";
-import ActivityIndicator from "./../../ActivityIndicator";
+import { ActivityIndicator, Icon } from "../../common";
 
 import { getNotifications, updateClicked } from "../../../api/notifications";
 import { useResponseModal } from "./../../../hooks/useResponseModal";

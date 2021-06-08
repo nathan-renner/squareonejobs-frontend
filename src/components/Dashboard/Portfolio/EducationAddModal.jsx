@@ -1,10 +1,10 @@
 import React from "react";
 import * as Yup from "yup";
-import { FormField } from "../../forms";
-import EditControls from "./EditControls";
-import FormDate from "./../../forms/FormDate";
-import { Formik } from "formik";
 import { MdClear } from "react-icons/md";
+import { Formik } from "formik";
+
+import EditControls from "./EditControls";
+import { FormField, FormDate } from "../../forms";
 
 const schema = Yup.object().shape({
   degree: Yup.string().required().max(64).label("Degree"),

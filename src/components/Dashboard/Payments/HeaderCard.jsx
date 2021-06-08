@@ -1,6 +1,7 @@
 import React from "react";
-import Card from "./../../Card";
 import { MdCreditCard } from "react-icons/md";
+
+import { Card } from "../../common";
 
 function HeaderCard(props) {
   return (

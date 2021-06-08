@@ -2,16 +2,15 @@ import React, { useRef, useState } from "react";
 import * as Yup from "yup";
 import { MdCameraAlt, MdModeEdit } from "react-icons/md";
 
-import Card from "./../../Card";
-import Icon from "./../../Icon";
+import { Card, Icon } from "../../common";
 import { Form, FormField, FormDatePicker } from "./../../forms";
 import EditControls from "./EditControls";
 
 import useApi from "./../../../hooks/useApi";
 import { updateAccount } from "./../../../api/users";
+import { useResponseModal } from "./../../../hooks/useResponseModal";
 
 import defaultAvatar from "../../../assets/images/default-avatar.png";
-import { useResponseModal } from "./../../../hooks/useResponseModal";
 
 const schema = Yup.object().shape({
   firstName: Yup.string().required().label("First Name").min(1).max(64),

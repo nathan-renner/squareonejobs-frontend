@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { FaUserCircle } from "react-icons/fa";
 
 import useApi from "./../../hooks/useApi";
 import { getUser } from "../../api/users";
-import ActivityIndicator from "./../../components/ActivityIndicator";
+import { useResponseModal } from "./../../hooks/useResponseModal";
+
 import Header from "../../components/E-Dashboard/UserPortfolio/Header";
 import Documents from "./../../components/Dashboard/Portfolio/Documents";
 import References from "./../../components/E-Dashboard/UserPortfolio/References";
@@ -12,10 +14,8 @@ import Education from "./../../components/E-Dashboard/UserPortfolio/Education";
 import WorkExperience from "./../../components/E-Dashboard/UserPortfolio/WorkExperience";
 import Skills from "./../../components/E-Dashboard/UserPortfolio/Skills";
 import History from "./../../components/E-Dashboard/UserPortfolio/History";
-import { useResponseModal } from "./../../hooks/useResponseModal";
-import Card from "../../components/Card";
-import Icon from "./../../components/Icon";
-import { FaUserCircle } from "react-icons/fa";
+
+import { ActivityIndicator, Card, Icon } from "../../components/common";
 
 function UserPage(props) {
   const { id } = useParams();

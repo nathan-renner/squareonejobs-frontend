@@ -1,10 +1,11 @@
 import React from "react";
 import { useLocation, useHistory } from "react-router-dom";
-import Button from "../../../components/Button";
-import useApi from "./../../../hooks/useApi";
+
 import { postListing } from "./../../../api/listings";
-import ActivityIndicator from "./../../../components/ActivityIndicator";
 import { useResponseModal } from "./../../../hooks/useResponseModal";
+import useApi from "./../../../hooks/useApi";
+
+import { ActivityIndicator, Button } from "../../../components/common";
 
 function Payment(props) {
   const postListingApi = useApi(postListing);

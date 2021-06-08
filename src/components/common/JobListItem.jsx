@@ -5,8 +5,8 @@ import Icon from "./Icon";
 import { useHistory } from "react-router-dom";
 import OptionsDropdown from "./OptionsDropdown";
 import Button from "./Button";
-import useApi from "./../hooks/useApi";
-import { useResponseModal } from "./../hooks/useResponseModal";
+import useApi from "./../../hooks/useApi";
+import { useResponseModal } from "./../../hooks/useResponseModal";
 import {
   acceptOffer,
   completeListing,
@@ -14,7 +14,7 @@ import {
   saveListing,
   unsaveListing,
   withdrawListing,
-} from "../api/listings";
+} from "../../api/listings";
 
 function JobListItem({
   job: listing,

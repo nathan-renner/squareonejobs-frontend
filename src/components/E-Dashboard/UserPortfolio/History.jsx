@@ -1,7 +1,8 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
 import moment from "moment";
-import Card from "../../Card";
+import { NavLink } from "react-router-dom";
+
+import { Card } from "../../common";
 
 function History({ history, ...props }) {
   const { previous, current } = history;

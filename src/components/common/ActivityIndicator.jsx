@@ -1,7 +1,7 @@
 import React from "react";
 import Lottie from "lottie-react";
 
-import Loader from "../assets/animations/loader.js";
+import Loader from "../../assets/animations/loader.js";
 
 const ActivityIndicator = ({ visible }) => {
   if (!visible) return null;

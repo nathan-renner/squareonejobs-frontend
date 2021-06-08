@@ -3,10 +3,13 @@ import { useLocation } from "react-router-dom";
 import * as Yup from "yup";
 import { sendEmail } from "../../api/passwords";
 
-import { Card } from "../../components";
+import {
+  ActivityIndicator,
+  Card,
+  ResponseModal,
+} from "../../components/common";
 import { Form, FormField, SubmitButton } from "../../components/forms";
-import ResponseModal from "../../components/ResponseModal";
-import ActivityIndicator from "./../../components/ActivityIndicator";
+
 import useApi from "./../../hooks/useApi";
 
 const schema = Yup.object().shape({

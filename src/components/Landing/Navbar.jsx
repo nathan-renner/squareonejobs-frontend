@@ -4,7 +4,8 @@ import Lottie from "lottie-react";
 
 import Logo from "../../assets/images/logotext.png";
 import Hamburger from "../../assets/animations/hamburger.json";
-import Button from "../Button";
+
+import { Button } from "../common";
 
 function Navbar({ className, fixed = false }) {
   const [drawerOpened, setDrawerOpened] = useState(false);

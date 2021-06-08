@@ -1,6 +1,7 @@
 import React from "react";
 import moment from "moment";
-import Card from "./../../Card";
+
+import { Card } from "../../common";
 
 function WorkExperience({ portfolio, ...otherProps }) {
   return (

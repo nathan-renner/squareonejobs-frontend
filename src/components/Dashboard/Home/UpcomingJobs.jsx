@@ -1,5 +1,5 @@
 import React from "react";
-import Card from "../../Card";
+import { Card } from "../../common";
 import moment from "moment";
 
 function UpcomingJobs({ jobs, onSelect, ...props }) {

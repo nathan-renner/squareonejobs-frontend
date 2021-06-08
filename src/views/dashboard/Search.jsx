@@ -6,13 +6,14 @@ import ReactPaginate from "react-paginate";
 import Listing from "./Listing";
 import Filters from "./../../components/Dashboard/Search/Filters";
 
+import { ActivityIndicator } from "../../components/common";
+import JobCard from "../../components/Dashboard/Search/JobCard";
+import Zip from "./../../components/Dashboard/Search/Zip";
+
 import { searchListings } from "./../../api/listings";
 import useApi from "../../hooks/useApi";
-import ActivityIndicator from "./../../components/ActivityIndicator";
-import JobCard from "../../components/Dashboard/Search/JobCard";
 import useQuery from "../../hooks/useQuery";
 import { useResponseModal } from "./../../hooks/useResponseModal";
-import Zip from "./../../components/Dashboard/Search/Zip";
 
 function Search(props) {
   const history = useHistory();

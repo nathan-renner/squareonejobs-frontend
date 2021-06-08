@@ -1,5 +1,5 @@
 import React from "react";
-import Card from "./../../Card";
+import { Card } from "../../common";
 import { useLocation } from "react-router-dom";
 
 function Header({ data, ...props }) {

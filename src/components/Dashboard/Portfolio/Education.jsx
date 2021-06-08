@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import moment from "moment";
 import { MdAdd, MdModeEdit } from "react-icons/md";
 
-import Card from "./../../Card";
-import Modal from "./../../Modal";
+import { Card, Modal } from "../../common";
+
 import EducationAddModal from "./EducationAddModal";
 import EducationModal from "./EducationModal";
 

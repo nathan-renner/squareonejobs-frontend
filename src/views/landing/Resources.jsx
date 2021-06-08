@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
+
 import Navbar from "../../components/Landing/Navbar";
-import ResourceGoogleMaps from "./../../components/ResourceGoogleMap";
-import ToggleButton from "./../../components/ToggleButton";
 import Footer from "./../../components/Landing/Footer";
 import { shelters, nonprofits, businesses } from "../../resources";
+
+import { ToggleButton, ResourceGoogleMap } from "../../components/common";
 
 function Resources(props) {
   const [filter, setFilter] = useState(false);
@@ -61,7 +62,7 @@ function Resources(props) {
             active={filter === "businesses"}
           />
         )}
-        <ResourceGoogleMaps markers={locations} />
+        <ResourceGoogleMap markers={locations} />
         <h3>Homeless Shelters</h3>
         <div className="resource-list">
           {shelters.map((shelter) => (

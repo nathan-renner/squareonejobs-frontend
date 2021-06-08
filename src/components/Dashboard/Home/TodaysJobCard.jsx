@@ -1,7 +1,6 @@
 import React from "react";
-import Card from "./../../Card";
+import { Card } from "./../../common";
 import moment from "moment";
-//import Badge from "./../../Badge";
 
 function TodaysJobCard({ todaysJob, onSelect, ...props }) {
   const {

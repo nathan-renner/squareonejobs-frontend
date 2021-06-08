@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { MdExpandLess, MdExpandMore } from "react-icons/md";
-import Card from "./../../Card";
+
+import { Card } from "../../common";
 
 function Skills({ portfolio, ...otherProps }) {
   const [opened, setOpened] = useState(false);

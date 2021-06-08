@@ -1,9 +1,10 @@
 import React from "react";
 import * as Yup from "yup";
-import { FormField } from "../../forms";
 import { MdClear } from "react-icons/md";
-import EditControls from "./EditControls";
 import { Formik } from "formik";
+
+import { FormField } from "../../forms";
+import EditControls from "./EditControls";
 
 const schema = Yup.object().shape({
   skill: Yup.string().required().min(1).max(32).label("Skill"),

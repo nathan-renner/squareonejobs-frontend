@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { Formik } from "formik";
-import FormField from "../../../components/forms/FormField";
 import * as Yup from "yup";
-import Card from "../../../components/Card";
-import FormDatePicker from "../../../components/forms/FormDatePicker";
-import SubmitButton from "../../../components/forms/SubmitButton";
 import { MdCheck } from "react-icons/md";
-import FormDropdown from "../../../components/forms/FormDropdown";
 import { useHistory, useParams } from "react-router-dom";
+
 import { getLocations } from "./../../../api/companies";
-import ActivityIndicator from "./../../../components/ActivityIndicator";
-import useApi from "./../../../hooks/useApi";
 import { getListing, updateListing } from "./../../../api/listings";
 import { useResponseModal } from "./../../../hooks/useResponseModal";
+import useApi from "./../../../hooks/useApi";
+
+import { ActivityIndicator, Card } from "../../../components/common";
+import {
+  FormField,
+  FormDatePicker,
+  FormDropdown,
+  SubmitButton,
+} from "../../../components/forms";
 
 const categories = [
   "Restaurant Services",

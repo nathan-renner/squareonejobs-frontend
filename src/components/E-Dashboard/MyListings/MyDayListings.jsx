@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { getMyListings } from "../../../api/listings";
-import Card from "../../Card";
-import useApi from "./../../../hooks/useApi";
-import ActivityIndicator from "./../../ActivityIndicator";
-import ListingsList from "./../../ListingsList";
+
+import { ActivityIndicator, Card, ListingsList } from "../../common";
 import ReferenceModal from "../Listings/ReferenceModal";
+
+import useApi from "./../../../hooks/useApi";
 import { useResponseModal } from "./../../../hooks/useResponseModal";
 
 function MyDayListings(props) {

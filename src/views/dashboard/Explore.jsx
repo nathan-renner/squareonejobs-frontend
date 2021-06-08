@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import Card from "./../../components/Card";
 import { useHistory } from "react-router-dom";
 import { MdComputer } from "react-icons/md";
 import { IoFastFoodSharp } from "react-icons/io5";
 import { FaAppleAlt, FaBullhorn } from "react-icons/fa";
 import { RiShoppingBag2Fill } from "react-icons/ri";
 
+import { Card, Modal } from "../../components/common";
+
 import OL from "../../assets/images/outdoor-labor.png";
 import WFH from "../../assets/images/work-from-home.png";
-import Modal from "./../../components/Modal";
 import CategoriesModal from "./../../components/Dashboard/Explore/CategoriesModal";
 import TrendsModal from "./../../components/Dashboard/Explore/TrendsModal";
 

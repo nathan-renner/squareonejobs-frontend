@@ -1,7 +1,7 @@
 import React from "react";
 
-import { useTheme } from "../config/ThemeProvider";
-import MoonIcon from "./icons/MoonIcon";
+import { useTheme } from "../../config/ThemeProvider";
+import MoonIcon from "./../icons/MoonIcon";
 
 const ThemeSwitch = () => {
   const { isDark, toggleTheme } = useTheme();

@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-
-import Card from "./../../components/Card";
-import ThemeSwitch from "./../../components/ThemeSwitch";
-import useAuth from "./../../auth/useAuth";
+import { useGoogleLogout } from "react-google-login";
 import { MdExpandLess, MdExpandMore, MdHome, MdLock } from "react-icons/md";
-import Icon from "./../../components/Icon";
+
+import { Card, Icon, ThemeSwitch } from "../../components/common";
+
+import useAuth from "./../../auth/useAuth";
 import useApi from "./../../hooks/useApi";
 import { deleteUser } from "../../api/users";
 import { useResponseModal } from "./../../hooks/useResponseModal";
+
 import { useTheme } from "../../config/ThemeProvider";
-import { useGoogleLogout } from "react-google-login";
 
 function Settings(props) {
   const history = useHistory();

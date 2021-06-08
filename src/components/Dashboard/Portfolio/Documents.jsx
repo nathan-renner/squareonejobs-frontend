@@ -1,13 +1,13 @@
 import React, { useRef, useState } from "react";
-import Card from "./../../Card";
-
 import {
   MdDelete,
   MdFileUpload,
   MdModeEdit,
   MdPictureAsPdf,
 } from "react-icons/md";
-import Button from "../../Button";
+
+import { Card, Button } from "../../common";
+
 import useApi from "./../../../hooks/useApi";
 import { deleteDocument, uploadDocument } from "./../../../api/users";
 import { useResponseModal } from "./../../../hooks/useResponseModal";

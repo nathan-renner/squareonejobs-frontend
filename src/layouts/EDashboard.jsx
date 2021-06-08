@@ -3,11 +3,9 @@ import { Redirect, Route, Switch } from "react-router-dom";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
-import ActivityIndicator from "./../components/ActivityIndicator";
 import Home from "./../views/e-dashboard/Home";
 import Navbar from "./../components/E-Dashboard/Navbar";
 
-import SuccessModal from "../components/SuccessModal";
 import { SuccessProvider } from "../hooks/useSuccessScreen";
 import MyListings from "./../views/e-dashboard/MyListings";
 import Account from "./../views/e-dashboard/Account";
@@ -18,9 +16,14 @@ import NewListing from "./../views/e-dashboard/new-listing/NewListing";
 import Payment from "./../views/e-dashboard/new-listing/Payment";
 import UserPage from "./../views/e-dashboard/UserPage";
 import ListingPage from "../views/e-dashboard/ListingPage";
-import ResponseModal from "./../components/ResponseModal";
 import UpdateListing from "../views/e-dashboard/new-listing/UpdateListing";
 import ChangePassword from "./../views/common/ChangePassword";
+
+import {
+  ActivityIndicator,
+  ResponseModal,
+  SuccessModal,
+} from "../components/common";
 
 const EDashboard = () => {
   const [navData] = useState(true);

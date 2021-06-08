@@ -1,6 +1,5 @@
 import React from "react";
-
-import UserCardList from "../../UserCardList";
+import { UserCardList } from "../../common";
 
 function RecommendedWorkers({ workers, ...props }) {
   return (

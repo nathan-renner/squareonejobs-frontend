@@ -2,12 +2,10 @@ import React, { useState } from "react";
 import * as Yup from "yup";
 import { MdCheck } from "react-icons/md";
 
-import Icon from "../../Icon";
-import Modal from "./../../Modal";
-import StarRating from "./../../StarRating";
-import Form from "./../../forms/Form";
-import FormField from "./../../forms/FormField";
-import SubmitButton from "./../../forms/SubmitButton";
+import { Icon, Modal, StarRating } from "../../common";
+
+import { Form, FormField, SubmitButton } from "./../../forms";
+
 import useApi from "./../../../hooks/useApi";
 import { postReference } from "./../../../api/references";
 import { useResponseModal } from "./../../../hooks/useResponseModal";

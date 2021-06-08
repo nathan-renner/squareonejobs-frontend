@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { getMyListings } from "../../../api/listings";
-import Card from "../../Card";
+
+import { ActivityIndicator, Card, ListingsList } from "../../common";
+
 import useApi from "./../../../hooks/useApi";
-import ActivityIndicator from "./../../ActivityIndicator";
-import ListingsList from "./../../ListingsList";
 import { useResponseModal } from "./../../../hooks/useResponseModal";
 
 function MyPartListings(props) {

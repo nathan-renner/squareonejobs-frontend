@@ -3,6 +3,15 @@ import { useHistory, useParams } from "react-router-dom";
 import moment from "moment";
 import Skeleton from "react-loading-skeleton";
 import NumberFormat from "react-number-format";
+import {
+  MdAccessTime,
+  MdLocationOn,
+  MdCreditCard,
+  MdCheck,
+  MdErrorOutline,
+  MdClear,
+  MdHome,
+} from "react-icons/md";
 
 import useApi from "./../../hooks/useApi";
 import {
@@ -14,21 +23,15 @@ import {
 } from "./../../api/listings";
 
 import {
-  MdAccessTime,
-  MdLocationOn,
-  MdCreditCard,
-  MdCheck,
-  MdErrorOutline,
-  MdClear,
-  MdHome,
-} from "react-icons/md";
-import Button from "../../components/Button";
-import UserCardList from "./../../components/UserCardList";
-import UserCard from "../../components/UserCard";
-import OptionsDropdown from "./../../components/OptionsDropdown";
-import Icon from "./../../components/Icon";
+  Button,
+  Icon,
+  GoogleMaps,
+  OptionsDropdown,
+  UserCard,
+  UserCardList,
+} from "../../components/common";
+
 import ReferenceModal from "../../components/E-Dashboard/Listings/ReferenceModal";
-import GoogleMaps from "../../components/GoogleMaps";
 import { useResponseModal } from "./../../hooks/useResponseModal";
 
 function ListingPage(props) {

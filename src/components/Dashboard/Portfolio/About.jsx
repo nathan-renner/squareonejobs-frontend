@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import Card from "./../../Card";
 import { MdModeEdit } from "react-icons/md";
+
 import AboutModal from "./AboutModal";
-import Modal from "./../../Modal";
+
+import { Card, Modal } from "../../common";
 
 function About({ portfolio, updateElement, ...otherProps }) {
   const [isEditing, setIsEditing] = useState(false);

@@ -1,18 +1,19 @@
 import React, { useEffect, useRef, useState } from "react";
+import ReCAPTCHA from "react-google-recaptcha";
 import { useHistory } from "react-router-dom";
 import * as Yup from "yup";
 
-import { Card } from "../../components";
+import { ActivityIndicator, Card } from "../../components/common";
 import { Form } from "../../components/forms";
+
 import RegisterSlide1 from "./RegisterSlide1";
 import RegisterSlide2 from "./RegisterSlide2";
 import RegisterSlide3 from "./RegisterSlide3";
-import ActivityIndicator from "./../../components/ActivityIndicator";
+
 import useApi from "./../../hooks/useApi";
+import useAuth from "../../auth/useAuth";
 import { register } from "./../../api/users";
 import { resendLink } from "../../api/auth";
-import useAuth from "../../auth/useAuth";
-import ReCAPTCHA from "react-google-recaptcha";
 
 const registerSchema = Yup.object().shape({
   name: Yup.string()

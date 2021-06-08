@@ -2,12 +2,15 @@ import React, { useState } from "react";
 import * as Yup from "yup";
 import { useHistory, useParams } from "react-router-dom";
 
-import { Card } from "../../components";
+import {
+  ActivityIndicator,
+  Card,
+  ResponseModal,
+} from "../../components/common";
+
 import { Form, FormField, SubmitButton } from "../../components/forms";
-import ResponseModal from "../../components/ResponseModal";
 import useApi from "./../../hooks/useApi";
 import { resetPassword } from "./../../api/passwords";
-import ActivityIndicator from "./../../components/ActivityIndicator";
 
 const schema = Yup.object().shape({
   new: Yup.string().required().min(8).max(1024).label("New Password"),

@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { MdModeEdit, MdExpandLess, MdExpandMore, MdAdd } from "react-icons/md";
-import Card from "./../../Card";
-import Modal from "./../../Modal";
+
 import SkillEditModal from "./SkillEditModal";
 import SkillsModal from "./SkillsModal";
+
+import { Card, Modal } from "../../common";
 
 function Skills({ portfolio, updateElement, ...otherProps }) {
   const [opened, setOpened] = useState(false);

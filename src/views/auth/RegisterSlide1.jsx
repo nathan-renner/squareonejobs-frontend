@@ -3,9 +3,8 @@ import { NavLink } from "react-router-dom";
 import { useFormikContext } from "formik";
 import { MdArrowBack, MdPerson } from "react-icons/md";
 
-import { Button, Icon } from "../../components";
+import { Button, Icon, GoogleButton } from "../../components/common";
 import { ErrorMessage, FormField } from "../../components/forms";
-import GoogleButton from "../../components/GoogleButton";
 
 function RegisterSlide1({ slideWidth, onNext, onBack, responseGoogle, error }) {
   const { values, errors } = useFormikContext();

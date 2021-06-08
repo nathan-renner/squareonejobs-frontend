@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { MdCheck, MdPerson, MdVisibility } from "react-icons/md";
 import { FaListUl } from "react-icons/fa";
-import Button from "../../Button";
-import Icon from "../../Icon";
+
+import { Button, Icon } from "../../common";
 
 const statData = [
   {

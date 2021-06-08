@@ -5,10 +5,9 @@ import { BiSpreadsheet } from "react-icons/bi";
 import { MdFeedback, MdPerson, MdCreditCard, MdWarning } from "react-icons/md";
 import moment from "moment";
 
-import useApi from "./../../../hooks/useApi";
-import Icon from "./../../Icon";
-import ActivityIndicator from "./../../ActivityIndicator";
+import { ActivityIndicator, Icon } from "../../common";
 
+import useApi from "./../../../hooks/useApi";
 import { getNotifications, updateClicked } from "../../../api/notifications";
 import { useResponseModal } from "./../../../hooks/useResponseModal";
 

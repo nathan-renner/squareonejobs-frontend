@@ -2,7 +2,8 @@ import React from "react";
 import { useHistory, NavLink } from "react-router-dom";
 
 import defaultAvatar from "../../../assets/images/default-avatar.png";
-import StarRating from "./../../StarRating";
+
+import { StarRating } from "../../common";
 
 function Applicants({ applicants, ...props }) {
   const history = useHistory();

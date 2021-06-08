@@ -1,7 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import useApi from "../../hooks/useApi";
 import { getCompanies } from "../../api/companies";
-import TextInput from "../TextInput";
+
+import { TextInput } from "../common";
+
 import ErrorMessage from "./../forms/ErrorMessage";
 
 function CompanySearch({

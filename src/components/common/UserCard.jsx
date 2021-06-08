@@ -2,7 +2,7 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import { FaUserCircle } from "react-icons/fa";
 
-import defaultAvatar from "../assets/images/default-avatar.png";
+import defaultAvatar from "../../assets/images/default-avatar.png";
 import Button from "./Button";
 import Icon from "./Icon";
 

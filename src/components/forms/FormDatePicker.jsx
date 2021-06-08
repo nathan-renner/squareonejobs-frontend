@@ -3,7 +3,8 @@ import moment from "moment";
 import _ from "lodash";
 import { useFormikContext } from "formik";
 import DatePicker from "react-datepicker";
-import TextInput from "./../TextInput";
+
+import { TextInput } from "../common";
 import ErrorMessage from "./ErrorMessage";
 
 import "react-datepicker/dist/react-datepicker.css";

@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import useApi from "./../../../hooks/useApi";
 import { getMyReferences, getUserReferences } from "./../../../api/users";
 import ReferencesList from "./ReferencesList";
-import ActivityIndicator from "./../../ActivityIndicator";
+
+import { ActivityIndicator } from "../../common";
 
 function ReferencesModal({ isOpen, employer = false, id }) {
   const refApi = useApi(employer ? getUserReferences : getMyReferences);

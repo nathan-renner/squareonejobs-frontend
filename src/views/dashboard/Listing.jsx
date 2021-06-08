@@ -11,9 +11,15 @@ import {
   MdLocationOn,
 } from "react-icons/md";
 import Skeleton from "react-loading-skeleton";
-
-import Button from "./../../components/Button";
 import NumberFormat from "react-number-format";
+import { useHistory } from "react-router-dom";
+
+import {
+  Button,
+  GoogleMaps,
+  Icon,
+  OptionsDropdown,
+} from "../../components/common";
 
 import useApi from "./../../hooks/useApi";
 import {
@@ -27,11 +33,7 @@ import {
 } from "../../api/listings";
 import { useSuccessScreen } from "../../hooks/useSuccessScreen";
 import { applyToDayJob } from "./../../api/listings";
-import GoogleMaps from "../../components/GoogleMaps";
 import { useResponseModal } from "./../../hooks/useResponseModal";
-import Icon from "../../components/Icon";
-import OptionsDropdown from "./../../components/OptionsDropdown";
-import { useHistory } from "react-router-dom";
 
 function Listing({
   id = false,

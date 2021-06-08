@@ -8,7 +8,7 @@ import {
 } from "react-icons/md";
 import { useFormikContext } from "formik";
 
-import { Icon } from "../../components";
+import { Icon } from "../../components/common";
 import { ErrorMessage, FormField, SubmitButton } from "../../components/forms";
 
 function RegisterSlide2({ slideWidth, error, onBack }) {

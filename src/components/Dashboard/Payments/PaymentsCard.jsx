@@ -2,7 +2,7 @@ import React from "react";
 import NumberFormat from "react-number-format";
 import moment from "moment";
 
-import Card from "../../Card";
+import { Card } from "../../common";
 
 function PaymentsCard({ payments, ...otherProps }) {
   return (

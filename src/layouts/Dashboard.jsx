@@ -3,7 +3,6 @@ import { Redirect, Route, Switch } from "react-router-dom";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
-import ActivityIndicator from "./../components/ActivityIndicator";
 import Home from "./../views/dashboard/Home";
 import Navbar from "./../components/Dashboard/Navbar";
 import MyJobs from "./../views/dashboard/MyJobs";
@@ -16,14 +15,18 @@ import Search from "./../views/dashboard/Search";
 
 import { getNavbarData } from "./../api/users";
 import useApi from "./../hooks/useApi";
-import SuccessModal from "../components/SuccessModal";
 import { SuccessProvider } from "../hooks/useSuccessScreen";
 import { useResponseModal } from "../hooks/useResponseModal";
 import ChangePassword from "./../views/common/ChangePassword";
-import ResponseModal from "../components/ResponseModal";
 import ListingPage from "./../views/dashboard/ListingPage";
-import PointsModal from "./../components/PointsModal";
 import PointsContext from "./../context/pointsContext";
+
+import {
+  ActivityIndicator,
+  PointsModal,
+  ResponseModal,
+  SuccessModal,
+} from "../components/common";
 
 const Dashboard = () => {
   const navbarApi = useApi(getNavbarData);

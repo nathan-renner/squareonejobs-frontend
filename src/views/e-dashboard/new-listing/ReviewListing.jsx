@@ -1,7 +1,9 @@
 import React from "react";
-import Listing from "./Listing";
 import { useLocation, useHistory } from "react-router-dom";
-import Button from "../../../components/Button";
+
+import Listing from "./Listing";
+
+import { Button } from "../../../components/common";
 
 function ReviewListing(props) {
   const history = useHistory();

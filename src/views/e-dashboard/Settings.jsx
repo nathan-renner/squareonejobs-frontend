@@ -1,9 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 
-import Card from "./../../components/Card";
-import ThemeSwitch from "./../../components/ThemeSwitch";
-import Button from "./../../components/Button";
+import { Button, Card, ThemeSwitch } from "../../components/common";
 
 function Settings(props) {
   const history = useHistory();

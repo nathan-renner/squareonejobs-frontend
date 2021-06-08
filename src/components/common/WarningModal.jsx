@@ -1,6 +1,6 @@
 import React from "react";
 import Modal from "./Modal";
-import EditControls from "./Dashboard/Portfolio/EditControls";
+import EditControls from "./../Dashboard/Portfolio/EditControls";
 
 function WarningModal({
   visible = true,

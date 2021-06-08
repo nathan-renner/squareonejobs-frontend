@@ -1,11 +1,11 @@
 import React from "react";
 import Button from "./Button";
 import Modal from "./Modal";
-import { useResponseModal } from "./../hooks/useResponseModal";
+import { useResponseModal } from "./../../hooks/useResponseModal";
 import Lottie from "lottie-react";
 
-import Success from "../assets/animations/success.json";
-import Failed from "../assets/animations/failed.json";
+import Success from "../../assets/animations/success.json";
+import Failed from "../../assets/animations/failed.json";
 
 const iconStyle = {
   marginLeft: "auto",

@@ -7,9 +7,9 @@ import {
   MdLocationOn,
 } from "react-icons/md";
 import Skeleton from "react-loading-skeleton";
-
 import NumberFormat from "react-number-format";
-import GoogleMaps from "../../../components/GoogleMaps";
+
+import { GoogleMaps } from "../../../components/common";
 
 function Listing({ listing, map = true }) {
   const renderType = () => {

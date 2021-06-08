@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import { NavLink, useHistory } from "react-router-dom";
 import * as Yup from "yup";
+import { Formik } from "formik";
 import {
   MdArrowBack,
   MdEmail,
@@ -10,7 +11,12 @@ import {
 } from "react-icons/md";
 import ReCAPTCHA from "react-google-recaptcha";
 
-import { Card, Icon } from "../../components";
+import {
+  ActivityIndicator,
+  Card,
+  GoogleButton,
+  Icon,
+} from "../../components/common";
 import {
   ErrorMessage,
   FormField,
@@ -18,11 +24,8 @@ import {
 } from "./../../components/forms";
 
 import useApi from "../../hooks/useApi.jsx";
-import { login } from "../../api/auth";
 import useAuth from "../../auth/useAuth";
-import ActivityIndicator from "./../../components/ActivityIndicator";
-import { Formik } from "formik";
-import GoogleButton from "../../components/GoogleButton";
+import { login } from "../../api/auth";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),

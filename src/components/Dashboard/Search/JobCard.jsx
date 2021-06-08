@@ -1,9 +1,10 @@
 import React from "react";
-import Card from "./../../Card";
-import { MdAccessTime, MdCreditCard, MdLocationOn } from "react-icons/md";
-import { IoMdCalendar } from "react-icons/io";
 import moment from "moment";
 import NumberFormat from "react-number-format";
+import { MdAccessTime, MdCreditCard, MdLocationOn } from "react-icons/md";
+import { IoMdCalendar } from "react-icons/io";
+
+import { Card } from "../../common";
 
 function JobCard({ listings, setSelected, selected }) {
   return (

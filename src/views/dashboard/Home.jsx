@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
 
-import ActivityIndicator from "./../../components/ActivityIndicator";
-import Modal from "./../../components/Modal";
-import Listing from "./Listing";
+import {
+  ActivityIndicator,
+  Card,
+  JobsList,
+  Modal,
+} from "../../components/common";
 
+import Listing from "./Listing";
 import ProgressCard from "./../../components/Dashboard/Home/ProgressCard";
 import TodaysJobCard from "./../../components/Dashboard/Home/TodaysJobCard";
 import Tasks from "./../../components/Dashboard/Home/Tasks";
@@ -13,9 +17,6 @@ import JobsForYouCard from "./../../components/Dashboard/Home/JobsForYouCard";
 import useApi from "./../../hooks/useApi";
 import { getDashboardData } from "../../api/users";
 import { useResponseModal } from "./../../hooks/useResponseModal";
-import Card from "../../components/Card";
-import JobsList from "./../../components/JobsList";
-//import { usePointsModal } from "./../../hooks/usePointsModal";
 
 const Home = () => {
   const dashboardApi = useApi(getDashboardData);

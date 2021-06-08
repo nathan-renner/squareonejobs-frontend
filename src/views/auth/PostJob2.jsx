@@ -1,18 +1,16 @@
 import React, { useRef, useState } from "react";
-import { Card } from "../../components";
+import ReCAPTCHA from "react-google-recaptcha";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { FormField } from "../../components/forms";
-import SubmitButton from "./../../components/forms/SubmitButton";
-import Button from "./../../components/Button";
 import { useHistory, useLocation } from "react-router-dom";
 import { MdLock, MdVisibility, MdVisibilityOff } from "react-icons/md";
+
+import { Button, Card, UploadScreen } from "../../components/common";
+import { FormField, SubmitButton } from "../../components/forms";
+
 import useApi from "../../hooks/useApi";
-import { registerEmployer } from "../../api/employers";
-import UploadScreen from "./../../components/UploadScreen";
 import useAuth from "./../../auth/useAuth";
-import ReCAPTCHA from "react-google-recaptcha";
-const _ = require("lodash");
+import { registerEmployer } from "../../api/employers";
 
 const schema = Yup.object().shape({
   name: Yup.string()
@@ -46,6 +44,7 @@ function PostJob2(props) {
       i.lastName = i.name.substr(index + 1);
 
       const info = { ...i, ...data };
+      const _ = require("lodash");
       let finalData;
       if (info.companyId) {
         finalData = _.pick(info, [

@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 
-import Card from "../../Card";
+import { ActivityIndicator, Button, Card, JobsList, Modal } from "../../common";
+
 import Header from "./Header";
-import JobsList from "../../JobsList";
-import Button from "./../../Button";
-import ActivityIndicator from "./../../ActivityIndicator";
 import useApi from "./../../../hooks/useApi";
-import Modal from "./../../Modal";
-import Listing from "./../../../views/dashboard/Listing";
+import Listing from "../../../views/dashboard/Listing";
+
 import { getMyJobs } from "../../../api/listings";
 import { useResponseModal } from "./../../../hooks/useResponseModal";
 

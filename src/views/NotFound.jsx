@@ -1,7 +1,8 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import Navbar from "./../components/Landing/Navbar";
-import Button from "./../components/Button";
+
+import { Button } from "../components/common";
 
 const NotFound = () => {
   const history = useHistory();
