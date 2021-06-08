@@ -22,6 +22,7 @@ function Zip({ zip, handleFilterChange }) {
     <div className="filters-container zip">
       <h3>Zip Code:</h3>
       <Formik
+        enableReinitialize={true}
         initialValues={{ zip }}
         validationSchema={schema}
         onSubmit={handleSubmit}

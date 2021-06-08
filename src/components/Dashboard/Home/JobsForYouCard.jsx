@@ -22,21 +22,22 @@ function JobsForYouCard({ jobs: day, onSelect, ...props }) {
   const { setModal } = useResponseModal();
   const history = useHistory();
 
-  useEffect(async () => {
+  useEffect(() => {
     if (activeButton === 0) setJobs([...day]);
     else if (activeButton === 1) {
       if (!full) {
-        const res = await fetchListings("full");
+        const res = fetchListings("full");
         setJobs(res);
       } else setJobs([...full]);
     } else if (activeButton === 2) {
       if (!part) {
-        const res = await fetchListings("part");
+        const res = fetchListings("part");
         setJobs(res);
       } else setJobs([...part]);
     }
     //eslint-disable-next-line
   }, [activeButton]);
+
   const fetchListings = async (type) => {
     const response = await getRecommendedApi.request(type);
     if (response.ok) {
@@ -69,7 +70,7 @@ function JobsForYouCard({ jobs: day, onSelect, ...props }) {
         />
       </div>
       <div className="jobs-container">
-        {jobs.length > 0 ? (
+        {jobs && jobs.length > 0 ? (
           jobs.map((job) => {
             const {
               position,

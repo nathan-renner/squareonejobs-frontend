@@ -27,7 +27,7 @@ function Search(props) {
     d: query.d ? query.d : "",
     remote: query.remote ? query.remote === "true" : false,
     nodl: query.nodl ? query.nodl === "true" : false,
-    zip: query.zip ? query.zip : false,
+    zip: query.zip ? query.zip : "",
     lat: query.lat ? query.lat : false,
     lng: query.lng ? query.lng : false,
   });
@@ -44,6 +44,7 @@ function Search(props) {
         zip: response.data.zip,
         lat: response.data.lat,
         lng: response.data.lng,
+        r: !response.data.zip ? "3500" : filter.r,
       });
       setCount(response.data.count);
       setListings(response.data.listings);
@@ -94,9 +95,7 @@ function Search(props) {
   return (
     <div className="search">
       <div className="search-header">
-        {filter.zip && (
-          <Zip zip={filter.zip} handleFilterChange={handleFilterChange} />
-        )}
+        <Zip zip={filter.zip} handleFilterChange={handleFilterChange} />
         <Filters filter={filter} handleFilterChange={handleFilterChange} />
       </div>
       <h3>Search results for: "{query.q && query.q}"</h3>
