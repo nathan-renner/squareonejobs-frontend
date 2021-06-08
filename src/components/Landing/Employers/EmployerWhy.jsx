@@ -1,6 +1,7 @@
 import React from "react";
 import OvercomeIcon from "../../icons/OvercomeIcon";
-import Card from "../../Card";
+
+import { Card } from "../../common";
 
 function EmployerWhy(props) {
   return (

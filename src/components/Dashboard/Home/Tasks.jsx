@@ -1,8 +1,7 @@
 import React from "react";
-import Card from "./../../Card";
-
 import { MdDone } from "react-icons/md";
-import Badge from "./../../Badge";
+
+import { Badge, Card } from "../../common";
 
 const tasks = [
   {

@@ -1,14 +1,17 @@
 import React, { useEffect, useRef, useState } from "react";
+import ReCAPTCHA from "react-google-recaptcha";
 import { useHistory } from "react-router-dom";
 import * as Yup from "yup";
 
-import { Card } from "../../components";
+import { ActivityIndicator, Card } from "../../components/common";
 import { Form } from "../../components/forms";
+
 import RegisterSlide1 from "./RegisterSlide1";
 import RegisterSlide2 from "./RegisterSlide2";
 import RegisterSlide3 from "./RegisterSlide3";
-import ActivityIndicator from "./../../components/ActivityIndicator";
+
 import useApi from "./../../hooks/useApi";
+import useAuth from "../../auth/useAuth";
 import { register } from "./../../api/users";
 import { resendLink } from "../../api/auth";
 
@@ -27,10 +30,12 @@ function Register(props) {
   const registerApi = useApi(register);
   const resendLinkApi = useApi(resendLink);
   const history = useHistory();
+  const auth = useAuth();
   const [slideWidth, setSlideWidth] = useState();
   const [index, setIndex] = useState(0);
   const [data, setData] = useState();
   const [error, setError] = useState(false);
+  const recaptchaRef = useRef();
 
   useEffect(() => {
     const width = slideRef.current.clientWidth;
@@ -57,6 +62,22 @@ function Register(props) {
     }
   };
 
+  const responseGoogle = (response) => {
+    if (!response.error) {
+      const { profileObj: user } = response;
+      const data = {
+        email: user.email,
+        firstName: user.givenName,
+        lastName: user.familyName,
+        password: user.googleId,
+        avatar: user.imageUrl,
+        withGoogle: true,
+      };
+
+      requestRegister(data, true);
+    }
+  };
+
   const handleSubmit = async (data) => {
     const index = data.name.indexOf(" ");
     data.firstName = data.name.substr(0, index);
@@ -66,16 +87,29 @@ function Register(props) {
     delete userInfo.name;
     setData(userInfo);
 
-    const result = await registerApi.request(userInfo);
-    if (!result.ok) {
-      if (result.data) setError(result.data);
-      else {
-        setError("An unexpected error occurred.");
-      }
-      return;
-    } else setError(false);
+    await requestRegister(userInfo);
 
     onNext();
+  };
+
+  const requestRegister = async (data, withGoogle = false) => {
+    const token = await recaptchaRef.current.executeAsync();
+    if (token) {
+      const result = await registerApi.request(data);
+      if (!result.ok) {
+        if (result.data) setError(result.data);
+        else {
+          setError("An unexpected error occurred.");
+        }
+        return;
+      } else {
+        setError(false);
+        if (withGoogle) {
+          auth.login(result.data);
+          history.push("/");
+        }
+      }
+    }
   };
 
   return (
@@ -95,6 +129,8 @@ function Register(props) {
             <RegisterSlide1
               {...{ slideWidth, onNext }}
               onBack={() => history.goBack()}
+              responseGoogle={responseGoogle}
+              error={error}
             />
             <RegisterSlide2 {...{ slideWidth, onBack, error }} />
             <RegisterSlide3
@@ -104,6 +140,11 @@ function Register(props) {
           </div>
         </Form>
       </div>
+      <ReCAPTCHA
+        ref={recaptchaRef}
+        size="invisible"
+        sitekey={process.env.REACT_APP_RECAPTCHA_KEY}
+      />
     </Card>
   );
 }

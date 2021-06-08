@@ -6,19 +6,25 @@ import {
   MdVisibility,
   MdVisibilityOff,
 } from "react-icons/md";
-import { NavLink } from "react-router-dom";
 import { useFormikContext } from "formik";
 
-import { Icon } from "../../components";
+import { Icon } from "../../components/common";
 import { ErrorMessage, FormField, SubmitButton } from "../../components/forms";
 
 function RegisterSlide2({ slideWidth, error, onBack }) {
-  const { values } = useFormikContext();
+  const { values, handleSubmit } = useFormikContext();
   const [passVisible, setPassVisible] = useState(false);
 
   return (
     <div className="slide" style={{ width: slideWidth }}>
-      <div className="content">
+      <div
+        className="content"
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            handleSubmit();
+          }
+        }}
+      >
         <Icon
           Icon={MdArrowBack}
           size={30}
@@ -33,7 +39,12 @@ function RegisterSlide2({ slideWidth, error, onBack }) {
           <br />
           Register your email
         </h3>
-        <FormField name="email" LeftIcon={MdEmail} placeholder="Email" />
+        <FormField
+          name="email"
+          LeftIcon={MdEmail}
+          placeholder="Email"
+          size="sm"
+        />
         <FormField
           type={passVisible ? "text" : "password"}
           name="password"
@@ -42,12 +53,29 @@ function RegisterSlide2({ slideWidth, error, onBack }) {
           RightIcon={passVisible ? MdVisibilityOff : MdVisibility}
           rightIconSize={30}
           rightIconOnClick={() => setPassVisible(!passVisible)}
+          size="sm"
         />
+        <div className="google-text">
+          This site is protected by reCAPTCHA and the Google{" "}
+          <a
+            href="https://policies.google.com/privacy"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Privacy Policy
+          </a>{" "}
+          and{" "}
+          <a
+            href="https://policies.google.com/terms"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Terms of Service
+          </a>{" "}
+          apply.
+        </div>
         <ErrorMessage error={error} visible={error} />
         <SubmitButton label="Next" />
-        <NavLink to="/auth/login" className="help-text">
-          Already have an account?
-        </NavLink>
       </div>
     </div>
   );

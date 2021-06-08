@@ -5,8 +5,8 @@ import Lottie from "lottie-react";
 import Success from "../../assets/animations/success.json";
 import Failed from "../../assets/animations/failed.json";
 
-import { Button, Card } from "../../components";
-import ActivityIndicator from "./../../components/ActivityIndicator";
+import { ActivityIndicator, Button, Card } from "../../components/common";
+
 import { confirmEmail, resendLink } from "../../api/auth";
 import useApi from "../../hooks/useApi";
 

@@ -8,3 +8,37 @@
 .react-datepicker-wrapper {
   display: block;
 }
+
+.form-dropdown {
+  position: relative;
+
+  .form-dropdown-container {
+    z-index: 1;
+    position: absolute;
+    top: 5em;
+    left: 2%;
+    height: 15em;
+    width: 96%;
+    overflow-y: scroll;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+
+    @include themed() {
+      background-color: t("foreground");
+    }
+
+    .form-dropdown-item {
+      padding: 0.625em;
+
+      @include themed() {
+        color: t("text");
+      }
+
+      &:hover {
+        @include themed() {
+          background-color: t("background");
+        }
+      }
+    }
+  }
+}

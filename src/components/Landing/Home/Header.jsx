@@ -1,7 +1,8 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-import Button from "../../Button";
+import { Button } from "../../common";
+
 function Header({ setModal }) {
   return (
     <header>

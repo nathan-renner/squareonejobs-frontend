@@ -6,6 +6,10 @@ import Login from "./../views/auth/Login";
 import Navbar from "./../components/Auth/Navbar";
 import Footer from "../components/Auth/Footer";
 import Confirmation from "../views/auth/Confirmation";
+import PostJob from "./../views/auth/PostJob";
+import PostJob2 from "./../views/auth/PostJob2";
+import ForgotPassword from "../views/auth/ForgotPassword";
+import ResetPassword from "../views/auth/ResetPassword";
 
 function Auth(props) {
   return (
@@ -17,6 +21,13 @@ function Auth(props) {
             path="/auth/confirmation/:userId/:code"
             component={Confirmation}
           />
+          <Route
+            path="/auth/reset-password/:userId/:code"
+            component={ResetPassword}
+          />
+          <Route path="/auth/forgot-password" component={ForgotPassword} />
+          <Route path="/auth/postjob-2" component={PostJob2} />
+          <Route path="/auth/postjob" component={PostJob} />
           <Route path="/auth/register" component={Register} />
           <Route path="/auth/login" component={Login} />
           <Redirect to="/not-found" />

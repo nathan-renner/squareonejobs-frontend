@@ -1,12 +1,13 @@
 /* width */
 ::-webkit-scrollbar {
   width: 10px;
+  height: 10px;
 }
 
 /* Track */
-// ::-webkit-scrollbar-track {
-//   background: rgba(black, 0.1);
-// }
+::-webkit-scrollbar-track {
+  //background: rgba(black, 0.1);
+}
 
 /* Handle */
 ::-webkit-scrollbar-thumb {

@@ -2,13 +2,13 @@ import React, { useRef, useState } from "react";
 import * as Yup from "yup";
 import { MdCameraAlt, MdModeEdit } from "react-icons/md";
 
-import Card from "./../../Card";
-import Icon from "./../../Icon";
+import { Card, Icon } from "../../common";
 import { Form, FormField, FormDatePicker } from "./../../forms";
 import EditControls from "./EditControls";
 
 import useApi from "./../../../hooks/useApi";
 import { updateAccount } from "./../../../api/users";
+import { useResponseModal } from "./../../../hooks/useResponseModal";
 
 import defaultAvatar from "../../../assets/images/default-avatar.png";
 
@@ -33,6 +33,7 @@ function Header({
   setProgress,
   setUploadVisible,
   updateAccountDetails,
+  edit = true,
   ...props
 }) {
   const { avatar, firstName, lastName, email, details } = portfolio.userDetails;
@@ -42,6 +43,7 @@ function Header({
   const [file, setFile] = useState(null);
   const uploadRef = useRef(null);
   const updateAccountApi = useApi(updateAccount);
+  const { setModal } = useResponseModal();
 
   // useEffect(() => {
   //   setLoading(updateAccountApi.loading);
@@ -112,17 +114,24 @@ function Header({
     if (response.ok) {
       updateAccountDetails(response.data);
       setIsEditing(false);
-    }
+    } else
+      setModal({
+        type: "error",
+        header: "Something went wrong",
+        body: response.data,
+      });
   };
 
   return (
     <Card className="header" {...props}>
-      <div className="control-icons" onClick={() => setIsEditing(true)}>
-        <MdModeEdit
-          size={25}
-          className={`control-icon ${isEditing ? "active" : null}`}
-        />
-      </div>
+      {edit && (
+        <div className="control-icons" onClick={() => setIsEditing(true)}>
+          <MdModeEdit
+            size={25}
+            className={`control-icon ${isEditing ? "active" : null}`}
+          />
+        </div>
+      )}
       <div
         className={`avatar-container ${isEditing ? "editing" : null}`}
         onClick={isEditing ? selectImage : () => true}

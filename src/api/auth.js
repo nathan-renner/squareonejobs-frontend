@@ -6,7 +6,7 @@ export const login = (email, password) =>
   client.post(endpoint, { email, password });
 
 export const confirmEmail = (userId, code) =>
-  client.get(`/verification/confirmation/${userId}/${code}`);
+  client.get(`/verification/${userId}/${code}`);
 
 export const resendLink = (data) => client.post("/verification/resend", data);
 

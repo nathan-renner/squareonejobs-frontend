@@ -2,12 +2,12 @@ import React from "react";
 import NumberFormat from "react-number-format";
 import moment from "moment";
 
-import Card from "../../Card";
+import { Card } from "../../common";
 
 function PaymentsCard({ payments, ...otherProps }) {
   return (
     <Card {...otherProps}>
-      <h2>Recent Payments</h2>
+      <h2>Payment History</h2>
       {payments.map((payment) => (
         <div className="payment" key={payment._id}>
           <div className={`status ${payment.status}`} />

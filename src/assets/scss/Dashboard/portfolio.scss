@@ -22,6 +22,24 @@
     flex: 2;
   }
 
+  .user-not-found {
+    max-width: 15em;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    padding: 3em;
+
+    .icon {
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 1em;
+    }
+
+    h2 {
+      margin-bottom: 0;
+    }
+  }
+
   h2 {
     margin-bottom: 1.5em;
   }
@@ -499,5 +517,58 @@
     height: 0.1em;
     margin-top: 1em;
     margin-bottom: 1em;
+  }
+}
+
+.user-history {
+  display: flex;
+  justify-content: space-between;
+
+  > * + * {
+    margin-left: 1em;
+  }
+
+  a {
+    position: relative;
+    display: block;
+    text-decoration: none;
+    margin-left: 1em;
+    font-weight: 500;
+    @include themed() {
+      color: t("text");
+
+      &:hover {
+        text-decoration: underline solid t("text");
+      }
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 5px;
+      bottom: 0;
+      left: -1em;
+      width: 6px;
+      border-radius: 3px;
+      height: 30px;
+      background-color: $primary;
+    }
+  }
+
+  p {
+    @include themed() {
+      color: t("secondaryText");
+    }
+    font-size: 0.9em;
+    font-weight: 500;
+    margin-bottom: 0;
+    margin-left: 1em;
+  }
+}
+
+hr {
+  height: 1px;
+  @include themed() {
+    border: 1px solid rgba(t("medium"), 0.2);
   }
 }

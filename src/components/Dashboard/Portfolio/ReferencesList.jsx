@@ -1,6 +1,7 @@
 import React from "react";
 import moment from "moment";
-import StarRating from "./../../StarRating";
+
+import { StarRating } from "../../common";
 
 function ReferencesList({ references, small = false }) {
   return (

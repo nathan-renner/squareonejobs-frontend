@@ -1,0 +1,47 @@
+.options-dropdown {
+  position: relative;
+  display: inline;
+
+  .more-icon {
+    cursor: pointer;
+    border-radius: 30px;
+    @include themed() {
+      color: t("medium");
+    }
+
+    &:hover {
+      @include themed() {
+        background-color: t("background");
+      }
+    }
+  }
+  .options {
+    z-index: 10;
+    position: absolute;
+    display: none;
+    right: 10px;
+    width: auto;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0px 4px 10px rgba(black, 0.3);
+    @include themed() {
+      background-color: t("foreground");
+    }
+
+    &.active {
+      display: block;
+    }
+
+    .option {
+      padding: 0.5em;
+      cursor: pointer;
+      width: 13em;
+
+      &:hover {
+        @include themed() {
+          background-color: t("background");
+        }
+      }
+    }
+  }
+}

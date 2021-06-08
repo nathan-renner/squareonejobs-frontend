@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import Card from "./../../Card";
-import { MdAdd, MdDelete, MdModeEdit } from "react-icons/md";
 import moment from "moment";
+import { MdAdd, MdDelete, MdModeEdit } from "react-icons/md";
+
 import EditControls from "./EditControls";
 import WorkExperienceAddModal from "./WorkExperienceAddModal";
-import Modal from "./../../Modal";
+
+import { Card, Modal } from "../../common";
 
 function WorkExperience({ portfolio, updateElement, ...otherProps }) {
   const [isEditing, setIsEditing] = useState(false);

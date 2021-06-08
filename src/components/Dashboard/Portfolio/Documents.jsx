@@ -1,15 +1,16 @@
 import React, { useRef, useState } from "react";
-import Card from "./../../Card";
-
 import {
   MdDelete,
   MdFileUpload,
   MdModeEdit,
   MdPictureAsPdf,
 } from "react-icons/md";
-import Button from "../../Button";
+
+import { Card, Button } from "../../common";
+
 import useApi from "./../../../hooks/useApi";
 import { deleteDocument, uploadDocument } from "./../../../api/users";
+import { useResponseModal } from "./../../../hooks/useResponseModal";
 
 // const documents = [
 //   {
@@ -25,6 +26,7 @@ function Documents({
   setUploadVisible,
   updateDocuments,
   setLoading,
+  edit = true,
   ...props
 }) {
   const { documents } = portfolio;
@@ -32,6 +34,7 @@ function Documents({
   const uploadDocApi = useApi(uploadDocument);
   const deleteDocApi = useApi(deleteDocument);
   const uploadRef = useRef();
+  const { setModal } = useResponseModal();
 
   const selectDocument = () => {
     uploadRef.current.click();
@@ -58,7 +61,12 @@ function Documents({
       updateDocuments(response.data);
       uploadRef.current.value = null;
       setIsEditing(false);
-    }
+    } else
+      setModal({
+        type: "error",
+        header: "Something went wrong",
+        body: response.data,
+      });
   };
 
   const handleDeleteDocument = async (index) => {
@@ -70,30 +78,37 @@ function Documents({
       updateDocuments(response.data);
       setIsEditing(false);
       setLoading(false);
-    }
+    } else
+      setModal({
+        type: "error",
+        header: "Something went wrong",
+        body: response.data,
+      });
   };
 
   return (
     <Card className="documents" {...props}>
-      <div className="control-icons">
-        <input
-          ref={uploadRef}
-          type="file"
-          accept="application/pdf"
-          onChange={handleDocumentChange}
-          hidden
-        />
-        <MdFileUpload
-          size={25}
-          className="control-icon"
-          onClick={selectDocument}
-        />
-        <MdModeEdit
-          size={25}
-          className={`control-icon ${isEditing ? "active" : null}`}
-          onClick={() => setIsEditing(true)}
-        />
-      </div>
+      {edit && (
+        <div className="control-icons">
+          <input
+            ref={uploadRef}
+            type="file"
+            accept="application/pdf"
+            onChange={handleDocumentChange}
+            hidden
+          />
+          <MdFileUpload
+            size={25}
+            className="control-icon"
+            onClick={selectDocument}
+          />
+          <MdModeEdit
+            size={25}
+            className={`control-icon ${isEditing ? "active" : null}`}
+            onClick={() => setIsEditing(true)}
+          />
+        </div>
+      )}
       <h2>Documents</h2>
       {documents.length === 0 && (
         <p style={{ marginBottom: 0 }}>No documents</p>

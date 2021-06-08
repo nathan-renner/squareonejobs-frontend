@@ -9,8 +9,9 @@ import CallToAction from "./../../components/Landing/Home/CallToAction";
 import Footer from "../../components/Landing/Footer";
 import MobileApp from "./../../components/Landing/Home/MobileApp";
 import ContactUs from "./../../components/Landing/Home/ContactUs";
-import Modal from "./../../components/Modal";
 import TempModalContent from "./../../components/Landing/TempModalContent";
+
+import { Modal } from "../../components/common";
 
 const Home = () => {
   const [modalVisible, setModalVisible] = useState(false);

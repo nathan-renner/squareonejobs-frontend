@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
 import useApi from "./../../../hooks/useApi";
-import { getMyReferences } from "./../../../api/users";
+import { getMyReferences, getUserReferences } from "./../../../api/users";
 import ReferencesList from "./ReferencesList";
-import ActivityIndicator from "./../../ActivityIndicator";
 
-function ReferencesModal({ isOpen }) {
-  const refApi = useApi(getMyReferences);
+import { ActivityIndicator } from "../../common";
+
+function ReferencesModal({ isOpen, employer = false, id }) {
+  const refApi = useApi(employer ? getUserReferences : getMyReferences);
   const [references, setReferences] = useState(false);
 
   const fetchRefs = async () => {
-    const response = await refApi.request();
+    const response = await refApi.request(employer ? id : null);
     if (response.ok) setReferences(response.data);
   };
 

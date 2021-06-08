@@ -1,0 +1,39 @@
+/* Customize the label (the radio-button) */
+.radio-button {
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  position: relative;
+  font-size: 1em;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  @include themed() {
+    color: t("text");
+  }
+
+  input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+
+  /* When the radio button is checked, add a blue background */
+  input:checked ~ .checkmark {
+    background-color: $primary;
+  }
+
+  .checkmark {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    margin-right: 0.6em;
+    @include themed() {
+      background-color: t("background");
+    }
+  }
+}

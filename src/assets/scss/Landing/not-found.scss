@@ -1,0 +1,18 @@
+&.not-found {
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  text-align: center;
+  background-color: $light-background;
+
+  > :first-child {
+    align-self: start;
+  }
+
+  h1 {
+    font-size: 12em !important;
+  }
+  h2 {
+    font-size: 1.4em !important;
+  }
+}

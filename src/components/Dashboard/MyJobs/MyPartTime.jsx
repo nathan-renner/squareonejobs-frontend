@@ -1,25 +1,31 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 
-import Card from "../../Card";
+import { ActivityIndicator, Button, Card, JobsList, Modal } from "../../common";
+
 import Header from "./Header";
-import JobsList from "../../JobsList";
-import Button from "./../../Button";
-import { getMyJobs } from "../../../api/listings";
-import ActivityIndicator from "./../../ActivityIndicator";
 import useApi from "./../../../hooks/useApi";
-import Modal from "./../../Modal";
 import Listing from "../../../views/dashboard/Listing";
+
+import { getMyJobs } from "../../../api/listings";
+import { useResponseModal } from "./../../../hooks/useResponseModal";
 
 function MyPartTime(props) {
   const history = useHistory();
   const getMyJobsApi = useApi(getMyJobs);
   const [partTime, setPartTime] = useState(false);
   const [selectedJob, setSelectedJob] = useState(false);
+  const { setModal } = useResponseModal();
 
   const fetchJobs = async () => {
     const response = await getMyJobsApi.request("part");
     if (response.ok) setPartTime(response.data);
+    else
+      setModal({
+        type: "error",
+        header: "Something went wrong",
+        body: response.data,
+      });
   };
 
   useEffect(() => {
@@ -29,18 +35,6 @@ function MyPartTime(props) {
 
   return (
     <div className="my-jobs-content">
-      <ActivityIndicator visible={getMyJobsApi.loading} />
-      <Modal
-        className="nopadding"
-        visible={selectedJob}
-        Content={Listing}
-        onCancel={() => setSelectedJob(false)}
-        componentProps={{
-          modal: true,
-          id: selectedJob,
-          onExit: () => setSelectedJob(false),
-        }}
-      />
       {partTime && (
         <>
           <Header
@@ -81,6 +75,19 @@ function MyPartTime(props) {
           )}
         </>
       )}
+      <Modal
+        className="nopadding"
+        visible={selectedJob}
+        Content={Listing}
+        onCancel={() => setSelectedJob(false)}
+        componentProps={{
+          modal: true,
+          id: selectedJob,
+          onExit: () => setSelectedJob(false),
+          refreshListings: fetchJobs,
+        }}
+      />
+      <ActivityIndicator visible={getMyJobsApi.loading} />
     </div>
   );
 }

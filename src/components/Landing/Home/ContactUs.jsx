@@ -1,21 +1,41 @@
-import React from "react";
-//import { Form, FormField, SubmitButton } from "./../../forms";
-//import * as Yup from "yup";
-import Button from "./../../Button";
+import React, { useRef } from "react";
+import { Form, FormField, SubmitButton } from "./../../forms";
+import * as Yup from "yup";
+import ReCAPTCHA from "react-google-recaptcha";
+import { useResponseModal } from "./../../../hooks/useResponseModal";
+import useApi from "./../../../hooks/useApi";
+import { sendContactUsEmail } from "./../../../api/misc";
 
-// const schema = Yup.object().shape({
-//   name: Yup.string().required().label("Name"),
-//   email: Yup.string().required().email().label("Email"),
-//   subject: Yup.string().required().label("Subject"),
-//   message: Yup.string().required().label("Message"),
-// });
+const schema = Yup.object().shape({
+  name: Yup.string().required().label("Name"),
+  email: Yup.string().required().email().label("Email"),
+  subject: Yup.string().required().label("Subject"),
+  message: Yup.string().required().label("Message"),
+});
 
 function ContactUs(props) {
-  // const handleSubmit = ({ name, email, subject, message }) => {
-  //   console.log(name, email, subject, message);
-  // };
-  const openEmail = () => {
-    window.open("mailto:hello@squareonejobs.com");
+  const { setModal } = useResponseModal();
+  const sendEmailApi = useApi(sendContactUsEmail);
+  const recaptchaRef = useRef();
+
+  const handleSubmit = async (data, { resetForm }) => {
+    const token = await recaptchaRef.current.executeAsync();
+    if (token) {
+      const response = await sendEmailApi.request(data);
+      if (response.ok) {
+        setModal({
+          type: "success",
+          header: "Message Sent!",
+          body: "We'll be in contact within the next 1-5 business days.",
+        });
+        resetForm();
+      } else
+        setModal({
+          type: "error",
+          header: "Something went wrong :(",
+          body: response.data,
+        });
+    }
   };
 
   return (
@@ -31,13 +51,8 @@ function ContactUs(props) {
             Got a question? <br />
             We'd love to hear from you!
           </p>
-          <Button
-            className="btn-lg"
-            buttonStyle={{ display: "inline-block" }}
-            label="Email us"
-            onClick={() => openEmail()}
-          />
-          {/* <Form
+
+          <Form
             initialValues={{
               name: "",
               email: "",
@@ -70,9 +85,34 @@ function ContactUs(props) {
               placeholder="Message"
               containerStyle={{ backgroundColor: "#fff" }}
               textStyle={{ backgroundColor: "#fff" }}
+              type="textarea"
             />
+            <div className="google-text">
+              This site is protected by reCAPTCHA and the Google{" "}
+              <a
+                href="https://policies.google.com/privacy"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Privacy Policy
+              </a>{" "}
+              and{" "}
+              <a
+                href="https://policies.google.com/terms"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Terms of Service
+              </a>{" "}
+              apply.
+            </div>
             <SubmitButton label="Submit" style={{ display: "inline-block" }} />
-          </Form> */}
+            <ReCAPTCHA
+              ref={recaptchaRef}
+              size="invisible"
+              sitekey={process.env.REACT_APP_RECAPTCHA_KEY}
+            />
+          </Form>
         </div>
       </div>
     </section>

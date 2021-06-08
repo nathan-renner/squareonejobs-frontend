@@ -4,9 +4,10 @@ import Lottie from "lottie-react";
 
 import Logo from "../../assets/images/logotext.png";
 import Hamburger from "../../assets/animations/hamburger.json";
-import Button from "../Button";
 
-function Navbar({ className, setModal }) {
+import { Button } from "../common";
+
+function Navbar({ className, fixed = false }) {
   const [drawerOpened, setDrawerOpened] = useState(false);
   const hamburgerRef = useRef();
 
@@ -15,10 +16,10 @@ function Navbar({ className, setModal }) {
   });
 
   const handleScroll = () => {
-    if (window.scrollY > 300) {
-      document.querySelector(".navbar").className = "navbar navbar-light";
-    } else {
+    if (!fixed && window.scrollY <= 300) {
       document.querySelector(".navbar").className = "navbar";
+    } else {
+      document.querySelector(".navbar").className = "navbar navbar-light";
     }
   };
 
@@ -49,34 +50,49 @@ function Navbar({ className, setModal }) {
         </div>
         <div className={`nav-drawer ${drawerOpened ? "opened" : null}`}>
           <h3 className="nav-title">NAVIGATION</h3>
-          <NavLink to="/" className="nav-link" onClick={() => setModal(true)}>
+          <NavLink to="/" className="nav-link">
+            Job seekers
+          </NavLink>
+          <NavLink to="/employers" className="nav-link">
             Employers
           </NavLink>
-          <NavLink
-            to="/auth/login"
-            className="nav-link"
-            onClick={() => setModal(true)}
-          >
+          <NavLink to="/auth/login" className="nav-link">
             Login
           </NavLink>
         </div>
         <div className="nav-links-container">
           <div className="nav-link-container" tabIndex="0">
-            <NavLink to="/" className="nav-link" onClick={() => setModal(true)}>
-              Employers
+            <NavLink to="/" className="nav-link">
+              Job Seekers
             </NavLink>
+            <div className="nav-dropdown">
+              <h3>Job Seekers</h3>
+              <NavLink to="/resources" className="nav-dropdown-link">
+                Resource Locator
+              </NavLink>
+            </div>
           </div>
           <div className="nav-link-container" tabIndex="0">
-            <NavLink to="/" className="nav-link" onClick={() => setModal(true)}>
+            <NavLink to="/employers" className="nav-link">
+              Employers
+            </NavLink>
+            <div className="nav-dropdown">
+              <h3>Employers</h3>
+              <NavLink to="/auth/postjob" className="nav-dropdown-link">
+                Post a Job
+              </NavLink>
+              <NavLink to="/employers" className="nav-dropdown-link">
+                Pricing
+              </NavLink>
+            </div>
+          </div>
+          <div className="nav-link-container" tabIndex="0">
+            <NavLink to="/auth/login" className="nav-link">
               Login
             </NavLink>
           </div>
-          <NavLink to="/" style={{ textDecoration: "none" }}>
-            <Button
-              label="Find jobs"
-              className="button btn-lg"
-              onClick={() => setModal(true)}
-            />
+          <NavLink to="/auth/register" style={{ textDecoration: "none" }}>
+            <Button label="Find jobs" className="button btn-lg" />
           </NavLink>
         </div>
       </div>

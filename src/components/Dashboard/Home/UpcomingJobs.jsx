@@ -1,5 +1,5 @@
 import React from "react";
-import Card from "../../Card";
+import { Card } from "../../common";
 import moment from "moment";
 
 function UpcomingJobs({ jobs, onSelect, ...props }) {
@@ -30,7 +30,11 @@ function UpcomingJobs({ jobs, onSelect, ...props }) {
   return (
     <Card className="upcoming-jobs-card" {...props}>
       <h2>This Week</h2>
-      {jobs.length === 0 ? <p>No more jobs this week.</p> : <>{renderJobs()}</>}
+      {jobs.length === 0 ? (
+        <p style={{ marginBottom: 0 }}>No more jobs this week.</p>
+      ) : (
+        <>{renderJobs()}</>
+      )}
     </Card>
   );
 }

@@ -18,23 +18,25 @@
   }
 
   @import "./Dashboard/navbar.scss";
+  @import "./Dashboard/settings.scss";
+  @import "./Dashboard/listing.scss";
+  @import "./Dashboard/portfolio.scss";
 
   &.user-dash {
     @import "./Dashboard/home.scss";
     @import "./Dashboard/payments.scss";
-    @import "./Dashboard/portfolio.scss";
     @import "./Dashboard/myjobs.scss";
-    @import "./Dashboard/settings.scss";
     @import "./Dashboard/account.scss";
-    @import "./Dashboard/listing.scss";
     @import "./Dashboard/explore.scss";
     @import "./Dashboard/search.scss";
   }
 
   &.employer-dash {
     @import "./E-Dashboard/home.scss";
-    @import "./E-Dashboard/settings.scss";
-    @import "./E-Dashboard/recommended-candidates.scss";
+    @import "./E-Dashboard/payments.scss";
+    @import "./E-Dashboard/post-listing.scss";
+    @import "./E-Dashboard/my-listings.scss";
+    @import "./E-Dashboard/misc.scss";
   }
 
   .content-container {
@@ -75,7 +77,7 @@
   opacity: 0;
   background-color: rgba(black, 0.3);
   position: absolute;
-  z-index: 1;
+  z-index: 10;
   top: 0;
   left: 0;
   bottom: 0;

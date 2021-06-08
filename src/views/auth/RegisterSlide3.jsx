@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "../../components";
+import { Button } from "../../components/common";
 import ErrorMessage from "./../../components/forms/ErrorMessage";
 
 function RegisterSlide3({ slideWidth, onResendLink, error }) {

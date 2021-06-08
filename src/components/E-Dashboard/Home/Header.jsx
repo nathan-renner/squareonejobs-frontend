@@ -1,37 +1,47 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import { MdCheck, MdPerson, MdVisibility } from "react-icons/md";
 import { FaListUl } from "react-icons/fa";
-import Button from "../../Button";
-import Icon from "../../Icon";
 
-const stats = [
+import { Button, Icon } from "../../common";
+
+const statData = [
   {
     name: "Active Listings",
     icon: FaListUl,
     color: "secondary",
-    value: 5,
   },
   {
     name: "Applicants",
     icon: MdPerson,
     color: "purple",
-    value: 20,
   },
   {
     name: "Listing Views",
     icon: MdVisibility,
     color: "yellow",
-    value: 479,
   },
   {
     name: "Positions Filled",
     icon: MdCheck,
     color: "primary",
-    value: 3,
   },
 ];
 
-function Header({ ...props }) {
+function Header({ data, ...props }) {
+  const history = useHistory();
+  const [stats, setStats] = useState(statData);
+
+  useEffect(() => {
+    const newStats = [...stats];
+    newStats[0].value = data.numOfActiveListings;
+    newStats[1].value = data.numOfApplicants;
+    newStats[2].value = data.numOfViews;
+    newStats[3].value = data.numOfPositionsFilled;
+    setStats(newStats);
+    // eslint-disable-next-line
+  }, []);
+
   const renderStats = () => {
     return stats.map((stat, i) => (
       <div className="stat" key={i}>
@@ -49,10 +59,13 @@ function Header({ ...props }) {
       <div className="left">
         <div>
           <h2>Welcome back,</h2>
-          <h1>Jeff</h1>
+          <h1>{data.firstName}</h1>
         </div>
         <div>
-          <Button label="Create New Listing" />
+          <Button
+            label="Create New Listing"
+            onClick={() => history.push("/new-listing")}
+          />
         </div>
       </div>
       <div className="right">{renderStats()}</div>

@@ -1,13 +1,17 @@
 import React from "react";
 import { MdHome, MdSettings } from "react-icons/md";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import useAuth from "../../../auth/useAuth";
 
-import defaultAvatar from "../../../assets/images/default-avatar.png";
-import Icon from "./../../Icon";
+import { Icon } from "../../common";
 
-function ProfileDropdown({ visible, avatar }) {
+import defaultAvatar from "../../../assets/images/default-avatar.png";
+import { useTheme } from "../../../config/ThemeProvider";
+
+function ProfileDropdown({ visible, setDropdown, avatar }) {
   const { user, logout } = useAuth();
+  const { isDark, toggleTheme } = useTheme();
+  const history = useHistory();
 
   return (
     <div
@@ -26,11 +30,18 @@ function ProfileDropdown({ visible, avatar }) {
           <Icon Icon={MdPerson} size={25} color="secondary" />
           <p>Account</p>
         </NavLink> */}
-        <NavLink to="/settings">
+        <NavLink to="/settings" onClick={() => setDropdown(false)}>
           <Icon Icon={MdSettings} size={25} color="secondary" />
           <p>Settings</p>
         </NavLink>
-        <div className="pointer" onClick={logout}>
+        <div
+          className="pointer"
+          onClick={() => {
+            if (isDark) toggleTheme();
+            logout();
+            history.replace("/");
+          }}
+        >
           <Icon Icon={MdHome} size={25} />
           <p>Logout</p>
         </div>

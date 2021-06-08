@@ -2,7 +2,7 @@ import { create } from "apisauce";
 import { getToken } from "../auth/storage";
 
 const apiClient = create({
-  baseURL: "http://localhost:3900/api",
+  baseURL: process.env.REACT_APP_API_URL,
 });
 
 apiClient.addAsyncRequestTransform(async (request) => {

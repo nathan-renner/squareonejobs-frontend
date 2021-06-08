@@ -12,7 +12,7 @@ function Footer(props) {
       <div className="container">
         <div className="footer-container">
           <div className="left">
-            <NavLink to="/">About us</NavLink>
+            <NavLink to="/about">About us</NavLink>
             <a
               href="https://medium.com/squareonejobs"
               target="_blank"

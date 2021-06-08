@@ -4,6 +4,7 @@
   position: relative;
   border-radius: 20px;
   overflow: hidden;
+  box-shadow: 0px 4px 10px rgba(black, 0.2);
   @include themed() {
     //background-color: t("foreground");
   }
@@ -14,6 +15,7 @@
 
   .map {
     width: 100%;
+    height: 12em;
   }
 
   .content {
@@ -27,6 +29,48 @@
       gap: 1em;
       justify-content: space-between;
       margin-bottom: 1em;
+
+      .status {
+        display: flex;
+        align-items: center;
+        margin-bottom: 5px;
+
+        p {
+          @include themed() {
+            color: t("text");
+          }
+
+          margin-left: 6px;
+          margin-bottom: 0;
+        }
+      }
+
+      .icons {
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-start;
+      }
+
+      .saved {
+        margin-right: 0.5em;
+        cursor: pointer;
+        background-color: transparent;
+
+        &:hover {
+          @include themed() {
+            background-color: t("background") !important;
+          }
+        }
+      }
+
+      p {
+        @include themed() {
+          color: t("secondaryText");
+        }
+        font-size: 0.9em;
+        font-weight: 500;
+        margin-bottom: 0;
+      }
 
       .left {
         flex: 1;
@@ -45,15 +89,7 @@
         h2 {
           font-size: 1.4em !important;
           font-weight: 600;
-          margin-bottom: 0;
-        }
-        p {
-          @include themed() {
-            color: t("secondaryText");
-          }
-          font-size: 0.9em;
-          font-weight: 500;
-          margin-bottom: 0;
+          margin-bottom: 0.2em;
         }
       }
     }
@@ -79,7 +115,35 @@
   }
   .l-content {
     padding: 0px 20px 20px 20px;
-    //height: 100%;
-    //overflow-y: scroll;
+  }
+
+  hr {
+    height: 1px;
+    @include themed() {
+      border: 1px solid t("background") !important;
+    }
+  }
+
+  .company-info {
+    h3,
+    a,
+    p {
+      margin-bottom: 1em;
+    }
+
+    a {
+      display: block;
+    }
+
+    .attr {
+      font-weight: 600;
+      margin-bottom: 0.2em;
+    }
+  }
+}
+.listing-page {
+  > * {
+    margin-left: auto;
+    margin-right: auto;
   }
 }
