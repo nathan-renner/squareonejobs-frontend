@@ -11,7 +11,7 @@ import Footer from "./../../components/Landing/Footer";
 const Employers = () => {
   return (
     <div className="landing employers">
-      <Navbar />
+      <Navbar dark />
       <Header />
       <LogoCarousel />
       <EmployerWhy />

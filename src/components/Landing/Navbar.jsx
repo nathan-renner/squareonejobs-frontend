@@ -3,12 +3,14 @@ import { NavLink } from "react-router-dom";
 import Lottie from "lottie-react";
 
 import Logo from "../../assets/images/logotext.png";
+import LogoWhite from "../../assets/images/logotext-light.png";
 import Hamburger from "../../assets/animations/hamburger.json";
 
 import { Button } from "../common";
 
-function Navbar({ className, fixed = false }) {
+function Navbar({ className, dark = false, fixed = false }) {
   const [drawerOpened, setDrawerOpened] = useState(false);
+  const [logoWhite, setLogoWhite] = useState(dark ? true : false);
   const hamburgerRef = useRef();
 
   useEffect(() => {
@@ -18,8 +20,10 @@ function Navbar({ className, fixed = false }) {
   const handleScroll = () => {
     if (!fixed && window.scrollY <= 300) {
       document.querySelector(".navbar").className = "navbar";
+      setLogoWhite(true);
     } else {
       document.querySelector(".navbar").className = "navbar navbar-light";
+      setLogoWhite(false);
     }
   };
 
@@ -37,7 +41,11 @@ function Navbar({ className, fixed = false }) {
     <div className={`navbar ${className ? className : null}`}>
       <div className="navbar-container">
         <NavLink to="/" className="nav-logo-link">
-          <img src={Logo} alt="SquareOneJobs Logo" className="nav-logo" />
+          <img
+            src={logoWhite ? LogoWhite : Logo}
+            alt="SquareOneJobs Logo"
+            className="nav-logo"
+          />
         </NavLink>
         <div className="hamburger-icon">
           <Lottie
