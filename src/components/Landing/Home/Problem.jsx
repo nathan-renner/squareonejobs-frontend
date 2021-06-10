@@ -26,16 +26,16 @@ function Problem(props) {
         <h2 className="title">Breaking employment barriers helps</h2>
         <div className="carousel">
           <a href="" />
-          <h2 className="carousel-item" data-item={getPos(2)}>
+          <h2 className="carousel-item" data-item={getPos(1)}>
             individuals.
           </h2>
-          <h2 className="carousel-item" data-item={getPos(1)}>
+          <h2 className="carousel-item" data-item={getPos(0)}>
             businesses.
           </h2>
-          <h2 className="carousel-item" data-item={getPos(0)}>
+          <h2 className="carousel-item" data-item={getPos(3)}>
             the nation.
           </h2>
-          <h2 className="carousel-item" data-item={getPos(3)}>
+          <h2 className="carousel-item" data-item={getPos(2)}>
             everyone.
           </h2>
         </div>
@@ -44,6 +44,7 @@ function Problem(props) {
         <div className="split-cards cards-container">
           <div
             className="card individual"
+            data-item={Math.floor(count) === 1}
             onClick={() =>
               window.open(
                 "https://wol.iza.org/uploads/articles/399/pdfs/do-post-prison-job-opportunities-reduce-recidivism.pdf"
@@ -65,6 +66,7 @@ function Problem(props) {
           </div>
           <div
             className="card business"
+            data-item={Math.floor(count) === 2}
             onClick={() =>
               window.open(
                 "https://www.goodhire.com/blog/7-reasons-to-hire-people-with-criminal-records/"
@@ -86,6 +88,7 @@ function Problem(props) {
           </div>
           <div
             className="card nation"
+            data-item={Math.floor(count) === 3}
             onClick={() =>
               window.open(
                 "https://s27147.pcdn.co/wp-content/uploads/Business-Case-Fair-Chance-Employment.pdf"
