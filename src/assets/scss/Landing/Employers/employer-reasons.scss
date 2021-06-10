@@ -7,24 +7,21 @@
     padding-bottom: 100px;
   }
   h2 {
-    color: $dark; //whats the grey color again?
+    color: $dark;
   }
   p {
     color: $dark;
     width: 300px;
     text-align: left;
   }
-  .text-container {
+  .text-container-1 {
     width: 400px;
     text-align: left;
-    margin-left: 0;
-    margin-right: auto;
   }
   .reason-1 {
-    text-align: center;
+    text-align: left;
     padding-top: 30px;
-    margin-left: auto;
-    margin-right: auto;
+    padding-left: 125px;
 
     &.reason-1::before {
       content: "";
@@ -32,13 +29,21 @@
       width: 8px;
       border-radius: 4px;
       position: absolute;
+      margin-left: -30px;
       top: -20;
       background-color: $primary;
     }
   }
+  .text-container-2 {
+    width: 400px;
+    text-align: left;
+    margin-left: 0px;
+    margin-right: auto;
+  }
   .reason-2 {
-    text-align: center;
+    text-align: left;
     padding-top: 30px;
+    padding-left: 65px;
 
     &.reason-2::before {
       content: "";
@@ -47,7 +52,7 @@
       border-radius: 4px;
       position: absolute;
       top: -20;
-      left: 775px;
+      left: 820px;
       background-color: $secondary;
     }
   }
