@@ -51,131 +51,6 @@
           opacity: 0;
           transform: translateY($height * 2);
         }
-        //   &[data-item="1"] {
-        //     animation: rotate-1 10s ease-in infinite;
-        //     @keyframes rotate-1 {
-        //       0%,
-        //       20% {
-        //         transform: translateY(0);
-        //         opacity: 1;
-        //       }
-        //       25%,
-        //       45% {
-        //         opacity: 0;
-        //         transform: translateY($height * -1);
-        //       }
-        //       45.001% {
-        //         transform: translateY($height * 2);
-        //       }
-        //       50%,
-        //       70% {
-        //         transform: translateY($height * 2);
-        //         opacity: 0.1;
-        //       }
-        //       75%,
-        //       95% {
-        //         opacity: 0.4;
-        //         transform: translateY($height * 1);
-        //       }
-        //       100% {
-        //         transform: translateY(0);
-        //         opacity: 1;
-        //       }
-        //     }
-        //   }
-        //   &[data-item="2"] {
-        //     animation: rotate-2 10s ease-in infinite;
-        //     @keyframes rotate-2 {
-        //       0%,
-        //       20% {
-        //         transform: translateY(0);
-        //         opacity: 0.4;
-        //       }
-        //       25%,
-        //       45% {
-        //         transform: translateY($height * -1);
-        //         opacity: 1;
-        //       }
-        //       50%,
-        //       70% {
-        //         transform: translateY($height * -2);
-        //         opacity: 0;
-        //       }
-        //       70.001% {
-        //         transform: translateY($height * 2);
-        //       }
-        //       75%,
-        //       95% {
-        //         opacity: 0.1;
-        //         transform: translateY($height);
-        //       }
-        //       100% {
-        //         transform: translateY(0);
-        //         opacity: 0.4;
-        //       }
-        //     }
-        //   }
-        //   &[data-item="3"] {
-        //     animation: rotate-3 10s ease-in infinite;
-        //     @keyframes rotate-3 {
-        //       0%,
-        //       20% {
-        //         transform: translateY(0);
-        //         opacity: 0.1;
-        //       }
-        //       25%,
-        //       45% {
-        //         transform: translateY($height * -1);
-        //         opacity: 0.4;
-        //       }
-        //       50%,
-        //       70% {
-        //         transform: translateY($height * -2);
-        //         opacity: 1;
-        //       }
-        //       75%,
-        //       95% {
-        //         transform: translateY($height * -3);
-        //         opacity: 0;
-        //       }
-        //       95.001% {
-        //         transform: translateY($height * 2);
-        //       }
-        //       100% {
-        //         transform: translateY(0);
-        //         opacity: 0.1;
-        //       }
-        //     }
-        //   }
-        //   &[data-item="4"] {
-        //     animation: rotate-4 10s ease-in infinite;
-        //     @keyframes rotate-4 {
-        //       0%,
-        //       20% {
-        //         transform: translateY(0);
-        //         opacity: 0;
-        //       }
-        //       25%,
-        //       45% {
-        //         transform: translateY($height * -1);
-        //         opacity: 0.1;
-        //       }
-        //       50%,
-        //       70% {
-        //         transform: translateY($height * -2);
-        //         opacity: 0.4;
-        //       }
-        //       75%,
-        //       95% {
-        //         transform: translateY($height * -3);
-        //         opacity: 1;
-        //       }
-        //       100% {
-        //         transform: translateY($height * -4);
-        //         opacity: 0;
-        //       }
-        //     }
-        //   }
       }
     }
     @media only screen and (min-width: 54em) {
@@ -206,6 +81,7 @@
       user-select: none;
       cursor: pointer;
       z-index: 1;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
 
       .filter {
         background-color: $black;
@@ -252,8 +128,10 @@
           transition: all 150ms ease-out;
         }
       }
-      &:hover {
-        transform: scale(1.1);
+      &:nth-of-type(1)[data-item="true"],
+      &:nth-of-type(2)[data-item="true"],
+      &:nth-of-type(3)[data-item="true"] {
+        transform: scale(1.05);
         .content {
           .icon {
             .path {
@@ -268,59 +146,5 @@
         }
       }
     }
-
-    // @keyframes cards {
-    //   0%,
-    //   25% {
-    //     .card.individual {
-    //       transform: scale(1.15);
-    //       .content {
-    //         .icon {
-    //           .path {
-    //             fill: $primary;
-    //           }
-    //           transform: translate(110px, 50px) scale(1.8);
-    //         }
-    //         .title {
-    //           transform: translateY(40px);
-    //         }
-    //       }
-    //     }
-    //   }
-    //   26%,
-    //   50% {
-    //     .business {
-    //       transform: scale(1.15);
-    //       .content {
-    //         .icon {
-    //           .path {
-    //             fill: $primary;
-    //           }
-    //           transform: translate(110px, 50px) scale(1.8);
-    //         }
-    //         .title {
-    //           transform: translateY(40px);
-    //         }
-    //       }
-    //     }
-    //   }
-    //   51%,
-    //   75% {
-    //     .nation {
-    //       transform: scale(1.15);
-    //       .content {
-    //         .icon {
-    //           .path {
-    //             fill: $primary;
-    //           }
-    //           transform: translate(110px, 50px) scale(1.8);
-    //         }
-    //         .title {
-    //           transform: translateY(40px);
-    //         }
-    //       }
-    //     }
-    //   }
-    // }
   }
 }

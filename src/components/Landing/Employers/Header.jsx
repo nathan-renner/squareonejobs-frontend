@@ -1,6 +1,10 @@
 import React from "react";
+import { Button } from "../../../components/common";
+import { useHistory } from "react-router-dom";
 
 function Header(props) {
+  const history = useHistory();
+
   return (
     <header>
       <div className="container">
@@ -12,6 +16,11 @@ function Header(props) {
             We exist to accelerate company growth by unlocking worker’s
             potential.
           </p>
+          <Button
+            label="post a job"
+            onClick={() => history.push("/auth/postjob")}
+            textStyle={{ fontSize: 20, paddingTop: 0 }}
+          />
         </div>
       </div>
       <svg
