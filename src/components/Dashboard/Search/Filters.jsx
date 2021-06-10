@@ -63,11 +63,14 @@ function Filters({ filter, handleFilterChange }) {
           }
         >
           <option value="">No Category</option>
-          <option value="Computer Sciences">Computer Sciences</option>
-          <option value="Education">Education</option>
-          <option value="Marketing">Marketing</option>
+          <option value="Construction">Construction</option>
+          <option value="Driving">Driving</option>
+          <option value="E-Commerce">E-Commerce</option>
+          <option value="Labor">Labor</option>
           <option value="Restaurant Services">Restaurant Services</option>
-          <option value="Retail">Retail</option>
+          <option value="Sales">Sales</option>
+          <option value="Technology Support">Technology Support</option>
+          <option value="Warehouse">Warehouse</option>
         </select>
         {renderSwitch("remote", "Remote", "Not Remote")}
         {renderSwitch(

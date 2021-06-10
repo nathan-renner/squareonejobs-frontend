@@ -10,6 +10,10 @@
 
     &.zip {
       max-width: 15em;
+
+      .input-container {
+        box-shadow: 0px 3px 5px rgba(black, 0.1);
+      }
     }
 
     .filters {
