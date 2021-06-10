@@ -17,10 +17,14 @@
   .text-container {
     width: 400px;
     text-align: left;
+    margin-left: 0;
+    margin-right: auto;
   }
   .reason-1 {
     text-align: center;
     padding-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
 
     &.reason-1::before {
       content: "";
@@ -29,7 +33,6 @@
       border-radius: 4px;
       position: absolute;
       top: -20;
-      left: 275px;
       background-color: $primary;
     }
   }

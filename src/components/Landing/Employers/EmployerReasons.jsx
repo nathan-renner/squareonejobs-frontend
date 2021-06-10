@@ -17,14 +17,14 @@ function EmployerReasons(props) {
       <div className="container split">
         <div className="reason-1">
           <h2>View user's portfolios</h2>
-          <p>
+          <p className="text-container">
             Learn about potential employees by viewing their skills, education,
             previous work experience, and much more.
           </p>
         </div>
         <div className="reason-2">
           <h2>Up-to-date employer references</h2>
-          <p>
+          <p className="text-container">
             When users complete day jobs or part-time jobs and collect
             recommendations from other employers. You have full access to view
             any of their previous experiences with our service.
