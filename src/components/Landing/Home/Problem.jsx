@@ -1,33 +1,41 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import PersonIcon from "../../icons/PersonIcon";
 import BuildingIcon from "../../icons/BuildingIcon";
 import NationIcon from "../../icons/NationIcon";
 
-const HEIGHT = 40;
-
 function Problem(props) {
+  const [count, setCount] = useState(1);
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (count === 4.5) setCount(1);
+      else setCount(count + 0.5);
+    }, 1000);
+  });
+
+  const getPos = (num) => {
+    return ((count + num) % 4) + 1 === 4.5
+      ? "4.5"
+      : `${Math.floor(((count + num) % 4) + 1)}`;
+  };
+
   return (
     <section className="section-problem">
       <div className="container problem-container">
         <h2 className="title">Breaking employment barriers helps</h2>
         <div className="carousel">
-          <h2 className="carousel-item item-1" style={{ marginTop: 0 }}>
+          <a href="" />
+          <h2 className="carousel-item" data-item={getPos(2)}>
             individuals.
           </h2>
-          <h2 className="carousel-item item-2" style={{ marginTop: HEIGHT }}>
+          <h2 className="carousel-item" data-item={getPos(1)}>
             businesses.
           </h2>
-          <h2
-            className="carousel-item item-3"
-            style={{ marginTop: 2 * HEIGHT }}
-          >
+          <h2 className="carousel-item" data-item={getPos(0)}>
             the nation.
           </h2>
-          <h2
-            className="carousel-item item-4"
-            style={{ marginTop: 3 * HEIGHT }}
-          >
+          <h2 className="carousel-item" data-item={getPos(3)}>
             everyone.
           </h2>
         </div>
