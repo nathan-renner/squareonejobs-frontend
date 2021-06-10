@@ -25,7 +25,6 @@ function Problem(props) {
       <div className="container problem-container">
         <h2 className="title">Breaking employment barriers helps</h2>
         <div className="carousel">
-          <a href="" />
           <h2 className="carousel-item" data-item={getPos(1)}>
             individuals.
           </h2>

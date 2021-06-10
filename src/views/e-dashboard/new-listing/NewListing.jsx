@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
+import moment from "moment";
 import { useHistory, useLocation } from "react-router-dom";
 import { MdCheck } from "react-icons/md";
 
@@ -11,9 +12,9 @@ import useApi from "./../../../hooks/useApi";
 
 import {
   FormField,
-  FormDatePicker,
   FormDropdown,
   SubmitButton,
+  FormDate,
 } from "../../../components/forms";
 import { ActivityIndicator, Button, Card } from "../../../components/common";
 
@@ -107,7 +108,7 @@ const states = [
 
 function NewListing(props) {
   const history = useHistory();
-  const { state: prevListing } = useLocation();
+  const { state: passedState } = useLocation();
   const [type, setType] = useState(false);
   const [prevLoc, setPrevLoc] = useState(false);
   const [savedLocs, setSavedLocs] = useState(false);
@@ -122,7 +123,7 @@ function NewListing(props) {
   const getListingApi = useApi(getListing);
 
   const fetchListing = async () => {
-    const res = await getListingApi.request(prevListing);
+    const res = await getListingApi.request(passedState.id);
     if (res.ok) {
       setStatus(res.data.status);
       setType(res.data.type);
@@ -151,8 +152,22 @@ function NewListing(props) {
   };
 
   useEffect(() => {
-    if (prevListing && !initialValues && !getListingApi.error) fetchListing();
-    else setInitialValues(initialVals);
+    if (passedState && passedState.id && !initialValues && !getListingApi.error)
+      fetchListing();
+    else if (passedState) {
+      setType(passedState.type);
+      handlePrevLoc();
+      setDl(passedState.details.qualifications.driversLicense);
+      setRemote(passedState.details.remote && passedState.details.remote);
+      setLocation(passedState.details.location);
+      setInitialValues({
+        category: passedState.category,
+        otherQualifications: passedState.details.qualifications
+          ? passedState.details.qualifications.other
+          : "",
+        ...passedState.details,
+      });
+    } else setInitialValues(initialVals);
     // eslint-disable-next-line
   }, []);
 
@@ -166,10 +181,21 @@ function NewListing(props) {
       zip: Yup.string().label("Zip").min(5).max(5),
       coordinates: Yup.array().of(Yup.number()),
     }),
-    startDateTime: Yup.date().label("Start Time"),
+    startDateTime: Yup.date()
+      .label("Start Time")
+      .min(
+        moment().add(1, "days"),
+        "Job start time must be at least 24 hours from now."
+      ),
     endDateTime:
       type === "day"
-        ? Yup.date().label("End Time").required()
+        ? Yup.date()
+            .label("End Time")
+            .required()
+            .min(
+              Yup.ref("startDateTime"),
+              "Job end date time must be after start date time."
+            )
         : Yup.date().label("End Time").nullable(),
     salary:
       type !== "day"
@@ -235,7 +261,7 @@ function NewListing(props) {
     }
 
     if (status === "draft") {
-      data._id = prevListing;
+      data._id = passedState.id;
     }
 
     history.push("/new-listing/review", data);
@@ -278,7 +304,7 @@ function NewListing(props) {
       data.details.benefits = i.benefits;
     }
     if (status === "draft") {
-      const response = await updateDraft(data, prevListing);
+      const response = await updateDraft(data, passedState.id);
       if (response.ok) history.push("/my-listings/drafts");
       else
         setModal({
@@ -304,12 +330,12 @@ function NewListing(props) {
 
   const renderTypes = () => {
     return types.map((t) => (
-      <label
-        className="radio-button"
-        key={t.type}
-        onClick={() => setType(t.type)}
-      >
-        <input type="radio" checked={type === t.type} />
+      <label className="radio-button" key={t.type}>
+        <input
+          type="radio"
+          checked={type === t.type}
+          onChange={() => setType(t.type)}
+        />
         <span className="checkmark"></span>
         {t.name}
       </label>
@@ -335,6 +361,7 @@ function NewListing(props) {
             </div>
             {type && (
               <Formik
+                enableReinitialize={true}
                 validationSchema={schema}
                 initialValues={initialValues}
                 onSubmit={handleSubmit}
@@ -355,18 +382,18 @@ function NewListing(props) {
                       ) : (
                         <FormField size="sm" name="salary" label="Salary" />
                       )}
-                      <FormDatePicker
+                      <FormDate
                         size="sm"
                         name="startDateTime"
                         label={`Start Date${type === "day" ? "/Time" : ""}`}
-                        showTimeSelect={type === "day"}
+                        time={type === "day"}
                       />
                       {type === "day" && (
-                        <FormDatePicker
+                        <FormDate
                           size="sm"
                           name="endDateTime"
                           label="End Date/Time"
-                          showTimeSelect={type === "day"}
+                          time
                         />
                       )}
                     </div>
@@ -374,10 +401,13 @@ function NewListing(props) {
                       <h2>Location</h2>
                       <label
                         className="checkbox"
-                        onChange={handlePrevLoc}
                         style={{ marginBottom: "1em" }}
                       >
-                        <input type="checkbox" defaultChecked={prevLoc} />
+                        <input
+                          onChange={handlePrevLoc}
+                          type="checkbox"
+                          defaultChecked={prevLoc}
+                        />
                         <span className="checkmark"></span>
                         Use Previous Location
                       </label>
@@ -441,10 +471,13 @@ function NewListing(props) {
                       <h2>Details</h2>
                       <label
                         className="checkbox"
-                        onChange={() => setRemote(!remote)}
                         style={{ marginBottom: "1em" }}
                       >
-                        <input type="checkbox" defaultChecked={remote} />
+                        <input
+                          onChange={() => setRemote(!remote)}
+                          type="checkbox"
+                          defaultChecked={remote}
+                        />
                         <span className="checkmark"></span>
                         Remote Work
                       </label>
@@ -478,19 +511,21 @@ function NewListing(props) {
                         type="textarea"
                       />
                     </div>
-                    <SubmitButton
-                      label="Review Listing"
-                      style={{ marginLeft: "auto" }}
-                    />
-                    <Button
-                      label="Save as Draft"
-                      color="transparent"
-                      textColor="primary"
-                      style={{ marginLeft: ".1em" }}
-                      onClick={() =>
-                        validateForm().then(() => handleSaveDraft(values))
-                      }
-                    />
+                    <div style={{ textAlign: "right" }}>
+                      <Button
+                        label="Save as Draft"
+                        color="transparent"
+                        textColor="primary"
+                        style={{ marginLeft: ".1em" }}
+                        onClick={() =>
+                          validateForm().then(() => handleSaveDraft(values))
+                        }
+                      />
+                      <SubmitButton
+                        label="Review Listing"
+                        style={{ marginLeft: "auto" }}
+                      />
+                    </div>
                   </>
                 )}
               </Formik>

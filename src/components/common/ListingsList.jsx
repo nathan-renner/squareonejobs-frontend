@@ -111,7 +111,7 @@ function ListingsList({
     }
     options.push({
       name: "Post Similar",
-      onClick: () => history.push(`/new-listing`, _id),
+      onClick: () => history.push(`/new-listing`, { id: _id }),
     });
     if (status === "cancelled")
       options.push({
