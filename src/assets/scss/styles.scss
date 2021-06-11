@@ -169,6 +169,10 @@ body {
   overflow-y: overlay;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 @import "./component-styles/card.scss";
 @import "./component-styles/theme-switch.scss";
 @import "./component-styles/button.scss";

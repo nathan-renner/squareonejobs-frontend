@@ -1,17 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import PersonIcon from "../../icons/PersonIcon";
 import BuildingIcon from "../../icons/BuildingIcon";
 import NationIcon from "../../icons/NationIcon";
+import useOnScreen from "./../../../hooks/useOnScreen";
 
 function Problem(props) {
   const [count, setCount] = useState(1);
+  const ref = useRef();
+  const isVisible = useOnScreen(ref);
 
   useEffect(() => {
-    setTimeout(() => {
-      if (count === 4.5) setCount(1);
-      else setCount(count + 0.5);
-    }, 1000);
+    isVisible &&
+      setTimeout(() => {
+        if (count === 4.5) setCount(1);
+        else setCount(count + 0.5);
+      }, 1000);
   });
 
   const getPos = (num) => {
@@ -21,7 +25,7 @@ function Problem(props) {
   };
 
   return (
-    <section className="section-problem">
+    <section className="section-problem" ref={ref}>
       <div className="container problem-container">
         <h2 className="title">Breaking employment barriers helps</h2>
         <div className="carousel">
