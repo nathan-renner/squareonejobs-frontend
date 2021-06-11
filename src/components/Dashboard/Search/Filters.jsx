@@ -1,5 +1,38 @@
 import React from "react";
 
+const categories = [
+  "Accounting",
+  "Administrative Support",
+  "Architecture",
+  "Art",
+  "Business",
+  "Communications",
+  "Computer Science",
+  "Construction",
+  "Customer Service",
+  "Design",
+  "E-Commerce",
+  "Education & Training",
+  "Engineering",
+  "Entertainment",
+  "Farming & Fishing",
+  "Healthcare",
+  "Human Resources",
+  "Legal",
+  "Management",
+  "Marketing",
+  "Mechanic",
+  "Protective Services",
+  "Real Estate",
+  "Restaurant & Food Ind.",
+  "Sales",
+  "Social Sciences",
+  "Social Work",
+  "Technology Support",
+  "Transportation",
+  "Warehousing",
+];
+
 function Filters({ filter, handleFilterChange }) {
   const renderSwitch = (cat, trueText, falseText) => (
     <div
@@ -9,6 +42,13 @@ function Filters({ filter, handleFilterChange }) {
       {filter[cat] ? trueText : falseText}
     </div>
   );
+
+  const renderCats = () =>
+    categories.map((cat) => (
+      <option key={cat} value={cat}>
+        {cat}
+      </option>
+    ));
 
   return (
     <div className="filters-container">
@@ -63,14 +103,7 @@ function Filters({ filter, handleFilterChange }) {
           }
         >
           <option value="">No Category</option>
-          <option value="Construction">Construction</option>
-          <option value="Driving">Driving</option>
-          <option value="E-Commerce">E-Commerce</option>
-          <option value="Labor">Labor</option>
-          <option value="Restaurant Services">Restaurant Services</option>
-          <option value="Sales">Sales</option>
-          <option value="Technology Support">Technology Support</option>
-          <option value="Warehouse">Warehouse</option>
+          {renderCats()}
         </select>
         {renderSwitch("remote", "Remote", "Not Remote")}
         {renderSwitch(

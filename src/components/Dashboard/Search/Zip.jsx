@@ -42,7 +42,6 @@ function Zip({ zip, handleFilterChange }) {
               placeholder="E.g. 07030"
               RightIcon={MdSearch}
               rightIconOnClick={handleSubmit}
-              containerStyle={{ boxShadow: "0px 3px 5px rgba(black, 0.1)" }}
             />
           </div>
         )}
