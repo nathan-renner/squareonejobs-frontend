@@ -15,7 +15,7 @@ function Header({ setModal }) {
         count === 3 ? setCount(1) : setCount(count + 1);
       }, 3000);
   });
-  console.log(isVisible);
+
   return (
     <header>
       <div className="image-background" ref={imageBgRef}>

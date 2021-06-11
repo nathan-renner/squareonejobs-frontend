@@ -2,8 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
 import Lottie from "lottie-react";
 
-import Logo from "../../assets/images/logotext.png";
-import LogoWhite from "../../assets/images/logotext-light.png";
 import Hamburger from "../../assets/animations/hamburger.json";
 
 import { Button } from "../common";
@@ -62,6 +60,9 @@ function Navbar({ className, dark = false, fixed = false }) {
           </NavLink>
           <NavLink to="/employers" className="nav-link">
             Employers
+          </NavLink>
+          <NavLink to="/resources" className="nav-link">
+            Resource Locator
           </NavLink>
           <NavLink to="/auth/login" className="nav-link">
             Login
