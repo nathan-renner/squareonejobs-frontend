@@ -20,10 +20,10 @@ function Navbar({ className, dark = false, fixed = false }) {
   const handleScroll = () => {
     if (!fixed && window.scrollY <= 300) {
       document.querySelector(".navbar").className = "navbar";
-      setLogoWhite(true);
+      dark && setLogoWhite(true);
     } else {
       document.querySelector(".navbar").className = "navbar navbar-light";
-      setLogoWhite(false);
+      dark && setLogoWhite(false);
     }
   };
 
@@ -42,9 +42,8 @@ function Navbar({ className, dark = false, fixed = false }) {
       <div className="navbar-container">
         <NavLink to="/" className="nav-logo-link">
           <img
-            src={logoWhite ? LogoWhite : Logo}
             alt="SquareOneJobs Logo"
-            className="nav-logo"
+            className={`nav-logo ${logoWhite ? "light" : null}`}
           />
         </NavLink>
         <div className="hamburger-icon">

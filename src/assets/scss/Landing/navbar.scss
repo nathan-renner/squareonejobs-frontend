@@ -101,6 +101,7 @@
     .nav-logo {
       height: 30px;
       margin-left: 30px;
+      content: url("../../images/logotext.png");
     }
 
     .nav-links-container {
@@ -114,6 +115,10 @@
       .hamburger-icon,
       .nav-drawer {
         display: none;
+      }
+
+      .nav-logo.light {
+        content: url("../../images/logotext-light.png");
       }
 
       .nav-links-container {
