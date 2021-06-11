@@ -6,16 +6,18 @@ import { Card } from "../../common";
 function EmployerWhy(props) {
   return (
     <section className="bg-dark employer-problem">
-      <div className="container split feature-container">
+      <div className="container split">
         <div className="left">
           <OvercomeIcon className="overcome-icon" />
-          <h2 className="text-white">
-            Our users have <span className="text-primary">overcome</span> their
-            obstacles
-          </h2>
-          <p className="subtitle text-white">
-            Now they're ready to help you overcome yours
-          </p>
+          <div>
+            <h2>
+              Our users have <span className="text-primary">overcome</span>{" "}
+              their obstacles
+            </h2>
+            <p className="subtitle">
+              Now they're ready to help you overcome yours
+            </p>
+          </div>
         </div>
         <div className="right">
           <div className="reason">
