@@ -7,9 +7,59 @@
     text-align: left;
     width: 300px;
   }
+  .part-time-text {
+    margin-left: 5em;
+    margin-right: 0em;
+  }
   .blob-container {
     position: relative;
     height: 100%;
+    margin-left: 0em;
+  }
+  .listing-screenshot {
+    position: absolute;
+    z-index: 1;
+    filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.3));
+    margin-top: -2em;
+    margin-left: 2em;
+    width: 340px;
+    animation-duration: 6s;
+    animation-name: shift;
+    animation-iteration-count: infinite;
+  }
+  .listing-screenshot-2 {
+    position: absolute;
+    z-index: 2;
+    filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.3));
+    margin-left: 16em;
+    margin-top: 15em;
+    width: 340px;
+    animation-duration: 6s;
+    animation-name: shift;
+    animation-iteration-count: infinite;
+    animation-delay: 1s;
+  }
+  @keyframes shift {
+    from {
+      transform: translateY(0em);
+    }
+    50% {
+      transform: translateY(1em);
+    }
+    to {
+      transform: translateY(0em);
+    }
+  }
+  @keyframes shift-2 {
+    from {
+      transform: translateY(0em);
+    }
+    50% {
+      transform: translateY(1.5em);
+    }
+    to {
+      transform: translateY(0em);
+    }
   }
   .part-time-blob {
     position: absolute;
@@ -27,15 +77,78 @@
   }
   .full-time-text {
     @media only screen and (min-width: 40em) {
-      margin-left: 15em;
+      margin-left: 10em;
     }
   }
   .full-time-blob {
     position: absolute;
+    z-index: -1;
     width: 550px;
     height: 600px;
-    top: -30%;
-    left: 0px;
+    top: -10%;
+    left: 30px;
+  }
+  .screenshots-container {
+    display: grid;
+    grid-template-columns: 200px 420px;
+    grid-template-rows: 115px 70px 60px 50px 80px 180px;
+  }
+  .user-profile {
+    grid-row-start: 1;
+    grid-row-end: 3;
+  }
+  .user-documents {
+    grid-row-start: 3;
+    grid-row-end: 5;
+    animation-delay: 0.5s;
+  }
+  .user-references {
+    grid-row-start: 5;
+    grid-row-end: 6;
+    animation-delay: 1s;
+  }
+  .user-about {
+    grid-row-start: 1;
+    grid-row-end: 2;
+    animation-delay: 0.5s;
+  }
+  .user-education {
+    grid-row-start: 2;
+    grid-row-end: 4;
+    animation-delay: 1s;
+  }
+  .user-experience {
+    grid-row-start: 4;
+    grid-row-end: 6;
+    animation-delay: 1.5s;
+  }
+  .user-skills {
+    grid-row-start: 6;
+    grid-row-end: 7;
+    animation-delay: 2s;
+  }
+  .user-screenshots-left {
+    z-index: 1;
+    grid-column: 1;
+    display: block;
+    filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.3));
+    width: 190px;
+    margin-bottom: 1.5em;
+    animation-duration: 6s;
+    animation-name: shift-2;
+    animation-iteration-count: infinite;
+  }
+  .user-screenshots-right {
+    z-index: 1;
+    grid-column: 2;
+    display: block;
+    filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.3));
+    width: 340px;
+    margin-left: 30px;
+    margin-bottom: 1em;
+    animation-duration: 6s;
+    animation-name: shift;
+    animation-iteration-count: infinite;
   }
   .full-time {
     text-align: left;

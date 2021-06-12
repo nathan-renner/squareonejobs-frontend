@@ -1,11 +1,20 @@
 import React from "react";
 import CheckIcon from "../../icons/CheckIcon";
+import JobListing1 from "../../../assets/images/screenshots/job-screenshot-1.png";
+import JobListing2 from "../../../assets/images/screenshots/job-screenshot-2.png";
+import UserProfile from "../../../assets/images/screenshots/user-profile-screenshot.png";
+import UserDocuments from "../../../assets/images/screenshots/user-documents-screenshot.png";
+import UserReferences from "../../../assets/images/screenshots/user-references-screenshot.png";
+import UserAbout from "../../../assets/images/screenshots/user-about-screenshot.png";
+import UserEducation from "../../../assets/images/screenshots/user-education-screenshot.png";
+import UserExperience from "../../../assets/images/screenshots/user-experience-screenshot.png";
+import UserSkills from "../../../assets/images/screenshots/user-skills-screenshot.png";
 
 function EmployerHowItWorks(props) {
   return (
-    <section className="bg-white employer-how">
+    <section className="employer-how">
       <div className="container split part-time-container">
-        <div>
+        <div className="part-time-text">
           <h2 className="part-time">Post Day Jobs and Part-Time Jobs</h2>
           <div className="check-list">
             <div>
@@ -23,6 +32,8 @@ function EmployerHowItWorks(props) {
           </div>
         </div>
         <div className="blob-container">
+          <img className="listing-screenshot" src={JobListing1} />
+          <img className="listing-screenshot-2" src={JobListing2} />
           <svg
             className="part-time-blob"
             viewBox="0 0 475 493"
@@ -39,6 +50,43 @@ function EmployerHowItWorks(props) {
       </div>
       <div className="container split full-time-container">
         <div className="blob-container">
+          <div className="screenshots-container">
+            <img
+              className="user-screenshots-left user-profile"
+              src={UserProfile}
+              alt="User Profile Screenshot"
+            />
+            <img
+              className="user-screenshots-left user-documents"
+              src={UserDocuments}
+              alt="User Documents Screenshot"
+            />
+            <img
+              className="user-screenshots-left user-references"
+              src={UserReferences}
+              alt="User Referenes Screenshot"
+            />
+            <img
+              className="user-screenshots-right user-about"
+              src={UserAbout}
+              alt="User References Screenshot"
+            />
+            <img
+              className="user-screenshots-right user-education"
+              src={UserEducation}
+              alt="User Education Screenshot"
+            />
+            <img
+              className="user-screenshots-right user-experience"
+              src={UserExperience}
+              alt="User Experience Screenshot"
+            />
+            <img
+              className="user-screenshots-right user-skills"
+              src={UserSkills}
+              alt="User Skills Screenshot"
+            />
+          </div>
           <svg
             className="full-time-blob"
             viewBox="0 0 499 587"
