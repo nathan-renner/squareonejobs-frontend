@@ -1,6 +1,6 @@
 import React from "react";
 import { IoFastFoodSharp } from "react-icons/io5";
-import { MdClear, MdComputer } from "react-icons/md";
+import { MdClear } from "react-icons/md";
 import { FaAppleAlt } from "react-icons/fa";
 import { RiShoppingBag2Fill } from "react-icons/ri";
 import { FaBullhorn } from "react-icons/fa";
@@ -12,49 +12,39 @@ const categories = [
     color: "#fa8181",
   },
   {
-    name: "Computer Science",
-    Icon: MdComputer,
-    color: "#5ca9f5",
-  },
-  {
-    name: "Education",
+    name: "Sales",
     Icon: FaAppleAlt,
     color: "#ffe188",
   },
   {
-    name: "Retail",
+    name: "Construction",
     Icon: RiShoppingBag2Fill,
     color: "#80d6ab",
   },
   {
-    name: "Marketing",
+    name: "Warehouse",
     Icon: FaBullhorn,
     color: "#918cc7",
   },
   {
-    name: "Marketing",
+    name: "Labor",
     Icon: FaBullhorn,
     color: "#918cc7",
   },
   {
-    name: "Restaurant Services",
-    Icon: IoFastFoodSharp,
-    color: "#fa8181",
+    name: "Driving",
+    Icon: FaBullhorn,
+    color: "#918cc7",
   },
   {
-    name: "Computer Science",
-    Icon: MdComputer,
-    color: "#5ca9f5",
+    name: "E-Commerce",
+    Icon: FaBullhorn,
+    color: "#918cc7",
   },
   {
-    name: "Education",
-    Icon: FaAppleAlt,
-    color: "#ffe188",
-  },
-  {
-    name: "Retail",
-    Icon: RiShoppingBag2Fill,
-    color: "#80d6ab",
+    name: "Technology Support",
+    Icon: FaBullhorn,
+    color: "#918cc7",
   },
 ];
 

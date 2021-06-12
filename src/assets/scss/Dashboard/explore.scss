@@ -20,11 +20,8 @@
   }
 
   .categories {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    overflow: hidden;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
     height: 100px;
 
     &.cat-modal {

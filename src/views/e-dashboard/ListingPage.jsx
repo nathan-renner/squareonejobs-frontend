@@ -166,7 +166,7 @@ function ListingPage(props) {
     }
     options.push({
       name: "Post Similar",
-      onClick: () => history.push(`/new-listing`, id),
+      onClick: () => history.push(`/new-listing`, { id }),
     });
     if (listing.status === "cancelled")
       options.push({
@@ -342,7 +342,7 @@ function ListingPage(props) {
                 <>
                   {details.qualifications && (
                     <>
-                      <h3>Qualification</h3>
+                      <h3>Qualifications</h3>
                       {details.qualifications.driversLicense && (
                         <p style={{ fontWeight: 500 }}>
                           Driver's License Required

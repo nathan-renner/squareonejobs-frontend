@@ -2,8 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
 import Lottie from "lottie-react";
 
-import Logo from "../../assets/images/logotext.png";
-import LogoWhite from "../../assets/images/logotext-light.png";
 import Hamburger from "../../assets/animations/hamburger.json";
 
 import { Button } from "../common";
@@ -20,10 +18,10 @@ function Navbar({ className, dark = false, fixed = false }) {
   const handleScroll = () => {
     if (!fixed && window.scrollY <= 300) {
       document.querySelector(".navbar").className = "navbar";
-      setLogoWhite(true);
+      dark && setLogoWhite(true);
     } else {
       document.querySelector(".navbar").className = "navbar navbar-light";
-      setLogoWhite(false);
+      dark && setLogoWhite(false);
     }
   };
 
@@ -42,9 +40,8 @@ function Navbar({ className, dark = false, fixed = false }) {
       <div className="navbar-container">
         <NavLink to="/" className="nav-logo-link">
           <img
-            src={logoWhite ? LogoWhite : Logo}
             alt="SquareOneJobs Logo"
-            className="nav-logo"
+            className={`nav-logo ${logoWhite ? "light" : null}`}
           />
         </NavLink>
         <div className="hamburger-icon">
@@ -63,6 +60,9 @@ function Navbar({ className, dark = false, fixed = false }) {
           </NavLink>
           <NavLink to="/employers" className="nav-link">
             Employers
+          </NavLink>
+          <NavLink to="/resources" className="nav-link">
+            Resource Locator
           </NavLink>
           <NavLink to="/auth/login" className="nav-link">
             Login

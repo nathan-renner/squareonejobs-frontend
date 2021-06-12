@@ -4,7 +4,7 @@ import ErrorMessage from "./ErrorMessage";
 
 import "react-datepicker/dist/react-datepicker.css";
 
-function FormDate({ name, placeholder, label, ...otherProps }) {
+function FormDate({ name, placeholder, label, time = false, ...otherProps }) {
   const { values, errors, setFieldTouched, setFieldValue, touched } =
     useFormikContext();
 
@@ -13,7 +13,7 @@ function FormDate({ name, placeholder, label, ...otherProps }) {
       {label ? <p className="input-label">{label}</p> : null}
       <div className="input-container sm">
         <input
-          type="date"
+          type={time ? "datetime-local" : "date"}
           value={values[name] ? values[name] : null}
           onChange={(e) => setFieldValue(name, e.target.value)}
           onBlur={() => setFieldTouched(name)}

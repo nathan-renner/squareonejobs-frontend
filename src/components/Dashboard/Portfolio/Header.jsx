@@ -148,7 +148,7 @@ function Header({
             isEditing && imagePreview
               ? imagePreview
               : avatar
-              ? `${avatar}?${Date.now()}`
+              ? avatar
               : defaultAvatar
           }
           alt="Avatar"

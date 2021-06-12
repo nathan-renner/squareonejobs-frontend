@@ -32,7 +32,14 @@ function Payment(props) {
     <div className="post-listing">
       <ActivityIndicator visible={postListingApi.loading} />
       <h1>Payment</h1>
-      <div style={{ textAlign: "right" }}>
+      <div className="nav-controls">
+        <Button
+          outline
+          textColor="primary"
+          color="transparent"
+          label="Back"
+          onClick={() => history.goBack()}
+        />
         <Button label="Confirm and Post Job" onClick={handleSubmit} />
       </div>
     </div>

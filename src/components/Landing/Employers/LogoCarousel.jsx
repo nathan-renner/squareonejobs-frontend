@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Apple from "../../../assets/images/companyLogos/apple.jpg";
 import Fedex from "../../../assets/images/companyLogos/fedex.jpg";
 import Pepsi from "../../../assets/images/companyLogos/pepsi.jpg";
@@ -10,14 +10,18 @@ import HomeDepot from "../../../assets/images/companyLogos/home-depot.jpg";
 import Ibm from "../../../assets/images/companyLogos/ibm.jpg";
 import Microsoft from "../../../assets/images/companyLogos/microsoft.jpg";
 import Intel from "../../../assets/images/companyLogos/intel.jpg";
+import useOnScreen from "./../../../hooks/useOnScreen";
 
 function LogoCarousel(props) {
   const [count, setCount] = useState(1);
+  const ref = useRef();
+  const isVisible = useOnScreen(ref);
 
   useEffect(() => {
-    setTimeout(() => {
-      count === 11 ? setCount(1) : setCount(count + 1);
-    }, 2000);
+    isVisible &&
+      setTimeout(() => {
+        count === 11 ? setCount(1) : setCount(count + 1);
+      }, 2000);
   });
 
   const getPos = (num) => {
@@ -25,7 +29,7 @@ function LogoCarousel(props) {
   };
 
   return (
-    <section className="bg-white logo-carousel">
+    <section className="bg-white logo-carousel" ref={ref}>
       <div className="carousel-container">
         <img
           loading="lazy"

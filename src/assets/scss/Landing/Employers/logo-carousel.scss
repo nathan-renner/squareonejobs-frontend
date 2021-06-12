@@ -1,17 +1,18 @@
 .logo-carousel {
+  width: #{"min(95%, 73rem)"};
+  margin-left: auto;
+  margin-right: auto;
+
   .carousel-container {
-    margin-bottom: 20px;
     position: relative;
-    width: 73em;
-    margin-left: auto;
-    margin-right: auto;
+    margin-bottom: 20px;
     height: 7em;
   }
   .carousel-item {
     height: 6em;
-    background-color: transparent;
     margin-right: 5em;
     position: absolute;
+    left: 50%;
     transition: transform 500ms ease, opacity 500ms ease;
 
     $width: 11em;
@@ -19,33 +20,33 @@
     &[data-item="1"],
     &[data-item="2"],
     &[data-item="3"] {
-      transform: translateX(0) scale(0);
+      transform: translateX($width * -3 - 3em) scale(0);
       opacity: 0;
     }
     &[data-item="4"] {
-      transform: translateX($width) scale(0.7);
+      transform: translateX($width * -2 - 3em) scale(0.5);
       opacity: 0.2;
     }
     &[data-item="5"] {
-      transform: translateX($width * 2);
+      transform: translateX($width * -1 - 3em) scale(0.9);
       opacity: 0.4;
     }
     &[data-item="6"] {
-      transform: translateX($width * 3) scale(1.5);
+      transform: translateX(-50%) scale(1.5);
       opacity: 1;
     }
     &[data-item="7"] {
-      transform: translateX($width * 4);
+      transform: translateX($width - 3em) scale(0.9);
       opacity: 0.4;
     }
     &[data-item="8"] {
-      transform: translateX($width * 5) scale(0.7);
+      transform: translateX($width * 2 - 3em) scale(0.5);
       opacity: 0.2;
     }
     &[data-item="9"],
     &[data-item="10"],
     &[data-item="11"] {
-      transform: translateX($width * 6) scale(0);
+      transform: translateX($width * 3 - 3em) scale(0);
       opacity: 0;
     }
   }
@@ -54,6 +55,6 @@
     margin-right: auto;
     line-height: 1.3;
     text-align: center;
-    width: 500px;
+    max-width: 24em;
   }
 }

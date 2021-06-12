@@ -1,25 +1,37 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
 
 import { Button } from "../../common";
+import useOnScreen from "./../../../hooks/useOnScreen";
 
 function Header({ setModal }) {
+  const [count, setCount] = useState(1);
+  const imageBgRef = useRef();
+  const isVisible = useOnScreen(imageBgRef);
+
+  useEffect(() => {
+    isVisible &&
+      setTimeout(() => {
+        count === 3 ? setCount(1) : setCount(count + 1);
+      }, 3000);
+  });
+
   return (
     <header>
-      <div className="image-background">
+      <div className="image-background" ref={imageBgRef}>
         <img
-          className="bg-1"
+          data-item={`${count === 1}`}
           src="https://squareonejobs-landing.s3.us-east-2.amazonaws.com/Home/landing-bg-1.jpg"
           alt="man standing looking off camera with city in background"
         />
         <img
-          className="bg-2"
+          data-item={`${count === 2}`}
           src="https://squareonejobs-landing.s3.us-east-2.amazonaws.com/Home/landing-bg-2.jpg"
           alt="man standing looking off camera with city in background"
           loading="lazy"
         />
         <img
-          className="bg-3"
+          data-item={`${count === 3}`}
           src="https://squareonejobs-landing.s3.us-east-2.amazonaws.com/Home/landing-bg-3.jpg"
           alt="man standing looking off camera with city in background"
           loading="lazy"

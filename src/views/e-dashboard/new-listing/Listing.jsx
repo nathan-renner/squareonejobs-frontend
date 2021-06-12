@@ -125,8 +125,8 @@ function Listing({ listing, map = true }) {
                   <>
                     <h3>Qualifications</h3>
                     {listing.details.qualifications.driversLicense && (
-                      <p>
-                        <b>Driver's License Required</b>
+                      <p style={{ fontWeight: 500 }}>
+                        Driver's License Required
                       </p>
                     )}
                     {listing.details.qualifications.other && (

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { MdComputer } from "react-icons/md";
 import { IoFastFoodSharp } from "react-icons/io5";
 import { FaAppleAlt, FaBullhorn } from "react-icons/fa";
 import { RiShoppingBag2Fill } from "react-icons/ri";
@@ -19,22 +18,22 @@ const categories = [
     color: "#fa8181",
   },
   {
-    name: "Computer Science",
-    Icon: MdComputer,
-    color: "#5ca9f5",
-  },
-  {
-    name: "Education",
+    name: "Sales",
     Icon: FaAppleAlt,
     color: "#ffe188",
   },
   {
-    name: "Retail",
+    name: "Construction",
     Icon: RiShoppingBag2Fill,
     color: "#80d6ab",
   },
   {
-    name: "Marketing",
+    name: "Warehouse",
+    Icon: FaBullhorn,
+    color: "#918cc7",
+  },
+  {
+    name: "Labor",
     Icon: FaBullhorn,
     color: "#918cc7",
   },
@@ -73,9 +72,7 @@ function Explore(props) {
   const history = useHistory();
 
   const searchCat = (name) => {
-    history.push("/search", {
-      category: name,
-    });
+    history.push(`/search/?c=${name}`);
   };
 
   const renderCategories = () => {

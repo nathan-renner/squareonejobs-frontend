@@ -40,28 +40,30 @@ function Resources(props) {
           employers. Find some helpful resources near you to help prepare for
           the journey ahead.
         </p>
-        <ToggleButton
-          label="all"
-          setActive={() => setFilter(false)}
-          active={!filter}
-        />
-        <ToggleButton
-          label="homeless shelters"
-          setActive={() => setFilter("shelters")}
-          active={filter === "shelters"}
-        />
-        <ToggleButton
-          label="nonprofits"
-          setActive={() => setFilter("nonprofits")}
-          active={filter === "nonprofits"}
-        />
-        {businesses.length > 0 && (
+        <div className="toggle-buttons">
           <ToggleButton
-            label="Businesses & Orgs"
-            setActive={() => setFilter("businesses")}
-            active={filter === "businesses"}
+            label="all"
+            setActive={() => setFilter(false)}
+            active={!filter}
           />
-        )}
+          <ToggleButton
+            label="homeless shelters"
+            setActive={() => setFilter("shelters")}
+            active={filter === "shelters"}
+          />
+          <ToggleButton
+            label="nonprofits"
+            setActive={() => setFilter("nonprofits")}
+            active={filter === "nonprofits"}
+          />
+          {businesses.length > 0 && (
+            <ToggleButton
+              label="Businesses & Orgs"
+              setActive={() => setFilter("businesses")}
+              active={filter === "businesses"}
+            />
+          )}
+        </div>
         <ResourceGoogleMap markers={locations} />
         <h3>Homeless Shelters</h3>
         <div className="resource-list">
