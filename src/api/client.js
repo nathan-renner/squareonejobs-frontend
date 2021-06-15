@@ -6,9 +6,9 @@ const apiClient = create({
 });
 
 apiClient.addAsyncRequestTransform(async (request) => {
-  const authToken = await getToken();
+  const authToken = await JSON.parse(getToken());
   if (!authToken) return;
-  request.headers["x-auth-token"] = authToken;
+  request.headers["x-auth-token"] = authToken.token;
 });
 
 export default apiClient;
