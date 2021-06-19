@@ -1,59 +1,60 @@
 .employer-reasons {
-  .icon {
-    text-align: center;
-  }
-  h1 {
-    text-align: center;
-    padding-bottom: 100px;
-  }
   h2 {
+    text-align: center;
     color: $dark;
-  }
-  p {
-    color: $dark;
-    width: 300px;
-    text-align: left;
-  }
-  .text-container-1 {
-    width: 400px;
-    text-align: left;
-  }
-  .reason-1 {
-    text-align: left;
-    padding-top: 30px;
-    padding-left: 125px;
+    margin-bottom: 1em;
 
-    &.reason-1::before {
-      content: "";
-      height: 120px;
-      width: 8px;
-      border-radius: 4px;
-      position: absolute;
-      margin-left: -30px;
-      top: -20;
-      background-color: $primary;
+    @media (min-width: 37.5em) {
+      margin-bottom: 3em;
     }
   }
-  .text-container-2 {
-    width: 400px;
-    text-align: left;
-    margin-left: 0px;
-    margin-right: auto;
-  }
-  .reason-2 {
-    text-align: left;
-    padding-top: 30px;
-    padding-left: 65px;
 
-    &.reason-2::before {
-      content: "";
-      height: 120px;
-      width: 8px;
-      border-radius: 4px;
-      position: absolute;
-      top: -20;
-      left: 820px;
-      background-color: $secondary;
+  .reasons {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0em;
+
+    @media (min-width: 37.5em) {
+      flex-direction: row;
+      gap: 4em;
+    }
+
+    > * {
+      margin: 0 auto;
+      max-width: 24em;
+      flex: 1;
+    }
+
+    h3,
+    p {
+      text-align: center;
+    }
+
+    p {
+      color: $dark;
+    }
+
+    .divider {
+      height: 0.4em;
+      width: 4em;
+      border-radius: 0.3em;
+      background-color: $primary;
+      margin: 0 auto 1em;
+
+      &.secondary {
+        background-color: $secondary;
+      }
+    }
+
+    .icon {
+      display: block;
+      margin: 0 auto;
+      width: 6em;
+
+      @media (min-width: 37.5em) {
+        width: 8em;
+      }
     }
   }
 }
