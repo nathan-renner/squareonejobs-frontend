@@ -32,8 +32,16 @@ function EmployerHowItWorks(props) {
           </div>
         </div>
         <div className="blob-container">
-          <img className="listing-screenshot" src={JobListing1} />
-          <img className="listing-screenshot-2" src={JobListing2} />
+          <img
+            className="listing-screenshot"
+            src={JobListing1}
+            alt="Job Listing Screenshot"
+          />
+          <img
+            className="listing-screenshot-2"
+            src={JobListing2}
+            alt="Company Information Screenshot"
+          />
           <svg
             className="part-time-blob"
             viewBox="0 0 475 493"

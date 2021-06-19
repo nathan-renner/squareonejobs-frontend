@@ -4,6 +4,7 @@
   }
   .text-container {
     text-align: center;
+    align-self: center;
   }
   .standard-card {
     background-color: white;
@@ -15,30 +16,136 @@
     justify-content: center;
     transition: width 0.2s ease, height 0.2s ease, border-radius 0.2s ease;
   }
-  .standard-card:active {
+  .standard-card.active {
     background-color: $primary;
     width: 100%;
     height: 250px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
     border-radius: 20px 20px 0 20px;
-    .standard-price {
+    .plan-price {
       color: white;
       padding-top: 40px;
-      padding-left: 45px;
+      padding-left: 0px;
       font-size: 60px;
     }
-    .standard-label {
+    .dollar-sign {
+      color: white;
+      padding-top: 50px;
+      padding-left: 35px;
+      font-size: 35px;
+    }
+    .plan-label {
       color: white;
       padding-right: 160px;
       padding-top: 30px;
     }
     .button-container {
-      max-height: 150px;
+      visibility: visible;
+      opacity: 1;
       background-color: $primary;
     }
-    .standard-perks {
-      max-height: 250px;
+    .plan-perks {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+
+  .premium-card {
+    background-color: white;
+    width: 80%;
+    height: 75px;
+    border-radius: 0 0 0 0;
+    float: right;
+    cursor: pointer;
+    justify-content: center;
+    transition: width 0.2s ease, height 0.2s ease, border-radius 0.2s ease;
+  }
+  .premium-card.active {
+    background-color: $primary;
+    width: 100%;
+    height: 250px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    border-radius: 20px 0 0 20px;
+    .plan-price {
+      color: white;
+      padding-top: 40px;
+      padding-left: 0px;
+      font-size: 60px;
+    }
+    .dollar-sign {
+      color: white;
+      padding-top: 50px;
+      padding-left: 35px;
+      font-size: 35px;
+    }
+    .plan-label {
+      color: white;
+      padding-right: 160px;
+      padding-top: 30px;
+    }
+    .button-container {
+      visibility: visible;
+      opacity: 1;
       background-color: $primary;
+    }
+    .plan-perks {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+
+  .subscription-card {
+    background-color: white;
+    width: 80%;
+    height: 75px;
+    border-radius: 0 0 20px 20px;
+    float: right;
+    cursor: pointer;
+    justify-content: center;
+    transition: width 0.2s ease, height 0.2s ease, border-radius 0.2s ease,
+      background-color 0.2s ease;
+  }
+  .subscription-card.active {
+    background-color: $primary;
+    width: 100%;
+    height: 250px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    border-radius: 20px 0 20px 20px;
+    .plan-price {
+      color: white;
+      padding-top: 40px;
+      padding-left: 0px;
+      padding-bottom: 0px;
+      font-size: 60px;
+      margin-bottom: 0px;
+    }
+    .dollar-sign {
+      color: white;
+      padding-top: 50px;
+      padding-left: 35px;
+      font-size: 35px;
+      margin-bottom: 0px;
+    }
+    .plan-label {
+      color: white;
+      padding-right: 160px;
+      padding-top: 30px;
+    }
+    .button-container {
+      visibility: visible;
+      opacity: 1;
+      background-color: $primary;
+    }
+    .plan-perks {
+      visibility: visible;
+      opacity: 1;
+    }
+    .month {
+      color: white;
+      padding-top: 0px;
+      margin-bottom: 10px;
+      padding-left: 100px;
+      margin-top: 0px;
     }
   }
 
@@ -48,9 +155,18 @@
   .right {
     display: inline-block;
   }
-  .standard-price {
+  .dollar-sign {
     color: $primary;
+    font-size: 20px;
+    font-weight: 700;
     padding-left: 16px;
+    padding-top: 18px;
+    float: left;
+    transition: padding 0.2s ease, font-size 0.2s ease, color 0.2s ease;
+  }
+  .plan-price {
+    color: $primary;
+    padding-left: 0px;
     padding-top: 15px;
     padding-bottom: 0px;
     margin-bottom: 15px;
@@ -60,19 +176,20 @@
     transition: font-size 0.2s ease, padding 0.2s ease;
   }
   .button-container {
-    max-height: 0px;
+    visibility: hidden;
+    opacity: 0;
     overflow: auto;
     float: left;
     padding-left: 20px;
     background-color: white;
-    transition: max-height 0.1s ease, background-color 0.2s ease;
+    transition: opacity 0.2s ease, background-color 0.2s ease;
   }
-  .standard-button {
+  .plan-button {
     border-radius: 25px;
     height: 50px;
     width: 170px;
     font-size: 20px;
-    font-family: montserrat;
+    font-family: "montserrat";
     font-weight: 500;
     outline: none;
     border: 2px solid white;
@@ -80,12 +197,12 @@
     color: white;
     cursor: pointer;
   }
-  .standard-button:hover {
+  .plan-button:hover {
     border: 2px solid $primary;
     background-color: white;
     color: $primary;
   }
-  .standard-label {
+  .plan-label {
     float: right;
     padding-top: 20px;
     padding-right: 16px;
@@ -94,14 +211,23 @@
     font-size: 1.5em;
     transition: padding 0.2s ease;
   }
-  .standard-perks {
-    max-height: 0px;
+  .month {
+    display: inline-block;
+    color: $primary;
+    font-size: 20px;
+    font-weight: 500;
+    padding-top: 25px;
+    transition: color 0.2s ease, padding 0.2s ease, font-size 0.2s ease;
+  }
+  .plan-perks {
+    visibility: hidden;
+    opacity: 0;
     overflow: auto;
     float: left;
 
-    background-color: white;
+    background-color: $primary;
 
-    transition: max-height 0.2s ease, background-color 0.2s ease;
+    transition: opacity 0.4s ease;
     > * {
       display: flex;
       align-items: center;
@@ -114,5 +240,8 @@
         margin-bottom: 0px;
       }
     }
+  }
+  .perk-item {
+    margin-bottom: 5px;
   }
 }
