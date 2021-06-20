@@ -1,44 +1,146 @@
 .employer-how {
-  .part-time-container {
+  overflow: hidden;
+
+  .title {
+    text-align: center;
+    margin-bottom: 5em;
+  }
+
+  .ft-container,
+  .pt-container {
+    display: flex;
     align-items: center;
-    height: 24em;
   }
-  .part-time {
-    text-align: left;
-    width: 300px;
+
+  .pt-text,
+  .ft-text {
+    h2 {
+      line-height: 1.4;
+      text-align: center;
+      font-size: 1.3em !important;
+    }
+    p {
+      font-size: 1em;
+    }
+    @media only screen and (min-width: 43em) {
+      width: 50%;
+      min-width: 12em;
+      max-width: 17em;
+      h2 {
+        text-align: left;
+        font-size: 1.5em !important;
+      }
+      p {
+        font-size: 1.1em;
+      }
+    }
   }
-  .part-time-text {
-    margin-left: 5em;
-    margin-right: 0em;
+
+  .pt-container {
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 3em;
+
+    @media only screen and (min-width: 43em) {
+      flex-direction: row;
+      gap: 5em;
+      max-height: 30em;
+    }
+    @media only screen and (min-width: 60em) {
+      gap: 6em;
+    }
+
+    .blob-container {
+      position: relative;
+      flex: 1;
+      min-height: 20em;
+      height: auto;
+      width: 100%;
+      max-width: 30em;
+
+      @media only screen and (min-width: 30em) {
+        min-height: 30em;
+      }
+      @media only screen and (min-width: 43em) {
+        order: 2;
+      }
+
+      .pt-blob {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        right: 0;
+
+        @media only screen and (min-width: 43em) {
+          min-width: 16em;
+        }
+      }
+      img {
+        position: absolute;
+        z-index: 1;
+        filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.3));
+        width: 60%;
+        min-width: 10em;
+        animation-duration: 6s;
+        animation-name: shift;
+        animation-iteration-count: infinite;
+
+        @media only screen and (min-width: 43em) {
+          min-width: 12em;
+        }
+        @media only screen and (min-width: 50em) {
+          width: 60%;
+        }
+      }
+      img + img {
+        z-index: 2;
+        left: 40%;
+        top: 40%;
+        animation-delay: 0.6s;
+        @media only screen and (min-width: 43em) {
+          left: 45%;
+          top: 10em;
+        }
+        @media only screen and (min-width: 60em) {
+          left: 13em;
+          top: 13em;
+        }
+      }
+    }
   }
-  .blob-container {
-    position: relative;
-    height: 100%;
-    margin-left: 0em;
+  .ft-container {
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 3em;
+    margin-top: 5em;
+
+    @media only screen and (min-width: 43em) {
+      flex-direction: row;
+      gap: 5em;
+      max-height: 30em;
+      margin-top: 0em;
+    }
+    @media only screen and (min-width: 60em) {
+      margin-top: 10em;
+      gap: 6em;
+    }
+
+    .blob-container {
+      position: relative;
+      flex: 1;
+      min-height: 20em;
+      width: 100%;
+      max-width: 30em;
+
+      @media only screen and (min-width: 30em) {
+        min-height: 30em;
+      }
+    }
   }
-  .listing-screenshot {
-    position: absolute;
-    z-index: 1;
-    filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.3));
-    margin-top: -2em;
-    margin-left: 2em;
-    width: 340px;
-    animation-duration: 6s;
-    animation-name: shift;
-    animation-iteration-count: infinite;
-  }
-  .listing-screenshot-2 {
-    position: absolute;
-    z-index: 2;
-    filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.3));
-    margin-left: 16em;
-    margin-top: 15em;
-    width: 340px;
-    animation-duration: 6s;
-    animation-name: shift;
-    animation-iteration-count: infinite;
-    animation-delay: 1s;
-  }
+
   @keyframes shift {
     from {
       transform: translateY(0em);
@@ -61,99 +163,84 @@
       transform: translateY(0em);
     }
   }
-  .part-time-blob {
+
+  .ft-blob {
     position: absolute;
-    width: 600px;
-    height: 550px;
-    top: -25%;
-    left: 0px;
-    right: 0px;
-  }
-  .full-time-container {
-    margin-top: 20em;
-    margin-bottom: 10em;
-    align-items: center;
-    height: 24em;
-  }
-  .full-time-text {
-    @media only screen and (min-width: 40em) {
-      margin-left: 10em;
+    width: 100%;
+    height: 100%;
+
+    top: 0;
+
+    @media only screen and (min-width: 43em) {
+      min-width: 16em;
     }
   }
-  .full-time-blob {
-    position: absolute;
-    z-index: -1;
-    width: 550px;
-    height: 600px;
-    top: -10%;
-    left: 30px;
-  }
-  .screenshots-container {
+  .ss-container {
     display: grid;
-    grid-template-columns: 200px 420px;
-    grid-template-rows: 115px 70px 60px 50px 80px 180px;
+    column-gap: 2em;
+    grid-template-columns: 33% 66%;
+    grid-template-rows: 21% 13% 11% 9% 14% 32%;
+    height: 100%;
+    margin: 5em 0;
   }
-  .user-profile {
+  .s1 {
     grid-row-start: 1;
     grid-row-end: 3;
   }
-  .user-documents {
+  .s2 {
     grid-row-start: 3;
     grid-row-end: 5;
-    animation-delay: 0.5s;
+    animation-delay: 0.3s;
   }
-  .user-references {
+  .s3 {
     grid-row-start: 5;
     grid-row-end: 6;
-    animation-delay: 1s;
+    animation-delay: 0.6s;
   }
-  .user-about {
+  .s4 {
     grid-row-start: 1;
     grid-row-end: 2;
-    animation-delay: 0.5s;
+    animation-delay: 0.3s;
   }
-  .user-education {
+  .s5 {
     grid-row-start: 2;
     grid-row-end: 4;
-    animation-delay: 1s;
+    animation-delay: 0.6s;
   }
-  .user-experience {
+  .s6 {
     grid-row-start: 4;
     grid-row-end: 6;
-    animation-delay: 1.5s;
+    animation-delay: 0.9s;
   }
-  .user-skills {
+  .s7 {
     grid-row-start: 6;
     grid-row-end: 7;
-    animation-delay: 2s;
+    animation-delay: 1.2s;
   }
-  .user-screenshots-left {
+  .ss-left,
+  .ss-right {
     z-index: 1;
-    grid-column: 1;
     display: block;
     filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.3));
-    width: 190px;
-    margin-bottom: 1.5em;
     animation-duration: 6s;
     animation-name: shift-2;
     animation-iteration-count: infinite;
   }
-  .user-screenshots-right {
-    z-index: 1;
+  .ss-left {
+    grid-column: 1;
+    width: 100%;
+    @media only screen and (min-width: 43em) {
+      max-width: 190px;
+    }
+  }
+  .ss-right {
     grid-column: 2;
-    display: block;
-    filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.3));
-    width: 340px;
-    margin-left: 30px;
-    margin-bottom: 1em;
-    animation-duration: 6s;
-    animation-name: shift;
-    animation-iteration-count: infinite;
+    width: 100%;
+    @media only screen and (min-width: 43em) {
+      max-width: 340px;
+    }
   }
-  .full-time {
-    text-align: left;
-    width: 300px;
-  }
+
   .check-list {
     > * {
       display: flex;

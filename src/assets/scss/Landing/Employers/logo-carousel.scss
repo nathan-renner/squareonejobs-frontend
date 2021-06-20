@@ -1,7 +1,8 @@
 .logo-carousel {
-  width: #{"min(95%, 73rem)"};
+  width: #{"min(100%, 73rem)"};
   margin-left: auto;
   margin-right: auto;
+  overflow: hidden;
 
   .carousel-container {
     position: relative;

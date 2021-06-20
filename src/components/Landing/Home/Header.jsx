@@ -59,12 +59,11 @@ function Header({ setModal }) {
             Find your potential, unlock your purpose - regardless of the
             obstacles you’ve overcome.
           </p>
-          <NavLink to="/">
+          <NavLink to="/auth/register">
             <Button
-              label="Find jobs"
+              label="Find jobs for free"
               className="button"
               textStyle={{ fontSize: 20 }}
-              onClick={() => setModal(true)}
             />
           </NavLink>
         </div>

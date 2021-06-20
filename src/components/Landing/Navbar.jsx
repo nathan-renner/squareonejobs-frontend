@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import Lottie from "lottie-react";
 
 import Hamburger from "../../assets/animations/hamburger.json";
@@ -7,6 +7,7 @@ import Hamburger from "../../assets/animations/hamburger.json";
 import { Button } from "../common";
 
 function Navbar({ className, dark = false, fixed = false }) {
+  const { pathname } = useLocation();
   const [drawerOpened, setDrawerOpened] = useState(false);
   const [logoWhite, setLogoWhite] = useState(dark ? true : false);
   const hamburgerRef = useRef();
@@ -99,9 +100,15 @@ function Navbar({ className, dark = false, fixed = false }) {
               Login
             </NavLink>
           </div>
-          <NavLink to="/auth/register" style={{ textDecoration: "none" }}>
-            <Button label="Find jobs" className="button btn-lg" />
-          </NavLink>
+          {pathname.includes("employers") ? (
+            <NavLink to="/auth/postjob" style={{ textDecoration: "none" }}>
+              <Button label="Post a Job" className="button btn-lg" />
+            </NavLink>
+          ) : (
+            <NavLink to="/auth/register" style={{ textDecoration: "none" }}>
+              <Button label="Find jobs for free" className="button btn-lg" />
+            </NavLink>
+          )}
         </div>
       </div>
     </div>
