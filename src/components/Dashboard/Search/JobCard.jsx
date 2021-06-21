@@ -1,10 +1,13 @@
 import React from "react";
-import moment from "moment";
+import dayjs from "dayjs";
 import NumberFormat from "react-number-format";
 import { MdAccessTime, MdCreditCard, MdLocationOn } from "react-icons/md";
 import { IoMdCalendar } from "react-icons/io";
 
 import { Card } from "../../common";
+
+var relativeTime = require("dayjs/plugin/relativeTime");
+dayjs.extend(relativeTime);
 
 function JobCard({ listings, setSelected, selected }) {
   return (
@@ -40,16 +43,16 @@ function JobCard({ listings, setSelected, selected }) {
             {startDateTime && (
               <div className="detail">
                 <IoMdCalendar className="icon" size={18} />
-                <p>{moment(startDateTime).format("MM/DD/YYYY")}</p>
+                <p>{dayjs(startDateTime).format("MM/DD/YYYY")}</p>
               </div>
             )}
             {endDateTime && (
               <div className="detail">
                 <MdAccessTime className="icon" size={18} />
                 <p>
-                  {moment(startDateTime).format("LT") +
+                  {dayjs(startDateTime).format("LT") +
                     " - " +
-                    moment(endDateTime).format("LT")}
+                    dayjs(endDateTime).format("LT")}
                 </p>
               </div>
             )}
@@ -80,7 +83,7 @@ function JobCard({ listings, setSelected, selected }) {
               </div>
             )}
             <p className="small-text">
-              Posted {moment(listing.dateCreated).fromNow()}
+              Posted {dayjs(listing.dateCreated).fromNow()}
             </p>
           </Card>
         );

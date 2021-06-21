@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import moment from "moment";
+import dayjs from "dayjs";
 import { useHistory } from "react-router-dom";
 import { FaBullhorn } from "react-icons/fa";
 import { BiSpreadsheet } from "react-icons/bi";
@@ -11,6 +11,9 @@ import { ActivityIndicator, Icon } from "../../common";
 
 import { getNotifications, updateClicked } from "../../../api/notifications";
 import { useResponseModal } from "./../../../hooks/useResponseModal";
+
+var relativeTime = require("dayjs/plugin/relativeTime");
+dayjs.extend(relativeTime);
 
 function NotificationDropdown({ visible, closeDropdown }) {
   const history = useHistory();
@@ -127,7 +130,7 @@ function NotificationDropdown({ visible, closeDropdown }) {
               {notif.message}
             </p>
             <p className={`date-text ${notif.clicked ? "clicked" : null}`}>
-              {moment(notif.dateCreated).fromNow()}
+              {dayjs(notif.dateCreated).fromNow()}
             </p>
           </div>
           {!notif.clicked && <div className="new-msg-circle" />}

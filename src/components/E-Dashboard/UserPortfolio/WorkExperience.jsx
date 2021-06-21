@@ -1,5 +1,5 @@
 import React from "react";
-import moment from "moment";
+import dayjs from "dayjs";
 
 import { Card } from "../../common";
 
@@ -15,9 +15,9 @@ function WorkExperience({ portfolio, ...otherProps }) {
             <p>{experience.company}</p>
           </div>
           <p>
-            {moment(experience.startDate).format("MM/YYYY") +
+            {dayjs(experience.startDate).format("MM/YYYY") +
               " - " +
-              moment(experience.endDate).format("MM/YYYY")}
+              dayjs(experience.endDate).format("MM/YYYY")}
           </p>
         </div>
       ))}

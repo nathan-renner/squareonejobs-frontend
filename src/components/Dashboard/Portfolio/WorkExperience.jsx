@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import moment from "moment";
+import dayjs from "dayjs";
 import { MdAdd, MdDelete, MdModeEdit } from "react-icons/md";
 
 import EditControls from "./EditControls";
@@ -94,9 +94,9 @@ function WorkExperience({ portfolio, updateElement, ...otherProps }) {
               <p>{experience.company}</p>
             </div>
             <p>
-              {moment(experience.startDate).format("MM/YYYY") +
+              {dayjs(experience.startDate).format("MM/YYYY") +
                 " - " +
-                moment(experience.endDate).format("MM/YYYY")}
+                dayjs(experience.endDate).format("MM/YYYY")}
             </p>
             {isEditing && (
               <MdDelete

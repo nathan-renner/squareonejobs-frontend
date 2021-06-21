@@ -1,5 +1,5 @@
 import React from "react";
-import moment from "moment";
+import dayjs from "dayjs";
 
 import { StarRating } from "../../common";
 
@@ -15,7 +15,7 @@ function ReferencesList({ references, small = false }) {
           </div>
           <h3>{ref.title}</h3>
           <p className="date">
-            Published on {moment(ref.dateCreated).format("MMMM DD, YYYY")}
+            Published on {dayjs(ref.dateCreated).format("MMMM DD, YYYY")}
           </p>
           <StarRating rating={ref.rating} />
           <p className={`review ${small ? "small" : null}`}>{ref.review}</p>

@@ -1,13 +1,13 @@
 import React from "react";
-import moment from "moment";
+import dayjs from "dayjs";
 import StreakIcon from "./../../icons/StreakIcon";
 
 function StreakDropdown({ visible, streak }) {
   const icons = [1, 2, 3, 4, 5, 6, 7];
 
   const renderIcons = () => {
-    const today = moment();
-    let day = moment().subtract(4, "days");
+    const today = dayjs();
+    let day = dayjs().subtract(4, "days");
     let styleIcon, styleText, styleDay;
     return icons.map((i, index) => {
       day = day.add(1, "day");

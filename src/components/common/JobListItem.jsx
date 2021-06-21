@@ -1,5 +1,5 @@
 import React from "react";
-import moment from "moment";
+import dayjs from "dayjs";
 import { MdCheck, MdClear, MdErrorOutline, MdLibraryAdd } from "react-icons/md";
 import Icon from "./Icon";
 import { useHistory } from "react-router-dom";
@@ -160,7 +160,7 @@ function JobListItem({
     }
     if (
       listing.status === "in-progress" &&
-      moment().isAfter(listing.details.endDateTime)
+      dayjs().isAfter(listing.details.endDateTime)
     )
       options.push({
         name: "Mark Job as Complete",
@@ -172,7 +172,7 @@ function JobListItem({
     });
     if (
       listing.status === "active" &&
-      moment(listing.details.startDateTime).diff(moment(), "days") > 1
+      dayjs(listing.details.startDateTime).diff(dayjs(), "days") > 1
     )
       options.push({
         name: "Withdraw Application",
@@ -232,10 +232,10 @@ function JobListItem({
       >
         {renderStatus()}
         <h3>{listing.details.position}</h3>
-        <p>{moment(listing.details.startDateTime).format("MM/DD/YYYY")}</p>
+        <p>{dayjs(listing.details.startDateTime).format("MM/DD/YYYY")}</p>
         {!saved &&
           listing.status === "in-progress" &&
-          moment().isAfter(listing.details.endDateTime) && (
+          dayjs().isAfter(listing.details.endDateTime) && (
             <Button
               label="Mark as Complete"
               onClick={() => handleComplete()}
@@ -252,9 +252,9 @@ function JobListItem({
       </div>
       <div className="details-container">
         <p>
-          {moment(listing.details.startDateTime).format("LT") +
+          {dayjs(listing.details.startDateTime).format("LT") +
             " - " +
-            moment(listing.details.endDateTime).format("LT")}
+            dayjs(listing.details.endDateTime).format("LT")}
         </p>
         <p>{`${listing.details.location.street}, ${listing.details.location.city}, ${listing.details.location.state} ${listing.details.location.zip}`}</p>
       </div>

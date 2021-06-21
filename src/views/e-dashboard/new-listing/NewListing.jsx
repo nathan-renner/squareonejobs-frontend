@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import moment from "moment";
+import dayjs from "dayjs";
 import { useHistory, useLocation } from "react-router-dom";
 import { MdCheck } from "react-icons/md";
 
@@ -206,7 +206,7 @@ function NewListing(props) {
     startDateTime: Yup.date()
       .label("Start Time")
       .min(
-        moment().add(1, "days"),
+        dayjs().add(1, "days"),
         "Job start time must be at least 24 hours from now."
       ),
     endDateTime:

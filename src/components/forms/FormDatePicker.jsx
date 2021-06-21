@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import moment from "moment";
+import dayjs from "dayjs";
 import _ from "lodash";
 import { useFormikContext } from "formik";
 import DatePicker from "react-datepicker";
@@ -19,7 +19,7 @@ function FormDatePicker({
   const { values, errors, setFieldTouched, setFieldValue, touched } =
     useFormikContext();
 
-  const years = _.range(1940, moment(new Date()).add(1, "years").year());
+  const years = _.range(1940, dayjs(new Date()).add(1, "years").year());
   const months = [
     "January",
     "February",
@@ -42,8 +42,8 @@ function FormDatePicker({
         value={
           values[name]
             ? showTimeSelect
-              ? moment(values[name]).format("MM/DD/YYYY h:mm a")
-              : moment(values[name]).format("MM/DD/YYYY")
+              ? dayjs(values[name]).format("MM/DD/YYYY h:mm a")
+              : dayjs(values[name]).format("MM/DD/YYYY")
             : null
         }
         placeholder={placeholder}
@@ -86,7 +86,7 @@ function FormDatePicker({
               {"<"}
             </button>
             <select
-              value={moment(date).year()}
+              value={dayjs(date).year()}
               onChange={({ target: { value } }) => changeYear(value)}
             >
               {years.map((option) => (
@@ -97,7 +97,7 @@ function FormDatePicker({
             </select>
 
             <select
-              value={months[moment().month(date)]}
+              value={months[dayjs().month(date)]}
               onChange={({ target: { value } }) =>
                 changeMonth(months.indexOf(value))
               }

@@ -1,5 +1,5 @@
 import React from "react";
-import moment from "moment";
+import dayjs from "dayjs";
 import {
   MdAccessTime,
   MdCreditCard,
@@ -10,6 +10,9 @@ import Skeleton from "react-loading-skeleton";
 import NumberFormat from "react-number-format";
 
 import { GoogleMaps } from "../../../components/common";
+
+var localizedFormat = require("dayjs/plugin/localizedFormat");
+dayjs.extend(localizedFormat);
 
 function Listing({ listing, map = true }) {
   const renderType = () => {
@@ -68,7 +71,7 @@ function Listing({ listing, map = true }) {
                 /> */}
                 <div>
                   <p>
-                    {moment(listing.details.startDateTime).format("MM/DD/YYYY")}
+                    {dayjs(listing.details.startDateTime).format("MM/DD/YYYY")}
                   </p>
                   <h2>{listing.details.position}</h2>
                 </div>
@@ -80,9 +83,9 @@ function Listing({ listing, map = true }) {
                 <div className="detail">
                   <MdAccessTime className="icon" size={25} />
                   <p>
-                    {moment(listing.details.startDateTime).format("LT") +
+                    {dayjs(listing.details.startDateTime).format("LT") +
                       " - " +
-                      moment(listing.details.endDateTime).format("LT")}
+                      dayjs(listing.details.endDateTime).format("LT")}
                   </p>
                 </div>
               )}

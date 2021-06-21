@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import moment from "moment";
+import dayjs from "dayjs";
 import {
   MdAccessTime,
   MdCheck,
@@ -34,6 +34,11 @@ import {
 import { useSuccessScreen } from "../../hooks/useSuccessScreen";
 import { applyToDayJob } from "./../../api/listings";
 import { useResponseModal } from "./../../hooks/useResponseModal";
+
+var localizedFormat = require("dayjs/plugin/localizedFormat");
+dayjs.extend(localizedFormat);
+var relativeTime = require("dayjs/plugin/relativeTime");
+dayjs.extend(relativeTime);
 
 function Listing({
   id = false,
@@ -219,7 +224,7 @@ function Listing({
       listing.type === "day" &&
       listing.status === "in-progress" &&
       listing.isMyJob &&
-      moment().isAfter(listing.details.endDateTime)
+      dayjs().isAfter(listing.details.endDateTime)
     )
       options.push({
         name: "Mark Job as Complete",
@@ -228,7 +233,7 @@ function Listing({
     if (
       listing.applied &&
       listing.status === "active" &&
-      moment(listing.details.startDateTime).diff(moment(), "days") >= 1
+      dayjs(listing.details.startDateTime).diff(dayjs(), "days") >= 1
     )
       options.push({
         name: "Withdraw Application",
@@ -332,11 +337,11 @@ function Listing({
                 <div>
                   {renderStatus()}
                   <h2>{details.position}</h2>
-                  <p>{moment(details.startDateTime).format("MM/DD/YYYY")}</p>
-                  <p>Posted {moment(listing.dateCreated).fromNow()}</p>
+                  <p>{dayjs(details.startDateTime).format("MM/DD/YYYY")}</p>
+                  <p>Posted {dayjs(listing.dateCreated).fromNow()}</p>
                   {listing.type === "day" &&
                     listing.status === "in-progress" &&
-                    moment().isAfter(listing.details.endDateTime) && (
+                    dayjs().isAfter(listing.details.endDateTime) && (
                       <Button
                         label="Mark as Complete"
                         onClick={() => handleComplete()}
@@ -365,7 +370,7 @@ function Listing({
                       onClick={handleApply}
                       disabled={
                         listing.applied ||
-                        moment().isAfter(listing.details.startDateTime)
+                        dayjs().isAfter(listing.details.startDateTime)
                       }
                     />
                   )}
@@ -386,9 +391,9 @@ function Listing({
                 <div className="detail">
                   <MdAccessTime className="icon" size={25} />
                   <p>
-                    {moment(details.startDateTime).format("LT") +
+                    {dayjs(details.startDateTime).format("LT") +
                       " - " +
-                      moment(details.endDateTime).format("LT")}
+                      dayjs(details.endDateTime).format("LT")}
                   </p>
                 </div>
               )}

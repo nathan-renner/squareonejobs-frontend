@@ -1,6 +1,9 @@
 import jwtDecode from "jwt-decode";
-import moment from "moment";
+import dayjs from "dayjs";
 const authKey = "token";
+
+var relativeTime = require("dayjs/plugin/relativeTime");
+dayjs.extend(relativeTime);
 
 export const getToken = () => {
   return localStorage.getItem(authKey);
@@ -8,7 +11,7 @@ export const getToken = () => {
 
 export const getUser = () => {
   const token = JSON.parse(getToken());
-  if (token && moment().isAfter(token.expire)) {
+  if (token && dayjs().isAfter(token.expire)) {
     removeToken();
     return null;
   }

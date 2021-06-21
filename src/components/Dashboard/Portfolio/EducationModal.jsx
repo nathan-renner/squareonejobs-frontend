@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import moment from "moment";
+import dayjs from "dayjs";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { MdDelete, MdDragHandle } from "react-icons/md";
 import EditControls from "./EditControls";
@@ -105,9 +105,9 @@ function EducationModal({
                       </div>
                       <div className="right">
                         <p>
-                          {moment(edu.startDate).format("MM/YYYY") +
+                          {dayjs(edu.startDate).format("MM/YYYY") +
                             " - " +
-                            moment(edu.endDate).format("MM/YYYY")}
+                            dayjs(edu.endDate).format("MM/YYYY")}
                         </p>
                         <MdDelete
                           size={25}

@@ -1,6 +1,9 @@
 import React from "react";
 import { Card } from "./../../common";
-import moment from "moment";
+import dayjs from "dayjs";
+
+var localizedFormat = require("dayjs/plugin/localizedFormat");
+dayjs.extend(localizedFormat);
 
 function TodaysJobCard({ todaysJob, onSelect, ...props }) {
   const {
@@ -13,7 +16,7 @@ function TodaysJobCard({ todaysJob, onSelect, ...props }) {
     <Card className="todays-job-card" {...props}>
       <div className="header">
         <h2>Today's Job</h2>
-        <p>{moment().format("MM/DD/YYYY")}</p>
+        <p>{dayjs().format("MM/DD/YYYY")}</p>
       </div>
       <div className="job-container" onClick={() => onSelect(todaysJob._id)}>
         <img src={todaysJob.company.logo} alt="Listing" />
@@ -23,9 +26,9 @@ function TodaysJobCard({ todaysJob, onSelect, ...props }) {
             {/* <Badge text={`+ ${points}`} /> */}
           </div>
           <p className="details">
-            {moment(startDateTime).format("LT") +
+            {dayjs(startDateTime).format("LT") +
               " - " +
-              moment(endDateTime).format("LT")}
+              dayjs(endDateTime).format("LT")}
           </p>
           <p className="details">{`${loc.street}, ${loc.city}, ${loc.state} ${loc.zip}`}</p>
         </div>

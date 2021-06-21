@@ -1,5 +1,5 @@
 import React from "react";
-import moment from "moment";
+import dayjs from "dayjs";
 import { NavLink } from "react-router-dom";
 
 import { Card } from "../../common";
@@ -18,7 +18,7 @@ function History({ history, ...props }) {
                   {job.details.position}
                 </NavLink>
                 <p>
-                  {moment(job.details.startDateTime).format("MMM. DD, YYYY")}
+                  {dayjs(job.details.startDateTime).format("MMM. DD, YYYY")}
                 </p>
               </>
             ))}
@@ -33,7 +33,7 @@ function History({ history, ...props }) {
                   {job.details.position}
                 </NavLink>
                 <p>
-                  {moment(job.details.startDateTime).format("MMM. DD, YYYY")}
+                  {dayjs(job.details.startDateTime).format("MMM. DD, YYYY")}
                 </p>
               </>
             ))}

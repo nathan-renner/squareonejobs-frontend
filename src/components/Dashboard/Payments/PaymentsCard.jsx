@@ -1,6 +1,6 @@
 import React from "react";
 import NumberFormat from "react-number-format";
-import moment from "moment";
+import dayjs from "dayjs";
 
 import { Card } from "../../common";
 
@@ -25,7 +25,7 @@ function PaymentsCard({ payments, ...otherProps }) {
               className={payment.status === "processing" ? "processing" : null}
             >
               {payment.status === "processing" && "Processing - "}
-              {moment(payment.paymentDate).format("MMM DD, YYYY")}
+              {dayjs(payment.paymentDate).format("MMM DD, YYYY")}
             </p>
             <p>{payment.company}</p>
           </div>

@@ -1,6 +1,9 @@
 import React from "react";
 import { Card } from "../../common";
-import moment from "moment";
+import dayjs from "dayjs";
+
+var localizedFormat = require("dayjs/plugin/localizedFormat");
+dayjs.extend(localizedFormat);
 
 function UpcomingJobs({ jobs, onSelect, ...props }) {
   const renderJobs = () => {
@@ -14,13 +17,13 @@ function UpcomingJobs({ jobs, onSelect, ...props }) {
         >
           <img src={job.company.logo} alt="logo" />
           <div className="header">
-            <p>{moment(startDateTime).format("MM/DD/YYYY")}</p>
+            <p>{dayjs(startDateTime).format("MM/DD/YYYY")}</p>
             <h3>{position}</h3>
           </div>
           <p className="time">
-            {moment(startDateTime).format("LT") +
+            {dayjs(startDateTime).format("LT") +
               " - " +
-              moment(endDateTime).format("LT")}
+              dayjs(endDateTime).format("LT")}
           </p>
         </div>
       );

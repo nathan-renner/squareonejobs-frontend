@@ -1,6 +1,6 @@
 import React from "react";
 import { useHistory, NavLink } from "react-router-dom";
-import moment from "moment";
+import dayjs from "dayjs";
 import Button from "./Button";
 import OptionsDropdown from "./OptionsDropdown";
 import Icon from "./Icon";
@@ -14,6 +14,9 @@ import {
 } from "../../api/listings";
 
 import defaultAvatar from "../../assets/images/default-avatar.png";
+
+var localizedFormat = require("dayjs/plugin/localizedFormat");
+dayjs.extend(localizedFormat);
 
 function ListingsList({
   listings,
@@ -80,7 +83,7 @@ function ListingsList({
   const getOptions = (status, startDateTime, _id, position, endDateTime) => {
     const options = [];
 
-    if (status === "pending-completion" || moment().isAfter(endDateTime))
+    if (status === "pending-completion" || dayjs().isAfter(endDateTime))
       options.push({
         name: "Mark Job as Complete",
         onClick: () => handleComplete(_id),
@@ -91,10 +94,7 @@ function ListingsList({
         onClick: () => history.push(`/listing/${_id}`),
       });
     }
-    if (
-      status === "active" &&
-      moment(startDateTime).diff(moment(), "hours") > 24
-    )
+    if (status === "active" && dayjs(startDateTime).diff(dayjs(), "hours") > 24)
       options.push({
         name: "Edit Listing",
         onClick: () => history.push(`/update-listing/${_id}`),
@@ -165,20 +165,20 @@ function ListingsList({
               {listing.details.position}
             </NavLink>
             <p className="text">
-              {moment(listing.details.startDateTime).format("MM/DD/YYYY")}
+              {dayjs(listing.details.startDateTime).format("MM/DD/YYYY")}
             </p>
             {listing.type === "day" && (
               <p className="text">
-                {moment(listing.details.startDateTime).format("LT") +
+                {dayjs(listing.details.startDateTime).format("LT") +
                   " - " +
-                  moment(listing.details.endDateTime).format("LT")}
+                  dayjs(listing.details.endDateTime).format("LT")}
               </p>
             )}
             <p className="text">
               {`${`${listing.details.location.street}, ${listing.details.location.city}, ${listing.details.location.state} ${listing.details.location.zip}`}`}
             </p>
             {listing.status === "pending-completion" ||
-            moment().isAfter(listing.details.endDateTime) ? (
+            dayjs().isAfter(listing.details.endDateTime) ? (
               <Button
                 label="Mark as Complete"
                 onClick={() => handleComplete(listing._id)}

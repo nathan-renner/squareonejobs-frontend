@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import jwtDecode from "jwt-decode";
-import moment from "moment";
+import dayjs from "dayjs";
 
 import AuthContext from "./context";
 import { storeToken, removeToken } from "./storage";
@@ -13,7 +13,7 @@ const useAuth = () => {
     setUser(user);
     storeToken({
       token: authToken,
-      expire: moment().add(3, "weeks"),
+      expire: dayjs().add(3, "weeks"),
     });
   };
 

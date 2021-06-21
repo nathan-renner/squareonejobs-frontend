@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import moment from "moment";
+import dayjs from "dayjs";
 import Skeleton from "react-loading-skeleton";
 import NumberFormat from "react-number-format";
 import {
@@ -33,6 +33,9 @@ import {
 
 import ReferenceModal from "../../components/E-Dashboard/Listings/ReferenceModal";
 import { useResponseModal } from "./../../hooks/useResponseModal";
+
+var localizedFormat = require("dayjs/plugin/localizedFormat");
+dayjs.extend(localizedFormat);
 
 function ListingPage(props) {
   const { id } = useParams();
@@ -139,8 +142,7 @@ function ListingPage(props) {
 
     if (
       listing.status === "pending-completion" ||
-      (moment().isAfter(details.endDateTime) &&
-        listing.status === "in-progress")
+      (dayjs().isAfter(details.endDateTime) && listing.status === "in-progress")
     )
       options.push({
         name: "Mark Job as Complete",
@@ -148,7 +150,7 @@ function ListingPage(props) {
       });
     if (
       listing.status === "active" &&
-      moment(details.startDateTime).diff(moment(), "hours") > 24
+      dayjs(details.startDateTime).diff(dayjs(), "hours") > 24
     )
       options.push({
         name: "Edit Listing",
@@ -241,9 +243,9 @@ function ListingPage(props) {
                   <div>
                     {renderStatus()}
                     <h2>{details.position}</h2>
-                    <p>{moment(details.startDateTime).format("MM/DD/YYYY")}</p>
+                    <p>{dayjs(details.startDateTime).format("MM/DD/YYYY")}</p>
                     {listing.status === "pending-completion" ||
-                    (moment().isAfter(details.endDateTime) &&
+                    (dayjs().isAfter(details.endDateTime) &&
                       listing.status === "in-progress") ? (
                       <Button
                         label="Mark as Complete"
@@ -299,9 +301,9 @@ function ListingPage(props) {
                   <div className="detail">
                     <MdAccessTime className="icon" size={25} />
                     <p>
-                      {moment(details.startDateTime).format("LT") +
+                      {dayjs(details.startDateTime).format("LT") +
                         " - " +
-                        moment(details.endDateTime).format("LT")}
+                        dayjs(details.endDateTime).format("LT")}
                     </p>
                   </div>
                 )}

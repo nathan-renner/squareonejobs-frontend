@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import moment from "moment";
+import dayjs from "dayjs";
 
 import { ActivityIndicator, Button, Card, MultiButton } from "../../common";
 import useApi from "./../../../hooks/useApi";
 
 import { getRecommended } from "../../../api/listings";
 import { useResponseModal } from "./../../../hooks/useResponseModal";
+
+var localizedFormat = require("dayjs/plugin/localizedFormat");
+dayjs.extend(localizedFormat);
 
 const buttons = ["Day Jobs", "Full Time", "Part Time"];
 
@@ -83,14 +86,14 @@ function JobsForYouCard({ jobs: day, onSelect, ...props }) {
               >
                 <img src={job.company.logo} alt="Logo" />
                 <div className="details-container">
-                  <p>{moment(startDateTime).format("MM/DD/YYYY")}</p>
+                  <p>{dayjs(startDateTime).format("MM/DD/YYYY")}</p>
                   <h3>{position}</h3>
                 </div>
                 <div className="details-container">
                   <p>
-                    {moment(startDateTime).format("LT") +
+                    {dayjs(startDateTime).format("LT") +
                       " - " +
-                      moment(endDateTime).format("LT")}
+                      dayjs(endDateTime).format("LT")}
                   </p>
                   <p>{`${loc.street}, ${loc.city}, ${loc.state} ${loc.zip}`}</p>
                 </div>

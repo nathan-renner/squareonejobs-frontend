@@ -1,5 +1,5 @@
 import React from "react";
-import moment from "moment";
+import dayjs from "dayjs";
 
 import { Card } from "../../common";
 
@@ -16,9 +16,9 @@ function Education({ portfolio, ...otherProps }) {
           </div>
           <div className="right">
             <p>
-              {moment(edu.startDate).format("MM/YYYY") +
+              {dayjs(edu.startDate).format("MM/YYYY") +
                 " - " +
-                moment(edu.endDate).format("MM/YYYY")}
+                dayjs(edu.endDate).format("MM/YYYY")}
             </p>
           </div>
         </div>

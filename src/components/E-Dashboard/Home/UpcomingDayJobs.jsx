@@ -1,13 +1,16 @@
 import React from "react";
-import moment from "moment";
+import dayjs from "dayjs";
 import { MdPerson } from "react-icons/md";
 import { NavLink } from "react-router-dom";
+
+var calendar = require("dayjs/plugin/calendar");
+dayjs.extend(calendar);
 
 function UpcomingDayJobs({ jobs, ...props }) {
   const renderJobs = () => {
     return jobs.map((job) => (
       <div className="u-job" key={job._id}>
-        <p className="date">{moment(job.details.startDateTime).calendar()}</p>
+        <p className="date">{dayjs(job.details.startDateTime).calendar()}</p>
         <NavLink to={`/listing/${job._id}`} className="position">
           {job.details.position}
         </NavLink>
