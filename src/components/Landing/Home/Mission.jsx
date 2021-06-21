@@ -12,7 +12,7 @@ function Mission(props) {
       >
         <path
           d="M1440.82 603.298L1440.85 688.645L6.40616e-06 688L1440.82 603.298Z"
-          fill="#006b8d"
+          fill="#2f4858"
         />
       </svg>
       <div className="container">
@@ -32,7 +32,7 @@ function Mission(props) {
       >
         <path
           d="M-2.49946 719.364L-2.49946 632.762L1458.8 632.762L-2.49946 719.364Z"
-          fill="#006b8d"
+          fill="#2f4858"
         />
       </svg>
     </section>

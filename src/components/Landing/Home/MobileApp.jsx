@@ -15,14 +15,14 @@ function MobileApp(props) {
       >
         <path
           d="M-1.00837 603.405L-1.05316 688.756L1440 688L-1.00837 603.405Z"
-          fill="#006b8d"
+          fill="#2f4858"
         />
       </svg>
       <div className="container-sm">
         <div className="content-container">
           <img
             className="app-img"
-            src="https://squareonejobs-landing.s3.us-east-2.amazonaws.com/Home/mobile-app.jpg"
+            src="https://squareonejobs-landing.s3.us-east-2.amazonaws.com/Home/mobile-app.png"
             alt="SquareOneJobs mobile app listings screen"
             loading="lazy"
           />

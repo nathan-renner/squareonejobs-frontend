@@ -5,6 +5,8 @@ import Logo from "../../assets/images/logo-white.png";
 import Instagram from "./../icons/Instagram";
 import Twitter from "./../icons/Twitter";
 import Linkedin from "./../icons/Linkedin";
+import Facebook from "./../icons/Facebook";
+import Medium from "./../icons/Medium";
 
 function Footer(props) {
   return (
@@ -47,6 +49,20 @@ function Footer(props) {
                 rel="noreferrer"
               >
                 <Instagram width="40" />
+              </a>
+              <a
+                href="https://www.facebook.com/Squareonejobs-106690148326459"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <Facebook width="40" />
+              </a>
+              <a
+                href="https://medium.com/squareonejobs"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <Medium width="40" />
               </a>
             </div>
           </div>
