@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import CheckIcon from "../../icons/CheckIcon";
 import JobListing1 from "../../../assets/images/screenshots/job-screenshot-1.png";
 import JobListing2 from "../../../assets/images/screenshots/job-screenshot-2.png";
@@ -9,13 +9,22 @@ import UserAbout from "../../../assets/images/screenshots/user-about-screenshot.
 import UserEducation from "../../../assets/images/screenshots/user-education-screenshot.png";
 import UserExperience from "../../../assets/images/screenshots/user-experience-screenshot.png";
 import UserSkills from "../../../assets/images/screenshots/user-skills-screenshot.png";
+import useOnScreen from "./../../../hooks/useOnScreen";
 
 function EmployerHowItWorks(props) {
+  const dayRef = useRef();
+  const fullRef = useRef();
+  const isDayVisible = useOnScreen(dayRef);
+  const isFullVisible = useOnScreen(fullRef);
+
   return (
     <section className="employer-how">
       <div className="container-sm">
         <h2 className="title">Top features for top recruitment</h2>
-        <div className="pt-container">
+        <div
+          className={`pt-container ${isDayVisible ? "visible" : null}`}
+          ref={dayRef}
+        >
           <div className="blob-container">
             <svg
               className="pt-blob"
@@ -56,7 +65,10 @@ function EmployerHowItWorks(props) {
             </div>
           </div>
         </div>
-        <div className="ft-container">
+        <div
+          className={`ft-container ${isFullVisible ? "visible" : null}`}
+          ref={fullRef}
+        >
           <div className="blob-container">
             <div className="ss-container">
               <img
