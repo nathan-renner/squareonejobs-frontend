@@ -3,7 +3,7 @@ import OvercomeIcon from "../../icons/OvercomeIcon";
 
 import { Card } from "../../common";
 
-function EmployerWhy(props) {
+function OvercomeObstacles(props) {
   return (
     <section className="bg-dark employer-problem">
       <div className="container split">
@@ -60,4 +60,4 @@ function EmployerWhy(props) {
   );
 }
 
-export default EmployerWhy;
+export default OvercomeObstacles;

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import CheckIconWhite from "../../icons/CheckIconWhite.jsx";
 
-function EmployerPricing(props) {
+function Pricing(props) {
   const [active, setActive] = useState(1);
 
   return (
@@ -111,4 +111,4 @@ function EmployerPricing(props) {
   );
 }
 
-export default EmployerPricing;
+export default Pricing;

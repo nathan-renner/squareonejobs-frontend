@@ -2,7 +2,7 @@ import React from "react";
 import EmployerReferencesIcon from "../../icons/EmployerReferencesIcon";
 import UserPortfoliosIcon from "../../icons/UserPortfoliosIcon";
 
-function EmployerReasons(props) {
+function KnowWhoYoureHiring(props) {
   return (
     <section className="bg-light employer-reasons">
       <div className="container">
@@ -33,4 +33,4 @@ function EmployerReasons(props) {
   );
 }
 
-export default EmployerReasons;
+export default KnowWhoYoureHiring;

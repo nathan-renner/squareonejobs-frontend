@@ -10,9 +10,9 @@ import HomeDepot from "../../../assets/images/companyLogos/home-depot.jpg";
 import Ibm from "../../../assets/images/companyLogos/ibm.jpg";
 import Microsoft from "../../../assets/images/companyLogos/microsoft.jpg";
 import Intel from "../../../assets/images/companyLogos/intel.jpg";
-import useOnScreen from "./../../../hooks/useOnScreen";
+import useOnScreen from "../../../hooks/useOnScreen";
 
-function LogoCarousel(props) {
+function CompanyLogos(props) {
   const [count, setCount] = useState(1);
   const ref = useRef();
   const isVisible = useOnScreen(ref);
@@ -116,4 +116,4 @@ function LogoCarousel(props) {
   );
 }
 
-export default LogoCarousel;
+export default CompanyLogos;

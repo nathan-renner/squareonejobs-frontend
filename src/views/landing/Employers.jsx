@@ -1,24 +1,24 @@
 import React from "react";
 import Header from "../../components/Landing/Employers/Header";
 import Navbar from "./../../components/Landing/Navbar";
-import LogoCarousel from "../../components/Landing/Employers/LogoCarousel";
-import EmployerWhy from "../../components/Landing/Employers/EmployerWhy";
-import EmployerReasons from "../../components/Landing/Employers/EmployerReasons";
-import EmployerHowItWorks from "../../components/Landing/Employers/EmployerHowItWorks";
-import EmployerPricing from "../../components/Landing/Employers/EmployerPricing";
+import KnowWhoYoureHiring from "../../components/Landing/Employers/KnowWhoYoureHiring";
+import HowItWorks from "../../components/Landing/Employers/HowItWorks";
+import Pricing from "../../components/Landing/Employers/Pricing";
 import ContactUs from "./../../components/Landing/Home/ContactUs";
 import Footer from "./../../components/Landing/Footer";
+import CompanyLogos from "./../../components/Landing/Employers/CompanyLogos";
+import OvercomeObstacles from "./../../components/Landing/Employers/OvercomeObstacles";
 
 const Employers = () => {
   return (
     <div className="landing employers">
       <Navbar dark />
       <Header />
-      <LogoCarousel />
-      <EmployerWhy />
-      <EmployerReasons />
-      <EmployerHowItWorks />
-      <EmployerPricing />
+      <CompanyLogos />
+      <OvercomeObstacles />
+      <KnowWhoYoureHiring />
+      <HowItWorks />
+      <Pricing />
       <ContactUs />
       <Footer />
     </div>

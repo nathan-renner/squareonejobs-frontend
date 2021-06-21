@@ -9,9 +9,9 @@ import UserAbout from "../../../assets/images/screenshots/user-about-screenshot.
 import UserEducation from "../../../assets/images/screenshots/user-education-screenshot.png";
 import UserExperience from "../../../assets/images/screenshots/user-experience-screenshot.png";
 import UserSkills from "../../../assets/images/screenshots/user-skills-screenshot.png";
-import useOnScreen from "./../../../hooks/useOnScreen";
+import useOnScreen from "../../../hooks/useOnScreen";
 
-function EmployerHowItWorks(props) {
+function HowItWorks(props) {
   const dayRef = useRef();
   const fullRef = useRef();
   const isDayVisible = useOnScreen(dayRef);
@@ -141,4 +141,4 @@ function EmployerHowItWorks(props) {
   );
 }
 
-export default EmployerHowItWorks;
+export default HowItWorks;
