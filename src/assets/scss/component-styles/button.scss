@@ -51,6 +51,10 @@
     border: 1px solid $primary;
   }
 
+  &.outline-white {
+    border: 1px solid $white;
+  }
+
   &.outline-medium {
     @include themed() {
       border: 1px solid t("medium");

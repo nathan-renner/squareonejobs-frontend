@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import CheckIconWhite from "../../icons/CheckIconWhite.jsx";
+import { Button } from "./../../common";
 
 function Pricing(props) {
   const [active, setActive] = useState(1);
 
   return (
-    <section className="bg-dark employer-pricing">
-      <div className="container split">
+    <section className="bg-dark">
+      <div className="container employer-pricing">
         <div className="text-container">
           <h2>Pricing</h2>
           <p>
@@ -16,36 +17,126 @@ function Pricing(props) {
         </div>
         <div className="price-cards">
           <div
-            className={`standard-card split ${active === 0 ? "active" : null}`}
+            className={`price-card top ${active === 0 ? "active" : null}`}
             onClick={() => setActive(0)}
           >
-            <div className="left">
-              <p className="dollar-sign">$</p>
-              <p className="plan-price">99</p>
-              <div className="button-container">
-                <button className="plan-button">GET STARTED</button>
-              </div>
+            <div className="price-header">
+              <h3 className="price">
+                <span>$</span>149<span>/month</span>
+              </h3>
+              <h3>Starter</h3>
             </div>
-            <div className="right">
-              <p className="plan-label">Standard</p>
-              <div className="plan-perks">
-                <div className="perk-item">
-                  <CheckIconWhite />
-                  <p>words</p>
-                </div>
-                <div className="perk-item">
-                  <CheckIconWhite />
-                  <p>more words</p>
-                </div>
-                <div className="perk-item">
-                  <CheckIconWhite />
-                  <p>aaaaaAAAAAA</p>
+            <div className="price-body">
+              <div className="button-container">
+                <Button
+                  outline
+                  color="transparent"
+                  textColor="white"
+                  label="get started"
+                />
+              </div>
+              <div>
+                <div className="plan-perks">
+                  <div className="perk-item">
+                    <CheckIconWhite />
+                    <p>1 listing per month</p>
+                  </div>
+                  <div className="perk-item">
+                    <CheckIconWhite />
+                    <p>5 day jobs per month*</p>
+                  </div>
+                  <div className="perk-item">
+                    <CheckIconWhite />
+                    <p>View applicant's profiles and previou references</p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
           <div
-            className={`premium-card split ${active === 1 ? "active" : null}`}
+            className={`price-card  ${active === 1 ? "active" : null}`}
+            onClick={() => setActive(1)}
+          >
+            <div className="price-header">
+              <h3 className="price">
+                <span>$</span>349<span>/month</span>
+              </h3>
+              <h3>Plus</h3>
+            </div>
+            <div className="price-body">
+              <div className="button-container">
+                <Button
+                  outline
+                  color="transparent"
+                  textColor="white"
+                  label="get started"
+                />
+              </div>
+              <div>
+                <div className="plan-perks">
+                  <div className="perk-item">
+                    <CheckIconWhite />
+                    <p>5 listings per month</p>
+                  </div>
+                  <div className="perk-item">
+                    <CheckIconWhite />
+                    <p>15 day jobs per month*</p>
+                  </div>
+                  <div className="perk-item">
+                    <CheckIconWhite />
+                    <p>View applicant's profiles and previous references</p>
+                  </div>
+                  <div className="perk-item">
+                    <CheckIconWhite />
+                    <p>Access profiles of up to 50 additional users</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className={`price-card bottom ${active === 2 ? "active" : null}`}
+            onClick={() => setActive(2)}
+          >
+            <div className="price-header">
+              <h3 className="price">
+                <span>$</span>599<span>/month</span>
+              </h3>
+              <h3>Premium</h3>
+            </div>
+            <div className="price-body">
+              <div className="button-container">
+                <Button
+                  outline
+                  color="transparent"
+                  textColor="white"
+                  label="get started"
+                />
+              </div>
+              <div>
+                <div className="plan-perks">
+                  <div className="perk-item">
+                    <CheckIconWhite />
+                    <p>12 listings per month</p>
+                  </div>
+                  <div className="perk-item">
+                    <CheckIconWhite />
+                    <p>Unlimited day jobs</p>
+                  </div>
+                  <div className="perk-item">
+                    <CheckIconWhite />
+                    <p>View applicant's profiles and previous references</p>
+                  </div>
+                  <div className="perk-item">
+                    <CheckIconWhite />
+                    <p>Access entire database of user profiles</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {/* <div
+            className={`price-card ${active === 1 ? "active" : null}`}
             onClick={() => setActive(1)}
           >
             <div className="left">
@@ -74,9 +165,7 @@ function Pricing(props) {
             </div>
           </div>
           <div
-            className={`subscription-card split ${
-              active === 2 ? "active" : null
-            }`}
+            className={`price-card ${active === 2 ? "active" : null}`}
             onClick={() => setActive(2)}
           >
             <div className="left">
@@ -104,7 +193,7 @@ function Pricing(props) {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </section>

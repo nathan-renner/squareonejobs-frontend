@@ -1,0 +1,145 @@
+.employer-pricing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3em;
+  overflow: hidden;
+
+  @media (min-width: 45em) {
+    flex-direction: row;
+  }
+  h2 {
+    color: white;
+  }
+  .text-container {
+    flex: 1;
+    > * {
+      width: #{"min(90%, 25em)"};
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+
+      @media (min-width: 45em) {
+        text-align: left;
+        margin-left: 0;
+        margin-right: 0;
+      }
+    }
+  }
+  .price-cards {
+    flex: 1;
+    .price-card {
+      background-color: $white;
+      cursor: pointer;
+      padding: 20px;
+      max-width: 80%;
+      margin-left: auto;
+      overflow: hidden;
+
+      transition: max-width 300ms ease, border-radius 300ms ease;
+
+      .price-header {
+        display: flex;
+        justify-content: space-between;
+        gap: 2em;
+        margin-bottom: 2em;
+        h3 {
+          font-size: 1.3em;
+          color: $primary;
+          margin-bottom: 0;
+          transition: font-size 300ms ease;
+
+          span {
+            font-size: 0.7em;
+          }
+        }
+      }
+
+      .price-body {
+        opacity: 0;
+        max-height: 0;
+        height: 100%;
+
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        gap: 2em;
+
+        @media (min-width: 60em) {
+          flex-direction: row;
+        }
+
+        transition: max-height 300ms ease;
+
+        .button-container {
+          order: 1;
+          flex-shrink: 0;
+          .button {
+            margin: 0;
+            margin-top: auto;
+          }
+
+          @media (min-width: 60em) {
+            order: 0;
+          }
+        }
+
+        .plan-perks {
+          > * {
+            display: flex;
+            gap: 1em;
+            margin-bottom: 0.4em;
+
+            > :first-child {
+              min-width: 20px;
+              min-height: 20px;
+            }
+            > * + * {
+              color: white;
+              font-size: 1em;
+              font-weight: 500;
+              margin-bottom: 0;
+            }
+          }
+        }
+      }
+
+      &.top {
+        border-radius: 20px 20px 0 0;
+      }
+      &.bottom {
+        border-radius: 0px 0px 20px 20px;
+      }
+
+      &.active {
+        max-width: 100%;
+        background-color: $primary;
+        border-radius: 20px 0 0 20px;
+
+        &.top {
+          border-top-right-radius: 20px;
+        }
+        &.bottom {
+          border-bottom-right-radius: 20px;
+        }
+        .price-header {
+          h3 {
+            font-size: 1.5em;
+            color: $white;
+            span {
+              font-size: 0.5em;
+            }
+          }
+          .price {
+            font-size: 2.5em;
+          }
+        }
+        .price-body {
+          opacity: 1;
+          max-height: 20em;
+          transition: max-height 300ms ease;
+        }
+      }
+    }
+  }
+}
