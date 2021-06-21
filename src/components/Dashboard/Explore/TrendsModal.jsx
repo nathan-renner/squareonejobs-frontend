@@ -1,33 +1,36 @@
 import React from "react";
 import { MdClear } from "react-icons/md";
 
-import OL from "../../../assets/images/outdoor-labor.png";
-import WFH from "../../../assets/images/work-from-home.png";
-
 const trends = [
   {
     name: "Work from home",
-    source: WFH,
+    source:
+      "https://squareonejobs.s3.us-east-2.amazonaws.com/dashboard/work-from-home.png",
   },
   {
     name: "Outdoor labor",
-    source: OL,
+    source:
+      "https://squareonejobs.s3.us-east-2.amazonaws.com/dashboard/outdoor-labor.png",
   },
   {
     name: "Work from home",
-    source: WFH,
+    source:
+      "https://squareonejobs.s3.us-east-2.amazonaws.com/dashboard/work-from-home.png",
   },
   {
     name: "Outdoor labor",
-    source: OL,
+    source:
+      "https://squareonejobs.s3.us-east-2.amazonaws.com/dashboard/outdoor-labor.png",
   },
   {
     name: "Work from home",
-    source: WFH,
+    source:
+      "https://squareonejobs.s3.us-east-2.amazonaws.com/dashboard/work-from-home.png",
   },
   {
     name: "Outdoor labor",
-    source: OL,
+    source:
+      "https://squareonejobs.s3.us-east-2.amazonaws.com/dashboard/outdoor-labor.png",
   },
 ];
 

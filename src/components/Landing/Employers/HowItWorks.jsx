@@ -1,14 +1,6 @@
 import React, { useRef } from "react";
 import CheckIcon from "../../icons/CheckIcon";
-import JobListing1 from "../../../assets/images/screenshots/job-screenshot-1.png";
-import JobListing2 from "../../../assets/images/screenshots/job-screenshot-2.png";
-import UserProfile from "../../../assets/images/screenshots/user-profile-screenshot.png";
-import UserDocuments from "../../../assets/images/screenshots/user-documents-screenshot.png";
-import UserReferences from "../../../assets/images/screenshots/user-references-screenshot.png";
-import UserAbout from "../../../assets/images/screenshots/user-about-screenshot.png";
-import UserEducation from "../../../assets/images/screenshots/user-education-screenshot.png";
-import UserExperience from "../../../assets/images/screenshots/user-experience-screenshot.png";
-import UserSkills from "../../../assets/images/screenshots/user-skills-screenshot.png";
+
 import useOnScreen from "../../../hooks/useOnScreen";
 
 function HowItWorks(props) {
@@ -38,13 +30,15 @@ function HowItWorks(props) {
             </svg>
             <img
               className="listing-screenshot"
-              src={JobListing1}
+              src="https://squareonejobs-landing.s3.us-east-2.amazonaws.com/Employers/screenshots/l1.png"
               alt="Job Listing Screenshot"
+              loading="lazy"
             />
             <img
               className="listing-screenshot-2"
-              src={JobListing2}
+              src="https://squareonejobs-landing.s3.us-east-2.amazonaws.com/Employers/screenshots/l2.png"
               alt="Company Information Screenshot"
+              loading="lazy"
             />
           </div>
           <div className="pt-text">
@@ -73,38 +67,45 @@ function HowItWorks(props) {
             <div className="ss-container">
               <img
                 className="ss-left s1"
-                src={UserProfile}
+                src="https://squareonejobs-landing.s3.us-east-2.amazonaws.com/Employers/screenshots/u1.png"
                 alt="User Profile Screenshot"
+                loading="lazy"
               />
               <img
                 className="ss-left s2"
-                src={UserDocuments}
+                src="https://squareonejobs-landing.s3.us-east-2.amazonaws.com/Employers/screenshots/u2.png"
                 alt="User Documents Screenshot"
+                loading="lazy"
               />
               <img
                 className="ss-left s3"
-                src={UserReferences}
+                src="https://squareonejobs-landing.s3.us-east-2.amazonaws.com/Employers/screenshots/u3.png"
                 alt="User Referenes Screenshot"
+                loading="lazy"
               />
               <img
                 className="ss-right s4"
-                src={UserAbout}
+                src="https://squareonejobs-landing.s3.us-east-2.amazonaws.com/Employers/screenshots/u4.png"
                 alt="User References Screenshot"
-              />
-              <img
-                className="ss-right s5"
-                src={UserEducation}
-                alt="User Education Screenshot"
+                loading="lazy"
               />
               <img
                 className="ss-right s6"
-                src={UserExperience}
+                src="https://squareonejobs-landing.s3.us-east-2.amazonaws.com/Employers/screenshots/u5.png"
                 alt="User Experience Screenshot"
+                loading="lazy"
+              />
+              <img
+                className="ss-right s5"
+                src="https://squareonejobs-landing.s3.us-east-2.amazonaws.com/Employers/screenshots/u6.png"
+                alt="User Education Screenshot"
+                loading="lazy"
               />
               <img
                 className="ss-right s7"
-                src={UserSkills}
+                src="https://squareonejobs-landing.s3.us-east-2.amazonaws.com/Employers/screenshots/u7.png"
                 alt="User Skills Screenshot"
+                loading="lazy"
               />
             </div>
             <svg

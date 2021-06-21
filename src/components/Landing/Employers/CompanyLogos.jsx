@@ -1,15 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import Apple from "../../../assets/images/companyLogos/apple.jpg";
-import Fedex from "../../../assets/images/companyLogos/fedex.jpg";
-import Pepsi from "../../../assets/images/companyLogos/pepsi.jpg";
-import At_t from "../../../assets/images/companyLogos/at_t.jpg";
-import AmericanAirlines from "../../../assets/images/companyLogos/american-airlines.jpg";
-import GeneralMills from "../../../assets/images/companyLogos/general-mills.jpg";
-import Goodwill from "../../../assets/images/companyLogos/goodwill.jpg";
-import HomeDepot from "../../../assets/images/companyLogos/home-depot.jpg";
-import Ibm from "../../../assets/images/companyLogos/ibm.jpg";
-import Microsoft from "../../../assets/images/companyLogos/microsoft.jpg";
-import Intel from "../../../assets/images/companyLogos/intel.jpg";
+
 import useOnScreen from "../../../hooks/useOnScreen";
 
 function CompanyLogos(props) {
@@ -35,77 +25,77 @@ function CompanyLogos(props) {
           loading="lazy"
           className="carousel-item "
           data-item={getPos(6)}
-          src={Apple}
+          src="https://squareonejobs-landing.s3.us-east-2.amazonaws.com/Employers/companyLogos/apple.jpg"
           alt="Apple Logo"
         />
         <img
           loading="lazy"
           className="carousel-item "
           data-item={getPos(7)}
-          src={Fedex}
+          src="https://squareonejobs-landing.s3.us-east-2.amazonaws.com/Employers/companyLogos/fedex.jpg"
           alt="FedEx Logo"
         />
         <img
           loading="lazy"
           className="carousel-item "
           data-item={getPos(8)}
-          src={Pepsi}
+          src="https://squareonejobs-landing.s3.us-east-2.amazonaws.com/Employers/companyLogos/pepsi.jpg"
           alt="Pepsi Logo"
         />
         <img
           loading="lazy"
           className="carousel-item "
           data-item={getPos(9)}
-          src={At_t}
+          src="https://squareonejobs-landing.s3.us-east-2.amazonaws.com/Employers/companyLogos/at_t.jpg"
           alt="A T and T Logo"
         />
         <img
           loading="lazy"
           className="carousel-item "
           data-item={getPos(10)}
-          src={Goodwill}
+          src="https://squareonejobs-landing.s3.us-east-2.amazonaws.com/Employers/companyLogos/goodwill.jpg"
           alt="Goodwill Logo"
         />
         <img
           loading="lazy"
           className="carousel-item "
           data-item={getPos(11)}
-          src={GeneralMills}
+          src="https://squareonejobs-landing.s3.us-east-2.amazonaws.com/Employers/companyLogos/general-mills.jpg"
           alt="General Mills Logo"
         />
         <img
           loading="lazy"
           className="carousel-item "
           data-item={getPos(1)}
-          src={AmericanAirlines}
+          src="https://squareonejobs-landing.s3.us-east-2.amazonaws.com/Employers/companyLogos/american-airlines.jpg"
           alt="American Airlines Logo"
         />
         <img
           loading="lazy"
           className="carousel-item "
           data-item={getPos(2)}
-          src={HomeDepot}
+          src="https://squareonejobs-landing.s3.us-east-2.amazonaws.com/Employers/companyLogos/home-depot.jpg"
           alt="The Home Depot Logo"
         />
         <img
           loading="lazy"
           className="carousel-item "
           data-item={getPos(3)}
-          src={Ibm}
+          src="https://squareonejobs-landing.s3.us-east-2.amazonaws.com/Employers/companyLogos/ibm.jpg"
           alt="IBM Logo"
         />
         <img
           loading="lazy"
           className="carousel-item "
           data-item={getPos(4)}
-          src={Microsoft}
+          src="https://squareonejobs-landing.s3.us-east-2.amazonaws.com/Employers/companyLogos/microsoft.jpg"
           alt="Microsoft Logo"
         />
         <img
           loading="lazy"
           className="carousel-item "
           data-item={getPos(5)}
-          src={Intel}
+          src="https://squareonejobs-landing.s3.us-east-2.amazonaws.com/Employers/companyLogos/intel.jpg"
           alt="Intel Logo"
         />
       </div>

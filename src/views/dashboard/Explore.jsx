@@ -6,8 +6,6 @@ import { RiShoppingBag2Fill } from "react-icons/ri";
 
 import { Card, Modal } from "../../components/common";
 
-import OL from "../../assets/images/outdoor-labor.png";
-import WFH from "../../assets/images/work-from-home.png";
 import CategoriesModal from "./../../components/Dashboard/Explore/CategoriesModal";
 import TrendsModal from "./../../components/Dashboard/Explore/TrendsModal";
 
@@ -42,27 +40,33 @@ const categories = [
 const trends = [
   {
     name: "Work from home",
-    source: WFH,
+    source:
+      "https://squareonejobs.s3.us-east-2.amazonaws.com/dashboard/work-from-home.png",
   },
   {
     name: "Outdoor labor",
-    source: OL,
+    source:
+      "https://squareonejobs.s3.us-east-2.amazonaws.com/dashboard/outdoor-labor.png",
   },
   {
     name: "Work from home",
-    source: WFH,
+    source:
+      "https://squareonejobs.s3.us-east-2.amazonaws.com/dashboard/work-from-home.png",
   },
   {
     name: "Outdoor labor",
-    source: OL,
+    source:
+      "https://squareonejobs.s3.us-east-2.amazonaws.com/dashboard/outdoor-labor.png",
   },
   {
     name: "Work from home",
-    source: WFH,
+    source:
+      "https://squareonejobs.s3.us-east-2.amazonaws.com/dashboard/work-from-home.png",
   },
   {
     name: "Outdoor labor",
-    source: OL,
+    source:
+      "https://squareonejobs.s3.us-east-2.amazonaws.com/dashboard/outdoor-labor.png",
   },
 ];
 
