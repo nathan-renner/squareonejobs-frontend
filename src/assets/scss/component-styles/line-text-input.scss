@@ -1,0 +1,112 @@
+.line-text-input-container {
+  margin-bottom: 1.5em;
+  position: relative;
+
+  .line-text-input {
+    position: relative;
+    border-radius: 0.5em;
+
+    display: flex;
+
+    @include themed() {
+      border: 1px solid rgba(t("medium"), 0.7);
+    }
+
+    &.disabled {
+      @include themed() {
+        background-color: t("background");
+      }
+    }
+
+    .left-icon,
+    .right-icon {
+      display: block;
+      margin: auto 0 auto 0.8em;
+      width: 1.3em;
+      height: 1.3em;
+
+      transition: color 100ms ease-out;
+
+      @include themed() {
+        color: t("medium");
+      }
+    }
+
+    .right-icon {
+      margin-right: 0.8em;
+      margin-left: 0;
+    }
+
+    input,
+    textarea {
+      position: relative;
+      width: 100%;
+      border: none;
+      outline: none;
+      font-family: "Montserrat", sans-serif;
+      font-size: 1em;
+      padding: 0.6em 0.8em;
+      border-radius: 0.5em;
+    }
+
+    label {
+      font-family: "Montserrat", sans-serif;
+      font-size: 0.9em;
+      position: absolute;
+      left: 0.8em;
+      bottom: 0.6em;
+      padding: 0 0.2em;
+      cursor: text;
+
+      @include themed() {
+        background-color: t("foreground");
+        color: t("medium");
+      }
+
+      transition: font-size 100ms ease-out, transform 100ms ease-out,
+        color 100ms ease-out;
+    }
+
+    .left-icon ~ label {
+      left: 2.9em;
+    }
+
+    &.focused {
+      border-color: $primary;
+    }
+
+    &.focused > label,
+    &.focused > .left-icon {
+      color: $primary;
+    }
+
+    &.not-empty > label,
+    &.focused > label {
+      font-size: 0.7em;
+      transform: translateY(-2.1em);
+    }
+
+    &.error {
+      border-color: $danger;
+    }
+
+    &.error > label,
+    &.error > .left-icon,
+    &.error > .right-icon {
+      color: $danger;
+    }
+
+    &.error + .helper-text {
+      color: $danger;
+    }
+  }
+  .helper-text {
+    position: absolute;
+    font-size: 0.7em;
+    margin-left: 1.1em;
+    margin-bottom: 0;
+    @include themed() {
+      color: t("medium");
+    }
+  }
+}

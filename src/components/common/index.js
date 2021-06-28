@@ -18,6 +18,7 @@ export { default as ResponseModal } from "./ResponseModal";
 export { default as StarRating } from "./StarRating";
 export { default as SuccessModal } from "./SuccessModal";
 export { default as TextInput } from "./TextInput";
+export { default as TextInputLine } from "./TextInputLine";
 export { default as ThemeSwitch } from "./ThemeSwitch";
 export { default as ToggleButton } from "./ToggleButton";
 export { default as UploadScreen } from "./UploadScreen";

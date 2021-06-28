@@ -4,6 +4,7 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import { useHistory, useLocation } from "react-router-dom";
 import { MdLock, MdVisibility, MdVisibilityOff } from "react-icons/md";
+import _ from "underscore";
 
 import { Button, Card, UploadScreen } from "../../components/common";
 import { FormField, SubmitButton } from "../../components/forms";
@@ -44,7 +45,7 @@ function PostJob2(props) {
       i.lastName = i.name.substr(index + 1);
 
       const info = { ...i, ...data };
-      const _ = require("lodash");
+
       let finalData;
       if (info.companyId) {
         finalData = _.pick(info, [
