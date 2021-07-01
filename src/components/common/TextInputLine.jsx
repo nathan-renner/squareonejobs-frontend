@@ -1,5 +1,4 @@
 import React, { useRef, useState } from "react";
-import { MdPerson } from "react-icons/md";
 import { RiErrorWarningFill } from "react-icons/ri";
 
 function TextInputLine({
@@ -69,9 +68,7 @@ function TextInputLine({
             <RightIcon className="right-icon" onClick={rightIconOnClick} />
           )
         )}
-        <label for={name} onClick={onFocus}>
-          {label}
-        </label>
+        <label onClick={onFocus}>{label}</label>
       </div>
       <p className="helper-text">
         {error ? error : helperText ? helperText : null}

@@ -8,9 +8,10 @@ import {
   ResponseModal,
 } from "../../components/common";
 
-import { Form, FormField, SubmitButton } from "../../components/forms";
+import { Form, FormFieldLine, SubmitButton } from "../../components/forms";
 import useApi from "./../../hooks/useApi";
 import { resetPassword } from "./../../api/passwords";
+import { useResponseModal } from "./../../hooks/useResponseModal";
 
 const schema = Yup.object().shape({
   new: Yup.string().required().min(8).max(1024).label("New Password"),
@@ -25,38 +26,33 @@ const schema = Yup.object().shape({
 function ResetPassword(props) {
   const history = useHistory();
   const { userId, code } = useParams();
-  const [modal, setModal] = useState(false);
+  const { setModal } = useResponseModal();
   const resetPasswordApi = useApi(resetPassword);
 
   const handleSubmit = async (i) => {
     const data = { new: i.new };
-    console.log(data, userId, code);
+
     const response = await resetPasswordApi.request(data, userId, code);
-    console.log(response.data);
+
     if (response.ok)
       setModal({
-        type: "success",
         header: "Password Updated",
-        onClick: () => history.replace("/auth/login"),
+        onButtonClick: () => {
+          setModal(false);
+          history.replace("/auth/login");
+        },
       });
     else
       setModal({
         type: "error",
         header: "Something went wrong",
         body: response.data,
-        onClick: () => setModal(false),
+        onButtonClick: () => setModal(false),
       });
   };
 
   return (
     <>
-      <ResponseModal
-        visible={modal}
-        type={modal.type}
-        header={modal.header}
-        body={modal.body}
-        onButtonClick={modal.onClick}
-      />
       <ActivityIndicator visible={resetPasswordApi.loading} />
       <Card className="change-password">
         <h2>Reset Password</h2>
@@ -65,15 +61,9 @@ function ResetPassword(props) {
           initialValues={{ new: "", newConfirm: "" }}
           onSubmit={handleSubmit}
         >
-          <FormField
-            name="new"
-            size="sm"
-            label="New Password"
-            type="password"
-          />
-          <FormField
+          <FormFieldLine name="new" label="New Password" type="password" />
+          <FormFieldLine
             name="newConfirm"
-            size="sm"
             label="Confirm New Password"
             type="password"
           />

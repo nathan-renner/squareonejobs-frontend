@@ -18,8 +18,8 @@ function Mission(props) {
       <div className="container">
         <div className="content">
           <h2 className="title">
-            SquareOneJobs is here to break these barriers and support you on
-            your employment journey.
+            SquareOneJobs is here to break employment barriers and support you
+            on your employment journey.
           </h2>
         </div>
       </div>

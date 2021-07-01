@@ -19,13 +19,14 @@ import {
 } from "../../components/common";
 import {
   ErrorMessage,
-  FormField,
   SubmitButton,
+  FormFieldLine,
 } from "./../../components/forms";
 
 import useApi from "../../hooks/useApi.jsx";
 import useAuth from "../../auth/useAuth";
 import { login } from "../../api/auth";
+import { useEffect } from "react";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
@@ -38,10 +39,18 @@ function Login() {
   const loginApi = useApi(login);
   const [passVisible, setPassVisible] = useState(false);
   const [loginFailed, setLoginFailed] = useState(false);
+  const [token, setToken] = useState(false);
   const recaptchaRef = useRef();
 
+  useEffect(() => {
+    const getToken = async () => {
+      const rtoken = await recaptchaRef.current.executeAsync();
+      setToken(rtoken);
+    };
+    getToken();
+  }, []);
+
   const handleSubmit = async ({ email, password }) => {
-    const token = await recaptchaRef.current.executeAsync();
     if (token) {
       const result = await loginApi.request(email, password);
       if (!result.ok) return setLoginFailed(true);
@@ -90,21 +99,18 @@ function Login() {
                 }
               }}
             >
-              <FormField
-                name="email"
-                LeftIcon={MdEmail}
-                placeholder="Email"
-                size="sm"
-              />
-              <FormField
+              <FormFieldLine name="email" label="Email" LeftIcon={MdEmail} />
+              <FormFieldLine
                 type={passVisible ? "text" : "password"}
                 name="password"
                 LeftIcon={MdLock}
-                placeholder="Password"
+                label="Password"
                 RightIcon={passVisible ? MdVisibilityOff : MdVisibility}
-                rightIconSize={30}
                 rightIconOnClick={() => setPassVisible(!passVisible)}
-                size="sm"
+              />
+              <ErrorMessage
+                error="Invalid email and/or password."
+                visible={loginFailed}
               />
               <div className="google-text">
                 This site is protected by reCAPTCHA and the Google{" "}
@@ -125,10 +131,6 @@ function Login() {
                 </a>{" "}
                 apply.
               </div>
-              <ErrorMessage
-                error="Invalid email and/or password."
-                visible={loginFailed}
-              />
               <div>
                 <SubmitButton label="Login" className="login-button" />
               </div>

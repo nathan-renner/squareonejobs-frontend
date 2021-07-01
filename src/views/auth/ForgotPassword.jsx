@@ -3,14 +3,11 @@ import { useLocation } from "react-router-dom";
 import * as Yup from "yup";
 import { sendEmail } from "../../api/passwords";
 
-import {
-  ActivityIndicator,
-  Card,
-  ResponseModal,
-} from "../../components/common";
-import { Form, FormField, SubmitButton } from "../../components/forms";
+import { ActivityIndicator, Card } from "../../components/common";
+import { Form, FormFieldLine, SubmitButton } from "../../components/forms";
 
 import useApi from "./../../hooks/useApi";
+import { useResponseModal } from "./../../hooks/useResponseModal";
 
 const schema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
@@ -19,7 +16,7 @@ const schema = Yup.object().shape({
 function ForgotPassword(props) {
   const { state: prevEmail } = useLocation();
   const sendEmailApi = useApi(sendEmail);
-  const [modal, setModal] = useState(false);
+  const { setModal } = useResponseModal();
 
   const handleSubmit = async ({ email }) => {
     const data = { email };
@@ -43,13 +40,6 @@ function ForgotPassword(props) {
   return (
     <Card className="auth-container forgot-password">
       <ActivityIndicator visible={sendEmailApi.loading} />
-      <ResponseModal
-        visible={modal}
-        type={modal.type}
-        header={modal.header}
-        body={modal.body}
-        onButtonClick={modal.onClick}
-      />
       <div>
         <h1>Forgot Password</h1>
         <p className="subtitle">
@@ -61,7 +51,7 @@ function ForgotPassword(props) {
           validationSchema={schema}
           onSubmit={handleSubmit}
         >
-          <FormField name="email" size="sm" placeholder="Email" />
+          <FormFieldLine name="email" label="Email" />
           <SubmitButton label="send" />
         </Form>
       </div>

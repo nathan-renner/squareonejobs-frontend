@@ -8,7 +8,17 @@ function Form({ initialValues, onSubmit, validationSchema, children }) {
       onSubmit={onSubmit}
       validationSchema={validationSchema}
     >
-      {() => <div>{children}</div>}
+      {({ handleSubmit }) => (
+        <div
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              handleSubmit();
+            }
+          }}
+        >
+          {children}
+        </div>
+      )}
     </Formik>
   );
 }

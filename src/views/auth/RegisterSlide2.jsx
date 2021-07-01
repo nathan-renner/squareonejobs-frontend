@@ -9,7 +9,11 @@ import {
 import { useFormikContext } from "formik";
 
 import { Icon } from "../../components/common";
-import { ErrorMessage, FormField, SubmitButton } from "../../components/forms";
+import {
+  ErrorMessage,
+  FormFieldLine,
+  SubmitButton,
+} from "../../components/forms";
 
 function RegisterSlide2({ slideWidth, error, onBack }) {
   const { values, handleSubmit } = useFormikContext();
@@ -39,21 +43,14 @@ function RegisterSlide2({ slideWidth, error, onBack }) {
           <br />
           Register your email
         </h3>
-        <FormField
-          name="email"
-          LeftIcon={MdEmail}
-          placeholder="Email"
-          size="sm"
-        />
-        <FormField
+        <FormFieldLine name="email" LeftIcon={MdEmail} label="Email" />
+        <FormFieldLine
           type={passVisible ? "text" : "password"}
           name="password"
           LeftIcon={MdLock}
-          placeholder="Password"
+          label="Password"
           RightIcon={passVisible ? MdVisibilityOff : MdVisibility}
-          rightIconSize={30}
           rightIconOnClick={() => setPassVisible(!passVisible)}
-          size="sm"
         />
         <div className="google-text">
           This site is protected by reCAPTCHA and the Google{" "}

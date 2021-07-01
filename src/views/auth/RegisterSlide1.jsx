@@ -4,7 +4,7 @@ import { useFormikContext } from "formik";
 import { MdArrowBack, MdPerson } from "react-icons/md";
 
 import { Button, Icon, GoogleButton } from "../../components/common";
-import { ErrorMessage, FormField } from "../../components/forms";
+import { ErrorMessage, FormFieldLine } from "../../components/forms";
 
 function RegisterSlide1({ slideWidth, onNext, onBack, responseGoogle, error }) {
   const { values, errors } = useFormikContext();
@@ -19,18 +19,14 @@ function RegisterSlide1({ slideWidth, onNext, onBack, responseGoogle, error }) {
           onClick={onBack}
           className="icon-back"
         />
-        <h3 className="auth-title no-bottom">
-          Sign up <br />
-          What's your full name?
-        </h3>
+        <h3 className="auth-title no-bottom">Sign up</h3>
         <NavLink to="/auth/login" className="help-text bottom">
           Already have an account?
         </NavLink>
-        <FormField
+        <FormFieldLine
           name="name"
           LeftIcon={MdPerson}
-          placeholder="E.g. Bob Smith"
-          size="sm"
+          label="Full Name"
           onKeyDown={(e) => {
             if (e.key === "Enter") {
               return !values["name"] || errors["name"] ? null : onNext();

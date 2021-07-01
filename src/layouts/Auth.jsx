@@ -10,6 +10,7 @@ import PostJob from "./../views/auth/PostJob";
 import PostJob2 from "./../views/auth/PostJob2";
 import ForgotPassword from "../views/auth/ForgotPassword";
 import ResetPassword from "../views/auth/ResetPassword";
+import ResponseModal from "./../components/common/ResponseModal";
 
 function Auth(props) {
   return (
@@ -33,6 +34,7 @@ function Auth(props) {
           <Redirect to="/not-found" />
         </Switch>
       </div>
+      <ResponseModal />
       <Footer />
     </div>
   );

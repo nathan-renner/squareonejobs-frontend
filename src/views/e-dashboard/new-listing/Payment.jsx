@@ -79,19 +79,19 @@ const PaymentForm = () => {
   };
 
   const handleSubmit = async () => {
-    await payWithStripe();
-    // const response = await postListingApi.request(listing);
-    // if (response.ok) {
-    //   history.push("/my-listings");
-    // } else
-    //   setModal({
-    //     type: "error",
-    //     header: "Something went wrong",
-    //     body: response.data,
-    //     buttonText: "retry",
-    //     onClick: handleSubmit,
-    //     onCancel: () => setModal(false),
-    //   });
+    //await payWithStripe();
+    const response = await postListingApi.request(listing);
+    if (response.ok) {
+      history.push("/my-listings");
+    } else
+      setModal({
+        type: "error",
+        header: "Something went wrong",
+        body: response.data,
+        buttonText: "retry",
+        onClick: handleSubmit,
+        onCancel: () => setModal(false),
+      });
   };
 
   return (
