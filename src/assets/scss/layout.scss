@@ -26,10 +26,7 @@ section {
 .split-cards {
   display: flex;
   flex-direction: column;
-}
-
-.split-cards > * + * {
-  margin-top: 2em;
+  gap: 2em;
 }
 
 @media (min-width: 37.5em) {
@@ -39,10 +36,6 @@ section {
 
   .split > * {
     flex-basis: 100%;
-  }
-
-  .split > * + * {
-    margin-left: 2em;
   }
 
   .split-right div:first-child {
@@ -57,9 +50,5 @@ section {
 
   .split-cards > * {
     flex-basis: 100%;
-  }
-
-  .split-cards > * + * {
-    margin-left: 2em;
   }
 }

@@ -3,7 +3,8 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import dayjs from "dayjs";
 import { useHistory, useLocation } from "react-router-dom";
-import { MdCheck } from "react-icons/md";
+import { MdLocationOn } from "react-icons/md";
+import _ from "underscore";
 
 import { getLocations } from "./../../../api/companies";
 import { getListing, postDraft, updateDraft } from "./../../../api/listings";
@@ -11,37 +12,39 @@ import { useResponseModal } from "./../../../hooks/useResponseModal";
 import useApi from "./../../../hooks/useApi";
 
 import {
-  FormField,
+  FormCheckbox,
+  FormFieldLine,
   FormDropdown,
   SubmitButton,
   FormDate,
 } from "../../../components/forms";
-import { ActivityIndicator, Button, Card } from "../../../components/common";
+import {
+  ActivityIndicator,
+  Button,
+  Card,
+  RadioButtons,
+} from "../../../components/common";
+import AddLocation from "./AddLocation";
 
 const initialVals = {
   category: "",
   position: "",
-  location: {
-    street: "",
-    city: "",
-    state: "",
-    zip: "",
-    coordinates: undefined,
-  },
   startDateTime: null,
   endDateTime: null,
   salary: "",
-  wage: undefined,
-  remote: "",
+  wage: null,
+  remote: false,
+  driversLicense: false,
   description: "",
   benefits: "",
   otherQualifications: "",
   tags: [],
 };
+
 const types = [
-  { type: "day", name: "Day Job" },
-  { type: "part", name: "Part Time" },
-  { type: "full", name: "Full Time" },
+  { name: "day", label: "Day Job" },
+  { name: "part", label: "Part Time" },
+  { name: "full", label: "Full Time" },
 ];
 const categories = [
   "Accounting",
@@ -75,94 +78,83 @@ const categories = [
   "Transportation",
   "Warehousing",
 ];
-const states = [
-  "AL",
-  "AK",
-  "AZ",
-  "AR",
-  "CA",
-  "CO",
-  "CT",
-  "DE",
-  "FL",
-  "GA",
-  "HI",
-  "ID",
-  "IL",
-  "IN",
-  "IA",
-  "KS",
-  "KY",
-  "LA",
-  "ME",
-  "MD",
-  "MA",
-  "MI",
-  "MN",
-  "MS",
-  "MO",
-  "MT",
-  "NE",
-  "NV",
-  "NH",
-  "NJ",
-  "NM",
-  "NY",
-  "NC",
-  "ND",
-  "OH",
-  "OK",
-  "OR",
-  "PA",
-  "RI",
-  "SC",
-  "SD",
-  "TN",
-  "TX",
-  "UT",
-  "VT",
-  "VA",
-  "WA",
-  "WV",
-  "WI",
-  "WY",
-];
+
+const flattenObject = (obj) => {
+  const flattened = {};
+
+  Object.keys(obj).forEach((key) => {
+    if (
+      typeof obj[key] === "object" &&
+      obj[key] !== null &&
+      key !== "location" &&
+      key !== "startDateTime" &&
+      key !== "endDateTime"
+    ) {
+      Object.assign(flattened, flattenObject(obj[key]));
+    } else {
+      flattened[key] = obj[key];
+    }
+    if (obj["other"]) {
+      flattened["otherQualifications"] = flattened["other"];
+      delete flattened["other"];
+    }
+  });
+
+  return flattened;
+};
+
+const buildListing = (data, type, location) => {
+  const builtListing = {
+    type,
+    category: data.category,
+    details: {
+      position: data.position,
+      startDateTime: data.startDateTime,
+      location,
+      remote: data.remote,
+      description: data.description,
+      qualifications: {
+        driversLicense: data.driversLicense,
+        other: data.otherQualifications,
+      },
+    },
+  };
+
+  if (type === "day") {
+    builtListing.details.endDateTime = data.endDateTime;
+    builtListing.details.wage = parseFloat(data.wage);
+  } else {
+    builtListing.details.salary = data.salary;
+    builtListing.details.benefits = data.benefits;
+  }
+
+  return builtListing;
+};
 
 function NewListing(props) {
+  const [type, setType] = useState(false);
+  const [locations, setLocations] = useState(false);
+  const [location, setLocation] = useState(false);
+  const [initialValues, setInitialValues] = useState(false);
+  const [status, setStatus] = useState(false);
+  const [isAddLocOpen, setIsAdLocOpen] = useState(false);
+
   const history = useHistory();
   const { state: passedState } = useLocation();
-  const [type, setType] = useState(false);
-  const [prevLoc, setPrevLoc] = useState(false);
-  const [savedLocs, setSavedLocs] = useState(false);
-  const [location, setLocation] = useState(false);
-  const [dl, setDl] = useState(false);
-  const [remote, setRemote] = useState(false);
-  const [initialValues, setInitialValues] = useState(false);
   const { setModal } = useResponseModal();
-  const [status, setStatus] = useState(false);
-
   const getLocationsApi = useApi(getLocations);
   const getListingApi = useApi(getListing);
 
   const fetchListing = async () => {
     const res = await getListingApi.request(passedState.id);
     if (res.ok) {
+      getSavedLocations();
       setStatus(res.data.status);
       setType(res.data.type);
-      handlePrevLoc();
-      setDl(
-        res.data.details.qualifications &&
-          res.data.details.qualifications.driversLicense
-      );
-      setRemote(res.data.details.remote && res.data.details.remote);
       setLocation(res.data.details.location);
-      setInitialValues({
-        category: res.data.category,
-        otherQualifications: res.data.details.qualifications
-          ? res.data.details.qualifications.other
-          : "",
-        ...res.data.details,
-      });
+      setInitialValues(
+        _.omit(flattenObject(res.data), ["status", "type", "details.location"])
+      );
     } else
       setModal({
         type: "error",
@@ -173,37 +165,48 @@ function NewListing(props) {
       });
   };
 
+  const getSavedLocations = async () => {
+    if (!locations) {
+      const response = await getLocationsApi.request();
+      if (response.ok) {
+        return passedState && !passedState.details.location.coordinates
+          ? setLocations([...response.data, passedState.details.location])
+          : setLocations(response.data);
+      } else
+        setModal({
+          type: "error",
+          header: "Error Receiving Previous Locations",
+          body: response.data,
+          buttonText: "Retry",
+          onClick: () => getSavedLocations(),
+        });
+    }
+  };
+
   useEffect(() => {
+    getSavedLocations();
+
     if (passedState && passedState.id && !initialValues && !getListingApi.error)
       fetchListing();
     else if (passedState) {
       setType(passedState.type);
-      handlePrevLoc();
-      setDl(passedState.details.qualifications.driversLicense);
-      setRemote(passedState.details.remote && passedState.details.remote);
       setLocation(passedState.details.location);
-      setInitialValues({
-        category: passedState.category,
-        otherQualifications: passedState.details.qualifications
-          ? passedState.details.qualifications.other
-          : "",
-        ...passedState.details,
-      });
+
+      setInitialValues(
+        _.omit(flattenObject(passedState), ["status", "type", "location"])
+      );
     } else setInitialValues(initialVals);
     // eslint-disable-next-line
   }, []);
 
   const schema = Yup.object().shape({
-    category: Yup.string().required().label("Category"),
-    position: Yup.string().required().label("Position").max(255),
-    location: Yup.object().shape({
-      street: Yup.string().label("Street"),
-      city: Yup.string().label("City"),
-      state: Yup.string().label("State"),
-      zip: Yup.string().label("Zip").min(5).max(5),
-      coordinates: Yup.array().of(Yup.number()),
-    }),
+    category: Yup.string()
+      .required("Required")
+      .label("Category")
+      .oneOf(categories, "Must be a category listed"),
+    position: Yup.string().required("Required").label("Position").max(255),
     startDateTime: Yup.date()
+      .typeError("Must be a valid date")
       .label("Start Time")
       .min(
         dayjs().add(1, "days"),
@@ -212,121 +215,49 @@ function NewListing(props) {
     endDateTime:
       type === "day"
         ? Yup.date()
+            .typeError("Must be a valid date")
             .label("End Time")
-            .required()
-            .min(
-              Yup.ref("startDateTime"),
-              "Job end date time must be after start date time."
-            )
+            .required("Required")
+            .min(Yup.ref("startDateTime"), "End time must be after start time.")
         : Yup.date().label("End Time").nullable(),
     salary:
       type !== "day"
-        ? Yup.string().label("Salary").max(255).required()
+        ? Yup.string().label("Salary").max(255).required("Required")
         : Yup.string().label("Salary").max(255),
     wage:
       type === "day"
-        ? Yup.number().label("Wage").min(1).required()
+        ? Yup.number()
+            .label("Wage")
+            .min(1)
+            .required("Required")
+            .typeError("Must be a number")
         : Yup.number().label("Wage").min(1),
     remote: Yup.boolean().label("Remote"),
-    description: Yup.string().required().label("Description"),
+    driversLicense: Yup.boolean().label("Driver's Licence Required"),
+    description: Yup.string().required("Required").label("Description"),
     benefits:
       type !== "day"
-        ? Yup.string().label("Benefits").required()
+        ? Yup.string().label("Benefits").required("Required")
         : Yup.string().label("Benefits"),
     otherQualifications: Yup.string(),
     tags: Yup.array().of(Yup.string()),
   });
 
-  const handlePrevLoc = async () => {
-    if (!prevLoc && !savedLocs) {
-      setPrevLoc(!prevLoc);
-      const response = await getLocationsApi.request();
-      if (response.ok) setSavedLocs(response.data);
-    } else setPrevLoc(!prevLoc);
-  };
-
   const handleSubmit = (i) => {
-    const data = {
-      type,
-      category: i.category,
-      details: {
-        position: i.position,
-        startDateTime: i.startDateTime,
-        location:
-          prevLoc && location
-            ? location
-            : {
-                street: i.street,
-                city: i.city,
-                state: i.state,
-                zip: i.zip,
-              },
-        remote,
-        description: i.description,
-        qualifications: {
-          driversLicense: dl,
-          other: i.otherQualifications,
-        },
-      },
-    };
-
-    if (data.details.qualifications.other === "")
-      delete data.details.qualifications.other;
-    if (!data.details.qualifications.driversLicense)
-      delete data.details.qualifications.driversLicense;
-    if (type === "day") {
-      data.details.endDateTime = i.endDateTime;
-      data.details.wage = i.wage;
-    } else {
-      data.details.salary = i.salary;
-      data.details.benefits = i.benefits;
-    }
+    const builtListing = buildListing(i, type, location);
 
     if (status === "draft") {
-      data._id = passedState.id;
+      builtListing._id = passedState.id;
     }
 
-    history.push("/new-listing/review", data);
+    history.push("/new-listing/review", builtListing);
   };
 
   const handleSaveDraft = async (i) => {
-    const data = {
-      type,
-      category: i.category,
-      details: {
-        position: i.position,
-        startDateTime: i.startDateTime,
-        location:
-          prevLoc && location
-            ? location
-            : {
-                street: i.street,
-                city: i.city,
-                state: i.state,
-                zip: i.zip,
-              },
-        remote,
-        description: i.description,
-        qualifications: {
-          driversLicense: dl,
-          other: i.otherQualifications,
-        },
-      },
-    };
+    const builtListing = buildListing(i, type, location);
 
-    if (data.details.qualifications.other === "")
-      delete data.details.qualifications.other;
-    if (!data.details.qualifications.driversLicense)
-      delete data.details.qualifications.driversLicense;
-    if (type === "day") {
-      data.details.endDateTime = i.endDateTime;
-      data.details.wage = i.wage;
-    } else {
-      data.details.salary = i.salary;
-      data.details.benefits = i.benefits;
-    }
     if (status === "draft") {
-      const response = await updateDraft(data, passedState.id);
+      const response = await updateDraft(builtListing, passedState.id);
       if (response.ok) history.push("/my-listings/drafts");
       else
         setModal({
@@ -337,7 +268,7 @@ function NewListing(props) {
           onClick: () => handleSaveDraft(i),
         });
     } else {
-      const response = await postDraft(data);
+      const response = await postDraft(builtListing);
       if (response.ok) history.push("/my-listings/drafts");
       else
         setModal({
@@ -348,38 +279,26 @@ function NewListing(props) {
           onClick: () => handleSaveDraft(i),
         });
     }
-  };
-
-  const renderTypes = () => {
-    return types.map((t) => (
-      <label className="radio-button" key={t.type}>
-        <input
-          type="radio"
-          checked={type === t.type}
-          onChange={() => setType(t.type)}
-        />
-        <span className="checkmark"></span>
-        {t.name}
-      </label>
-    ));
   };
 
   return (
     <div className="post-listing">
-      {/* <Prompt
-        when={type}
-        message="Are you sure you want to discard this listing?"
-      /> */}
       <ActivityIndicator
         visible={getLocationsApi.loading || getListingApi.loading}
       />
-      <h1>Post Listing</h1>
       <Card>
+        <h1>Post Listing</h1>
         {initialValues && (
           <>
             <div className={`section ${!type ? "nopadding" : ""}`}>
               <h2>Job Type</h2>
-              <div className="types-container">{renderTypes()}</div>
+              <div className="types-container">
+                <RadioButtons
+                  buttons={types}
+                  active={type}
+                  onChange={(e) => setType(e)}
+                />
+              </div>
             </div>
             {type && (
               <Formik
@@ -392,145 +311,125 @@ function NewListing(props) {
                   <>
                     <div className="section">
                       <h2>Overview</h2>
-                      <FormField size="sm" name="position" label="Position" />
+                      <FormFieldLine name="position" label="Position" />
                       <FormDropdown
-                        size="sm"
                         name="category"
                         label="Category"
                         items={categories}
                       />
                       {type === "day" ? (
-                        <FormField size="sm" name="wage" label="Wage" />
-                      ) : (
-                        <FormField size="sm" name="salary" label="Salary" />
-                      )}
-                      <FormDate
-                        size="sm"
-                        name="startDateTime"
-                        label={`Start Date${type === "day" ? "/Time" : ""}`}
-                        time={type === "day"}
-                      />
-                      {type === "day" && (
-                        <FormDate
-                          size="sm"
-                          name="endDateTime"
-                          label="End Date/Time"
-                          time
+                        <FormFieldLine
+                          name="wage"
+                          label="Wage"
+                          startingChar="$"
                         />
+                      ) : (
+                        <FormFieldLine name="salary" label="Salary" />
                       )}
+                      <div className="split">
+                        <FormDate
+                          name="startDateTime"
+                          label={`Start Date${type === "day" ? "/Time" : ""}`}
+                          time={type === "day"}
+                          minDate={dayjs().add(1, "days")}
+                        />
+                        {type === "day" && (
+                          <FormDate
+                            name="endDateTime"
+                            label="End Date/Time"
+                            time
+                            minDate={dayjs(values["startDateTime"])}
+                          />
+                        )}
+                      </div>
                     </div>
                     <div className="section">
                       <h2>Location</h2>
-                      <label
-                        className="checkbox"
-                        style={{ marginBottom: "1em" }}
-                      >
-                        <input
-                          onChange={handlePrevLoc}
-                          type="checkbox"
-                          defaultChecked={prevLoc}
-                        />
-                        <span className="checkmark"></span>
-                        Use Previous Location
-                      </label>
-                      {prevLoc ? (
+                      {!locations ? (
+                        <div>Loading Previous Locations...</div>
+                      ) : (
                         <>
-                          {!savedLocs ? (
-                            <div>Loading Previous Locations...</div>
+                          {locations.length === 0 ? (
+                            <div>No saved locations.</div>
                           ) : (
                             <>
-                              {savedLocs.length === 0 ? (
-                                <div>No saved locations.</div>
-                              ) : (
-                                <>
-                                  {savedLocs.map((loc, i) => (
-                                    <div
-                                      key={i}
-                                      className={`location ${
-                                        loc.street === location.street
-                                          ? "active"
-                                          : ""
-                                      }`}
-                                      onClick={() =>
-                                        setLocation(
-                                          location.street === loc.street
-                                            ? false
-                                            : loc
-                                        )
-                                      }
-                                    >
-                                      {loc.street === location.street && (
-                                        <MdCheck size={20} color="#51cc8e" />
-                                      )}
-                                      <p>
-                                        -{" "}
-                                        {`${loc.street} ${loc.city} ${loc.state} ${loc.zip}`}
-                                      </p>
-                                    </div>
-                                  ))}
-                                </>
-                              )}
+                              {locations.map((loc, i) => (
+                                <div
+                                  key={i}
+                                  className={`location ${
+                                    loc.street === location.street
+                                      ? "active"
+                                      : ""
+                                  }`}
+                                  onClick={() => {
+                                    setIsAdLocOpen(false);
+                                    setLocation(
+                                      location.street === loc.street
+                                        ? false
+                                        : loc
+                                    );
+                                  }}
+                                >
+                                  <div className="location-text">
+                                    <MdLocationOn className="icon" size={20} />
+                                    <p>
+                                      {`${loc.street}, ${loc.city}, ${loc.state} ${loc.zip}`}
+                                    </p>
+                                  </div>
+                                </div>
+                              ))}
                             </>
                           )}
                         </>
+                      )}
+                      {isAddLocOpen ? (
+                        <AddLocation
+                          handleSubmit={(i) => {
+                            setLocations([...locations, i]);
+                            setLocation(i);
+                            setIsAdLocOpen(false);
+                          }}
+                        />
                       ) : (
-                        <>
-                          <FormField size="sm" name="street" label="Address" />
-                          <FormField size="sm" name="city" label="City" />
-                          <div className="split">
-                            <FormDropdown
-                              size="sm"
-                              name="state"
-                              label="State"
-                              items={states}
-                            />
-                            <FormField size="sm" name="zip" label="Zip Code" />
-                          </div>
-                        </>
+                        <p
+                          className="add-location"
+                          onClick={() => {
+                            setIsAdLocOpen(true);
+                          }}
+                        >
+                          + Add new location
+                        </p>
                       )}
                     </div>
                     <div className="section">
                       <h2>Details</h2>
-                      <label
-                        className="checkbox"
-                        style={{ marginBottom: "1em" }}
-                      >
-                        <input
-                          onChange={() => setRemote(!remote)}
-                          type="checkbox"
-                          defaultChecked={remote}
-                        />
-                        <span className="checkmark"></span>
-                        Remote Work
-                      </label>
-                      <FormField
+                      <FormCheckbox name="remote" label="Remote work" />
+                      <FormFieldLine
                         name="description"
                         label="Description"
                         type="textarea"
+                        rows={10}
                       />
                       {type !== "day" && (
-                        <FormField
+                        <FormFieldLine
                           name="benefits"
                           label="Benefits"
                           type="textarea"
+                          rows={10}
                         />
                       )}
                     </div>
                     <div className="section">
                       <h2>Qualifications</h2>
-                      <label
-                        className="checkbox"
-                        onChange={() => setDl(!dl)}
-                        style={{ marginBottom: "1em" }}
-                      >
-                        <input type="checkbox" defaultChecked={dl} />
-                        <span className="checkmark"></span>
-                        Driver's License Required
-                      </label>
-                      <FormField
+                      <FormCheckbox
+                        name="driversLicense"
+                        label="Driver's License Required"
+                      />
+                      <FormFieldLine
                         name="otherQualifications"
                         label="Other Qualifications"
                         type="textarea"
+                        rows={10}
                       />
                     </div>
                     <div style={{ textAlign: "right" }}>

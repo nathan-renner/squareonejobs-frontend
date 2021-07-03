@@ -5,7 +5,7 @@
   margin-bottom: 4em;
 
   h1 {
-    margin: 1em auto;
+    margin: 0 auto 1.5em;
     text-align: center;
     font-size: 1.6em !important;
   }
@@ -30,27 +30,63 @@
     }
   }
 
+  .location-text {
+    display: flex;
+    gap: 0.3em;
+    align-items: center;
+  }
+
   .location {
     padding: 0.5em;
     border-radius: 0.5em;
     display: flex;
     align-items: center;
     cursor: pointer;
+    margin: 1em auto;
+
+    @include themed() {
+      border: 1px solid rgba(t("medium"), 0.3);
+      transition: border-color 100ms ease-out;
+
+      &:hover:not(.active) {
+        border-color: rgba(t("medium"), 0.7);
+        .icon {
+          color: rgba(t("medium"), 0.7);
+        }
+      }
+    }
 
     p {
       margin-bottom: 0;
+    }
+
+    .icon {
+      @include themed() {
+        color: rgba(t("medium"), 0.3);
+      }
+      transition: color 100ms ease-out;
     }
 
     > * + * {
       margin-left: 0.625em;
     }
 
-    &:hover,
-    &:focus,
     &.active {
-      @include themed() {
-        background-color: t("background");
+      border: 1px solid $primary;
+      .icon {
+        color: $primary;
       }
+    }
+  }
+
+  .add-location {
+    font-weight: 500;
+    font-size: 0.9em;
+    text-align: center;
+    cursor: pointer;
+
+    @include themed() {
+      color: t("medium");
     }
   }
 
@@ -58,5 +94,10 @@
     display: flex;
     justify-content: space-between;
     padding: 0 10px;
+  }
+
+  .flex-row {
+    display: flex;
+    gap: 2em;
   }
 }

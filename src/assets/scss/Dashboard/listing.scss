@@ -9,6 +9,24 @@
     //background-color: t("foreground");
   }
 
+  .chunk {
+    white-space: pre-line;
+  }
+
+  &.review-listing {
+    .content {
+      padding-top: 2em;
+
+      .title {
+        margin-bottom: 1em;
+      }
+
+      .nav-controls {
+        padding: 1em;
+      }
+    }
+  }
+
   &.list-modal {
     margin: 0;
   }

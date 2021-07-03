@@ -31,10 +31,7 @@
       .right {
         display: flex;
         align-items: center;
-
-        > * + * {
-          margin-left: 1em;
-        }
+        gap: 1em;
       }
     }
 

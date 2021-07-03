@@ -15,10 +15,11 @@
   .form-dropdown-container {
     z-index: 1;
     position: absolute;
-    top: 5em;
-    left: 2%;
+    top: 3em;
+    left: 0;
+    right: 0;
+    bottom: 0;
     height: 15em;
-    width: 96%;
     overflow-y: scroll;
     border-radius: 10px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
@@ -29,7 +30,7 @@
 
     .form-dropdown-item {
       padding: 0.625em;
-
+      cursor: pointer;
       @include themed() {
         color: t("text");
       }
@@ -37,6 +38,14 @@
       &:hover {
         @include themed() {
           background-color: t("background");
+        }
+      }
+
+      &[disabled],
+      &[disabled]:hover {
+        pointer-events: none;
+        @include themed() {
+          background-color: t("foreground");
         }
       }
     }

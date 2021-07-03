@@ -1,12 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import * as Yup from "yup";
 import { useHistory, useParams } from "react-router-dom";
 
-import {
-  ActivityIndicator,
-  Card,
-  ResponseModal,
-} from "../../components/common";
+import { ActivityIndicator, Card } from "../../components/common";
 
 import { Form, FormFieldLine, SubmitButton } from "../../components/forms";
 import useApi from "./../../hooks/useApi";

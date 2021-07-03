@@ -1,5 +1,5 @@
 .line-text-input-container {
-  margin-bottom: 1.5em;
+  margin-bottom: 2em;
   position: relative;
 
   .line-text-input {
@@ -9,7 +9,12 @@
     display: flex;
 
     @include themed() {
-      border: 1px solid rgba(t("medium"), 0.7);
+      border: 1px solid rgba(t("medium"), 0.3);
+      transition: border-color 100ms ease-out;
+
+      &:hover:not(.focused):not(.error) {
+        border-color: rgba(t("medium"), 0.7);
+      }
     }
 
     &.disabled {
@@ -19,17 +24,22 @@
     }
 
     .left-icon,
-    .right-icon {
+    .right-icon,
+    .starting-char {
       display: block;
       margin: auto 0 auto 0.8em;
       width: 1.3em;
       height: 1.3em;
-
+      user-select: none;
       transition: color 100ms ease-out;
 
       @include themed() {
         color: t("medium");
       }
+    }
+
+    .starting-char ~ input {
+      padding-left: 0.2em;
     }
 
     .right-icon {
@@ -47,6 +57,7 @@
       font-size: 1em;
       padding: 0.6em 0.8em;
       border-radius: 0.5em;
+      resize: none;
     }
 
     label {
@@ -54,7 +65,7 @@
       font-size: 0.9em;
       position: absolute;
       left: 0.8em;
-      bottom: 0.6em;
+      top: 0.6em;
       padding: 0 0.2em;
       cursor: text;
 
@@ -83,7 +94,7 @@
     &.not-empty > label,
     &.focused > label {
       font-size: 0.7em;
-      transform: translateY(-2.1em);
+      transform: translateY(-1.4em);
     }
 
     &.error {

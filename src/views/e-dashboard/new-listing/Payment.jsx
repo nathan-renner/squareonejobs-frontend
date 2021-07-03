@@ -9,13 +9,13 @@ import { useResponseModal } from "./../../../hooks/useResponseModal";
 import useApi from "./../../../hooks/useApi";
 
 import { ActivityIndicator, Button, Card } from "../../../components/common";
-import { FormField, FormFieldLine } from "./../../../components/forms";
+import { FormFieldLine } from "./../../../components/forms";
 import { MdPerson } from "react-icons/md";
 import {
   Elements,
   CardElement,
   useStripe,
-  useElements,
+  //useElements,
 } from "@stripe/react-stripe-js";
 
 const formStyle = {
@@ -59,24 +59,24 @@ const PaymentForm = () => {
   const history = useHistory();
   const { state: listing } = useLocation();
   const stripe = useStripe();
-  const elements = useElements();
+  // const elements = useElements();
 
-  const payWithStripe = async () => {
-    if (!stripe || !elements) return;
+  // const payWithStripe = async () => {
+  //   if (!stripe || !elements) return;
 
-    const cardElement = elements.getElement(CardElement);
+  //   const cardElement = elements.getElement(CardElement);
 
-    const { error, paymentMethod } = await stripe.createPaymentMethod({
-      type: "card",
-      card: cardElement,
-    });
+  //   const { error, paymentMethod } = await stripe.createPaymentMethod({
+  //     type: "card",
+  //     card: cardElement,
+  //   });
 
-    if (error) {
-      console.log("[error]", error);
-    } else {
-      console.log("[PaymentMethod]", paymentMethod);
-    }
-  };
+  //   if (error) {
+  //     console.log("[error]", error);
+  //   } else {
+  //     console.log("[PaymentMethod]", paymentMethod);
+  //   }
+  // };
 
   const handleSubmit = async () => {
     //await payWithStripe();

@@ -2,14 +2,13 @@ import React, { useEffect, useRef, useState } from "react";
 import { useFormikContext } from "formik";
 import { MdArrowDropDown } from "react-icons/md";
 
-import { TextInput } from "../common";
+import { TextInputLine } from "../common";
 
-import ErrorMessage from "./ErrorMessage";
-
-function FormDropdown({ name, width, items, ...otherProps }) {
+function FormDropdown({ name, items, label, ...otherProps }) {
   const wrapperRef = useRef(null);
   const [showItems, setShowItems] = useState(false);
-  const { setFieldValue, errors, touched, values } = useFormikContext();
+  const { setFieldValue, setFieldTouched, errors, touched, values } =
+    useFormikContext();
 
   const useOutsideAlerter = (ref) => {
     useEffect(() => {
@@ -26,34 +25,51 @@ function FormDropdown({ name, width, items, ...otherProps }) {
   };
   useOutsideAlerter(wrapperRef);
 
+  const getItems = () => {
+    const queryResults = items
+      .filter((word) => word.toLowerCase().includes(values[name].toLowerCase()))
+      .map((item) => (
+        <div
+          className="form-dropdown-item"
+          key={item}
+          onClick={() => setFieldValue(name, item)}
+        >
+          {item}
+        </div>
+      ));
+    return queryResults.length === 0 ? (
+      <div className="form-dropdown-item" disabled>
+        No Results Found.
+      </div>
+    ) : (
+      queryResults
+    );
+  };
+
+  // const wrapperStyle = () => {
+  //   const length = getItems().length;
+  //   return {
+  //     height: length > 5 ? "15em" : `${44 * length}px`,
+  //   };
+  // };
+
   return (
     <div
       className="form-dropdown"
       onClick={() => setShowItems(!showItems)}
       ref={wrapperRef}
     >
-      <TextInput
-        onChange={() => true}
+      <TextInputLine
         value={values[name]}
-        width={width}
-        disabled
+        controlled
         RightIcon={MdArrowDropDown}
+        label={label}
+        error={touched[name] && errors[name]}
+        onBlur={() => setFieldTouched(name)}
+        onChange={(e) => setFieldValue(name, e.target.value)}
         {...otherProps}
       />
-      <ErrorMessage error={errors[name]} visible={touched[name]} />
-      {showItems && (
-        <div className="form-dropdown-container">
-          {items.map((item) => (
-            <div
-              className="form-dropdown-item"
-              key={item}
-              onClick={() => setFieldValue(name, item)}
-            >
-              {item}
-            </div>
-          ))}
-        </div>
-      )}
+      {showItems && <div className="form-dropdown-container">{getItems()}</div>}
     </div>
   );
 }
