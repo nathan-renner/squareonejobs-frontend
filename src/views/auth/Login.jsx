@@ -20,7 +20,7 @@ import {
 import {
   ErrorMessage,
   SubmitButton,
-  FormFieldLine,
+  FormField,
 } from "./../../components/forms";
 
 import useApi from "../../hooks/useApi.jsx";
@@ -99,8 +99,8 @@ function Login() {
                 }
               }}
             >
-              <FormFieldLine name="email" label="Email" LeftIcon={MdEmail} />
-              <FormFieldLine
+              <FormField name="email" label="Email" LeftIcon={MdEmail} />
+              <FormField
                 type={passVisible ? "text" : "password"}
                 name="password"
                 LeftIcon={MdLock}

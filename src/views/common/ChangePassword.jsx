@@ -57,21 +57,10 @@ function ChangePassword(props) {
           initialValues={{ current: "", new: "", newConfirm: "" }}
           onSubmit={handleSubmit}
         >
-          <FormField
-            name="current"
-            size="sm"
-            label="Current Password"
-            type="password"
-          />
-          <FormField
-            name="new"
-            size="sm"
-            label="New Password"
-            type="password"
-          />
+          <FormField name="current" label="Current Password" type="password" />
+          <FormField name="new" label="New Password" type="password" />
           <FormField
             name="newConfirm"
-            size="sm"
             label="Confirm New Password"
             type="password"
           />

@@ -9,11 +9,7 @@ import {
 import { useFormikContext } from "formik";
 
 import { Icon } from "../../components/common";
-import {
-  ErrorMessage,
-  FormFieldLine,
-  SubmitButton,
-} from "../../components/forms";
+import { ErrorMessage, FormField, SubmitButton } from "../../components/forms";
 
 function RegisterSlide2({ slideWidth, error, onBack }) {
   const { values, handleSubmit } = useFormikContext();
@@ -43,8 +39,8 @@ function RegisterSlide2({ slideWidth, error, onBack }) {
           <br />
           Register your email
         </h3>
-        <FormFieldLine name="email" LeftIcon={MdEmail} label="Email" />
-        <FormFieldLine
+        <FormField name="email" LeftIcon={MdEmail} label="Email" />
+        <FormField
           type={passVisible ? "text" : "password"}
           name="password"
           LeftIcon={MdLock}

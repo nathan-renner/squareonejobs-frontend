@@ -1,8 +1,9 @@
 import React from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import FormField from "./../../forms/FormField";
 import { MdSearch } from "react-icons/md";
+
+import FormField from "./../../forms/FormField";
 
 const schema = Yup.object().shape({
   zip: Yup.string()
@@ -37,9 +38,7 @@ function Zip({ zip, handleFilterChange }) {
           >
             <FormField
               name="zip"
-              size="sm"
-              backgroundColor="foreground"
-              placeholder="E.g. 07030"
+              label="Zip Code"
               RightIcon={MdSearch}
               rightIconOnClick={handleSubmit}
             />

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useFormikContext } from "formik";
 import { MdArrowDropDown } from "react-icons/md";
 
-import { TextInputLine } from "../common";
+import { TextInput } from "../common";
 
 function FormDropdown({ name, items, label, ...otherProps }) {
   const wrapperRef = useRef(null);
@@ -59,7 +59,7 @@ function FormDropdown({ name, items, label, ...otherProps }) {
       onClick={() => setShowItems(!showItems)}
       ref={wrapperRef}
     >
-      <TextInputLine
+      <TextInput
         value={values[name]}
         controlled
         RightIcon={MdArrowDropDown}

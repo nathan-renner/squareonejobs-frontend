@@ -3,24 +3,19 @@ import { useFormikContext } from "formik";
 
 import { TextInput } from "../common";
 
-import ErrorMessage from "./ErrorMessage";
-
-function FormField({ name, width, ...otherProps }) {
-  const { setFieldTouched, setFieldValue, errors, touched, values } =
+function FormField({ name, ...otherProps }) {
+  const { setFieldTouched, setFieldValue, errors, values, touched } =
     useFormikContext();
+
   return (
     <>
       <TextInput
         onBlur={() => setFieldTouched(name)}
         onChange={(e) => setFieldValue(name, e.target.value)}
         value={values[name]}
-        width={width}
+        error={touched[name] && errors[name]}
+        controlled
         {...otherProps}
-      />
-      <ErrorMessage
-        error={errors[name]}
-        visible={touched[name]}
-        backgroundColor="foreground"
       />
     </>
   );

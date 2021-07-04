@@ -8,12 +8,12 @@
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
   z-index: 1000;
+  padding: 0 1em;
 
   .navbar {
     @include themed() {
       background-color: t("foreground");
     }
-    padding-inline: 1em;
     height: 100%;
     width: 100%;
     display: flex;
@@ -21,10 +21,7 @@
     justify-content: space-between;
     align-items: center;
     z-index: 1;
-
-    > * + * {
-      margin-left: 1em;
-    }
+    gap: 1em;
 
     &.employer-nav {
       .left,
@@ -113,6 +110,24 @@
 
     .search {
       flex-basis: 100%;
+
+      > * {
+        margin: auto 0;
+
+        input[type="search"]::-webkit-search-cancel-button {
+          -webkit-appearance: none;
+          height: 1em;
+          width: 1em;
+          border-radius: 50em;
+          background: url(https://pro.fontawesome.com/releases/v5.10.0/svgs/solid/times-circle.svg)
+            no-repeat 50% 50%;
+          background-size: contain;
+          opacity: 0.4;
+          @include themed() {
+            color: t("medium");
+          }
+        }
+      }
     }
 
     .stat {
@@ -350,15 +365,12 @@
       flex-direction: row;
       border-radius: 10px;
       cursor: pointer;
+      gap: 1em;
 
       &:hover {
         @include themed() {
           background-color: t("background");
         }
-      }
-
-      > * + * {
-        margin-left: 1em;
       }
 
       .left {

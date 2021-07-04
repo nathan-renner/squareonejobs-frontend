@@ -9,6 +9,7 @@
     display: flex;
 
     @include themed() {
+      background-color: t("foreground");
       border: 1px solid rgba(t("medium"), 0.3);
       transition: border-color 100ms ease-out;
 

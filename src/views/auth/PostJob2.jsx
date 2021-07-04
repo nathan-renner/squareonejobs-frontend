@@ -14,7 +14,7 @@ import {
 import _ from "underscore";
 
 import { Button, Card, UploadScreen } from "../../components/common";
-import { FormFieldLine, SubmitButton } from "../../components/forms";
+import { FormField, SubmitButton } from "../../components/forms";
 
 import useApi from "../../hooks/useApi";
 import useAuth from "./../../auth/useAuth";
@@ -118,18 +118,14 @@ function PostJob2(props) {
           >
             {({ values, handleSubmit }) => (
               <div onKeyDown={(e) => e.key === "Enter" && handleSubmit()}>
-                <FormFieldLine
-                  name="name"
-                  label="Full Name"
-                  LeftIcon={MdPerson}
-                />
-                <FormFieldLine
+                <FormField name="name" label="Full Name" LeftIcon={MdPerson} />
+                <FormField
                   name="position"
                   label="Position"
                   LeftIcon={MdAssignment}
                 />
-                <FormFieldLine name="email" label="Email" LeftIcon={MdEmail} />
-                <FormFieldLine
+                <FormField name="email" label="Email" LeftIcon={MdEmail} />
+                <FormField
                   name="password"
                   label="Password"
                   type={passVisible ? "text" : "password"}

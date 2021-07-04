@@ -46,8 +46,9 @@ function AboutModal({ updateElement, about, setIsEditing }) {
           <FormField
             type="textarea"
             maxLength="250"
+            rows={5}
             name="about"
-            placeholder="Tell us about yourself"
+            label="Tell us about yourself"
           />
           <EditControls onCancel={() => showWarning(formProps)} />
         </>

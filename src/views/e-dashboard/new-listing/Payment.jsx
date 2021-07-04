@@ -9,7 +9,7 @@ import { useResponseModal } from "./../../../hooks/useResponseModal";
 import useApi from "./../../../hooks/useApi";
 
 import { ActivityIndicator, Button, Card } from "../../../components/common";
-import { FormFieldLine } from "./../../../components/forms";
+import { FormField } from "./../../../components/forms";
 import { MdPerson } from "react-icons/md";
 import {
   Elements,
@@ -119,17 +119,17 @@ const PaymentForm = () => {
         >
           {() => (
             <>
-              <FormFieldLine
+              <FormField
                 name="name"
                 label="Full Name (First and Last)"
                 LeftIcon={MdPerson}
               />
-              <FormFieldLine name="companyName" label="Company Name" disabled />
-              <FormFieldLine name="street" label="Street Address" />
-              <FormFieldLine name="city" label="City" />
+              <FormField name="companyName" label="Company Name" disabled />
+              <FormField name="street" label="Street Address" />
+              <FormField name="city" label="City" />
               <div className="split">
-                <FormFieldLine name="state" label="State" />
-                <FormFieldLine name="zip" label="Zip Code" />
+                <FormField name="state" label="State" />
+                <FormField name="zip" label="Zip Code" />
               </div>
             </>
           )}

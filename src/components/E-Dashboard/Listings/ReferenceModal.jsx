@@ -71,19 +71,8 @@ function ReferenceModal({
               validationSchema={schema}
               onSubmit={handleSubmit}
             >
-              <FormField
-                name="title"
-                size="sm"
-                label="Title"
-                placeholder="Enter a quick, descriptive overview"
-              />
-              <FormField
-                name="review"
-                size="sm"
-                type="textarea"
-                label="Reference"
-                placeholder="Explain the employee's overall performance"
-              />
+              <FormField name="title" label="Title" />
+              <FormField name="review" type="textarea" label="Reference" />
               <SubmitButton label="Submit review" />
             </Form>
           </div>

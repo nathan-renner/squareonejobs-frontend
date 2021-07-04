@@ -4,7 +4,7 @@ import { MdClear } from "react-icons/md";
 import { Formik } from "formik";
 
 import EditControls from "./EditControls";
-import { FormFieldLine, FormDate } from "../../forms";
+import { FormField, FormDate } from "../../forms";
 
 const schema = Yup.object().shape({
   position: Yup.string().required().max(64).label("Degree"),
@@ -56,8 +56,8 @@ function WorkExperienceAddModal({
             className="exit"
             onClick={() => showWarning(formProps)}
           />
-          <FormFieldLine name="position" label="Position" />
-          <FormFieldLine name="company" label="Company name" />
+          <FormField name="position" label="Position" />
+          <FormField name="company" label="Company name" />
           <div className="split">
             <FormDate name="startDate" label="Start Date" />
             <FormDate name="endDate" label="End Date" />

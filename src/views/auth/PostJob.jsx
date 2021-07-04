@@ -5,7 +5,7 @@ import { useHistory, useLocation } from "react-router-dom";
 import { MdCloudUpload } from "react-icons/md";
 
 import { Button, Card } from "../../components/common";
-import { ErrorMessage, FormFieldLine } from "../../components/forms";
+import { ErrorMessage, FormField } from "../../components/forms";
 
 import CompanySearch from "../../components/Auth/CompanySearch";
 import FormDropdown from "./../../components/forms/FormDropdown";
@@ -203,8 +203,8 @@ function PostJob(props) {
                   label="Company Size"
                   items={sizes}
                 />
-                <FormFieldLine name="websiteUrl" label="Website Url" />
-                <FormFieldLine
+                <FormField name="websiteUrl" label="Website Url" />
+                <FormField
                   name="description"
                   label="Company Description"
                   type="textarea"

@@ -17,12 +17,11 @@ import StreakIcon from "./../icons/StreakIcon";
 import defaultAvatar from "../../assets/images/default-avatar.png";
 import Logo from "../../assets/images/logo.png";
 
-import { TextInput } from "../common";
-
 import ProfileDropdown from "./Navbar/ProfileDropdown";
 import StreakDropdown from "./Navbar/StreakDropdown";
 import NotificationDropdown from "./Navbar/NotificationDropdown";
 import StatDropdown from "./Navbar/StatDropdown";
+import TextInput from "./../common/TextInput";
 
 const routes = [
   {
@@ -84,12 +83,6 @@ const Navbar = ({ data }) => {
     refData.stat = data.refsLength;
   });
 
-  const handleFocus = () => {
-    setSearchFocus(true);
-  };
-  const handleBlur = () => {
-    setSearchFocus(false);
-  };
   const onSubmitSearch = (e) => {
     e.preventDefault();
     history.replace(`/search?q=${search}`);
@@ -170,13 +163,13 @@ const Navbar = ({ data }) => {
               active={searchFocus ? true : false}
               type="search"
               LeftIcon={MdSearch}
-              leftIconSize={18}
-              placeholder="Search jobs"
-              onFocus={handleFocus}
-              onBlur={handleBlur}
+              label="Search jobs"
+              onFocus={() => setSearchFocus(true)}
+              onBlur={() => setSearchFocus(false)}
               onSubmit={onSubmitSearch}
               onChange={onChangeSearch}
               value={search}
+              controlled
             />
           </div>
           <div className="stat" onClick={() => handleDropdown("completedJobs")}>

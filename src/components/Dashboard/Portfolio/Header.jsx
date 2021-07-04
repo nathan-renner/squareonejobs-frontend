@@ -3,7 +3,7 @@ import * as Yup from "yup";
 import { MdCameraAlt, MdModeEdit } from "react-icons/md";
 
 import { Card, Icon } from "../../common";
-import { Form, FormField, FormDatePicker } from "./../../forms";
+import { Form, FormField, FormDate } from "./../../forms";
 import EditControls from "./EditControls";
 
 import useApi from "./../../../hooks/useApi";
@@ -22,11 +22,6 @@ const schema = Yup.object().shape({
   zip: Yup.string().label("Zip code").min(5).max(5),
 });
 
-const inputStyle = {
-  height: "40px",
-  marginTop: 0,
-};
-
 function Header({
   portfolio,
   setLoading,
@@ -44,10 +39,6 @@ function Header({
   const uploadRef = useRef(null);
   const updateAccountApi = useApi(updateAccount);
   const { setModal } = useResponseModal();
-
-  // useEffect(() => {
-  //   setLoading(updateAccountApi.loading);
-  // }, [setLoading, updateAccountApi.loading]);
 
   const cancelEditing = () => {
     const result = window.confirm(
@@ -178,30 +169,14 @@ function Header({
           onSubmit={handleSubmit}
         >
           <h2 className="edit-title">Overview</h2>
-          <FormField
-            name="firstName"
-            label="First name"
-            containerStyle={inputStyle}
-          />
-          <FormField
-            name="lastName"
-            label="Last name"
-            containerStyle={inputStyle}
-          />
-          <FormDatePicker
-            name="birthday"
-            label="Birthday"
-            containerStyle={inputStyle}
-          />
+          <FormField name="firstName" label="First name" />
+          <FormField name="lastName" label="Last name" />
+          <FormDate name="birthday" label="Birthday" />
           <h2 className="edit-title">Address</h2>
-          <FormField
-            name="street"
-            label="Street Address"
-            containerStyle={inputStyle}
-          />
-          <FormField name="city" label="City" containerStyle={inputStyle} />
-          <FormField name="state" label="State" containerStyle={inputStyle} />
-          <FormField name="zip" label="Zip Code" containerStyle={inputStyle} />
+          <FormField name="street" label="Street Address" />
+          <FormField name="city" label="City" />
+          <FormField name="state" label="State" />
+          <FormField name="zip" label="Zip Code" />
           <EditControls onCancel={cancelEditing} />
         </Form>
       ) : (

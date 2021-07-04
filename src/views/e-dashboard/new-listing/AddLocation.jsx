@@ -1,7 +1,7 @@
 import React from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { FormFieldLine, FormDropdown } from "./../../../components/forms";
+import { FormField, FormDropdown } from "./../../../components/forms";
 import { Button } from "./../../../components/common";
 
 const states = [
@@ -87,8 +87,8 @@ function AddLocation({ handleSubmit }) {
         <>
           <hr style={{ marginTop: "2em" }} />
           <div style={{ paddingTop: "1em", paddingBottom: "1em" }}>
-            <FormFieldLine name="street" label="Address" />
-            <FormFieldLine name="city" label="City" />
+            <FormField name="street" label="Address" />
+            <FormField name="city" label="City" />
             <div className="flex-row">
               <FormDropdown
                 name="state"
@@ -96,7 +96,7 @@ function AddLocation({ handleSubmit }) {
                 items={states}
                 width={"8em"}
               />
-              <FormFieldLine
+              <FormField
                 name="zip"
                 label="Zip Code"
                 pattern="[0-9]{5}"

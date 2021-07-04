@@ -62,31 +62,10 @@ function ContactUs(props) {
             onSubmit={handleSubmit}
             validationSchema={schema}
           >
-            <FormField
-              name="name"
-              placeholder="Name"
-              containerStyle={{ backgroundColor: "#fff" }}
-              textStyle={{ backgroundColor: "#fff" }}
-            />
-            <FormField
-              name="email"
-              placeholder="Email"
-              containerStyle={{ backgroundColor: "#fff" }}
-              textStyle={{ backgroundColor: "#fff" }}
-            />
-            <FormField
-              name="subject"
-              placeholder="Subject"
-              containerStyle={{ backgroundColor: "#fff" }}
-              textStyle={{ backgroundColor: "#fff" }}
-            />
-            <FormField
-              name="message"
-              placeholder="Message"
-              containerStyle={{ backgroundColor: "#fff" }}
-              textStyle={{ backgroundColor: "#fff" }}
-              type="textarea"
-            />
+            <FormField name="name" label="Name" />
+            <FormField name="email" label="Email" />
+            <FormField name="subject" label="Subject" />
+            <FormField name="message" label="Message" type="textarea" />
             <div className="google-text">
               This site is protected by reCAPTCHA and the Google{" "}
               <a

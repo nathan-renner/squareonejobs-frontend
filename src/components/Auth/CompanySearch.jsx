@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import useApi from "../../hooks/useApi";
 import { getCompanies } from "../../api/companies";
 
-import { TextInputLine } from "../common";
+import { TextInput } from "../common";
 
 function CompanySearch({
   companyName,
@@ -47,7 +47,7 @@ function CompanySearch({
 
   return (
     <div className="company-search" ref={wrapperRef}>
-      <TextInputLine
+      <TextInput
         value={companyName}
         label="Company Name"
         onChange={(e) => {

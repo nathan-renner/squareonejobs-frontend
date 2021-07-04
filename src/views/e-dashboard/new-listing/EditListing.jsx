@@ -15,7 +15,7 @@ import AddLocation from "./AddLocation";
 import { ActivityIndicator, Card } from "../../../components/common";
 import {
   FormCheckbox,
-  FormFieldLine,
+  FormField,
   FormDate,
   FormDropdown,
   SubmitButton,
@@ -253,20 +253,16 @@ function EditListing(props) {
                 <>
                   <div className="section">
                     <h2>Overview</h2>
-                    <FormFieldLine name="position" label="Position" />
+                    <FormField name="position" label="Position" />
                     <FormDropdown
                       name="category"
                       label="Category"
                       items={categories}
                     />
                     {type === "day" ? (
-                      <FormFieldLine
-                        name="wage"
-                        label="Wage"
-                        startingChar="$"
-                      />
+                      <FormField name="wage" label="Wage" startingChar="$" />
                     ) : (
-                      <FormFieldLine name="salary" label="Salary" />
+                      <FormField name="salary" label="Salary" />
                     )}
                     <div className="split">
                       <FormDate
@@ -342,14 +338,14 @@ function EditListing(props) {
                   <div className="section">
                     <h2>Details</h2>
                     <FormCheckbox name="remote" label="Remote work" />
-                    <FormFieldLine
+                    <FormField
                       name="description"
                       label="Description"
                       type="textarea"
                       rows={10}
                     />
                     {type !== "day" && (
-                      <FormFieldLine
+                      <FormField
                         name="benefits"
                         label="Benefits"
                         type="textarea"
@@ -363,7 +359,7 @@ function EditListing(props) {
                       name="driversLicense"
                       label="Driver's License Required"
                     />
-                    <FormFieldLine
+                    <FormField
                       name="otherQualifications"
                       label="Other Qualifications"
                       type="textarea"

@@ -10,7 +10,7 @@ import { createMuiTheme } from "@material-ui/core";
 import { ThemeProvider } from "@material-ui/styles";
 import DayJsUtils from "@date-io/dayjs";
 
-import { TextInputLine } from "../common";
+import { TextInput } from "../common";
 
 const defaultMaterialTheme = createMuiTheme({
   palette: {
@@ -24,7 +24,7 @@ function FormDate({ name, placeholder, label, time = false, ...otherProps }) {
 
   const renderInput = (props) => {
     return (
-      <TextInputLine
+      <TextInput
         value={props.value}
         label={label}
         error={touched[name] && errors[name]}

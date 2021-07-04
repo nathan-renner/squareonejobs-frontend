@@ -4,7 +4,7 @@ import { MdClear } from "react-icons/md";
 import { Formik } from "formik";
 
 import EditControls from "./EditControls";
-import { FormFieldLine, FormDate } from "../../forms";
+import { FormField, FormDate } from "../../forms";
 
 const schema = Yup.object().shape({
   degree: Yup.string().required().max(64).label("Degree"),
@@ -58,8 +58,8 @@ function EducationAddModal({
             className="exit"
             onClick={() => showWarning(formProps)}
           />
-          <FormFieldLine name="degree" label="Degree" />
-          <FormFieldLine name="school" label="School name" />
+          <FormField name="degree" label="Degree" />
+          <FormField name="school" label="School name" />
           <div className="split">
             <FormDate name="startDate" label="Start Date" />
             <FormDate name="endDate" label="End Date" />

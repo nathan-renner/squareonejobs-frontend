@@ -4,7 +4,7 @@ import * as Yup from "yup";
 import { sendEmail } from "../../api/passwords";
 
 import { ActivityIndicator, Card } from "../../components/common";
-import { Form, FormFieldLine, SubmitButton } from "../../components/forms";
+import { Form, FormField, SubmitButton } from "../../components/forms";
 
 import useApi from "./../../hooks/useApi";
 import { useResponseModal } from "./../../hooks/useResponseModal";
@@ -51,7 +51,7 @@ function ForgotPassword(props) {
           validationSchema={schema}
           onSubmit={handleSubmit}
         >
-          <FormFieldLine name="email" label="Email" />
+          <FormField name="email" label="Email" />
           <SubmitButton label="send" />
         </Form>
       </div>

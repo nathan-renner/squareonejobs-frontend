@@ -4,7 +4,7 @@ import { useHistory, useParams } from "react-router-dom";
 
 import { ActivityIndicator, Card } from "../../components/common";
 
-import { Form, FormFieldLine, SubmitButton } from "../../components/forms";
+import { Form, FormField, SubmitButton } from "../../components/forms";
 import useApi from "./../../hooks/useApi";
 import { resetPassword } from "./../../api/passwords";
 import { useResponseModal } from "./../../hooks/useResponseModal";
@@ -57,8 +57,8 @@ function ResetPassword(props) {
           initialValues={{ new: "", newConfirm: "" }}
           onSubmit={handleSubmit}
         >
-          <FormFieldLine name="new" label="New Password" type="password" />
-          <FormFieldLine
+          <FormField name="new" label="New Password" type="password" />
+          <FormField
             name="newConfirm"
             label="Confirm New Password"
             type="password"

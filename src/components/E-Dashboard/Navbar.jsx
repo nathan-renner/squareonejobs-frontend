@@ -81,7 +81,7 @@ const Navbar = ({ data }) => {
       />
       <div className="navbar-container">
         <div className="navbar employer-nav">
-          <div className="right">
+          <div className="left">
             <div>
               <NavLink to="/" className="logo">
                 <img src={Logo} alt="SquareOneJobs logo" />
