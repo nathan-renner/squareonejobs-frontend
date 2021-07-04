@@ -5,7 +5,7 @@ import { useHistory, useLocation } from "react-router-dom";
 import { MdCloudUpload } from "react-icons/md";
 
 import { Button, Card } from "../../components/common";
-import { ErrorMessage, FormField } from "../../components/forms";
+import { ErrorMessage, FormFieldLine } from "../../components/forms";
 
 import CompanySearch from "../../components/Auth/CompanySearch";
 import FormDropdown from "./../../components/forms/FormDropdown";
@@ -63,18 +63,21 @@ function PostJob(props) {
     companyId
       ? Yup.object().shape({})
       : Yup.object().shape({
-          industry: Yup.string().label("Industry").required().label("Industry"),
+          industry: Yup.string()
+            .required("Required")
+            .label("Industry")
+            .oneOf(industries, "Must be a industry listed"),
           size: Yup.string()
             .label("Company Size")
-            .required()
+            .required("Required")
             .label("Company Size"),
           websiteUrl: Yup.string()
             .label("websiteUrl")
-            .required()
+            .required("Required")
             .label("Website Url"),
           description: Yup.string()
             .label("description")
-            .required()
+            .required("Required")
             .label("Company Description"),
           locations: Yup.array().of(
             Yup.object().shape({
@@ -200,12 +203,12 @@ function PostJob(props) {
                   label="Company Size"
                   items={sizes}
                 />
-                <FormField name="websiteUrl" size="sm" label="Website Url" />
-                <FormField
+                <FormFieldLine name="websiteUrl" label="Website Url" />
+                <FormFieldLine
                   name="description"
-                  size="sm"
                   label="Company Description"
                   type="textarea"
+                  rows={10}
                 />
                 <div className="success-button">
                   <div />

@@ -3,11 +3,18 @@ import ReCAPTCHA from "react-google-recaptcha";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { useHistory, useLocation } from "react-router-dom";
-import { MdLock, MdVisibility, MdVisibilityOff } from "react-icons/md";
+import {
+  MdPerson,
+  MdEmail,
+  MdLock,
+  MdAssignment,
+  MdVisibility,
+  MdVisibilityOff,
+} from "react-icons/md";
 import _ from "underscore";
 
 import { Button, Card, UploadScreen } from "../../components/common";
-import { FormField, SubmitButton } from "../../components/forms";
+import { FormFieldLine, SubmitButton } from "../../components/forms";
 
 import useApi from "../../hooks/useApi";
 import useAuth from "./../../auth/useAuth";
@@ -15,14 +22,18 @@ import { registerEmployer } from "../../api/employers";
 
 const schema = Yup.object().shape({
   name: Yup.string()
-    .required()
+    .required("Required")
     .label("Full name")
     .trim()
     .matches(/^(.*\s+.*)+$/, "Must enter first and last name")
     .max(128),
-  email: Yup.string().email().required().label("Email"),
-  password: Yup.string().required().label("Password").min(8).max(1024),
-  position: Yup.string().label("Position").min(1).max(128).required(),
+  email: Yup.string().email().required("Required").label("Email"),
+  password: Yup.string()
+    .required("Required")
+    .label("Password")
+    .min(8)
+    .max(1024),
+  position: Yup.string().label("Position").min(1).max(128).required("Required"),
 });
 
 function PostJob2(props) {
@@ -107,17 +118,23 @@ function PostJob2(props) {
           >
             {({ values, handleSubmit }) => (
               <div onKeyDown={(e) => e.key === "Enter" && handleSubmit()}>
-                <FormField name="name" size="sm" label="Full Name" />
-                <FormField name="position" size="sm" label="Position" />
-                <FormField name="email" size="sm" label="Email" />
-                <FormField
+                <FormFieldLine
+                  name="name"
+                  label="Full Name"
+                  LeftIcon={MdPerson}
+                />
+                <FormFieldLine
+                  name="position"
+                  label="Position"
+                  LeftIcon={MdAssignment}
+                />
+                <FormFieldLine name="email" label="Email" LeftIcon={MdEmail} />
+                <FormFieldLine
                   name="password"
-                  size="sm"
                   label="Password"
                   type={passVisible ? "text" : "password"}
                   LeftIcon={MdLock}
                   RightIcon={passVisible ? MdVisibilityOff : MdVisibility}
-                  rightIconSize={30}
                   rightIconOnClick={() => setPassVisible(!passVisible)}
                 />
                 <div className="google-text">

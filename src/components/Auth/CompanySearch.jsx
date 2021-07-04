@@ -2,9 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import useApi from "../../hooks/useApi";
 import { getCompanies } from "../../api/companies";
 
-import { TextInput } from "../common";
-
-import ErrorMessage from "./../forms/ErrorMessage";
+import { TextInputLine } from "../common";
 
 function CompanySearch({
   companyName,
@@ -49,8 +47,7 @@ function CompanySearch({
 
   return (
     <div className="company-search" ref={wrapperRef}>
-      <TextInput
-        size="sm"
+      <TextInputLine
         value={companyName}
         label="Company Name"
         onChange={(e) => {
@@ -61,10 +58,8 @@ function CompanySearch({
           setCompanyName(e.target.value);
         }}
         onFocus={() => setOpened(true)}
-      />
-      <ErrorMessage
-        error={error && error.message}
-        visible={error && error.name === "name"}
+        error={error && error.name === "name" && error.message}
+        controlled
       />
       <div
         className={`options ${

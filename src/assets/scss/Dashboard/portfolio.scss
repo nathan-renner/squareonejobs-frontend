@@ -379,14 +379,6 @@
     }
   }
 
-  .date-container {
-    display: flex;
-    margin-top: 20px;
-    > * + * {
-      margin-left: 1em;
-    }
-  }
-
   .skills {
     .divider {
       @include themed() {

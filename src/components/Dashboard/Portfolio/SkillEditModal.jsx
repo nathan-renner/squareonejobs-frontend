@@ -5,6 +5,7 @@ import { Formik } from "formik";
 
 import { FormField } from "../../forms";
 import EditControls from "./EditControls";
+import FormFieldLine from "./../../forms/FormFieldLine";
 
 const schema = Yup.object().shape({
   skill: Yup.string().required().min(1).max(32).label("Skill"),
@@ -47,11 +48,7 @@ function SkillEditModal({ handleEditSkill, skillToEdit, setIsEditingSkill }) {
             className="exit"
             onClick={() => showWarning(formProps)}
           />
-          <FormField
-            maxLength="250"
-            name="skill"
-            placeholder="E.g. Communication, Finance, HTML..."
-          />
+          <FormFieldLine maxLength="250" name="skill" label="Skill" />
           <EditControls onCancel={() => showWarning(formProps)} />
         </>
       )}

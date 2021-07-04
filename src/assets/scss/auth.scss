@@ -355,8 +355,7 @@
         width: 10em;
         display: grid;
         place-items: center;
-        margin-right: auto;
-        margin-left: auto;
+        margin: 0 auto 2em;
         cursor: pointer;
 
         img {
@@ -379,15 +378,14 @@
 
   .company-search {
     position: relative;
-    .input-container {
-      margin-bottom: 0.5em;
-    }
+
     .options {
       z-index: 10;
       position: absolute;
       display: none;
-      left: 0px;
-      right: 0px;
+      top: 3em;
+      left: 0;
+      right: 0;
       border-radius: 10px;
       overflow: hidden;
       box-shadow: 0px 4px 10px rgba(black, 0.3);
