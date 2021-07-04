@@ -154,7 +154,7 @@ function ListingPage(props) {
     )
       options.push({
         name: "Edit Listing",
-        onClick: () => history.push(`/update-listing/${id}`),
+        onClick: () => history.push(`/edit-listing/${id}`),
       });
     if (listing.status === "draft") {
       options.push({
@@ -168,7 +168,7 @@ function ListingPage(props) {
     }
     options.push({
       name: "Post Similar",
-      onClick: () => history.push(`/new-listing`, { id }),
+      onClick: () => history.push(`/new-listing`, id),
     });
     if (listing.status === "cancelled")
       options.push({

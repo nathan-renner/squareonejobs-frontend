@@ -7,7 +7,11 @@ import { MdLocationOn } from "react-icons/md";
 import _ from "underscore";
 
 import { getLocations } from "./../../../api/companies";
-import { getListing, postDraft, updateDraft } from "./../../../api/listings";
+import {
+  getListingNoCompany,
+  postDraft,
+  updateDraft,
+} from "./../../../api/listings";
 import { useResponseModal } from "./../../../hooks/useResponseModal";
 import useApi from "./../../../hooks/useApi";
 
@@ -137,21 +141,22 @@ function NewListing(props) {
   const [location, setLocation] = useState(false);
   const [initialValues, setInitialValues] = useState(false);
   const [status, setStatus] = useState(false);
-  const [isAddLocOpen, setIsAdLocOpen] = useState(false);
+  const [isAddLocOpen, setIsAddLocOpen] = useState(false);
 
   const history = useHistory();
   const { state: passedState } = useLocation();
   const { setModal } = useResponseModal();
   const getLocationsApi = useApi(getLocations);
-  const getListingApi = useApi(getListing);
+  const getListingApi = useApi(getListingNoCompany);
 
   const fetchListing = async () => {
-    const res = await getListingApi.request(passedState.id);
+    const res = await getListingApi.request(passedState);
+    console.log(res.data);
     if (res.ok) {
-      getSavedLocations();
       setStatus(res.data.status);
       setType(res.data.type);
       setLocation(res.data.details.location);
+      getSavedLocations();
       setInitialValues(
         _.omit(flattenObject(res.data), ["status", "type", "details.location"])
       );
@@ -169,7 +174,9 @@ function NewListing(props) {
     if (!locations) {
       const response = await getLocationsApi.request();
       if (response.ok) {
-        return passedState && !passedState.details.location.coordinates
+        return passedState &&
+          typeof passedState === "object" &&
+          !passedState.details.location.coordinates
           ? setLocations([...response.data, passedState.details.location])
           : setLocations(response.data);
       } else
@@ -184,18 +191,25 @@ function NewListing(props) {
   };
 
   useEffect(() => {
-    getSavedLocations();
-
-    if (passedState && passedState.id && !initialValues && !getListingApi.error)
+    if (
+      passedState &&
+      typeof passedState === "string" &&
+      !initialValues &&
+      !getListingApi.error
+    )
       fetchListing();
-    else if (passedState) {
+    else if (passedState && typeof passedState === "object") {
+      getSavedLocations();
       setType(passedState.type);
       setLocation(passedState.details.location);
 
       setInitialValues(
         _.omit(flattenObject(passedState), ["status", "type", "location"])
       );
-    } else setInitialValues(initialVals);
+    } else {
+      getSavedLocations();
+      setInitialValues(initialVals);
+    }
     // eslint-disable-next-line
   }, []);
 
@@ -255,9 +269,10 @@ function NewListing(props) {
 
   const handleSaveDraft = async (i) => {
     const builtListing = buildListing(i, type, location);
+    console.log(builtListing);
 
     if (status === "draft") {
-      const response = await updateDraft(builtListing, passedState.id);
+      const response = await updateDraft(builtListing, passedState);
       if (response.ok) history.push("/my-listings/drafts");
       else
         setModal({
@@ -362,7 +377,7 @@ function NewListing(props) {
                                       : ""
                                   }`}
                                   onClick={() => {
-                                    setIsAdLocOpen(false);
+                                    setIsAddLocOpen(false);
                                     setLocation(
                                       location.street === loc.street
                                         ? false
@@ -387,14 +402,14 @@ function NewListing(props) {
                           handleSubmit={(i) => {
                             setLocations([...locations, i]);
                             setLocation(i);
-                            setIsAdLocOpen(false);
+                            setIsAddLocOpen(false);
                           }}
                         />
                       ) : (
                         <p
                           className="add-location"
                           onClick={() => {
-                            setIsAdLocOpen(true);
+                            setIsAddLocOpen(true);
                           }}
                         >
                           + Add new location

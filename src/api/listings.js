@@ -4,6 +4,8 @@ const EP = "/listings";
 
 export const getListing = (id) => client.get(`${EP}/${id}`);
 
+export const getListingNoCompany = (id) => client.get(`${EP}/no-company/${id}`);
+
 export const getMyJobs = (type) => client.get(`${EP}/my-jobs/${type}`);
 
 export const getMyListings = (type) => client.get(`${EP}/my-listings/${type}`);

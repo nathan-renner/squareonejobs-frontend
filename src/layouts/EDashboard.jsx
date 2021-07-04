@@ -16,7 +16,7 @@ import NewListing from "./../views/e-dashboard/new-listing/NewListing";
 import Payment from "./../views/e-dashboard/new-listing/Payment";
 import UserPage from "./../views/e-dashboard/UserPage";
 import ListingPage from "../views/e-dashboard/ListingPage";
-import UpdateListing from "../views/e-dashboard/new-listing/UpdateListing";
+import EditListing from "./../views/e-dashboard/new-listing/EditListing";
 import ChangePassword from "./../views/common/ChangePassword";
 
 import {
@@ -67,7 +67,7 @@ const EDashboard = () => {
                 <Route path={`/new-listing/payment`} component={Payment} />
                 <Route path={`/new-listing/review`} component={ReviewListing} />
                 <Route path={`/new-listing`} component={NewListing} />
-                <Route path={`/update-listing/:id`} component={UpdateListing} />
+                <Route path={`/edit-listing/:id`} component={EditListing} />
                 <Route exact path="/" component={Home} />
                 <Redirect to="/" />
               </Switch>

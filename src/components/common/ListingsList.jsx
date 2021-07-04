@@ -97,7 +97,7 @@ function ListingsList({
     if (status === "active" && dayjs(startDateTime).diff(dayjs(), "hours") > 24)
       options.push({
         name: "Edit Listing",
-        onClick: () => history.push(`/update-listing/${_id}`),
+        onClick: () => history.push(`/edit-listing/${_id}`),
       });
     if (status === "draft") {
       options.push({
@@ -111,7 +111,7 @@ function ListingsList({
     }
     options.push({
       name: "Post Similar",
-      onClick: () => history.push(`/new-listing`, { id: _id }),
+      onClick: () => history.push(`/new-listing`, _id),
     });
     if (status === "cancelled")
       options.push({
