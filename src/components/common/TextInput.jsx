@@ -18,6 +18,7 @@ function TextInput({
   startingChar = false,
   width = false,
   rows = 3,
+  noMarginBottom = false,
   ...otherProps
 }) {
   const input = useRef();
@@ -44,7 +45,12 @@ function TextInput({
     : { ...otherProps };
 
   return (
-    <div className="line-text-input-container" style={width ? { width } : null}>
+    <div
+      className={`line-text-input-container ${
+        noMarginBottom ? "no-margin-bottom" : null
+      }`}
+      style={width ? { width } : null}
+    >
       <div
         className={`line-text-input ${focused ? "focused" : null} ${
           error ? "error" : null

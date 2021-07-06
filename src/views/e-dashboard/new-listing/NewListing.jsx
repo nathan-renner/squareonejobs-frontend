@@ -14,6 +14,7 @@ import {
 } from "./../../../api/listings";
 import { useResponseModal } from "./../../../hooks/useResponseModal";
 import useApi from "./../../../hooks/useApi";
+import categories from "../../../data/categories";
 
 import {
   FormCheckbox,
@@ -36,7 +37,7 @@ const initialVals = {
   startDateTime: null,
   endDateTime: null,
   salary: "",
-  wage: null,
+  wage: "",
   remote: false,
   driversLicense: false,
   description: "",
@@ -49,38 +50,6 @@ const types = [
   { name: "day", label: "Day Job" },
   { name: "part", label: "Part Time" },
   { name: "full", label: "Full Time" },
-];
-const categories = [
-  "Accounting",
-  "Administrative Support",
-  "Architecture",
-  "Art",
-  "Business",
-  "Communications",
-  "Computer Science",
-  "Construction",
-  "Customer Service",
-  "Design",
-  "E-Commerce",
-  "Education & Training",
-  "Engineering",
-  "Entertainment",
-  "Farming & Fishing",
-  "Healthcare",
-  "Human Resources",
-  "Legal",
-  "Management",
-  "Marketing",
-  "Mechanic",
-  "Protective Services",
-  "Real Estate",
-  "Restaurant & Food Ind.",
-  "Sales",
-  "Social Sciences",
-  "Social Work",
-  "Technology Support",
-  "Transportation",
-  "Warehousing",
 ];
 
 const flattenObject = (obj) => {
@@ -151,7 +120,6 @@ function NewListing(props) {
 
   const fetchListing = async () => {
     const res = await getListingApi.request(passedState);
-    console.log(res.data);
     if (res.ok) {
       setStatus(res.data.status);
       setType(res.data.type);

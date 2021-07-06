@@ -2,6 +2,10 @@
   margin-bottom: 2em;
   position: relative;
 
+  &.no-margin-bottom {
+    margin-bottom: 0;
+  }
+
   .line-text-input {
     position: relative;
     border-radius: 0.5em;

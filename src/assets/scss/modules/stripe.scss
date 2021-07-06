@@ -1,0 +1,31 @@
+.StripeElement {
+  //margin-bottom: 2em;
+  padding: 0.6em 0.8em;
+  border-radius: 0.5em;
+  font-weight: "400";
+  font-size: "1em";
+  transition: border-color 100ms ease-out;
+
+  @include themed() {
+    color: t("text");
+    background-color: t("foreground");
+    border: 1px solid rgba(t("medium"), 0.3);
+
+    &:hover:not(.focused):not(.StripeElement--invalid) {
+      border-color: rgba(t("medium"), 0.7);
+    }
+  }
+  :-webkit-autofill {
+    color: "#fce883";
+  }
+  &:disabled {
+    @include themed() {
+      color: t("text") !important;
+      background-color: red !important;
+    }
+  }
+}
+
+.StripeElement--invalid {
+  border-color: $danger;
+}

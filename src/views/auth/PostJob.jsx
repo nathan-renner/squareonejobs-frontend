@@ -11,34 +11,7 @@ import CompanySearch from "../../components/Auth/CompanySearch";
 import FormDropdown from "./../../components/forms/FormDropdown";
 import SubmitButton from "./../../components/forms/SubmitButton";
 
-const industries = [
-  "Aerospace & Defense",
-  "Agriculture",
-  "Arts, Entertainment & Recreation",
-  "Automotive",
-  "Construction & Facilities Services",
-  "Education",
-  "Energy, Mining & Utilities",
-  "Financial Services",
-  "Government & Public Administration",
-  "Healthcare",
-  "Hotels & Travel Accommodation",
-  "Human Resources & Staffing",
-  "Information Technology",
-  "Insurance",
-  "Legal",
-  "Management & Consulting",
-  "Manufacturing",
-  "Media & Communication",
-  "Nonprofit & NGO",
-  "Personal Consumer Services",
-  "Pharmaceutical & Biotechnology",
-  "Real Estate",
-  "Restaurants & Food Service",
-  "Retail & Wholesale",
-  "Telecommunications",
-  "Transportation & Logistics",
-];
+import industries from "../../data/industries";
 
 const sizes = ["1-49", "50-149", "150-249", "250-499", "500-999", "1000+"];
 

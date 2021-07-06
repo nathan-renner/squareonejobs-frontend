@@ -14,6 +14,19 @@
     margin-bottom: 1em;
     font-size: 1.3em !important;
   }
+
+  .subtitle {
+    font-size: 0.9em;
+    @include themed() {
+      color: t("medium");
+    }
+    margin-bottom: 1.5em;
+  }
+
+  .title {
+    margin-bottom: 0.3em;
+  }
+
   .section {
     margin-bottom: 4em;
 
@@ -93,11 +106,89 @@
   .nav-controls {
     display: flex;
     justify-content: space-between;
-    padding: 0 10px;
+
+    .button {
+      margin: 0;
+    }
   }
 
   .flex-row {
     display: flex;
+    align-items: center;
     gap: 2em;
+
+    &.loc > * {
+      flex-grow: 1;
+    }
+
+    img {
+      height: 5em;
+      width: 5em;
+    }
+  }
+
+  .charges {
+    .charge {
+      display: flex;
+      justify-content: space-between;
+
+      > * + * {
+        font-weight: 600;
+      }
+      &.total {
+        margin-top: 1em;
+        font-size: 1.4em;
+        font-weight: 600;
+
+        span {
+          font-weight: 400;
+          font-size: 0.6em;
+        }
+      }
+      &:last-of-type {
+        p {
+          margin-bottom: 0;
+        }
+      }
+    }
+    &.final {
+      margin-top: 1.5em;
+      margin-bottom: 0;
+    }
+  }
+
+  .type-circle {
+    height: 5em;
+    width: 5em;
+    background-color: $secondary;
+    color: $white;
+    font-weight: 600;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+  }
+
+  .listing-details {
+    .pos {
+      font-weight: 600;
+      margin-bottom: 0.2em;
+    }
+    > * + * {
+      font-size: 0.9em;
+      font-weight: 500;
+      margin-bottom: 0.3em;
+      @include themed() {
+        color: t("medium");
+      }
+    }
+  }
+
+  hr {
+    margin: 2em 0;
+    height: 1px;
+    border: none;
+    @include themed() {
+      background-color: t("background");
+    }
   }
 }
