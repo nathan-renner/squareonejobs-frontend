@@ -63,7 +63,8 @@
       height: 50px;
       border-radius: 3px;
 
-      &.complete {
+      &.complete,
+      &.succeeded {
         background-color: $primary;
       }
 

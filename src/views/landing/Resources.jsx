@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import Navbar from "../../components/Landing/Navbar";
 import Footer from "./../../components/Landing/Footer";
-import { shelters, nonprofits, businesses } from "../../resources";
+import { shelters, nonprofits, businesses } from "../../data/resources";
 
 import { ToggleButton, ResourceGoogleMap } from "../../components/common";
 

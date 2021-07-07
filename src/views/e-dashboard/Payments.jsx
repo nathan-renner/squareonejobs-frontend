@@ -1,35 +1,42 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-import PaymentsCard from "./../../components/Dashboard/Payments/PaymentsCard";
-import HeaderCard from "./../../components/Dashboard/Payments/HeaderCard";
-
-const payments = [
-  {
-    _id: 1,
-    amount: 40,
-    paymentDate: new Date(2021, 2, 1),
-    company: "Amazon",
-    status: "processing",
-  },
-  {
-    _id: 2,
-    amount: 60,
-    paymentDate: new Date(2021, 2, 2),
-    company: "Walmart",
-    status: "complete",
-  },
-];
+import useApi from "hooks/useApi";
+import { retrievePaymentIntents } from "api/payments";
+import { useResponseModal } from "hooks/useResponseModal";
+import { ActivityIndicator } from "components/common";
+import PaymentCards from "components/E-Dashboard/Payments/PaymentCards";
 
 function Payments(props) {
+  const getPaymentsApi = useApi(retrievePaymentIntents);
+  const { setModal } = useResponseModal();
+  const [payments, setPayments] = useState(false);
+
+  useEffect(() => {
+    const fetchPayments = async () => {
+      const response = await getPaymentsApi.request();
+      if (response.ok) setPayments(response.data);
+      else
+        setModal({
+          type: "error",
+          header: "Error loading payments",
+          body: response.data,
+        });
+    };
+    if (!payments && !getPaymentsApi.loading) fetchPayments();
+    //eslint-disable-next-line
+  }, []);
+
   return (
     <div className="payments-page">
-      <HeaderCard data-aos="fade-up" data-aos-once={true} />
-      <PaymentsCard
-        payments={payments}
-        data-aos="fade-up"
-        data-aos-once={true}
-        data-aos-delay="100"
-      />
+      <ActivityIndicator visible={getPaymentsApi.loading} />
+      {payments && (
+        <PaymentCards
+          payments={payments}
+          data-aos="fade-up"
+          data-aos-once={true}
+          data-aos-delay="100"
+        />
+      )}
     </div>
   );
 }

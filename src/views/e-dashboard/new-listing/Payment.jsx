@@ -193,7 +193,7 @@ const PaymentForm = () => {
   };
 
   return (
-    <div className="post-listing">
+    <div className="post-listing payment">
       <ActivityIndicator
         visible={postListingApi.loading || getCompanyApi.loading || processing}
       />
@@ -270,8 +270,6 @@ const PaymentForm = () => {
                     noMarginBottom
                   />
                 </div>
-              </Card>
-              <Card>
                 <h2 className="title">Payment Method</h2>
                 <p className="subtitle">
                   All tranactions are secure and encrypted.
@@ -289,8 +287,6 @@ const PaymentForm = () => {
                   onChange={handleChange}
                 />
                 {error && <p className="card-error">{error}</p>}
-              </Card>
-              <Card>
                 <h2 style={{ marginBottom: "2em" }}>Review Items</h2>
                 <div className="flex-row">
                   <img src={company.logo} alt={`${company.name}'s Logo`} />
@@ -359,7 +355,7 @@ const PaymentForm = () => {
                       renderText={(value) => <p>{value}</p>}
                     />
                   </div>
-                  <div className="charge">
+                  {/* <div className="charge">
                     <p>Taxes</p>
                     <NumberFormat
                       decimalScale={2}
@@ -369,7 +365,7 @@ const PaymentForm = () => {
                       prefix={"$"}
                       renderText={(value) => <p>{value}</p>}
                     />
-                  </div>
+                  </div> */}
                   <div className="charge total">
                     <p>Total</p>
                     <NumberFormat

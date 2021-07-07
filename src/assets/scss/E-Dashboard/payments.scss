@@ -1,8 +1,8 @@
 .payments-page {
   display: flex;
   flex-direction: row;
-  max-width: 50em;
-  margin-inline: auto;
+  max-width: 40em;
+  margin: 0 auto;
 
   > * {
     flex: 1;
@@ -12,41 +12,13 @@
     flex: 2;
   }
 
-  .header {
-    height: auto;
-    display: block;
-
-    .divider {
-      @include themed() {
-        border-bottom: 1px solid t("medium");
-      }
-    }
-    .account {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-
-      > * + * {
-        margin-left: 1em;
-      }
-
-      p {
-        margin-bottom: 0;
-        line-height: 1.3;
-        font-weight: 500;
-        font-size: 0.9em;
-      }
-    }
-  }
-
   .payment {
     width: 100%;
     padding: 10px;
     border-radius: 10px;
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: 0.5em 6em auto;
     gap: 1em;
-    justify-content: flex-start;
     align-items: center;
     cursor: pointer;
 
@@ -61,7 +33,8 @@
       height: 50px;
       border-radius: 3px;
 
-      &.complete {
+      &.complete,
+      &.succeeded {
         background-color: $primary;
       }
 
