@@ -39,6 +39,8 @@ export const completeListing = (id) => client.post(`${EP}/complete/${id}`);
 
 export const cancelListing = (id) => client.post(`${EP}/cancel/${id}`);
 
+export const reportListing = (data) => client.post(`${EP}/report`, data);
+
 export const updateListing = (listing, id) =>
   client.put(`${EP}/${id}`, listing);
 

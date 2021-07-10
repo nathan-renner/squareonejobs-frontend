@@ -8,7 +8,6 @@ import {
   MdLocationOn,
 } from "react-icons/md";
 import NumberFormat from "react-number-format";
-import _ from "underscore";
 
 import { Button } from "../../../components/common";
 
@@ -88,7 +87,8 @@ function ReviewListing(props) {
               </div>
             )}
             <>
-              {!_.isEmpty(listing.details.qualifications) && (
+              {(listing.details.qualifications.driversLicense ||
+                listing.details.qualifications.other) && (
                 <>
                   <h3>Qualifications</h3>
                   {listing.details.qualifications.driversLicense && (

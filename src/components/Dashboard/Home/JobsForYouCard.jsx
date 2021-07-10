@@ -13,7 +13,7 @@ dayjs.extend(localizedFormat);
 
 const buttons = ["Day Jobs", "Full Time", "Part Time"];
 
-function JobsForYouCard({ jobs: day, onSelect, ...props }) {
+function JobsForYouCard({ jobs: day, ...props }) {
   const [activeButton, setActiveButton] = useState(0);
   const [part, setPart] = useState(false);
   const [full, setFull] = useState(false);
@@ -82,7 +82,7 @@ function JobsForYouCard({ jobs: day, onSelect, ...props }) {
               <div
                 className="job"
                 key={job._id}
-                onClick={() => onSelect(job._id)}
+                onClick={() => history.push(`/listing/${job._id}`)}
               >
                 <img src={job.company.logo} alt="Logo" />
                 <div className="details-container">

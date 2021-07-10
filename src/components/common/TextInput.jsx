@@ -8,6 +8,7 @@ function TextInput({
   label,
   helperText = false,
   LeftIcon = false,
+  leftIconOnClick = () => true,
   RightIcon = false,
   rightIconOnClick = () => true,
   error = false,
@@ -15,6 +16,7 @@ function TextInput({
   disabled = false,
   controlled = false,
   onClick = () => true,
+  onSubmit = () => true,
   startingChar = false,
   width = false,
   rows = 3,
@@ -63,13 +65,19 @@ function TextInput({
             ? "not-empty"
             : null
         } ${disabled ? "disabled" : null}`}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") onSubmit();
+        }}
       >
-        {LeftIcon && <LeftIcon className="left-icon" />}
+        {LeftIcon && (
+          <LeftIcon className="left-icon" onClick={leftIconOnClick} />
+        )}
         {startingChar && <p className="starting-char">{startingChar}</p>}
         {type === "textarea" ? (
           <textarea
             id={name}
             name={name}
+            onClick={onFocus}
             onFocus={onFocus}
             onBlur={handleOnBlur}
             ref={input}
@@ -82,6 +90,7 @@ function TextInput({
             id={name}
             type={type}
             name={name}
+            onClick={onFocus}
             onFocus={onFocus}
             onBlur={handleOnBlur}
             ref={input}

@@ -122,13 +122,13 @@
 
     @media only screen and (min-width: 43em) {
       flex-direction: row;
-      gap: 5em;
+      gap: 4em;
       max-height: 30em;
       margin-top: 0em;
     }
     @media only screen and (min-width: 60em) {
       margin-top: 10em;
-      gap: 6em;
+      gap: 5em;
     }
 
     &.visible {
@@ -227,12 +227,17 @@
     > * {
       display: flex;
       align-items: center;
+      gap: 1em;
       margin-bottom: 1em;
+
+      svg {
+        min-width: 20px;
+      }
+
       > * + * {
         color: $dark;
         font-size: 1.2em;
         font-weight: 500;
-        margin-left: 1em;
         margin-bottom: 0px;
       }
     }

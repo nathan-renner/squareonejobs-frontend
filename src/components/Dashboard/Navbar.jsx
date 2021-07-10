@@ -39,11 +39,11 @@ const routes = [
     title: "Explore",
     Icon: MdSearch,
   },
-  {
-    name: "/payments",
-    title: "Payments",
-    Icon: MdCreditCard,
-  },
+  // {
+  //   name: "/payments",
+  //   title: "Payments",
+  //   Icon: MdCreditCard,
+  // },
   {
     name: "/portfolio",
     title: "Portfolio",
@@ -72,7 +72,6 @@ const refData = {
 
 const Navbar = ({ data }) => {
   const history = useHistory();
-  const [searchFocus, setSearchFocus] = useState(false);
   const [search, setSearch] = useState("");
   const [dropdown, setDropdown] = useState(false);
   const { pathname } = useLocation();
@@ -83,8 +82,7 @@ const Navbar = ({ data }) => {
     refData.stat = data.refsLength;
   });
 
-  const onSubmitSearch = (e) => {
-    e.preventDefault();
+  const onSubmitSearch = () => {
     history.replace(`/search?q=${search}`);
   };
   const onChangeSearch = (e) => {
@@ -160,12 +158,10 @@ const Navbar = ({ data }) => {
           <div className="routes-container">{renderRoutes()}</div>
           <div className="search">
             <TextInput
-              active={searchFocus ? true : false}
               type="search"
               LeftIcon={MdSearch}
+              leftIconOnClick={onSubmitSearch}
               label="Search jobs"
-              onFocus={() => setSearchFocus(true)}
-              onBlur={() => setSearchFocus(false)}
               onSubmit={onSubmitSearch}
               onChange={onChangeSearch}
               value={search}

@@ -18,8 +18,10 @@ import {
   Button,
   GoogleMaps,
   Icon,
+  Modal,
   OptionsDropdown,
 } from "../../components/common";
+import ReportModal from "./../../components/Dashboard/Listing/ReportModal";
 
 import useApi from "./../../hooks/useApi";
 import {
@@ -59,6 +61,7 @@ function Listing({
   const { showSuccess } = useSuccessScreen();
   const { details } = listing;
   const { setModal } = useResponseModal();
+  const [reportModalVisible, setReportModalVisible] = useState(false);
 
   const fetchListing = async () => {
     setListing(false);
@@ -205,7 +208,6 @@ function Listing({
 
   const getOptions = () => {
     const options = [];
-    console.log(listing.details.endDateTime);
     if (
       listing.status === "in-progress" &&
       listing.isMyOffer &&
@@ -244,6 +246,10 @@ function Listing({
         name: "Go to Listing Page",
         onClick: () => history.push(`/listing/${listing._id}`),
       });
+    options.push({
+      name: "Report Listing",
+      onClick: () => setReportModalVisible(true),
+    });
 
     return options;
   };
@@ -483,6 +489,16 @@ function Listing({
           </div>
         </>
       )}
+      <Modal
+        visible={reportModalVisible}
+        title="Report Listing"
+        onCancel={() => setReportModalVisible(false)}
+        Content={ReportModal}
+        componentProps={{
+          listingId: listing._id,
+          setVisible: setReportModalVisible,
+        }}
+      />
     </div>
   );
 }

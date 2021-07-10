@@ -46,15 +46,15 @@ function HowItWorks(props) {
             <div className="check-list">
               <div>
                 <CheckIcon />
-                <p>Pay hourly</p>
+                <p>Post in minutes</p>
               </div>
               <div>
                 <CheckIcon />
-                <p>brUH</p>
+                <p>Hire with no contracts or commitments</p>
               </div>
               <div>
                 <CheckIcon />
-                <p>Relist jobs with ease</p>
+                <p>Leave feedback to help other employers</p>
               </div>
             </div>
           </div>
@@ -124,15 +124,19 @@ function HowItWorks(props) {
             <div className="check-list">
               <div>
                 <CheckIcon fill="secondary" />
-                <p>words</p>
+                <p>
+                  View applicants' portfolios and previous employer references
+                </p>
               </div>
               <div>
                 <CheckIcon fill="secondary" />
-                <p>more words</p>
+                <p>
+                  Search for the perfect candidate from our extensive database
+                </p>
               </div>
               <div>
                 <CheckIcon fill="secondary" />
-                <p>aaaaaAAAAAA</p>
+                <p>Browse our personalized employee recommendations</p>
               </div>
             </div>
           </div>

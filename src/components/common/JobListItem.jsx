@@ -228,7 +228,7 @@ function JobListItem({
       <img src={listing.company.logo} alt="Logo" />
       <div
         className="details-container pointer"
-        onClick={() => showJobModal(listing._id)}
+        onClick={() => history.push(`/listing/${listing._id}`)}
       >
         {renderStatus()}
         <h3>{listing.details.position}</h3>
