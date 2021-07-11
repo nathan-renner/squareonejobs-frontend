@@ -66,7 +66,6 @@ function Login() {
         email: user.email,
         password: user.googleId,
       };
-      console.log(token, data);
       handleSubmit(data);
     }
   };

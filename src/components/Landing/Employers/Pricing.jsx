@@ -36,6 +36,7 @@ function Pricing(props) {
                   textColor="white"
                   label="get started"
                   onClick={() => history.push("/auth/postjob")}
+                  disabled={active !== 0}
                 />
               </div>
               <div>
@@ -115,6 +116,7 @@ function Pricing(props) {
                   textColor="white"
                   label="get started"
                   onClick={() => history.push("/auth/postjob")}
+                  disabled={active !== 2}
                 />
               </div>
               <div>
