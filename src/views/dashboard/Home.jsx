@@ -8,9 +8,9 @@ import {
 } from "../../components/common";
 
 import Listing from "./Listing";
-import ProgressCard from "./../../components/Dashboard/Home/ProgressCard";
+//import ProgressCard from "./../../components/Dashboard/Home/ProgressCard";
 import TodaysJobCard from "./../../components/Dashboard/Home/TodaysJobCard";
-import Tasks from "./../../components/Dashboard/Home/Tasks";
+//import Tasks from "./../../components/Dashboard/Home/Tasks";
 import UpcomingJobs from "./../../components/Dashboard/Home/UpcomingJobs";
 import JobsForYouCard from "./../../components/Dashboard/Home/JobsForYouCard";
 
@@ -83,12 +83,12 @@ const Home = () => {
               />
             </div>
             <div>
-              <ProgressCard
+              {/* <ProgressCard
                 data-aos="fade-up"
                 data-aos-once={true}
                 points={dashData.points}
                 level={dashData.level}
-              />
+              /> */}
               {dashData.todaysJob && (
                 <TodaysJobCard
                   data-aos="fade-up"
@@ -98,11 +98,11 @@ const Home = () => {
                   onSelect={setSelectedJob}
                 />
               )}
-              <Tasks
+              {/* <Tasks
                 data-aos="fade-up"
                 data-aos-delay="200"
                 data-aos-once={true}
-              />
+              /> */}
               <UpcomingJobs
                 data-aos="fade-up"
                 data-aos-delay="300"
