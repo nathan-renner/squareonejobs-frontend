@@ -4,7 +4,7 @@ import Home from "./../views/landing/Home";
 import Employers from "./../views/landing/Employers";
 import Resources from "./../views/landing/Resources";
 import About from "./../views/landing/About";
-import Pricing from './../views/landing/Pricing';
+import Pricing from "./../views/landing/Pricing";
 
 import { ResponseModal } from "../components/common";
 

@@ -81,33 +81,26 @@ const Navbar = ({ data }) => {
       />
       <div className="navbar-container">
         <div className="navbar employer-nav">
-          <div className="left">
-            <div>
-              <NavLink to="/" className="logo">
-                <img src={Logo} alt="SquareOneJobs logo" />
-              </NavLink>
-            </div>
-            <div className="routes-container">{renderRoutes()}</div>
-          </div>
-          <div className="right">
-            <div
-              className={`nav-item ${data.isNewNotifications ? "notif" : null}`}
-            >
-              <NotificationsIcon
-                height={25}
-                width={25}
-                onClick={() => handleDropdown("notifications")}
-              />
-            </div>
-            <img
-              className="nav-item avatar"
-              src={
-                data.avatar ? `${data.avatar}?v=${Date.now()}` : defaultAvatar
-              }
-              alt="Avatar"
-              onClick={() => handleDropdown("profile")}
+          <NavLink to="/" className="logo">
+            <img src={Logo} alt="SquareOneJobs logo" />
+          </NavLink>
+          <div className="routes-container">{renderRoutes()}</div>
+          <div />
+          <div
+            className={`nav-item ${data.isNewNotifications ? "notif" : null}`}
+          >
+            <NotificationsIcon
+              height={25}
+              width={25}
+              onClick={() => handleDropdown("notifications")}
             />
           </div>
+          <img
+            className="nav-item avatar"
+            src={data.avatar ? `${data.avatar}?v=${Date.now()}` : defaultAvatar}
+            alt="Avatar"
+            onClick={() => handleDropdown("profile")}
+          />
         </div>
         <ProfileDropdown
           visible={dropdown === "profile"}

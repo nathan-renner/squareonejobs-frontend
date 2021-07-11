@@ -8,10 +8,15 @@ function CompanyLogos(props) {
   const isVisible = useOnScreen(ref);
 
   useEffect(() => {
-    isVisible &&
-      setTimeout(() => {
+    let timeout;
+    if (isVisible) {
+      timeout = setTimeout(() => {
         count === 11 ? setCount(1) : setCount(count + 1);
       }, 2000);
+    }
+    return () => {
+      clearTimeout(timeout);
+    };
   });
 
   const getPos = (num) => {

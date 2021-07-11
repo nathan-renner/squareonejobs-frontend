@@ -14,6 +14,7 @@ function Navbar({ className, dark = false, fixed = false }) {
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   });
 
   const handleScroll = () => {
@@ -90,9 +91,9 @@ function Navbar({ className, dark = false, fixed = false }) {
               <NavLink to="/auth/postjob" className="nav-dropdown-link">
                 Post a Job
               </NavLink>
-              <NavLink to="/employers" className="nav-dropdown-link">
+              {/* <NavLink to="/employers" className="nav-dropdown-link">
                 Pricing
-              </NavLink>
+              </NavLink> */}
             </div>
           </div>
           <div className="nav-link-container" tabIndex="0">

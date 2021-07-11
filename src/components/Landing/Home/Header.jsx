@@ -10,10 +10,15 @@ function Header({ setModal }) {
   const isVisible = useOnScreen(imageBgRef);
 
   useEffect(() => {
-    isVisible &&
-      setTimeout(() => {
+    let timeout;
+    if (isVisible) {
+      timeout = setTimeout(() => {
         count === 3 ? setCount(1) : setCount(count + 1);
       }, 3000);
+    }
+    return () => {
+      clearTimeout(timeout);
+    };
   });
 
   return (

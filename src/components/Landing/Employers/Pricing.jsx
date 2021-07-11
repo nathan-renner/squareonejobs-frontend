@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import CheckIconWhite from "../../icons/CheckIconWhite.jsx";
 import { Button } from "./../../common";
+import { useHistory } from "react-router-dom";
 
 function Pricing(props) {
-  const [active, setActive] = useState(1);
+  const history = useHistory();
+  const [active, setActive] = useState(0);
 
   return (
     <section className="bg-dark">
@@ -11,8 +13,8 @@ function Pricing(props) {
         <div className="text-container">
           <h2>Pricing</h2>
           <p>
-            Our comprehensive payment plans allow our services to be accessbile
-            to any size company
+            Our payment plans allow our services to be accessbile to any size
+            company
           </p>
         </div>
         <div className="price-cards">
@@ -22,9 +24,9 @@ function Pricing(props) {
           >
             <div className="price-header">
               <h3 className="price">
-                <span>$</span>149<span>/month</span>
+                <span>$</span>10
               </h3>
-              <h3>Starter</h3>
+              <h3>Day Listing</h3>
             </div>
             <div className="price-body">
               <div className="button-container">
@@ -33,27 +35,28 @@ function Pricing(props) {
                   color="transparent"
                   textColor="white"
                   label="get started"
+                  onClick={() => history.push("/auth/postjob")}
                 />
               </div>
               <div>
                 <div className="plan-perks">
                   <div className="perk-item">
                     <CheckIconWhite />
-                    <p>1 listing per month</p>
+                    <p>Stays active for 30 days</p>
                   </div>
                   <div className="perk-item">
                     <CheckIconWhite />
-                    <p>5 day jobs per month*</p>
+                    <p>Easily choose your candidate</p>
                   </div>
                   <div className="perk-item">
                     <CheckIconWhite />
-                    <p>View applicant's profiles and previou references</p>
+                    <p>View applicant's profiles and previous references</p>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div
+          {/* <div
             className={`price-card  ${active === 1 ? "active" : null}`}
             onClick={() => setActive(1)}
           >
@@ -93,16 +96,16 @@ function Pricing(props) {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
           <div
             className={`price-card bottom ${active === 2 ? "active" : null}`}
             onClick={() => setActive(2)}
           >
             <div className="price-header">
               <h3 className="price">
-                <span>$</span>599<span>/month</span>
+                <span>$</span>200
               </h3>
-              <h3>Premium</h3>
+              <h3>Full-time & Part-time</h3>
             </div>
             <div className="price-body">
               <div className="button-container">
@@ -111,25 +114,22 @@ function Pricing(props) {
                   color="transparent"
                   textColor="white"
                   label="get started"
+                  onClick={() => history.push("/auth/postjob")}
                 />
               </div>
               <div>
                 <div className="plan-perks">
                   <div className="perk-item">
                     <CheckIconWhite />
-                    <p>12 listings per month</p>
+                    <p>Stays active for 30 days</p>
                   </div>
                   <div className="perk-item">
                     <CheckIconWhite />
-                    <p>Unlimited day jobs</p>
+                    <p>Access full database of top-level talent</p>
                   </div>
                   <div className="perk-item">
                     <CheckIconWhite />
                     <p>View applicant's profiles and previous references</p>
-                  </div>
-                  <div className="perk-item">
-                    <CheckIconWhite />
-                    <p>Access entire database of user profiles</p>
                   </div>
                 </div>
               </div>

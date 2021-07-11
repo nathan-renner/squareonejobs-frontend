@@ -41,7 +41,6 @@ function Login() {
   const [loginFailed, setLoginFailed] = useState(false);
   const [token, setToken] = useState(false);
   const recaptchaRef = useRef();
-
   useEffect(() => {
     const getToken = async () => {
       const rtoken = await recaptchaRef.current.executeAsync();
@@ -67,6 +66,7 @@ function Login() {
         email: user.email,
         password: user.googleId,
       };
+      console.log(token, data);
       handleSubmit(data);
     }
   };

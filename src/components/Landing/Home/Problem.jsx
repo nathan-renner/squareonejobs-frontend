@@ -11,11 +11,16 @@ function Problem(props) {
   const isVisible = useOnScreen(ref);
 
   useEffect(() => {
-    isVisible &&
-      setTimeout(() => {
+    let timeout;
+    if (isVisible) {
+      timeout = setTimeout(() => {
         if (count === 4.5) setCount(1);
         else setCount(count + 0.5);
       }, 1000);
+    }
+    return () => {
+      clearTimeout(timeout);
+    };
   });
 
   const getPos = (num) => {

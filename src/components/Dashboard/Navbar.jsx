@@ -150,11 +150,9 @@ const Navbar = ({ data }) => {
       />
       <div className="navbar-container">
         <div className="navbar">
-          <div>
-            <NavLink to="/" className="logo">
-              <img src={Logo} alt="SquareOneJobs logo" />
-            </NavLink>
-          </div>
+          <NavLink to="/" className="logo">
+            <img src={Logo} alt="SquareOneJobs logo" />
+          </NavLink>
           <div className="routes-container">{renderRoutes()}</div>
           <div className="search">
             <TextInput
