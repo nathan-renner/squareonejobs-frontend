@@ -18,7 +18,6 @@ import {
 
 function JobListItem({
   job: listing,
-  showJobModal = () => true,
   saved = false,
   offers = false,
   refreshListings = () => true,
@@ -166,13 +165,9 @@ function JobListItem({
         name: "Mark Job as Complete",
         onClick: () => handleComplete(),
       });
-    options.push({
-      name: "View Listing",
-      onClick: () => showJobModal(listing._id),
-    });
     if (
       listing.status === "active" &&
-      dayjs(listing.details.startDateTime).diff(dayjs(), "days") > 1
+      dayjs(listing.details.startDateTime).diff(dayjs(), "days") > 3
     )
       options.push({
         name: "Withdraw Application",
@@ -211,6 +206,16 @@ function JobListItem({
         <div className="status">
           <Icon Icon={MdClear} size={25} color="danger" />
           <p className="text">{statusText}</p>
+        </div>
+      );
+    } else if (
+      listing.status === "active" &&
+      dayjs().isAfter(listing.details.startDateTime)
+    ) {
+      return (
+        <div className="status">
+          <Icon Icon={MdClear} size={25} color="danger" />
+          <p className="text">Inactive Job</p>
         </div>
       );
     } else {
@@ -275,8 +280,8 @@ function JobListItem({
             saved
               ? [
                   {
-                    name: "View Listing",
-                    onClick: () => showJobModal(listing._id),
+                    name: "Go to Listing Page",
+                    onClick: () => history.push(`/listing/${listing._id}`),
                   },
                 ]
               : getOptions()

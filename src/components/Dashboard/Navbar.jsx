@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { NavLink, useLocation, useHistory } from "react-router-dom";
 import {
   MdHome,
-  MdCreditCard,
+  //MdCreditCard,
   MdLocalShipping,
   MdPerson,
   MdSearch,

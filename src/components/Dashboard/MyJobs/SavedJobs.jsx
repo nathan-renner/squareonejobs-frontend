@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 
-import { ActivityIndicator, Button, Card, JobsList, Modal } from "../../common";
+import { ActivityIndicator, Button, Card, JobsList } from "../../common";
 
 import Header from "./Header";
 import useApi from "./../../../hooks/useApi";
-import Listing from "./../../../views/dashboard/Listing";
 
 import { getMyJobs } from "../../../api/listings";
 import { useResponseModal } from "./../../../hooks/useResponseModal";
@@ -14,7 +13,6 @@ function SavedJobs(props) {
   const history = useHistory();
   const getMyJobsApi = useApi(getMyJobs);
   const [saved, setSaved] = useState(false);
-  const [selectedJob, setSelectedJob] = useState(false);
   const { setModal } = useResponseModal();
 
   const fetchJobs = async () => {
@@ -48,12 +46,7 @@ function SavedJobs(props) {
               <div className="section-header">
                 <h2>Day Listings</h2>
               </div>
-              <JobsList
-                jobs={saved.day}
-                showJobModal={setSelectedJob}
-                saved
-                refreshListings={fetchJobs}
-              />
+              <JobsList jobs={saved.day} saved refreshListings={fetchJobs} />
             </Card>
           )}
           {saved.part.length > 0 && (
@@ -61,12 +54,7 @@ function SavedJobs(props) {
               <div className="section-header">
                 <h2>Part time Listings</h2>
               </div>
-              <JobsList
-                jobs={saved.part}
-                showJobModal={setSelectedJob}
-                saved
-                refreshListings={fetchJobs}
-              />
+              <JobsList jobs={saved.part} saved refreshListings={fetchJobs} />
             </Card>
           )}
           {saved.full.length > 0 && (
@@ -75,12 +63,7 @@ function SavedJobs(props) {
                 <h2>Full Time Listings</h2>
                 {/* <NavLink to="/my-jobs/day-jobs">See all</NavLink> */}
               </div>
-              <JobsList
-                jobs={saved.full}
-                showJobModal={setSelectedJob}
-                saved
-                refreshListings={fetchJobs}
-              />
+              <JobsList jobs={saved.full} saved refreshListings={fetchJobs} />
             </Card>
           )}
           {saved.day.length === 0 &&
@@ -101,18 +84,6 @@ function SavedJobs(props) {
             )}
         </>
       )}
-      <Modal
-        className="nopadding"
-        visible={selectedJob}
-        Content={Listing}
-        onCancel={() => setSelectedJob(false)}
-        componentProps={{
-          modal: true,
-          id: selectedJob,
-          onExit: () => setSelectedJob(false),
-          refreshListings: fetchJobs,
-        }}
-      />
       <ActivityIndicator visible={getMyJobsApi.loading} />
     </div>
   );

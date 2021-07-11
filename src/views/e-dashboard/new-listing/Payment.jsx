@@ -172,16 +172,15 @@ const PaymentForm = () => {
         },
       });
       if (response.ok) {
+        history.push("/my-listings");
         setModal({
           header: "Payment Successful",
           body: "Your listing is now live! Click into the options on the Listing view for other actions.",
           onButtonClick: () => {
             setModal(false);
-            history.push("/my-listings");
           },
           buttonText: "OK",
         });
-        history.push("/my-listings");
       } else
         setModal({
           type: "error",

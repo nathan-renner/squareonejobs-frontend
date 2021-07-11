@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 
-import { ActivityIndicator, Button, Card, JobsList, Modal } from "../../common";
+import { ActivityIndicator, Button, Card, JobsList } from "../../common";
 
 import Header from "./Header";
 import useApi from "./../../../hooks/useApi";
-import Listing from "../../../views/dashboard/Listing";
 
 import { getMyJobs } from "../../../api/listings";
 import { useResponseModal } from "./../../../hooks/useResponseModal";
@@ -14,7 +13,6 @@ function MyPartTime(props) {
   const history = useHistory();
   const getMyJobsApi = useApi(getMyJobs);
   const [partTime, setPartTime] = useState(false);
-  const [selectedJob, setSelectedJob] = useState(false);
   const { setModal } = useResponseModal();
 
   const fetchJobs = async () => {
@@ -48,7 +46,7 @@ function MyPartTime(props) {
               <div className="section-header">
                 <h2>Upcoming</h2>
               </div>
-              <JobsList jobs={partTime.offers} showJobModal={setSelectedJob} />
+              <JobsList jobs={partTime.offers} />
             </Card>
           )}
           {partTime.applied.length > 0 && (
@@ -56,7 +54,7 @@ function MyPartTime(props) {
               <div className="section-header">
                 <h2>Pending</h2>
               </div>
-              <JobsList jobs={partTime.applied} showJobModal={setSelectedJob} />
+              <JobsList jobs={partTime.applied} />
             </Card>
           )}
           {partTime.offers.length === 0 && partTime.applied.length === 0 && (
@@ -75,18 +73,6 @@ function MyPartTime(props) {
           )}
         </>
       )}
-      <Modal
-        className="nopadding"
-        visible={selectedJob}
-        Content={Listing}
-        onCancel={() => setSelectedJob(false)}
-        componentProps={{
-          modal: true,
-          id: selectedJob,
-          onExit: () => setSelectedJob(false),
-          refreshListings: fetchJobs,
-        }}
-      />
       <ActivityIndicator visible={getMyJobsApi.loading} />
     </div>
   );

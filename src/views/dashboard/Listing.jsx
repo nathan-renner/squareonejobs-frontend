@@ -282,6 +282,16 @@ function Listing({
           <p className="text">{statusText}</p>
         </div>
       );
+    } else if (
+      listing.status === "active" &&
+      dayjs().isAfter(listing.details.startDateTime)
+    ) {
+      return (
+        <div className="status">
+          <Icon Icon={MdClear} size={25} color="danger" />
+          <p className="text">Inactive Job</p>
+        </div>
+      );
     } else {
       return (
         <div className="status">

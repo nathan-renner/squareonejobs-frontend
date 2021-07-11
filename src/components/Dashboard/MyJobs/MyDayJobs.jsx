@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 
-import { ActivityIndicator, Button, Card, JobsList, Modal } from "../../common";
+import { ActivityIndicator, Button, Card, JobsList } from "../../common";
 
 import Header from "./Header";
 import useApi from "./../../../hooks/useApi";
-import Listing from "../../../views/dashboard/Listing";
 
 import { getMyJobs } from "../../../api/listings";
 import { useResponseModal } from "./../../../hooks/useResponseModal";
@@ -14,7 +13,6 @@ function MyDayJobs(props) {
   const history = useHistory();
   const getMyJobsApi = useApi(getMyJobs);
   const [dayJobs, setDayJobs] = useState(false);
-  const [selectedJob, setSelectedJob] = useState(false);
   const { setModal } = useResponseModal();
 
   const fetchJobs = async () => {
@@ -48,11 +46,7 @@ function MyDayJobs(props) {
               <div className="section-header">
                 <h2>Upcoming</h2>
               </div>
-              <JobsList
-                type="upcoming"
-                jobs={dayJobs.upcoming}
-                showJobModal={setSelectedJob}
-              />
+              <JobsList type="upcoming" jobs={dayJobs.upcoming} />
             </Card>
           )}
           {dayJobs.pending.length > 0 && (
@@ -60,11 +54,7 @@ function MyDayJobs(props) {
               <div className="section-header">
                 <h2>Pending</h2>
               </div>
-              <JobsList
-                type="pending"
-                jobs={dayJobs.pending}
-                showJobModal={setSelectedJob}
-              />
+              <JobsList type="pending" jobs={dayJobs.pending} />
             </Card>
           )}
           {dayJobs.previous.length > 0 && (
@@ -73,11 +63,7 @@ function MyDayJobs(props) {
                 <h2>Previous</h2>
                 {/* <NavLink to="/my-jobs/day-jobs">See all</NavLink> */}
               </div>
-              <JobsList
-                type="previous"
-                jobs={dayJobs.previous}
-                showJobModal={setSelectedJob}
-              />
+              <JobsList type="previous" jobs={dayJobs.previous} />
             </Card>
           )}
           {dayJobs.upcoming.length === 0 &&
@@ -98,19 +84,6 @@ function MyDayJobs(props) {
             )}
         </>
       )}
-      <Modal
-        className="nopadding"
-        visible={selectedJob}
-        Content={Listing}
-        onCancel={() => setSelectedJob(false)}
-        listing
-        componentProps={{
-          modal: true,
-          id: selectedJob,
-          onExit: () => setSelectedJob(false),
-          refreshListings: fetchJobs,
-        }}
-      />
       <ActivityIndicator visible={getMyJobsApi.loading} />
     </div>
   );

@@ -142,7 +142,8 @@ function ListingPage(props) {
 
     if (
       listing.status === "pending-completion" ||
-      (dayjs().isAfter(details.endDateTime) && listing.status === "in-progress")
+      (listing.status === "in-progress" &&
+        dayjs().isAfter(listing.details.endDateTime))
     )
       options.push({
         name: "Mark Job as Complete",
@@ -150,7 +151,7 @@ function ListingPage(props) {
       });
     if (
       listing.status === "active" &&
-      dayjs(details.startDateTime).diff(dayjs(), "hours") > 24
+      dayjs(details.startDateTime).diff(dayjs(), "hours") > 3
     )
       options.push({
         name: "Edit Listing",
@@ -193,7 +194,9 @@ function ListingPage(props) {
       listing.status.slice(1).replaceAll("-", " ");
     if (
       listing.status === "pending-completion" ||
-      listing.status === "pending-cancellation"
+      listing.status === "pending-cancellation" ||
+      (listing.status === "active" &&
+        dayjs().isAfter(listing.details.startDateTime))
     ) {
       return (
         <div className="status">
@@ -252,7 +255,9 @@ function ListingPage(props) {
                         onClick={handleComplete}
                         color="yellow"
                       />
-                    ) : listing.status === "pending-cancellation" ? (
+                    ) : listing.status === "pending-cancellation" ||
+                      (listing.status === "active" &&
+                        dayjs().isAfter(listing.details.startDateTime)) ? (
                       <Button
                         label="Cancel Job"
                         onClick={handleCancel}

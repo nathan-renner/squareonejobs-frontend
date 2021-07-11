@@ -70,8 +70,7 @@ function ListingsList({
     const response = await completeListingApi.request(_id);
     if (response.ok) {
       setShowRef(_id);
-      fetchJobs();
-      //setModal({ type: "success", header: "Job completed!" });
+      setModal({ type: "success", header: "Job completed!" });
     } else
       setModal({
         type: "error",
@@ -83,7 +82,10 @@ function ListingsList({
   const getOptions = (status, startDateTime, _id, position, endDateTime) => {
     const options = [];
 
-    if (status === "pending-completion" || dayjs().isAfter(endDateTime))
+    if (
+      status === "pending-completion" ||
+      (status === "in-progress" && dayjs().isAfter(endDateTime))
+    )
       options.push({
         name: "Mark Job as Complete",
         onClick: () => handleComplete(_id),
@@ -94,7 +96,7 @@ function ListingsList({
         onClick: () => history.push(`/listing/${_id}`),
       });
     }
-    if (status === "active" && dayjs(startDateTime).diff(dayjs(), "hours") > 24)
+    if (status === "active" && dayjs(startDateTime).diff(dayjs(), "hours") > 3)
       options.push({
         name: "Edit Listing",
         onClick: () => history.push(`/edit-listing/${_id}`),
@@ -127,10 +129,14 @@ function ListingsList({
     return options;
   };
 
-  const renderStatus = (status) => {
+  const renderStatus = (status, startDateTime) => {
     const statusText =
       status.charAt(0).toUpperCase() + status.slice(1).replaceAll("-", " ");
-    if (status === "pending-completion" || status === "pending-cancellation") {
+    if (
+      status === "pending-completion" ||
+      status === "pending-cancellation" ||
+      (status === "active" && dayjs().isAfter(startDateTime))
+    ) {
       return (
         <div className="status">
           <Icon Icon={MdErrorOutline} size={25} color="yellow" />
@@ -160,7 +166,7 @@ function ListingsList({
         <div className="listing-item" key={listing._id}>
           <div className="left">
             {drafts && <p className="text">{listing.type.toUpperCase()}</p>}
-            {renderStatus(listing.status)}
+            {renderStatus(listing.status, listing.details.startDateTime)}
             <NavLink to={`/listing/${listing._id}`} className="header-link">
               {listing.details.position}
             </NavLink>
@@ -178,13 +184,16 @@ function ListingsList({
               {`${`${listing.details.location.street}, ${listing.details.location.city}, ${listing.details.location.state} ${listing.details.location.zip}`}`}
             </p>
             {listing.status === "pending-completion" ||
-            dayjs().isAfter(listing.details.endDateTime) ? (
+            (dayjs().isAfter(listing.details.endDateTime) &&
+              listing.status === "in-progress") ? (
               <Button
                 label="Mark as Complete"
                 onClick={() => handleComplete(listing._id)}
                 color="yellow"
               />
-            ) : listing.status === "pending-cancellation" ? (
+            ) : listing.status === "pending-cancellation" ||
+              (listing.status === "active" &&
+                dayjs().isAfter(listing.details.startDateTime)) ? (
               <Button
                 label="Cancel Job"
                 onClick={() =>

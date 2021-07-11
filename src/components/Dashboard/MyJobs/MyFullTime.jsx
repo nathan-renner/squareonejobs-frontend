@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 
-import { ActivityIndicator, Button, Card, JobsList, Modal } from "../../common";
+import { ActivityIndicator, Button, Card, JobsList } from "../../common";
 
 import Header from "./Header";
 import useApi from "./../../../hooks/useApi";
-import Listing from "../../../views/dashboard/Listing";
 
 import { getMyJobs } from "../../../api/listings";
 import { useResponseModal } from "./../../../hooks/useResponseModal";
@@ -14,7 +13,6 @@ function MyFullTime(props) {
   const history = useHistory();
   const getMyJobsApi = useApi(getMyJobs);
   const [fullTime, setFullTime] = useState(false);
-  const [selectedJob, setSelectedJob] = useState(false);
   const { setModal } = useResponseModal();
 
   const fetchJobs = async () => {
@@ -48,11 +46,7 @@ function MyFullTime(props) {
               <div className="section-header">
                 <h2>Offers</h2>
               </div>
-              <JobsList
-                jobs={fullTime.offers}
-                showJobModal={setSelectedJob}
-                offers
-              />
+              <JobsList jobs={fullTime.offers} offers />
             </Card>
           )}
           {fullTime.applied.length > 0 && (
@@ -60,18 +54,9 @@ function MyFullTime(props) {
               <div className="section-header">
                 <h2>Applied</h2>
               </div>
-              <JobsList jobs={fullTime.applied} showJobModal={setSelectedJob} />
+              <JobsList jobs={fullTime.applied} />
             </Card>
           )}
-          {/* {fullTime.watchlist.length > 0 && (
-            <Card data-aos="fade-up" data-aos-once={true} data-aos-delay="500">
-              <div className="section-header">
-                <h2>Previous</h2>
-                <NavLink to="/my-jobs/day-jobs">See all</NavLink>
-              </div>
-              <JobsList jobs={fullTime.watchlist} />
-            </Card>
-          )} */}
           {fullTime.offers.length === 0 && fullTime.applied.length === 0 && (
             <Card
               data-aos="fade-up"
@@ -88,18 +73,6 @@ function MyFullTime(props) {
           )}
         </>
       )}
-      <Modal
-        className="nopadding"
-        visible={selectedJob}
-        Content={Listing}
-        onCancel={() => setSelectedJob(false)}
-        componentProps={{
-          modal: true,
-          id: selectedJob,
-          onExit: () => setSelectedJob(false),
-          refreshListings: fetchJobs,
-        }}
-      />
       <ActivityIndicator visible={getMyJobsApi.loading} />
     </div>
   );

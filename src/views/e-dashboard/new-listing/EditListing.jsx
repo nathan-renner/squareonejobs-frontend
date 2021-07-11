@@ -155,8 +155,8 @@ function EditListing(props) {
       .typeError("Must be a valid date")
       .label("Start Time")
       .min(
-        dayjs().add(1, "days"),
-        "Job start time must be at least 24 hours from now."
+        dayjs().add(3, "hours"),
+        "Job start time must be at least 3 hours from now."
       ),
     endDateTime:
       type === "day"
@@ -269,7 +269,7 @@ function EditListing(props) {
                         name="startDateTime"
                         label={`Start Date${type === "day" ? "/Time" : ""}`}
                         time={type === "day"}
-                        minDate={dayjs().add(1, "days")}
+                        minDate={dayjs().add(3, "hours")}
                       />
                       {type === "day" && (
                         <FormDate
