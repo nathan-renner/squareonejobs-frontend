@@ -7,6 +7,7 @@ import About from "./../views/landing/About";
 import Pricing from "./../views/landing/Pricing";
 
 import { ResponseModal } from "../components/common";
+import EULA from "./../views/landing/EULA";
 
 const Landing = () => {
   return (
@@ -14,6 +15,7 @@ const Landing = () => {
       <Switch>
         <Route path="/about" component={About} />
         <Route path="/resources" component={Resources} />
+        <Route path="/eula" component={EULA} />
         <Route path="/pricing" component={Pricing} />
         <Route path="/employers" component={Employers} />
         <Route exact path="/" component={Home} />

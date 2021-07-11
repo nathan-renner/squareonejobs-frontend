@@ -434,17 +434,22 @@
 
   .footer {
     position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 100px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
+    bottom: 30px;
+    left: 30px;
+    right: 30px;
 
     .footer-content {
-      padding-right: 30px;
-      padding-left: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      > * {
+        flex: 1;
+      }
+    }
+
+    .google-text {
+      text-align: center;
     }
 
     .copyright {
@@ -452,6 +457,7 @@
         color: t("text");
       }
       text-decoration: none;
+      text-align: right;
     }
   }
 

@@ -14,15 +14,36 @@ function Footer(props) {
       <div className="container">
         <div className="footer-container">
           <div className="left">
-            <NavLink to="/about">About us</NavLink>
-            <a
-              href="https://medium.com/squareonejobs"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Blog
-            </a>
-            <NavLink to="/">Employers</NavLink>
+            <div>
+              <h5>TITLE</h5>
+              <NavLink to="/about">About us</NavLink>
+              <a
+                href="https://medium.com/squareonejobs"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Blog
+              </a>
+              <NavLink to="/">Employers</NavLink>
+            </div>
+            <div>
+              <h5>LEGAL</h5>
+              <a
+                href="https://squareonejobs-landing.s3.us-east-2.amazonaws.com/legal/SquareOneJobs+Privacy+Policy.pdf"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Privacy Policy
+              </a>
+              <a
+                href="https://squareonejobs-landing.s3.us-east-2.amazonaws.com/legal/SquareOneJobs+Terms+and+Conditions.pdf"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Terms and Conditions
+              </a>
+              <NavLink to="/eula">EULA</NavLink>
+            </div>
           </div>
           <div className="right">
             <NavLink to="/" className="img-container">

@@ -6,7 +6,7 @@ import Hamburger from "../../assets/animations/hamburger.json";
 
 import { Button } from "../common";
 
-function Navbar({ className, dark = false, fixed = false }) {
+function Navbar({ className, dark = false, fixed = false, noShadow = false }) {
   const { pathname } = useLocation();
   const [drawerOpened, setDrawerOpened] = useState(false);
   const [logoWhite, setLogoWhite] = useState(dark ? true : false);
@@ -19,10 +19,12 @@ function Navbar({ className, dark = false, fixed = false }) {
 
   const handleScroll = () => {
     if (!fixed && window.scrollY <= 300) {
-      document.querySelector(".navbar").className = "navbar";
+      document.querySelector(".navbar").className = `navbar`;
       dark && setLogoWhite(true);
     } else {
-      document.querySelector(".navbar").className = "navbar navbar-light";
+      document.querySelector(".navbar").className = `navbar navbar-light ${
+        noShadow ? "no-shadow" : null
+      }`;
       dark && setLogoWhite(false);
     }
   };
@@ -38,7 +40,11 @@ function Navbar({ className, dark = false, fixed = false }) {
   };
 
   return (
-    <div className={`navbar ${className ? className : null}`}>
+    <div
+      className={`navbar ${className ? className : null} ${
+        noShadow ? "no-shadow" : null
+      }`}
+    >
       <div className="navbar-container">
         <NavLink to="/" className="nav-logo-link">
           <img

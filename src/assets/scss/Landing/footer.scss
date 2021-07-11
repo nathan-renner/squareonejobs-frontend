@@ -5,6 +5,11 @@
   a {
     text-decoration: none;
     color: $white;
+
+    &:hover,
+    &:focus {
+      filter: brightness(90%);
+    }
   }
 
   .footer-container {
@@ -14,17 +19,27 @@
 
     .left {
       order: 1;
+      flex-direction: column;
       text-align: center;
-      margin-bottom: 20px;
+
+      > * {
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: column;
+
+        h5 {
+          margin-bottom: 0.8em;
+        }
+      }
     }
 
     .left,
     .right {
       display: flex;
-      flex-direction: column;
     }
 
     .right {
+      flex-direction: column;
       justify-content: space-between;
 
       img {
@@ -50,12 +65,14 @@
       }
     }
 
-    @media (min-width: 37.5em) {
+    @media (min-width: 40em) {
       flex-direction: row;
 
       .left {
         order: 0;
         text-align: left;
+        flex-direction: row;
+        gap: 5em;
       }
       .right {
         img,
@@ -72,7 +89,7 @@
     font-size: 0.8em;
     margin-bottom: 0;
 
-    @media (min-width: 37.5em) {
+    @media (min-width: 40em) {
       text-align: right;
     }
   }

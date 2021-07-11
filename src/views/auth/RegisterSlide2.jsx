@@ -49,23 +49,22 @@ function RegisterSlide2({ slideWidth, error, onBack }) {
           rightIconOnClick={() => setPassVisible(!passVisible)}
         />
         <div className="google-text">
-          This site is protected by reCAPTCHA and the Google{" "}
+          By creating an account you agree to the SquareOneJobs{" "}
           <a
-            href="https://policies.google.com/privacy"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Privacy Policy
-          </a>{" "}
-          and{" "}
-          <a
-            href="https://policies.google.com/terms"
+            href="https://squareonejobs-landing.s3.us-east-2.amazonaws.com/legal/SquareOneJobs+Terms+and+Conditions.pdf"
             target="_blank"
             rel="noreferrer"
           >
             Terms of Service
           </a>{" "}
-          apply.
+          and{" "}
+          <a
+            href="https://squareonejobs-landing.s3.us-east-2.amazonaws.com/legal/SquareOneJobs+Privacy+Policy.pdf"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Privacy Policy
+          </a>
         </div>
         <ErrorMessage error={error} visible={error} />
         <SubmitButton label="Next" />
