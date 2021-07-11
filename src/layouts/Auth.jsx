@@ -8,6 +8,7 @@ import Footer from "../components/Auth/Footer";
 import Confirmation from "../views/auth/Confirmation";
 import PostJob from "./../views/auth/PostJob";
 import PostJob2 from "./../views/auth/PostJob2";
+import PostJob3 from "./../views/auth/PostJob3";
 import ForgotPassword from "../views/auth/ForgotPassword";
 import ResetPassword from "../views/auth/ResetPassword";
 import ResponseModal from "./../components/common/ResponseModal";
@@ -19,7 +20,7 @@ function Auth(props) {
       <div className="content-container">
         <Switch>
           <Route
-            path="/auth/confirmation/:userId/:code"
+            path="/auth/confirmation/:userId/:code/:isEmployer"
             component={Confirmation}
           />
           <Route
@@ -27,6 +28,7 @@ function Auth(props) {
             component={ResetPassword}
           />
           <Route path="/auth/forgot-password" component={ForgotPassword} />
+          <Route path="/auth/postjob-3" component={PostJob3} />
           <Route path="/auth/postjob-2" component={PostJob2} />
           <Route path="/auth/postjob" component={PostJob} />
           <Route path="/auth/register" component={Register} />

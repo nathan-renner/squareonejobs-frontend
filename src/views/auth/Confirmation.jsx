@@ -7,16 +7,23 @@ import Failed from "../../assets/animations/failed.json";
 
 import { ActivityIndicator, Button, Card } from "../../components/common";
 
-import { confirmEmail, resendLink } from "../../api/auth";
+import {
+  confirmEmail,
+  resendLink,
+  confirmEmailEmployer,
+  resendLinkEmployer,
+} from "../../api/auth";
 import useApi from "../../hooks/useApi";
 
 function Confirmation() {
   const [confirmed, setConfirmed] = useState(false);
   const [linkSent, setLinkSent] = useState(false);
   const [error, setError] = useState(false);
-  const confirmationApi = useApi(confirmEmail);
-  const resendLinkApi = useApi(resendLink);
-  const { userId, code } = useParams();
+  const { userId, code, isEmployer } = useParams();
+  const confirmationApi = useApi(
+    isEmployer ? confirmEmailEmployer : confirmEmail
+  );
+  const resendLinkApi = useApi(isEmployer ? resendLinkEmployer : resendLink);
 
   useEffect(() => {
     const sendEmail = async () => {
@@ -24,7 +31,8 @@ function Confirmation() {
       if (!result.ok) return setError(result.data);
       else setConfirmed(true);
     };
-    if (!confirmed) sendEmail();
+    if (!confirmed && !confirmationApi.loading && !confirmationApi.error)
+      sendEmail();
   });
 
   const handleResendLink = async () => {

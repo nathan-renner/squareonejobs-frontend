@@ -17,8 +17,8 @@ import { Button, Card, UploadScreen } from "../../components/common";
 import { FormField, SubmitButton } from "../../components/forms";
 
 import useApi from "../../hooks/useApi";
-import useAuth from "./../../auth/useAuth";
 import { registerEmployer } from "../../api/employers";
+import { useResponseModal } from "./../../hooks/useResponseModal";
 
 const schema = Yup.object().shape({
   name: Yup.string()
@@ -39,7 +39,7 @@ const schema = Yup.object().shape({
 function PostJob2(props) {
   const history = useHistory();
   const { state: data } = useLocation();
-  const { login } = useAuth();
+  const { setModal } = useResponseModal();
   const [passVisible, setPassVisible] = useState(false);
   const [uploadVisible, setUploadVisible] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -85,9 +85,14 @@ function PostJob2(props) {
         setProgress(progress)
       );
       if (response.ok) {
-        login(response.headers["x-auth-token"]);
-        history.push("/");
-      }
+        //login(response.headers["x-auth-token"]);
+        history.push("/auth/postjob-3", { email: finalData.email });
+      } else
+        setModal({
+          type: "error",
+          header: "Something went wrong.",
+          body: response.data,
+        });
     }
   };
   return (
