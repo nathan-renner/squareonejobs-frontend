@@ -21,9 +21,11 @@ function Confirmation() {
   const [error, setError] = useState(false);
   const { userId, code, isEmployer } = useParams();
   const confirmationApi = useApi(
-    isEmployer ? confirmEmailEmployer : confirmEmail
+    isEmployer === "true" ? confirmEmailEmployer : confirmEmail
   );
-  const resendLinkApi = useApi(isEmployer ? resendLinkEmployer : resendLink);
+  const resendLinkApi = useApi(
+    isEmployer === "true" ? resendLinkEmployer : resendLink
+  );
 
   useEffect(() => {
     const sendEmail = async () => {
