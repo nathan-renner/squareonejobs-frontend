@@ -197,6 +197,7 @@ const Navbar = ({ data }) => {
             src={data.avatar ? data.avatar : defaultAvatar}
             alt="Avatar"
             onClick={() => handleDropdown("profile")}
+            style={{ objectFit: "cover" }}
           />
         </div>
         <ProfileDropdown

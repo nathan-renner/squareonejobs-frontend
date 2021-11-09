@@ -5,6 +5,9 @@ const endpoint = "/auth";
 export const login = (email, password) =>
   client.post(endpoint, { email, password });
 
+export const loginWithGoogle = (token) =>
+  client.post(`${endpoint}/with-google`, { token });
+
 export const confirmEmail = (userId, code) =>
   client.get(`/verification/${userId}/${code}`);
 

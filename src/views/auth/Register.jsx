@@ -12,7 +12,7 @@ import RegisterSlide3 from "./RegisterSlide3";
 
 import useApi from "./../../hooks/useApi";
 import useAuth from "../../auth/useAuth";
-import { register } from "./../../api/users";
+import { register, registerWithGoogle } from "./../../api/users";
 import { resendLink } from "../../api/auth";
 
 const registerSchema = Yup.object().shape({
@@ -28,6 +28,7 @@ const registerSchema = Yup.object().shape({
 function Register(props) {
   const slideRef = useRef();
   const registerApi = useApi(register);
+  const registerWithGoogleApi = useApi(registerWithGoogle);
   const resendLinkApi = useApi(resendLink);
   const history = useHistory();
   const auth = useAuth();
@@ -62,19 +63,14 @@ function Register(props) {
     }
   };
 
-  const responseGoogle = (response) => {
-    if (!response.error) {
-      const { profileObj: user } = response;
-      const data = {
-        email: user.email,
-        firstName: user.givenName,
-        lastName: user.familyName,
-        password: user.googleId,
-        avatar: user.imageUrl,
-        withGoogle: true,
-      };
-
-      requestRegister(data, true);
+  const handleRegisterWithGoogle = async (response) => {
+    const token = await recaptchaRef.current.executeAsync();
+    if (token && !response.error) {
+      const result = await registerWithGoogleApi.request(response.tokenId);
+      if (!result.ok) return setError(true);
+      setError(false);
+      auth.login(result.data);
+      history.push("/");
     }
   };
 
@@ -92,7 +88,7 @@ function Register(props) {
     onNext();
   };
 
-  const requestRegister = async (data, withGoogle = false) => {
+  const requestRegister = async (data) => {
     const token = await recaptchaRef.current.executeAsync();
     if (token) {
       const result = await registerApi.request(data);
@@ -102,13 +98,7 @@ function Register(props) {
           setError("An unexpected error occurred.");
         }
         return;
-      } else {
-        setError(false);
-        if (withGoogle) {
-          auth.login(result.data);
-          history.push("/");
-        }
-      }
+      } else setError(false);
     }
   };
 
@@ -129,7 +119,7 @@ function Register(props) {
             <RegisterSlide1
               {...{ slideWidth, onNext }}
               onBack={() => history.goBack()}
-              responseGoogle={responseGoogle}
+              responseGoogle={handleRegisterWithGoogle}
               error={error}
             />
             <RegisterSlide2 {...{ slideWidth, onBack, error }} />

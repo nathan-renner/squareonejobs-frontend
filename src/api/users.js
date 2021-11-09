@@ -6,6 +6,9 @@ const referencesEP = "/references";
 
 export const register = (userInfo) => client.post(userEP, userInfo);
 
+export const registerWithGoogle = (token) =>
+  client.post(`${userEP}/with-google`, { token });
+
 export const getUser = (id) => client.get(`${userEP}/${id}`);
 
 export const getPortfolio = (id) => client.get(`${portfolioEP}/${id}`);

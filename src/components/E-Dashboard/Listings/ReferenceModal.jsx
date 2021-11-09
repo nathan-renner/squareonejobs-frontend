@@ -34,14 +34,14 @@ function ReferenceModal({
     } else {
       const ref = { listingId: id, rating, ...data };
       const response = postRefApi.request(ref);
-      if (response.ok) {
-        setVisible(false);
-      } else
-        setModal({
-          type: "error",
-          header: "Something went wrong",
-          body: response.data,
-        });
+      setVisible(false);
+      // if (response.ok) {
+      // } else
+      //   setModal({
+      //     type: "error",
+      //     header: "Something went wrong",
+      //     body: response.data,
+      //   });
     }
   };
 

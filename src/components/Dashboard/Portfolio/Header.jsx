@@ -143,6 +143,7 @@ function Header({
               : defaultAvatar
           }
           alt="Avatar"
+          style={{ objectFit: "cover" }}
         />
         {isEditing && (
           <Icon

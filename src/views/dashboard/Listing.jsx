@@ -448,6 +448,12 @@ function Listing({
                 </div>
               )}
               <>
+                {details.description && (
+                  <>
+                    <h3>Description</h3>
+                    <p className="chunk">{details.description}</p>
+                  </>
+                )}
                 {details.qualifications && (
                   <>
                     <h3>Qualification</h3>
@@ -457,17 +463,8 @@ function Listing({
                       </p>
                     )}
                     {details.qualifications.other && (
-                      <p className="chunk">
-                        <b>Other qualifications:</b>{" "}
-                        {details.qualifications.other}
-                      </p>
+                      <p className="chunk">{details.qualifications.other}</p>
                     )}
-                  </>
-                )}
-                {details.description && (
-                  <>
-                    <h3>Description</h3>
-                    <p className="chunk">{details.description}</p>
                   </>
                 )}
                 {details.benefits && (

@@ -87,6 +87,12 @@ function ReviewListing(props) {
               </div>
             )}
             <>
+              {listing.details.description && (
+                <>
+                  <h3>Description</h3>
+                  <p className="chunk">{listing.details.description}</p>
+                </>
+              )}
               {(listing.details.qualifications.driversLicense ||
                 listing.details.qualifications.other) && (
                 <>
@@ -96,16 +102,9 @@ function ReviewListing(props) {
                   )}
                   {listing.details.qualifications.other && (
                     <p className="chunk">
-                      <b>Other qualifications:</b>{" "}
                       {listing.details.qualifications.other}
                     </p>
                   )}
-                </>
-              )}
-              {listing.details.description && (
-                <>
-                  <h3>Description</h3>
-                  <p className="chunk">{listing.details.description}</p>
                 </>
               )}
               {listing.details.benefits && (

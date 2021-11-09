@@ -25,7 +25,7 @@ import {
 
 import useApi from "../../hooks/useApi.jsx";
 import useAuth from "../../auth/useAuth";
-import { login } from "../../api/auth";
+import { login, loginWithGoogle } from "../../api/auth";
 import { useEffect } from "react";
 
 const validationSchema = Yup.object().shape({
@@ -37,10 +37,12 @@ function Login() {
   const history = useHistory();
   const auth = useAuth();
   const loginApi = useApi(login);
+  const loginWithGoogleApi = useApi(loginWithGoogle);
   const [passVisible, setPassVisible] = useState(false);
   const [loginFailed, setLoginFailed] = useState(false);
   const [token, setToken] = useState(false);
   const recaptchaRef = useRef();
+
   useEffect(() => {
     const getToken = async () => {
       const rtoken = await recaptchaRef.current.executeAsync();
@@ -49,7 +51,7 @@ function Login() {
     getToken();
   }, []);
 
-  const handleSubmit = async ({ email, password }) => {
+  const handleSignIn = async ({ email, password }) => {
     if (token) {
       const result = await loginApi.request(email, password);
       if (!result.ok) return setLoginFailed(true);
@@ -59,14 +61,13 @@ function Login() {
     }
   };
 
-  const responseGoogle = (response) => {
-    if (!response.error) {
-      const { profileObj: user } = response;
-      const data = {
-        email: user.email,
-        password: user.googleId,
-      };
-      handleSubmit(data);
+  const handleSignInWithGoogle = async (response) => {
+    if (token && !response.error) {
+      const result = await loginWithGoogleApi.request(response.tokenId);
+      if (!result.ok) return setLoginFailed(true);
+      setLoginFailed(false);
+      auth.login(result.data);
+      history.push("/");
     }
   };
 
@@ -86,15 +87,15 @@ function Login() {
         </div>
         <Formik
           initialValues={{ email: "", password: "" }}
-          onSubmit={handleSubmit}
+          onSubmit={handleSignIn}
           validationSchema={validationSchema}
         >
-          {({ handleSubmit, values }) => (
+          {({ handleSignIn, values }) => (
             <div
               className="content"
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
-                  handleSubmit();
+                  handleSignIn();
                 }
               }}
             >
@@ -147,7 +148,7 @@ function Login() {
         </Formik>
         <div className="divider" />
         <div className="other-logins">
-          <GoogleButton response={responseGoogle} />
+          <GoogleButton response={handleSignInWithGoogle} />
         </div>
         <NavLink to="/auth/register" className="help-text">
           Don't have an account?
