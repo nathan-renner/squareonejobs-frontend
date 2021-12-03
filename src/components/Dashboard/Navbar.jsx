@@ -203,6 +203,7 @@ const Navbar = ({ data }) => {
         <ProfileDropdown
           visible={dropdown === "profile"}
           avatar={data.avatar}
+          name={`${data.firstName} ${data.lastName}`}
           setDropdown={setDropdown}
         />
         <StreakDropdown visible={dropdown === "streak"} streak={data.streak} />

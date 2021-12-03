@@ -11,7 +11,7 @@ export const registerWithGoogle = (token) =>
 
 export const getUser = (id) => client.get(`${userEP}/${id}`);
 
-export const getPortfolio = (id) => client.get(`${portfolioEP}/${id}`);
+export const getPortfolio = (id) => client.get(portfolioEP);
 
 export const getNavbarData = () => client.get(`${userEP}/navbar-data`);
 
@@ -45,7 +45,6 @@ export const deleteDocument = (id) =>
 
 export const updatePortfolioElement = (profileId, element, value) =>
   client.put(`${portfolioEP}/${element}`, {
-    profileId,
     [element]: value,
   });
 
