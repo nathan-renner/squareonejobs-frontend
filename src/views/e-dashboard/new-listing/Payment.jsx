@@ -16,18 +16,31 @@ import { postListing } from "./../../../api/listings";
 import { useResponseModal } from "./../../../hooks/useResponseModal";
 import useApi from "./../../../hooks/useApi";
 
-import { ActivityIndicator, Button, Card } from "../../../components/common";
+import {
+  ActivityIndicator,
+  Button,
+  Card,
+  TextInput,
+} from "../../../components/common";
 import { FormField, FormDropdown } from "./../../../components/forms";
 import states from "../../../data/states";
 import { getCompany } from "./../../../api/companies";
 import SubmitButton from "./../../../components/forms/SubmitButton";
 import useAuth from "./../../../auth/useAuth";
-import { createPaymentIntent } from "./../../../api/payments";
+import {
+  createPaymentIntent,
+  createSubscription,
+  getPromo,
+  updatePaymentIntent,
+} from "./../../../api/payments";
 
 const formStyle = {
   base: {
     iconColor: "#808080",
     fontFamily: "Montserrat, sans-serif",
+    "::placeholder": {
+      color: "#808080",
+    },
   },
 };
 const schema = Yup.object().shape({
@@ -60,22 +73,40 @@ const schema = Yup.object().shape({
 
 const PaymentForm = () => {
   const postListingApi = useApi(postListing);
+  const getPromoApi = useApi(getPromo);
   const getCompanyApi = useApi(getCompany);
   const createPaymentIntentApi = useApi(createPaymentIntent);
+  const createSubscriptionApi = useApi(createSubscription);
+  const updatePaymentIntentApi = useApi(updatePaymentIntent);
+
   const { user } = useAuth();
   const { setModal } = useResponseModal();
   const history = useHistory();
   const { state: listing } = useLocation();
+  const stripe = useStripe();
+  const elements = useElements({
+    fonts: [
+      {
+        cssSrc:
+          "https://fonts.googleapis.com/css2?family=Montserrat&display=swap",
+      },
+    ],
+  });
+
   const [company, setCompany] = useState(false);
-  const [totals, setTotals] = useState(false);
-  const [clientSecret, setClientSecret] = useState("");
   const [succeeded, setSucceeded] = useState(false);
   const [processing, setProcessing] = useState(false);
   const [disabled, setDisabled] = useState(true);
   const [error, setError] = useState(false);
+  const [showPromo, setShowPromo] = useState(false);
+  const [promo, setPromo] = useState({
+    code: null,
+    error: false,
+    discount: false,
+  });
+  const [promoInput, setPromoInput] = useState("");
+  const [paymentIntent, setPaymentIntent] = useState(false);
   const { details: l } = listing;
-  const stripe = useStripe();
-  const elements = useElements();
 
   useEffect(() => {
     const fetchCompany = async () => {
@@ -99,13 +130,12 @@ const PaymentForm = () => {
 
   useEffect(() => {
     const createIntent = async () => {
-      const response = await createPaymentIntentApi.request({
-        type: listing.type,
-        wage: listing.details.wage,
-      });
+      const intentData = {
+        priceId: listing.type.priceId,
+      };
+      const response = await createPaymentIntentApi.request(intentData);
       if (response.ok) {
-        setClientSecret(response.data.clientSecret);
-        setTotals(response.data.totals);
+        setPaymentIntent(response.data);
       } else
         setModal({
           type: "error",
@@ -113,9 +143,24 @@ const PaymentForm = () => {
           body: "Please refresh the page.",
         });
     };
-    if (!clientSecret && !createPaymentIntentApi.loading) createIntent();
+    if (listing.type.name === "Day Listing") createIntent();
     //eslint-disable-next-line
   }, []);
+
+  const checkPromo = async (code) => {
+    const response = await getPromoApi.request({
+      promo: code,
+    });
+
+    if (response.ok) {
+      setPromo(response.data);
+    } else
+      setModal({
+        type: "error",
+        header: "Something went wrong",
+        body: "Please refresh the page.",
+      });
+  };
 
   const handleChange = async (event) => {
     setDisabled(event.empty);
@@ -126,25 +171,35 @@ const PaymentForm = () => {
     if (!stripe || !elements) return;
     setProcessing(true);
 
-    const payload = await stripe.confirmCardPayment(clientSecret, {
-      receipt_email: user.email,
-      payment_method: {
-        type: "card",
-        card: elements.getElement(CardElement),
-        billing_details: {
-          name: i.name,
-          email: user.email,
-          address: {
-            line1: i.street,
-            line2: i.apt ? i.apt : undefined,
-            city: i.city,
-            state: i.state,
-            country: "US",
-            postal_code: i.zip,
-          },
+    const paymentMethod = await stripe.createPaymentMethod({
+      type: "card",
+      card: elements.getElement(CardElement),
+      billing_details: {
+        name: i.name,
+        email: user.email,
+        address: {
+          line1: i.street,
+          line2: i.apt ? i.apt : undefined,
+          city: i.city,
+          state: i.state,
+          country: "US",
+          postal_code: i.zip,
         },
       },
     });
+    let payload = null;
+    if (listing.type.name === "Day Listing") {
+      payload = await stripe.confirmCardPayment(paymentIntent.clientSecret, {
+        receipt_email: user.email,
+        payment_method: paymentMethod.paymentMethod.id,
+      });
+    } else {
+      payload = await createSubscriptionApi.request({
+        paymentMethodId: paymentMethod.paymentMethod.id,
+        priceId: listing.type.priceId,
+        promotion_code: promo.promoId ? promo.promoId : null,
+      });
+    }
 
     if (payload.error) {
       setModal({
@@ -163,13 +218,27 @@ const PaymentForm = () => {
 
   const handleSubmit = async (i) => {
     const payload = await payWithStripe(i);
+
     if (payload) {
       const response = await postListingApi.request({
         ...listing,
-        payment: {
-          id: payload.paymentIntent.id,
-          client_secret: payload.paymentIntent.client_secret,
-        },
+        type:
+          listing.type.name === "Day Listing"
+            ? "day"
+            : listing.type.name === "Part Time Listing"
+            ? "part"
+            : "full",
+        payment:
+          listing.type.name === "Day Listing"
+            ? {
+                id: paymentIntent.paymentIntendId,
+                client_secret: payload.paymentIntent.client_secret,
+                invoiceId: payload.paymentIntent.invoice,
+              }
+            : {
+                id: payload.subscriptionId,
+                invoiceId: payload.invoiceId,
+              },
       });
       if (response.ok) {
         history.push("/my-listings");
@@ -194,16 +263,23 @@ const PaymentForm = () => {
   return (
     <div className="post-listing payment">
       <ActivityIndicator
-        visible={postListingApi.loading || getCompanyApi.loading || processing}
+        visible={
+          postListingApi.loading ||
+          getCompanyApi.loading ||
+          createPaymentIntentApi.loading ||
+          processing
+        }
       />
-      {postListingApi.loading || getCompanyApi.loading ? (
+      {postListingApi.loading ||
+      getCompanyApi.loading ||
+      createPaymentIntentApi.loading ? (
         <div />
       ) : (
         <Formik
           enableReinitialize
           validationSchema={schema}
           initialValues={{
-            name: `${user.firstName} ${user.lastName}`,
+            name: `${company.firstName} ${company.lastName}`,
             companyName: company.name,
             street: "",
             apt: "",
@@ -211,6 +287,7 @@ const PaymentForm = () => {
             state: "",
             zip: "",
             cardName: "",
+            promo: "",
           }}
           onSubmit={handleSubmit}
         >
@@ -285,6 +362,36 @@ const PaymentForm = () => {
                   }}
                   onChange={handleChange}
                 />
+                {listing.type.name !== "Day Listing" && (
+                  <>
+                    <h2 className="title" style={{ marginBottom: "1em" }}>
+                      Promo Code
+                    </h2>
+                    <p
+                      className="promo"
+                      onClick={() => setShowPromo(!showPromo)}
+                    >
+                      {showPromo ? "-" : "+"} Promo Code
+                    </p>
+                    {showPromo && (
+                      <div className="promo-container">
+                        <TextInput
+                          value={promoInput}
+                          label="Enter Promo Code (optional)"
+                          controlled
+                          onChange={(e) => setPromoInput(e.target.value)}
+                          onBlur={(e) => checkPromo(e.target.value)}
+                          error={promo.error}
+                        />
+                        {promo.promo && !promo.error && (
+                          <p>
+                            Applied Promos: <i>{promo.promo}</i>
+                          </p>
+                        )}
+                      </div>
+                    )}
+                  </>
+                )}
                 {error && <p className="card-error">{error}</p>}
                 <h2 style={{ marginBottom: "2em" }}>Review Items</h2>
                 <div className="flex-row">
@@ -292,7 +399,7 @@ const PaymentForm = () => {
                   <div className="listing-details">
                     <p className="pos">{l.position}</p>
                     <p>{dayjs(l.startDateTime).format("MMM DD, YYYY")}</p>
-                    {listing.type === "day" && (
+                    {listing.type.name === "Day Listing" && (
                       <p>
                         {dayjs(l.startDateTime).format("h:mm a") +
                           " - " +
@@ -309,7 +416,7 @@ const PaymentForm = () => {
                     <NumberFormat
                       decimalScale={2}
                       fixedDecimalScale={true}
-                      value={totals.cost / 100}
+                      value={listing.type.price}
                       displayType={"text"}
                       prefix={"$"}
                       renderText={(value) => <p>{value}</p>}
@@ -321,7 +428,7 @@ const PaymentForm = () => {
                       <NumberFormat
                         decimalScale={2}
                         fixedDecimalScale={true}
-                        value={totals.wage / 100}
+                        value={paymentIntent.totals.wage / 100}
                         displayType={"text"}
                         prefix={"$"}
                         renderText={(value) => <p>{value}</p>}
@@ -332,34 +439,49 @@ const PaymentForm = () => {
                 <hr />
                 <div />
                 <div className="charges final">
+                  {promo.discount && (
+                    <div className="charge">
+                      <p>Promo Code</p>
+                      <p>{`${promo.discount}% off`}</p>
+                    </div>
+                  )}
                   <div className="charge">
                     <p>Subtotal</p>
                     <NumberFormat
                       decimalScale={2}
                       fixedDecimalScale={true}
-                      value={totals.subtotal / 100}
-                      displayType={"text"}
-                      prefix={"$"}
-                      renderText={(value) => <p>{value}</p>}
-                    />
-                  </div>
-                  <div className="charge">
-                    <p>Transaction Fee</p>
-                    <NumberFormat
-                      decimalScale={2}
-                      fixedDecimalScale={true}
-                      value={totals.transactionFee / 100}
+                      value={
+                        promo.discount
+                          ? listing.type.price -
+                            listing.type.price * (promo.discount / 100)
+                          : listing.type.price
+                      }
                       displayType={"text"}
                       prefix={"$"}
                       renderText={(value) => <p>{value}</p>}
                     />
                   </div>
                   {/* <div className="charge">
+                    <p>Transaction Fee</p>
+                    <NumberFormat
+                      decimalScale={2}
+                      fixedDecimalScale={true}
+                      value={
+                        paymentIntent &&
+                        paymentIntent.totals.transactionFee / 100
+                      }
+                      displayType={"text"}
+                      prefix={"$"}
+                      renderText={(value) => <p>{value}</p>}
+                    />
+                  </div> */}
+
+                  {/* <div className="charge">
                     <p>Taxes</p>
                     <NumberFormat
                       decimalScale={2}
                       fixedDecimalScale={true}
-                      value={totals.taxes / 100}
+                      value={paymentIntent.totals.taxes / 100}
                       displayType={"text"}
                       prefix={"$"}
                       renderText={(value) => <p>{value}</p>}
@@ -370,7 +492,12 @@ const PaymentForm = () => {
                     <NumberFormat
                       decimalScale={2}
                       fixedDecimalScale={true}
-                      value={totals.total / 100}
+                      value={
+                        promo.discount
+                          ? listing.type.price -
+                            listing.type.price * (promo.discount / 100)
+                          : listing.type.price
+                      }
                       displayType={"text"}
                       prefix={"$"}
                       renderText={(value) => (

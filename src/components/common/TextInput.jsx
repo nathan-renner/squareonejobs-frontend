@@ -32,10 +32,10 @@ function TextInput({
       setFocused(true);
     }
   };
-  const handleOnBlur = () => {
+  const handleOnBlur = (e) => {
     if (!disabled) {
       setFocused(false);
-      onBlur();
+      onBlur(e);
     }
   };
 

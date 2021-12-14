@@ -169,14 +169,20 @@ function PostJob(props) {
                   label="Industry"
                   name="industry"
                   items={industries}
+                  autocomplete="off"
                 />
                 <FormDropdown
                   name="size"
                   size="sm"
                   label="Company Size"
                   items={sizes}
+                  autocomplete="off"
                 />
-                <FormField name="websiteUrl" label="Website Url" />
+                <FormField
+                  name="websiteUrl"
+                  label="Website Url"
+                  autocomplete="off"
+                />
                 <FormField
                   name="description"
                   label="Company Description"

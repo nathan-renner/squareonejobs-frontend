@@ -8,7 +8,7 @@ import { Icon } from "../../common";
 import defaultAvatar from "../../../assets/images/default-avatar.png";
 import { useTheme } from "../../../config/ThemeProvider";
 
-function ProfileDropdown({ visible, setDropdown, avatar }) {
+function ProfileDropdown({ visible, setDropdown, avatar, name }) {
   const { user, logout } = useAuth();
   const { isDark, toggleTheme } = useTheme();
   const history = useHistory();
@@ -22,7 +22,7 @@ function ProfileDropdown({ visible, setDropdown, avatar }) {
           src={avatar ? `${avatar}?v=${Date.now()}` : defaultAvatar}
           alt="avatar"
         />
-        <h3>{user.firstName + " " + user.lastName}</h3>
+        <h3>{name ? name : ""}</h3>
         <p className="subtitle">{user.email}</p>
       </div>
       <div className="routes">

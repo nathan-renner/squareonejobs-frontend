@@ -106,6 +106,7 @@ const Navbar = ({ data }) => {
         <ProfileDropdown
           visible={dropdown === "profile"}
           setDropdown={setDropdown}
+          name={`${data.firstName} ${data.lastName}`}
           avatar={data.avatar}
         />
         <NotificationDropdown

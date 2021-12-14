@@ -23,13 +23,9 @@ import {
   SubmitButton,
   FormDate,
 } from "../../../components/forms";
-import {
-  ActivityIndicator,
-  Button,
-  Card,
-  RadioButtons,
-} from "../../../components/common";
+import { ActivityIndicator, Button, Card } from "../../../components/common";
 import AddLocation from "./AddLocation";
+import { getProducts } from "api/payments";
 
 const initialVals = {
   category: "",
@@ -45,12 +41,6 @@ const initialVals = {
   otherQualifications: "",
   tags: [],
 };
-
-const types = [
-  { name: "day", label: "Day Job" },
-  { name: "part", label: "Part Time" },
-  { name: "full", label: "Full Time" },
-];
 
 const flattenObject = (obj) => {
   const flattened = {};
@@ -93,7 +83,7 @@ const buildListing = (data, type, location) => {
     },
   };
 
-  if (type === "day") {
+  if (type.name === "Day Listing") {
     builtListing.details.endDateTime = data.endDateTime;
     builtListing.details.wage = parseFloat(data.wage);
   } else {
@@ -111,10 +101,12 @@ function NewListing(props) {
   const [initialValues, setInitialValues] = useState(false);
   const [status, setStatus] = useState(false);
   const [isAddLocOpen, setIsAddLocOpen] = useState(false);
+  const [jobTypes, setJobTypes] = useState(false);
 
   const history = useHistory();
   const { state: passedState } = useLocation();
   const { setModal } = useResponseModal();
+  const getJobTypesApi = useApi(getProducts);
   const getLocationsApi = useApi(getLocations);
   const getListingApi = useApi(getListingNoCompany);
 
@@ -181,6 +173,15 @@ function NewListing(props) {
     // eslint-disable-next-line
   }, []);
 
+  useEffect(() => {
+    const getJobTypes = async () => {
+      const response = await getJobTypesApi.request();
+      if (response.ok) setJobTypes(response.data);
+    };
+    getJobTypes();
+    // eslint-disable-next-line
+  }, []);
+
   const schema = Yup.object().shape({
     category: Yup.string()
       .required("Required")
@@ -195,7 +196,7 @@ function NewListing(props) {
         "Job start time must be at least 24 hours from now."
       ),
     endDateTime:
-      type === "day"
+      type.name === "Day Listing"
         ? Yup.date()
             .typeError("Must be a valid date")
             .label("End Time")
@@ -203,11 +204,11 @@ function NewListing(props) {
             .min(Yup.ref("startDateTime"), "End time must be after start time.")
         : Yup.date().label("End Time").nullable(),
     salary:
-      type !== "day"
+      type.name !== "Day Listing"
         ? Yup.string().label("Salary").max(255).required("Required")
         : Yup.string().label("Salary").max(255),
     wage:
-      type === "day"
+      type.name === "Day Listing"
         ? Yup.number()
             .label("Wage")
             .min(1)
@@ -218,7 +219,7 @@ function NewListing(props) {
     driversLicense: Yup.boolean().label("Driver's Licence Required"),
     description: Yup.string().required("Required").label("Description"),
     benefits:
-      type !== "day"
+      type.name !== "Day Listing"
         ? Yup.string().label("Benefits").required("Required")
         : Yup.string().label("Benefits"),
     otherQualifications: Yup.string(),
@@ -267,7 +268,11 @@ function NewListing(props) {
   return (
     <div className="post-listing">
       <ActivityIndicator
-        visible={getLocationsApi.loading || getListingApi.loading}
+        visible={
+          getLocationsApi.loading ||
+          getListingApi.loading ||
+          getJobTypesApi.loading
+        }
       />
       <Card>
         <h1>Post Listing</h1>
@@ -276,11 +281,38 @@ function NewListing(props) {
             <div className={`section ${!type ? "nopadding" : ""}`}>
               <h2>Job Type</h2>
               <div className="types-container">
-                <RadioButtons
-                  buttons={types}
-                  active={type}
-                  onChange={(e) => setType(e)}
-                />
+                {jobTypes &&
+                  jobTypes.map((btn) => (
+                    <div
+                      className={`job-type ${
+                        btn.name === type.name ? "active" : ""
+                      }`}
+                      onClick={() => setType(btn)}
+                      key={btn.name}
+                    >
+                      <div>
+                        <p className="type-text">{btn.name}</p>
+                        <h3>
+                          {btn.price}
+                          {btn.subscription && <span>/month</span>}
+                        </h3>
+                        <p className="type-subtext">{btn.description}</p>
+                      </div>
+                      <Button
+                        label={`${
+                          btn.name === type.name ? "Selected" : "Select"
+                        }`}
+                        color={`${
+                          btn.name === type.name ? "primary" : "transparent"
+                        }`}
+                        textColor={`${
+                          btn.name === type.name ? "white" : "primary"
+                        }`}
+                        outline
+                        onClick={() => setType(btn)}
+                      />
+                    </div>
+                  ))}
               </div>
             </div>
             {type && (
@@ -300,7 +332,7 @@ function NewListing(props) {
                         label="Category"
                         items={categories}
                       />
-                      {type === "day" ? (
+                      {type.name === "Day Listing" ? (
                         <FormField name="wage" label="Wage" startingChar="$" />
                       ) : (
                         <FormField name="salary" label="Salary" />
@@ -308,11 +340,13 @@ function NewListing(props) {
                       <div className="split">
                         <FormDate
                           name="startDateTime"
-                          label={`Start Date${type === "day" ? "/Time" : ""}`}
-                          time={type === "day"}
+                          label={`Start Date${
+                            type.name === "Day Listing" ? "/Time" : ""
+                          }`}
+                          time={type.name === "Day Listing"}
                           minDate={dayjs().add(3, "hours")}
                         />
-                        {type === "day" && (
+                        {type.name === "Day Listing" && (
                           <FormDate
                             name="endDateTime"
                             label="End Date/Time"
@@ -389,7 +423,7 @@ function NewListing(props) {
                         type="textarea"
                         rows={10}
                       />
-                      {type !== "day" && (
+                      {type.name !== "Day Listing" && (
                         <FormField
                           name="benefits"
                           label="Benefits"

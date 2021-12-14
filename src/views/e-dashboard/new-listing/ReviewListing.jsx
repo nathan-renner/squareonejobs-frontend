@@ -18,12 +18,6 @@ function ReviewListing(props) {
   const history = useHistory();
   const { state: listing } = useLocation();
 
-  const renderType = () => {
-    if (listing.type === "day") return "Day Job";
-    else if (listing.type === "part") return "Part Time";
-    else if (listing.type === "full") return "Full Time";
-  };
-
   return (
     <div className="post-listing">
       <div className="listing review-listing">
@@ -39,7 +33,7 @@ function ReviewListing(props) {
                 <h2>{listing.details.position}</h2>
               </div>
             </div>
-            <p>{renderType()}</p>
+            <p>{listing.type.name}</p>
           </div>
           <div className="l-content">
             {listing.details.endDateTime && (

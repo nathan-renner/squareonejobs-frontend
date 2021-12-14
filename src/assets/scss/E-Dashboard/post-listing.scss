@@ -33,6 +33,16 @@
     margin-bottom: 0.3em;
   }
 
+  .promo {
+    margin-bottom: 1.5em;
+    font-weight: 500;
+    font-size: 0.8em;
+    cursor: pointer;
+    @include themed() {
+      color: t("medium");
+    }
+  }
+
   .section {
     margin-bottom: 4em;
 
@@ -43,9 +53,60 @@
 
   .types-container {
     display: flex;
+    justify-content: space-between;
+    gap: 1.5em;
+    width: 100%;
 
-    > * + * {
-      margin-left: 1.5em;
+    .job-type {
+      flex-basis: 33%;
+      padding: 1em;
+      text-align: center;
+      border-radius: 1em;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: outline 300ms ease;
+      user-select: none;
+      @include themed() {
+        outline: 1px solid t("background");
+      }
+
+      &:hover {
+        outline: 1px solid $primary;
+      }
+
+      &.active {
+        outline: 1px solid $primary;
+      }
+
+      .type-text {
+        font-size: 0.8em;
+        font-weight: 600;
+        margin-bottom: 0.5em;
+        @include themed() {
+          color: t("text");
+        }
+      }
+      .type-subtext {
+        font-size: 0.8em;
+        @include themed() {
+          color: t("medium");
+        }
+      }
+
+      h3 {
+        font-size: 1.5em;
+        margin-bottom: 0.5em;
+
+        span {
+          font-size: 0.5em;
+        }
+      }
+
+      .button {
+        margin-bottom: 0;
+      }
     }
   }
 
